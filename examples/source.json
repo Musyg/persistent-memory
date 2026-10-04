@@ -1,0 +1,1 @@
+{"schema_version":1,"policy_id":"typed-pilot-v1","source_id":"source-A","text":"Copper task: follow the approved checklist.","metadata":{"evidence_kind":"procedure","preconditions":{"approved":true}},"expected_version":null}

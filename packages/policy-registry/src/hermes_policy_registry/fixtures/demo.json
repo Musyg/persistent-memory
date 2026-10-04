@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "data_class": "synthetic_demo_not_measurement",
+  "case_id": "demo-case",
+  "implementation_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "baseline_wall_ns": 1000000,
+  "candidate_wall_ns": 1000000,
+  "max_p95_ratio": 1.2,
+  "source": {
+    "workspace": "demo",
+    "artifact_id": "00000000-0000-4000-8000-000000000001",
+    "version_id": "00000000-0000-4000-8000-000000000002"
+  },
+  "quality": {
+    "success": true,
+    "score": 10
+  }
+}

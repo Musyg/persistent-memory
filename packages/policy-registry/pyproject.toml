@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-policy-registry"
+version = "0.1.0"
+description = "Immutable policy and evaluation registry; explicit admission without runtime authorization"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+license = {file = "LICENSE"}
+
+[project.scripts]
+hermes-policy = "hermes_policy_registry.cli:main"
+hermes-policy-demo = "hermes_policy_registry.demo:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+license-files = ["LICENSE", "NOTICE.md"]
+
+[tool.setuptools.package-data]
+hermes_policy_registry = ["fixtures/*.json"]

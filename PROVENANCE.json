@@ -1,0 +1,281 @@
+{
+  "license": "MIT",
+  "release_candidate": "0.2.0a1",
+  "private_history_included": false,
+  "scope": "original core v0.1 plus frozen typed retrieval R3 and portable integration R3; source selection only",
+  "files": [
+    {
+      "path": ".gitignore",
+      "origin": "core-v0.1/.gitignore",
+      "original_sha256": "516b2f9281f7e11db58860398a8b9c3908461b0ba05452ff66a4d01432a07fb4",
+      "package_sha256": "516b2f9281f7e11db58860398a8b9c3908461b0ba05452ff66a4d01432a07fb4",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "benchmarks/run_benchmark.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6"
+    },
+    {
+      "path": "docs/API.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f"
+    },
+    {
+      "path": "docs/RECOVERY.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "6b911572ee3ba74f135753babb5d0b602284adfd9c054772bf398aec19732ebd"
+    },
+    {
+      "path": "docs/TESTING.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef"
+    },
+    {
+      "path": "examples/policy.json",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "c33ae08e11fcba19375d1d89b094c88deddc81c8369ee0448338fbc037a60e4f"
+    },
+    {
+      "path": "examples/query.json",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "a55be183a050b32a77d6104f90d8883449cfffe6d2aeb0633e7932559c747556"
+    },
+    {
+      "path": "examples/source.json",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "944d7688f8e0b78114083664156277b24c310434762b940d5421733a7cae882f"
+    },
+    {
+      "path": "LICENSE",
+      "origin": "core-v0.1/LICENSE",
+      "original_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "MANIFEST.in",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture; public distribution documentation navigation",
+      "package_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
+      "previous_assembly_sha256": "dce5d34e5f3b5ae103fa1dc32cdf998d7e5a865900d4258fbbc682a3c28ca717"
+    },
+    {
+      "path": "pyproject.toml",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100"
+    },
+    {
+      "path": "README.fr.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture; public project title and optional distribution navigation; technical identifiers unchanged; public distribution documentation navigation",
+      "package_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
+      "previous_assembly_sha256": "777c1b898c58a1ccfe9dbac048af75f5ea600878605bfb8a1ecd5aff0b29e088"
+    },
+    {
+      "path": "README.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture; public project title and optional distribution navigation; technical identifiers unchanged",
+      "package_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
+      "previous_assembly_sha256": "11d46ad12f7c5bfdd8c99b756865e69e8bfa31a1273247ff8a9e54a881b6c0e9"
+    },
+    {
+      "path": "setup.cfg",
+      "origin": "core-v0.1/setup.cfg",
+      "original_sha256": "1c473cbaee8da5fc46e7f0158794af5cea4414c34a3cf3f180c2001f5e38bd3e",
+      "package_sha256": "1c473cbaee8da5fc46e7f0158794af5cea4414c34a3cf3f180c2001f5e38bd3e",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/__init__.py",
+      "origin": "core-v0.1/__init__.py",
+      "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
+      "package_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
+      "transformation": "distribution version only"
+    },
+    {
+      "path": "src/hermes_memory/__main__.py",
+      "origin": "core-v0.1/__main__.py",
+      "original_sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
+      "package_sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/cli.py",
+      "origin": "core-v0.1/cli.py",
+      "original_sha256": "edca745f2128acd04c0a42fce9debd7b10b9193598eb8b861e2d4f07446ec5bb",
+      "package_sha256": "edca745f2128acd04c0a42fce9debd7b10b9193598eb8b861e2d4f07446ec5bb",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/compiler.py",
+      "origin": "core-v0.1/compiler.py",
+      "original_sha256": "de80d1843c57c5460469cb13cdf5b5546df6ca9cf4bd9097c1f50a95a83f504e",
+      "package_sha256": "de80d1843c57c5460469cb13cdf5b5546df6ca9cf4bd9097c1f50a95a83f504e",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/core.py",
+      "origin": "core-v0.1/core.py",
+      "original_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+      "package_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/demo.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "96f22c21f1852f3160d83c83d4653a25211d867b71e204564cf580c84aa6de6e"
+    },
+    {
+      "path": "src/hermes_memory/interfaces.py",
+      "origin": "core-v0.1/interfaces.py",
+      "original_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
+      "package_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/typed_admin.py",
+      "origin": "integration-r3/typed_admin.py",
+      "original_sha256": "ee6103d95e5fa5b2ea37e27daf2ccec4ecb3850bf3d915d252fad402fc333367",
+      "package_sha256": "173b8de2eef84afe6d39d4b3d0c69a2717e91ef4509753dfaa284494a2b138ce",
+      "transformation": "package-relative imports plus explicit local context CLI operation; existing operations preserved"
+    },
+    {
+      "path": "src/hermes_memory/typed_client.py",
+      "origin": "integration-r3/typed_client.py",
+      "original_sha256": "ef56472a785bab92ab80b6b8767cd0491fb49529d47b02c1f47d1e437ac6876b",
+      "package_sha256": "44911a49db3e1611c8bff3e874240e2726c849690867708203740260f16439c2",
+      "transformation": "package-relative imports only"
+    },
+    {
+      "path": "src/hermes_memory/typed_facade.py",
+      "origin": "integration-r3/typed_facade.py",
+      "original_sha256": "20730ea26a05f352278533593184f37a24199e51666cf6f88523504f6493e547",
+      "package_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead",
+      "transformation": "package-relative imports only"
+    },
+    {
+      "path": "src/hermes_memory/typed_memory.py",
+      "origin": "typed-retrieval-r3/typed_memory.py",
+      "original_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
+      "package_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/typed_memory_tool.py",
+      "origin": "integration-r3/typed_memory_tool.py",
+      "original_sha256": "9c47f7f40c8273042ce6f79be8873bc6010522f323540d79ea1838d0527e33ce",
+      "package_sha256": "0718b389c70fcf4202ff9bd2d6ae0ef5ec5931b88077a51e80b047adb5f84a69",
+      "transformation": "package-relative imports only"
+    },
+    {
+      "path": "src/hermes_memory/typed_protocol.py",
+      "origin": "integration-r3/typed_protocol.py",
+      "original_sha256": "cd6edffb5e706480d99f7e585e4e6daacbe15e1979f5641b06a07e7da1f5703a",
+      "package_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26",
+      "transformation": "package imports unchanged; module docstring reflects namespace import behavior"
+    },
+    {
+      "path": "tests/test_core.py",
+      "origin": "core-v0.1/tests/test_core.py",
+      "original_sha256": "0d4c9e5bca7744f545b782723fe3b7330cd4ee7e3bdfef12a8f348fc8beb9c3b",
+      "package_sha256": "0d4c9e5bca7744f545b782723fe3b7330cd4ee7e3bdfef12a8f348fc8beb9c3b",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "tests/test_core_independent.py",
+      "origin": "core-v0.1/tests/test_core_independent.py",
+      "original_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
+      "package_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "tests/test_integration.py",
+      "origin": "integration-r3/tests/test_integration.py",
+      "original_sha256": "d909f93b1adccb2ab9e98cc50f8bfe98a43767e7089654a6399d0b88ea95a8ff",
+      "package_sha256": "22756804a9230bc091d5ae7fa48f974b9223a9b1ecaca392bcb72f479b979744",
+      "transformation": "package imports/installed CLI; private orchestrator AST test explicitly excluded, remaining 20 assertions unchanged"
+    },
+    {
+      "path": "tests/test_integration_independent.py",
+      "origin": "integration-review/test_independent_integration.py",
+      "original_sha256": "d8b6ef9edacf78031bf48aa4968042eded687c7031283b935499fde7c9c2e384",
+      "package_sha256": "0c5187aa089c5d01dee49e730079dffc530343982374332de0de677acb0786b1",
+      "transformation": "package imports only; 16 tests unchanged"
+    },
+    {
+      "path": "tests/test_product.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "2a84cead8ff5555b84339a0ba672aafb0ba3cff5f5997264391dc2c5e18597b4"
+    },
+    {
+      "path": "tests/test_typed_independent_r3.py",
+      "origin": "typed-review/test_independent_r3.py",
+      "original_sha256": "b7d169d398605a58a0c407b9df629ce16832ae37da857e8e72523ff8ed46f41e",
+      "package_sha256": "6d09d80accbccf279666caaa37da5fd1c66c40ad97b6bdc0a77d8678c2cc4214",
+      "transformation": "review base import renamed; assertions unchanged"
+    },
+    {
+      "path": "tests/test_typed_memory.py",
+      "origin": "typed-retrieval-r3/test_typed_memory.py",
+      "original_sha256": "79d0d647d04be213b6752a24a1b11bbbaf0db1ef411bb8f829dc85bc2ad1f138",
+      "package_sha256": "d6cd8da282a33adb817512b16542132ab3cd642150ea4c18bdf893c3654463a0",
+      "transformation": "installed core discovery and package imports; assertions unchanged"
+    },
+    {
+      "path": "tests/test_typed_review_edges.py",
+      "origin": "typed-review/test_review_edges.py",
+      "original_sha256": "fa377eac5598ab7b07ed404a44655cef95e12cf7cf24b474fb1a3cd9f423c662",
+      "package_sha256": "5ddeb65b48c2b9bad1012bf843884ccb736dd14fd85bc16ccee108f07b4d7ff5",
+      "transformation": "review base import renamed; assertions unchanged"
+    },
+    {
+      "path": "tests/typed_review_base.py",
+      "origin": "typed-review/test_independent.py",
+      "original_sha256": "bbfe2c38bb0dd8a1864ffc48957118125f1f5aac92c438e3e53895e9cfe37bfd",
+      "package_sha256": "6d37cfdc10bf4551a68d6ad33a56bdee83b468cc7d444d48a889feb0d17e06be",
+      "transformation": "installed core discovery/imports; base renamed to avoid duplicate test discovery"
+    },
+    {
+      "path": "PACKAGES.md",
+      "origin": "public-distribution-guide",
+      "original_sha256": null,
+      "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
+      "transformation": "standalone core and optional registry installation guidance",
+      "package_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f"
+    }
+  ],
+  "excluded_test": "private application orchestrator AST wiring; not part of public test count",
+  "experimental_r4_included": false,
+  "public_project": "Talos Memory"
+}

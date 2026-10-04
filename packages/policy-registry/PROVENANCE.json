@@ -1,0 +1,120 @@
+{
+  "license": "MIT",
+  "version": "0.1.0",
+  "private_history_included": false,
+  "private_measurement_reports_included": false,
+  "files": [
+    {
+      "path": "LICENSE",
+      "origin": "policy-registry-r2/LICENSE",
+      "original_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "MANIFEST.in",
+      "origin": "new-public-synthetic-demo-or-doc",
+      "original_sha256": null,
+      "package_sha256": "0d7dce0cb5388bce6f2e6258ef1b586811a605c338e73f9d9a7f7d4aee07647b",
+      "transformation": "new synthetic fixture/example/test or documentation"
+    },
+    {
+      "path": "NOTICE.md",
+      "origin": "policy-registry-r2/NOTICE.md",
+      "original_sha256": "9c4417e2adc3637e1650adaf38828749c75b4baa51c57b9bef30d53718e10953",
+      "package_sha256": "9c4417e2adc3637e1650adaf38828749c75b4baa51c57b9bef30d53718e10953",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "pyproject.toml",
+      "origin": "policy-registry-r2/pyproject.toml",
+      "original_sha256": "49f7843415980707d2dcbad15ebab32c6c1c782f9dde9276e546d58c26fd4b4d",
+      "package_sha256": "e814120d27bc10a4a7edf5f03f05f67f3cc902405d926a0d195897c3aabdfd09",
+      "transformation": "public packaging/docs only"
+    },
+    {
+      "path": "README.fr.md",
+      "origin": "new-public-synthetic-demo-or-doc",
+      "original_sha256": null,
+      "package_sha256": "4045107d7a26368d80a8a973d1f7931e1fd4d3256cbe5e45dc4e24b64e8bfa94",
+      "transformation": "new synthetic fixture/example/test or documentation"
+    },
+    {
+      "path": "README.md",
+      "origin": "policy-registry-r2/README.md",
+      "original_sha256": "1778a7ccc1cce53404562b3416c4a20f4084150bdd2d74c58423efa860738abe",
+      "package_sha256": "23301db63631facd5efa08dbb4f1e934bdd178fd5d1b2621c60028de7b0d2927",
+      "transformation": "public packaging/docs only"
+    },
+    {
+      "path": "src/hermes_policy_registry/__init__.py",
+      "origin": "policy-registry-r2/src/hermes_policy_registry/__init__.py",
+      "original_sha256": "25fb00e73977e7cc576c6ffd9925e7fd65b1ad99ad6a5e57dc4d445dc9a6315c",
+      "package_sha256": "25fb00e73977e7cc576c6ffd9925e7fd65b1ad99ad6a5e57dc4d445dc9a6315c",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_policy_registry/cli.py",
+      "origin": "policy-registry-r2/src/hermes_policy_registry/cli.py",
+      "original_sha256": "4a1063ed0b036bc0b5425cf1c20d0a541f998e57cf72c6988123f9cdd9eb6aec",
+      "package_sha256": "4a1063ed0b036bc0b5425cf1c20d0a541f998e57cf72c6988123f9cdd9eb6aec",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_policy_registry/contracts/__init__.py",
+      "origin": "policy-registry-r2/src/hermes_policy_registry/contracts/__init__.py",
+      "original_sha256": "de44a919f9c7d9ad204c9f0da55a1dc6a4b67ee9300a81758854990d1b134839",
+      "package_sha256": "de44a919f9c7d9ad204c9f0da55a1dc6a4b67ee9300a81758854990d1b134839",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_policy_registry/contracts/learning_records.py",
+      "origin": "policy-registry-r2/src/hermes_policy_registry/contracts/learning_records.py",
+      "original_sha256": "3dd069650457f2ecb7ddacf13c7cba8a7b76ef459d8bb6228d699b16fa7c720e",
+      "package_sha256": "3dd069650457f2ecb7ddacf13c7cba8a7b76ef459d8bb6228d699b16fa7c720e",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_policy_registry/demo.py",
+      "origin": "new-public-synthetic-demo-or-doc",
+      "original_sha256": null,
+      "package_sha256": "50f9435f21b9eba10ab21d25f62b8ef3932979367323a488c9820af81513b814",
+      "transformation": "new synthetic fixture/example/test or documentation"
+    },
+    {
+      "path": "src/hermes_policy_registry/fixtures/demo.json",
+      "origin": "new-public-synthetic-demo-or-doc",
+      "original_sha256": null,
+      "package_sha256": "7d7253c6593f546efffe035f7adbdc498854f1133a07bcc81ff4ed76fa8c7060",
+      "transformation": "new synthetic fixture/example/test or documentation"
+    },
+    {
+      "path": "src/hermes_policy_registry/registry.py",
+      "origin": "policy-registry-r2/src/hermes_policy_registry/registry.py",
+      "original_sha256": "13960628d0d476983b89d36667cbd73ecdbd1336b23441125cec317df338eccd",
+      "package_sha256": "13960628d0d476983b89d36667cbd73ecdbd1336b23441125cec317df338eccd",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "tests/test_independent_registry.py",
+      "origin": "policy-registry-r2/tests/test_independent_registry.py",
+      "original_sha256": "94a409ff2cc24bb78ac5e4b9660ddabafabc245e7108dc11caf454eab8f0166f",
+      "package_sha256": "94a409ff2cc24bb78ac5e4b9660ddabafabc245e7108dc11caf454eab8f0166f",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "tests/test_public_demo.py",
+      "origin": "new-public-synthetic-demo-or-doc",
+      "original_sha256": null,
+      "package_sha256": "24c4b0c75d9ef05af06197d9ae0d595bcc512fad61daada80530577677f50e28",
+      "transformation": "new synthetic fixture/example/test or documentation"
+    },
+    {
+      "path": "tests/test_registry.py",
+      "origin": "policy-registry-r2/tests/test_registry.py",
+      "original_sha256": "7ca4a13dae9ab993ba7e77b402238d123f38610593589c458cf9a4773e877150",
+      "package_sha256": "7ca4a13dae9ab993ba7e77b402238d123f38610593589c458cf9a4773e877150",
+      "transformation": "byte-identical"
+    }
+  ]
+}

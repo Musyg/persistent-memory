@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-memory-core"
+version = "0.2.0a1"
+description = "Versioned agent memory with provenance, revocation, restore gates and typed retrieval"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Musyg"}]
+dependencies = []
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Operating System :: POSIX :: Linux"]
+
+[project.scripts]
+hermes-memory = "hermes_memory.cli:main"
+hermes-memory-typed = "hermes_memory.typed_admin:main"
+hermes-memory-demo = "hermes_memory.demo:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

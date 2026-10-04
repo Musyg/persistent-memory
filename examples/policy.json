@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "policy_id": "typed-pilot-v1",
+  "workspace": "hermes-typed-pilot-v1",
+  "top_k": 5,
+  "max_context_chars": 2000,
+  "candidate_limit": 100,
+  "max_documents": 100,
+  "max_content_bytes": 4194304,
+  "concurrent_queries": 2
+}

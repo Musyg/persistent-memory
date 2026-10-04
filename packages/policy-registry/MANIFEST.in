@@ -1,0 +1,3 @@
+include LICENSE NOTICE.md README.md README.fr.md PROVENANCE.json
+recursive-include src *.py *.json
+recursive-include tests *.py
