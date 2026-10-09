@@ -1,6 +1,6 @@
-# Talos Memory
+# Persistent Memory for AI Agents
 
-Talos Memory contains two independently installable Python packages: the memory core described here and an [optional policy registry](PACKAGES.md). The technical package names remain `hermes-memory-core` and `hermes-policy-registry`.
+Persistent Memory contains two independently installable Python packages: the memory core described here and an [optional policy registry](PACKAGES.md). The technical package names remain `hermes-memory-core` and `hermes-policy-registry`.
 
 [Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md)
 

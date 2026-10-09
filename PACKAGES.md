@@ -1,8 +1,8 @@
-# Talos Memory packages
+# Persistent Memory packages
 
 The memory core is `hermes-memory-core==0.2.0a1`. The optional policy registry is `hermes-policy-registry==0.1.0`. They install independently and have no runtime dependency on each other.
 
-The [registry guide](https://github.com/Musyg/talos-memory/tree/main/packages/policy-registry) and its French counterpart describe the contract and synthetic example. Registry wheels and source archives are separate release assets; a standalone core source archive does not contain the registry package.
+The [registry guide](https://github.com/Musyg/persistent-memory/tree/main/packages/policy-registry) and its French counterpart describe the contract and synthetic example. Registry wheels and source archives are separate release assets; a standalone core source archive does not contain the registry package.
 
 From a checkout of the complete repository:
 

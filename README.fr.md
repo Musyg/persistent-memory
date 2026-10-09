@@ -1,6 +1,6 @@
-# Talos Memory
+# Mémoire persistante pour agents IA
 
-Talos Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`.
+Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`.
 
 [English](README.md) · [API et service](docs/API.md) · [Contrat de reprise](docs/RECOVERY.md) · [Contribuer](CONTRIBUTING.md)
 
