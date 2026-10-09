@@ -1,0 +1,77 @@
+{
+  "schema": "persistent-memory.admission-provenance.v1",
+  "project": "Persistent Memory",
+  "license": "MIT",
+  "technical_origin": "Original project implementations authored with coding-agent assistance; public wrappers and synthetic examples are new contributions.",
+  "license_basis": "The owner explicitly authorizes these selected contributions for this MIT-licensed package; no license is inferred for unrelated code.",
+  "files": [
+    {
+      "path": "src/hermes_memory/_admission_loader.py",
+      "sha256": "e783edac0a6952395e78df5656ef00e791980fbcd0cf4e2231deb41c161d95a7",
+      "bytes": 3598,
+      "license": "MIT",
+      "origin": "new public package assembly",
+      "transformation": "new loader, facade or synthetic demonstration"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/admission.py",
+      "sha256": "6fb7fd9a6eaecd0da2a50acd05ba253841da3ec41d904b324c8184720db43600",
+      "bytes": 15828,
+      "license": "MIT",
+      "origin": "original project contribution; explicit owner-authorized selection",
+      "transformation": "byte-identical generic implementation"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/quality_contract.py",
+      "sha256": "0d16ebbf0042f03a5d6b36b1ed3b32b58e00945b73af1582f4bf2760492123b4",
+      "bytes": 8795,
+      "license": "MIT",
+      "origin": "original project contribution; explicit owner-authorized selection",
+      "transformation": "byte-identical generic implementation"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/structured_memory.py",
+      "sha256": "4febba12532671486bdb82e1eb39009cd7bb10206e33c10d46807e718da99697",
+      "bytes": 16801,
+      "license": "MIT",
+      "origin": "original project contribution; explicit owner-authorized selection",
+      "transformation": "byte-identical generic implementation"
+    },
+    {
+      "path": "src/hermes_memory/admission_demo.py",
+      "sha256": "4154aa2c0763f98ebb9b3a4f04ef54b80c01a0dd9890b5c8213895fa68c82119",
+      "bytes": 5010,
+      "license": "MIT",
+      "origin": "new public package assembly",
+      "transformation": "new loader, facade or synthetic demonstration"
+    },
+    {
+      "path": "src/hermes_memory/admission.py",
+      "sha256": "c8633047e6d45f23bad9075a7e1c0b6a91f55aa22fa0a5ba02ddc963161d3bd5",
+      "bytes": 295,
+      "license": "MIT",
+      "origin": "new public package assembly",
+      "transformation": "new loader, facade or synthetic demonstration"
+    },
+    {
+      "path": "src/hermes_memory/quality_contract.py",
+      "sha256": "e7d3bc73cded3e8608d7bf5dd0d1b504670bbe9aef5e45fd562f38cd4ee9abe3",
+      "bytes": 808,
+      "license": "MIT",
+      "origin": "new public package assembly",
+      "transformation": "new loader, facade or synthetic demonstration"
+    },
+    {
+      "path": "src/hermes_memory/structured_memory.py",
+      "sha256": "21c777c8f1de3cf61ef3e348bdcba185b3a43132c5547a85b3b1c0d5dd3ad792",
+      "bytes": 266,
+      "license": "MIT",
+      "origin": "new public package assembly",
+      "transformation": "new loader, facade or synthetic demonstration"
+    }
+  ],
+  "private_history_included": false,
+  "private_data_included": false,
+  "semantic_validation": false,
+  "automatic_extraction": false
+}

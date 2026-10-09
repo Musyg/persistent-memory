@@ -1,8 +1,10 @@
 include README.md README.fr.md LICENSE CONTRIBUTING.md PROVENANCE.json .gitignore
 recursive-include src *.py
 recursive-include tests *.py
+recursive-include tests *.json
 recursive-include docs *.md
 recursive-include examples *.json
 recursive-include benchmarks *.py
 
 include PACKAGES.md
+include src/hermes_memory/ADMISSION-PROVENANCE.json

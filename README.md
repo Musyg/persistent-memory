@@ -22,6 +22,16 @@ Use a new directory. Actor A registers two synthetic evidence sources and a depe
 
 The output reports each checked invariant. It does **not** claim physical erasure, model unlearning, or protection when the store, authority and freshness witness are all rolled back together.
 
+## Render reviewed facts and control the handoff
+
+The optional [structured renderer](docs/STRUCTURED.md) turns explicitly reviewed facts into finite French templates, preserves source spans and versions, and checks a word/citation contract. The [admission boundary](docs/ADMISSION.md) adds a host-reviewed dependency dossier, authority checks before preparation and handoff, useful notices, and explicit delivery outcomes.
+
+```sh
+python -m hermes_memory.admission_demo
+```
+
+This synthetic example covers a reviewed card, unknown/conflicting evidence, withdrawal, missing authority, a changed buffer, an unmet word limit, and an effect without acknowledgment. These synchronous APIs are opt-in. They do not extract facts from arbitrary briefs or verify semantic truth. A sink acknowledgment is not downstream consumption; authority and publication are not atomic. See the linked contracts before integrating a real authority or consumer.
+
 ## Use the library
 
 ```python
@@ -61,7 +71,7 @@ The typed HTTP routes and client are read-only; the optional combined server als
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.2.0a1-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a1-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
