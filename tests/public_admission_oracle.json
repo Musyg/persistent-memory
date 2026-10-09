@@ -1,0 +1,26 @@
+{
+  "schema": "hermes.public_admission.preregistered_oracles.v1",
+  "oracle_implementation_source": "normative contracts only; public candidate unseen",
+  "global": ["No provider or network effect","No ambient fallback for verified source","No semantic extraction credit","No atomic publication claim","Notice is not factual success","No retry after unknown sink effect"],
+  "P01": {"import_effects":0,"origins":"installed distribution only","private_path_dependency":false},
+  "P02": {"permutations":6,"same_canonical_objects":true,"duplicate_OutputContract_class":false,"repeated_import_identity_stable":true},
+  "P03": {"foreign_code_execution":0,"foreign_module_trusted":false,"collision_policy_binding":"must be decided by final API before executable tests; never chosen after outcome"},
+  "P04": {"successful_business_calls":0,"tampered_code_execution":0,"authority_calls":0,"sink_calls":0,"fallback":false,"error":"closed loader failure; precise public exception binding pending"},
+  "P05": {"decision":"admitted","body_kind":"technical_card","fact_counts":[1,4],"all_required":true,"authority_stages":["before","before_handoff"],"transform_calls":1,"sink_calls":1,"handoff_delivery":"acknowledged","numeric_lexemes":["12.50","-2.00"],"polarity_n02":"negative","provenance":"exact source/hash/version/span and segment offsets","body":"exact C1 compact templates joined by one ASCII space in input plan order"},
+  "P06": {"counter_expected_words":[2,4],"bool_max_candidates":"invalid_request","changed_selected_span":"invalid_request","language_en":"unsupported_scope","failed_c1_body":"","numeric_conversion":false},
+  "P07": {"decision":"admitted","unused_source_in_authority":false,"unused_source_in_body_or_provenance":false,"sink_calls":1},
+  "P08": {"unknown":"unknown","conflict":"conflict","not_reviewed":"review_required","malformed":"authority_unavailable","exception":"authority_unavailable","body_kind":"notice","source_value_in_notice":false,"exception_text_returned":false,"sink_calls":1,"malformed_or_exception_authority_calls":1},
+  "P09": {"variant_decisions":["withdrawn","access_unavailable","access_unavailable","authority_changed"],"body_kind":"notice","authority_calls":2,"sink_calls":1,"transform_calls":1,"evidence_review":"not_disclosed","authority_revision":null,"provenance":[],"prior_source_fact_body_canaries_in_terminal_channels":false},
+  "P10": {"allowed_changed":{"decision":"consumer_changed","body_kind":"none","body":"","sink_calls":0},"denied_after_changed":{"decision":"access_unavailable","body_kind":"notice","evidence_review":"not_disclosed","sink_calls":1},"unchanged_unknown":{"decision":"unknown","body_kind":"notice","sink_calls":1},"authority_calls":2,"transform_calls":1,"transform_repeated_on_sanitized_notice":false},
+  "P11": {"decision":"admitted","actual_sink_appends":1,"attempted":1,"delivery":"unknown","incidents":["sink_exception","sink_hash_mismatch"],"consumer_verified":false,"exception_text_returned":false,"retry_calls":0,"erasure_or_retraction_claim":false},
+  "P12": {"decision":"admitted","body":"same immutable expected compact body as P05","authority_snapshot_isolation":true,"sink_mutation_changes_returned_result":false,"sink_calls":1},
+  "notices": {
+    "unknown":"Les éléments disponibles ne permettent pas de confirmer l'information demandée dans le périmètre indiqué.",
+    "conflict":"Des éléments incompatibles empêchent de confirmer l'information demandée. Une clarification est nécessaire.",
+    "review_required":"La fidélité des informations proposées doit encore être vérifiée. Aucune fiche factuelle n'est fournie.",
+    "withdrawn":"Les éléments nécessaires ont été retirés. L'information demandée ne peut pas être fournie.",
+    "access_unavailable":"L'information demandée ne peut pas être fournie dans ce contexte d'accès.",
+    "authority_unavailable":"La vérification des droits est momentanément indisponible. Aucune information issue des sources n'est fournie.",
+    "authority_changed":"La référence de vérification des droits a changé. Une nouvelle vérification est nécessaire."
+  }
+}

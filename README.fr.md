@@ -22,6 +22,16 @@ Choisissez un répertoire inexistant. Un premier acteur inscrit deux sources syn
 
 Le résultat détaille les invariants vérifiés. Il ne promet ni effacement physique, ni désapprentissage d'un modèle, ni détection d'un retour arrière simultané du contenu, de l'autorité et de son témoin de fraîcheur.
 
+## Rendre des faits vérifiés et contrôler leur remise
+
+Le [rendu structuré](docs/STRUCTURED.fr.md), facultatif, transforme des faits explicitement revus en gabarits français finis, conserve les extraits et versions des sources et vérifie les contraintes de mots et de citations. La [frontière d'admission](docs/ADMISSION.fr.md) ajoute un dossier de dépendances revu par l'hôte, des contrôles d'autorité avant préparation et remise, des notices utiles et un résultat de livraison explicite.
+
+```sh
+python -m hermes_memory.admission_demo
+```
+
+Cette démonstration synthétique couvre une fiche revue, une information inconnue ou contradictoire, un retrait, une autorité absente, un tampon modifié, une limite de mots impossible à satisfaire et un effet sans accusé de réception. Ces API synchrones sont activées explicitement. Elles n'extraient pas les faits d'un brief libre et n'en vérifient pas la vérité sémantique. Un accusé de réception ne prouve pas la consommation en aval ; autorité et publication ne sont pas atomiques. Lire les contrats liés avant de brancher une autorité ou un consommateur réel.
+
 ## Utiliser la bibliothèque
 
 ```python
@@ -59,7 +69,7 @@ Les routes HTTP typées et leur client sont en lecture seule. Le serveur combin�
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.2.0a1-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a1-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v

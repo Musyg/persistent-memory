@@ -1,0 +1,27 @@
+{
+  "schema": "hermes.public_admission.synthetic_seeds.v1",
+  "annotation_origin": "independent human-style host review supplied as fixture data, not model extraction",
+  "workspace": "atelier-noroit-public",
+  "reviewer": "review-noroit-01",
+  "brief": "Fournir une fiche technique française de la borne Noroît, sans conversion ni conseil. Conserver chaque portée et la négation de l'état ouvert. Les notices fixes sont acceptées si les preuves ou les droits ne permettent pas la fiche.",
+  "subject": "Borne Noroît",
+  "sources": [
+    {"id":"pub-src-n01","version":"rev-az1","text":"En mode veille, la cadence de la borne Noroît est 12.50 Hz.","fact_id":"pub-fact-n01","property":"cadence","value_type":"number","value":"12.50","unit":"Hz","polarity":"positive","scope":"mode veille"},
+    {"id":"pub-src-n02","version":"rev-bz2","text":"Pendant la maintenance, l'état de la borne Noroît n'est pas ouvert.","fact_id":"pub-fact-n02","property":"état","value_type":"text","value":"ouvert","unit":"","polarity":"negative","scope":"maintenance"},
+    {"id":"pub-src-n03","version":"rev-cz3","text":"En configuration abritée, la borne Noroît porte la finition ambre satiné.","fact_id":"pub-fact-n03","property":"finition","value_type":"text","value":"ambre satiné","unit":"","polarity":"positive","scope":"configuration abritée"},
+    {"id":"pub-src-n04","version":"rev-dz4","text":"En mode contrôle, le seuil de la borne Noroît est -2.00 V.","fact_id":"pub-fact-n04","property":"seuil","value_type":"number","value":"-2.00","unit":"V","polarity":"positive","scope":"mode contrôle"}
+  ],
+  "unused_source": {"id":"pub-src-unused-z9","version":"ret-z9","workspace":"atelier-ailleurs","text":"Le spécimen Zéphyr porte le repère HORS-PARC-Z9.","state":"revoked"},
+  "span_rule": "Each fact spans its entire corresponding source text: start=0,end=len(text),text=source text. SHA256 is derived from exact UTF-8; no normalization.",
+  "fact_defaults": {"cardinality":"single","origin":"document","certainty":"asserted"},
+  "stable_authority_revision": "rights-noroit-a1",
+  "changed_authority_revision": "rights-noroit-b2",
+  "exception_canary": "PUB-EXCEPTION-NE-DOIT-PAS-SORTIR-X7",
+  "transform_addition": " Conseil non autorisé.",
+  "limits": {"min_words":1,"max_words":1000},
+  "c1_contract": {"language":"fr","min_words":1,"max_words":1000,"max_candidates":64,"allow_repair":true},
+  "counter_samples": [
+    {"body":"alpha [pub-src-n01] bêta","expected_words":2},
+    {"body":"alpha\u00a0bêta\tγ\nfin","expected_words":4}
+  ]
+}

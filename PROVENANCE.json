@@ -1,8 +1,8 @@
 {
   "license": "MIT",
-  "release_candidate": "0.2.0a1",
+  "release_candidate": "0.3.0a1",
   "private_history_included": false,
-  "scope": "original core v0.1 plus frozen typed retrieval R3 and portable integration R3; source selection only",
+  "scope": "original core v0.1 plus frozen typed retrieval R3 and portable integration R3; source selection only; opt-in finite structured rendering, reviewed admission, verified shared loading and fresh synthetic examples",
   "files": [
     {
       "path": ".gitignore",
@@ -12,6 +12,64 @@
       "transformation": "byte-identical"
     },
     {
+      "path": "CONTRIBUTING.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6"
+    },
+    {
+      "path": "LICENSE",
+      "origin": "core-v0.1/LICENSE",
+      "original_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "transformation": "byte-identical"
+    },
+    {
+      "path": "MANIFEST.in",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "bounded public admission extension; prior source provenance retained",
+      "package_sha256": "f928f01ca11979ee0c1a6099ae251f9967f714b41cff0fd1e0a2f023a573a72a",
+      "previous_registry_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
+      "previous_assembly_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa"
+    },
+    {
+      "path": "PACKAGES.md",
+      "origin": "public-distribution-guide",
+      "original_sha256": null,
+      "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
+      "transformation": "metadata reconciliation to unchanged public baseline document",
+      "package_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b",
+      "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f"
+    },
+    {
+      "path": "README.fr.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
+      "package_sha256": "9b14843fa20ea666b055adda7a266530b900115234e7bdc92e695cf26cca16ec",
+      "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
+      "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50"
+    },
+    {
+      "path": "README.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
+      "package_sha256": "35d4d32fd608089f8e5297577078099d39090056df190576dd5ebf54c4902fba",
+      "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
+      "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130"
+    },
+    {
+      "path": "RELEASE-PROVENANCE.json",
+      "origin": "historical-public-assembly-record",
+      "original_sha256": "ec748b777aa9b28b181a7fa7880ebd92bb80b68085c7ec281f02e17228058116",
+      "package_sha256": "e804cdbdd3ec79380ad97a78ebc66d69dd824a27d342f9732ffda2ebb7589ae9",
+      "transformation": "explicit historical wrapper retaining original JSON object",
+      "license": "MIT"
+    },
+    {
       "path": "benchmarks/run_benchmark.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
@@ -19,11 +77,32 @@
       "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c"
     },
     {
-      "path": "CONTRIBUTING.md",
-      "origin": "new-public-assembly",
+      "path": "docs/ADMISSION.fr.md",
+      "origin": "new-public-admission-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6"
+      "package_sha256": "9f4c46183b74a1b23962eca92d34fe1bb3918a84a9ff0a5fa56adc3a7b4e5348",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata; root documentary scope correction",
+      "license": "MIT",
+      "assembly_history": [
+        {
+          "package_sha256": "041bab18610b55d2f1def81f6469c58a55cae07cdae5b2bbfa838a648dd5d99c",
+          "transformation": "new portable source, documentation, synthetic fixture or packaging metadata"
+        }
+      ]
+    },
+    {
+      "path": "docs/ADMISSION.md",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "f4561ad5fd45baf59e89f8c26ff7b8956d26fb7215e75131ebbd49f81bb8d12f",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata; root documentary scope correction",
+      "license": "MIT",
+      "assembly_history": [
+        {
+          "package_sha256": "a327aec514e9ae88e253bdcca02f008f2d1c65ceee8ce854d273c36f1a1be228",
+          "transformation": "new portable source, documentation, synthetic fixture or packaging metadata"
+        }
+      ]
     },
     {
       "path": "docs/API.md",
@@ -40,11 +119,28 @@
       "package_sha256": "6b911572ee3ba74f135753babb5d0b602284adfd9c054772bf398aec19732ebd"
     },
     {
+      "path": "docs/STRUCTURED.fr.md",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "ca0edc26ccbdb2f238132b5929c6b1429c476bb29c8616dc979c7f30fe328ab8",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
+      "path": "docs/STRUCTURED.md",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "0ac0abc88260e12fb2bb87efa26e9a16919ed9ce325b2b21bdc1c6a2b73943af",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
       "path": "docs/TESTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef"
+      "transformation": "new generic source, documentation or synthetic fixture; root version/documentation assembly",
+      "package_sha256": "e3936541ad419d3180f3e53efd923a3b42dd95f887db04ad443cbc202e36f278",
+      "previous_assembly_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef"
     },
     {
       "path": "examples/policy.json",
@@ -68,42 +164,22 @@
       "package_sha256": "944d7688f8e0b78114083664156277b24c310434762b940d5421733a7cae882f"
     },
     {
-      "path": "LICENSE",
-      "origin": "core-v0.1/LICENSE",
-      "original_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
-      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
-      "transformation": "byte-identical"
-    },
-    {
-      "path": "MANIFEST.in",
-      "origin": "new-public-assembly",
-      "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture; public distribution documentation navigation",
-      "package_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
-      "previous_assembly_sha256": "dce5d34e5f3b5ae103fa1dc32cdf998d7e5a865900d4258fbbc682a3c28ca717"
-    },
-    {
       "path": "pyproject.toml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100"
+      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
+      "package_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22",
+      "previous_registry_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100",
+      "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803"
     },
     {
-      "path": "README.fr.md",
-      "origin": "new-public-assembly",
+      "path": "scripts/check_distributions.py",
+      "origin": "new-public-admission-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture; public project title and optional distribution navigation; technical identifiers unchanged; public distribution documentation navigation",
-      "package_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
-      "previous_assembly_sha256": "777c1b898c58a1ccfe9dbac048af75f5ea600878605bfb8a1ecd5aff0b29e088"
-    },
-    {
-      "path": "README.md",
-      "origin": "new-public-assembly",
-      "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture; public project title and optional distribution navigation; technical identifiers unchanged",
-      "package_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
-      "previous_assembly_sha256": "11d46ad12f7c5bfdd8c99b756865e69e8bfa31a1273247ff8a9e54a881b6c0e9"
+      "package_sha256": "edf0c36dfd4a72fb975b545dac7dba33a6b633c9b495178462359ee4e608873b",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT",
+      "previous_assembly_sha256": "f8b5a6c61fe4722269ba6e483f39ac3efcee334187efa1a7a32e141da712003a"
     },
     {
       "path": "setup.cfg",
@@ -113,11 +189,20 @@
       "transformation": "byte-identical"
     },
     {
+      "path": "src/hermes_memory/ADMISSION-PROVENANCE.json",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "dc404e35ae2b6500bda478befbf9363e7b4a371f581c914dc5e8e852312df530",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
       "path": "src/hermes_memory/__init__.py",
       "origin": "core-v0.1/__init__.py",
       "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
-      "package_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
-      "transformation": "distribution version only"
+      "package_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411",
+      "transformation": "distribution version only; root version/documentation assembly",
+      "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54"
     },
     {
       "path": "src/hermes_memory/__main__.py",
@@ -125,6 +210,54 @@
       "original_sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
       "package_sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
       "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/_admission_loader.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "e783edac0a6952395e78df5656ef00e791980fbcd0cf4e2231deb41c161d95a7",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/admission.py",
+      "origin": "selected-original-project-contribution",
+      "original_sha256": "6fb7fd9a6eaecd0da2a50acd05ba253841da3ec41d904b324c8184720db43600",
+      "package_sha256": "6fb7fd9a6eaecd0da2a50acd05ba253841da3ec41d904b324c8184720db43600",
+      "transformation": "byte-identical generic implementation",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/quality_contract.py",
+      "origin": "selected-original-project-contribution",
+      "original_sha256": "0d16ebbf0042f03a5d6b36b1ed3b32b58e00945b73af1582f4bf2760492123b4",
+      "package_sha256": "0d16ebbf0042f03a5d6b36b1ed3b32b58e00945b73af1582f4bf2760492123b4",
+      "transformation": "byte-identical generic implementation",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/_admission_sources/structured_memory.py",
+      "origin": "selected-original-project-contribution",
+      "original_sha256": "4febba12532671486bdb82e1eb39009cd7bb10206e33c10d46807e718da99697",
+      "package_sha256": "4febba12532671486bdb82e1eb39009cd7bb10206e33c10d46807e718da99697",
+      "transformation": "byte-identical generic implementation",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/admission.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "c8633047e6d45f23bad9075a7e1c0b6a91f55aa22fa0a5ba02ddc963161d3bd5",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/admission_demo.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "4154aa2c0763f98ebb9b3a4f04ef54b80c01a0dd9890b5c8213895fa68c82119",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
     },
     {
       "path": "src/hermes_memory/cli.py",
@@ -160,6 +293,22 @@
       "original_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
       "package_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
       "transformation": "byte-identical"
+    },
+    {
+      "path": "src/hermes_memory/quality_contract.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "e7d3bc73cded3e8608d7bf5dd0d1b504670bbe9aef5e45fd562f38cd4ee9abe3",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
+      "path": "src/hermes_memory/structured_memory.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "21c777c8f1de3cf61ef3e348bdcba185b3a43132c5547a85b3b1c0d5dd3ad792",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
     },
     {
       "path": "src/hermes_memory/typed_admin.py",
@@ -204,6 +353,46 @@
       "transformation": "package imports unchanged; module docstring reflects namespace import behavior"
     },
     {
+      "path": "tests/observe_public_installed.py",
+      "origin": "new-independent-public-admission-fixture",
+      "original_sha256": null,
+      "package_sha256": "4bef80a3eab8de6ad9e6a50792aa33a81489e48c4c4789c44370ac9ad95d6615",
+      "transformation": "Original independent package-boundary test code authored from frozen API, candidate unseen.",
+      "license": "MIT"
+    },
+    {
+      "path": "tests/public_admission_oracle.json",
+      "origin": "new-independent-public-admission-fixture",
+      "original_sha256": null,
+      "package_sha256": "1b049d3cffe6cbdc897294b2bac4f293d55d4650bb8df74f4ec24ecffc1a536a",
+      "transformation": "New synthetic data; byte-identical copy of preregistered fixture/oracle, not extracted private corpus.",
+      "license": "MIT"
+    },
+    {
+      "path": "tests/public_admission_probe.py",
+      "origin": "new-independent-public-admission-fixture",
+      "original_sha256": null,
+      "package_sha256": "1999ff7fdabccb453d782214aa6287445c8c05623f98c22042f5fa80c43cc3b8",
+      "transformation": "Original independent package-boundary test code authored from frozen API, candidate unseen.",
+      "license": "MIT"
+    },
+    {
+      "path": "tests/public_admission_seed.json",
+      "origin": "new-independent-public-admission-fixture",
+      "original_sha256": null,
+      "package_sha256": "21fcf28901d55b5313c793963a365f520758c780389232584f6ef9815fd2a4c3",
+      "transformation": "New synthetic data; byte-identical copy of preregistered fixture/oracle, not extracted private corpus.",
+      "license": "MIT"
+    },
+    {
+      "path": "tests/test_admission_author.py",
+      "origin": "new-public-admission-assembly",
+      "original_sha256": null,
+      "package_sha256": "bdb463d8596f394de653da30765af3c5856b5c41edd364ca65ad7abed163b2eb",
+      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "license": "MIT"
+    },
+    {
       "path": "tests/test_core.py",
       "origin": "core-v0.1/tests/test_core.py",
       "original_sha256": "0d4c9e5bca7744f545b782723fe3b7330cd4ee7e3bdfef12a8f348fc8beb9c3b",
@@ -239,6 +428,14 @@
       "package_sha256": "2a84cead8ff5555b84339a0ba672aafb0ba3cff5f5997264391dc2c5e18597b4"
     },
     {
+      "path": "tests/test_public_installed.py",
+      "origin": "new-independent-public-admission-fixture",
+      "original_sha256": null,
+      "package_sha256": "c47655d3f4ef0502014e005661e0c9fe39b553b0e99485ab3bd28a88bbf5da28",
+      "transformation": "Original independent package-boundary test code authored from frozen API, candidate unseen.",
+      "license": "MIT"
+    },
+    {
       "path": "tests/test_typed_independent_r3.py",
       "origin": "typed-review/test_independent_r3.py",
       "original_sha256": "b7d169d398605a58a0c407b9df629ce16832ae37da857e8e72523ff8ed46f41e",
@@ -265,17 +462,10 @@
       "original_sha256": "bbfe2c38bb0dd8a1864ffc48957118125f1f5aac92c438e3e53895e9cfe37bfd",
       "package_sha256": "6d37cfdc10bf4551a68d6ad33a56bdee83b468cc7d444d48a889feb0d17e06be",
       "transformation": "installed core discovery/imports; base renamed to avoid duplicate test discovery"
-    },
-    {
-      "path": "PACKAGES.md",
-      "origin": "public-distribution-guide",
-      "original_sha256": null,
-      "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "standalone core and optional registry installation guidance",
-      "package_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f"
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
   "experimental_r4_included": false,
-  "public_project": "Talos Memory"
+  "public_project": "Persistent Memory",
+  "previous_registry_sha256": "cfdbdbf484aa0a05ca03e98c6649c708d9caeb517c1cc5595306afcf95f2049c"
 }
