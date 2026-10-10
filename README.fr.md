@@ -76,7 +76,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Ils conservent 47 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests du produit. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Ils conservent 47 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests d'assemblage du paquet. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 ## Limites à prendre en compte
 

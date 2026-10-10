@@ -78,7 +78,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The suite retains 47 core, 35 typed retrieval and 36 portable integration tests, plus separate product tests. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The suite retains 47 core, 35 typed retrieval and 36 portable integration tests, plus separate package-assembly tests. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 
