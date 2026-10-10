@@ -1,6 +1,6 @@
 # Test selection and reproducibility
 
-Core: 47 unchanged synthetic tests. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Product assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
+Core: 47 unchanged synthetic tests. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Package assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
 
 The original application's private orchestrator AST test, builder and source are excluded. Its prior private execution is not counted as a test of this distribution. Assertions in selected tests retain their original meaning. Adaptations are limited to package imports, installed-core path discovery, test-base naming to avoid duplicate discovery, and module CLI paths; see `PROVENANCE.json`.
 
