@@ -78,6 +78,8 @@ cd /tmp
 
 Les tests importent le paquet installé. Ils conservent 47 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests d'assemblage du paquet. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
+La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
+
 ## Limites à prendre en compte
 
 - Conservez l'autorité actuelle et son témoin hors des sauvegardes de contenu restaurables seules.

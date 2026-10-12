@@ -82,6 +82,8 @@ The test sources stay outside the installed package; imports resolve to the whee
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 
+The optional [synthetic LanceDB demonstration](docs/BENCHMARK-LANCE.md) exercises explicit vector/text retrieval and current-version/withdrawal checks with predefined vectors. It uses separate optional dependencies; the default benchmark remains unchanged.
+
 ## Design boundaries
 
 - A current external authority and retained freshness witness are required for safe recovery; keep them outside content-only snapshots.
