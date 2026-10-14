@@ -2,7 +2,7 @@
 
 Core: 47 unchanged synthetic tests. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Package assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
 
-The original application's private orchestrator AST test, builder and source are excluded. Its prior private execution is not counted as a test of this distribution. Assertions in selected tests retain their original meaning. Adaptations are limited to package imports, installed-core path discovery, test-base naming to avoid duplicate discovery, and module CLI paths; see `PROVENANCE.json`.
+The original application's private orchestrator AST test, builder and source are excluded. Its prior private execution is not counted as a test of this distribution. The original selection retained its assertion meanings. Its packaging adaptations were limited to package imports, installed-core path discovery, test-base naming to avoid duplicate discovery, and module CLI paths; see `PROVENANCE.json`.
 
 Tests use temporary synthetic stores and loopback servers. There are no model weights, embeddings from users, provider calls or private databases. Tests of source hashes deliberately require the exact core and typed R3 versions. Editing those files requires an explicit compatibility review and hash update; installing a different version silently is not supported.
 
@@ -13,3 +13,9 @@ The small benchmark generates its own 24 notes. Its timing reflects the running 
 ## Structured rendering and admission
 
 The opt-in APIs add eleven author regression methods and twelve independently designed package-boundary methods. Their forty-five synthetic variants cover import order, source bytes, canonical type identity, reviewed provenance, mechanical limits, notices, final authority decisions and uncertain handoff. These fixtures were fixed before the package candidate was inspected; they are published regression fixtures, not an ongoing hidden holdout or a statistical measure of answer quality. All four installed wheel/sdist suites must run without skips. The distribution checker also requires byte-identical test .py/.json inventories between the candidate and its source archives.
+
+## Focused typed-reference and HTTP-boundary extension
+
+Six existing `TypedRetrievalTests` methods and the existing independent `test_foreign_reference_in_projection_is_refused` method were extended and qualified together on Linux: seven methods passed with zero failures, errors or skips and unchanged before/after hashes for all twelve staged source files. The checks include atomic body/ref budgets, opaque refs, stale indexes, withdrawals, current versions, separate synthetic workspaces/tokens, typed-only route refusal and preserved combined-server defaults. Missing/wrong tokens on typed POST are exercised; the GET authorization branch was also checked in the source review.
+
+This receipt qualifies the focused source composition. It does not add a new business-case score, measure human/voice identity accuracy, or claim a new full installed-suite run. The established installed wheel/sdist CI checker remains the release packaging gate; historical full-suite and latency observations remain separate.

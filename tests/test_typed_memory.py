@@ -2,6 +2,7 @@
 
 import importlib.util
 import hashlib
+import json
 import os
 from pathlib import Path
 import sqlite3
@@ -42,14 +43,40 @@ class TypedRetrievalTests(unittest.TestCase):
             result = self.typed.search("demo", query)
             self.assertEqual(result["items"][0]["ref"], reference)
             self.assertEqual(result["context"], "A delivery waits by the door.")
+            referenced = self.typed.search("demo", query, render_source_references=True)
+            body, suffix = referenced["context"].rsplit(" (ref: ", 1)
+            self.assertEqual(body, result["context"])
+            self.assertEqual(json.loads(suffix[:-1]), reference)
+            self.assertEqual(referenced["context_chars"], len(referenced["context"]))
+        opaque = self.put('ID-"backslash\\é', "A delivery waits by the door.")
+        self.typed.sync("demo")
+        referenced = self.typed.search("demo", "delivery", render_source_references=True)
+        self.assertEqual({json.dumps(item["ref"], sort_keys=True) for item in referenced["items"]},
+                         {json.dumps(ref, sort_keys=True) for ref in (reference, opaque)})
+        for block, item in zip(referenced["context"].split("\n\n"), referenced["items"]):
+            body, suffix = block.rsplit(" (ref: ", 1)
+            self.assertEqual(body, item["text"])
+            self.assertTrue(suffix.isascii())
+            self.assertEqual(json.loads(suffix[:-1]), item["ref"])
 
     def test_indexed_lexical_and_budget(self):
         self.put("large", "Window window window " + "long history " * 20)
-        self.put("brief", "Window: shut the latch.")
+        brief = self.put("brief", "Window: shut the latch.")
         self.typed.sync("demo")
         result = self.typed.search("demo", "window", max_context_chars=30)
         self.assertEqual(result["context"], "Window: shut the latch.")
         self.assertLessEqual(result["context_chars"], 30)
+        rejected = self.typed.search("demo", "window", max_context_chars=30, render_source_references=True)
+        self.assertEqual(rejected["items"], [])
+        self.assertEqual(rejected["context"], "")
+        self.assertTrue(all(item["reason"] == "context_budget" for item in rejected["exclusions"]))
+        complete = "Window: shut the latch. (ref: " + json.dumps(brief, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + ")"
+        exact = self.typed.search("demo", "brief", max_context_chars=len(complete), render_source_references=True)
+        self.assertEqual(exact["context"], complete)
+        self.assertEqual(exact["items"][0]["ref"], brief)
+        short = self.typed.search("demo", "brief", max_context_chars=len(complete)-1, render_source_references=True)
+        self.assertEqual(short["items"], [])
+        self.assertEqual(short["context_chars"], 0)
 
     def test_index_stale_requires_explicit_sync(self):
         self.put("a", "orchid")
@@ -58,6 +85,10 @@ class TypedRetrievalTests(unittest.TestCase):
         stale = self.typed.search("demo", "orchid")
         self.assertEqual(stale["status"], "index_stale")
         self.assertEqual(stale["context"], "")
+        referenced = self.typed.search("demo", "orchid", render_source_references=True)
+        self.assertEqual(referenced["status"], "index_stale")
+        self.assertEqual(referenced["items"], [])
+        self.assertEqual(referenced["context"], "")
 
     def test_refetch_never_uses_corrupted_projection_text(self):
         self.put("a", "Original jasper text.")
@@ -70,22 +101,31 @@ class TypedRetrievalTests(unittest.TestCase):
 
     def test_revocation_and_other_workspace(self):
         self.put("a", "violet old")
-        self.put("b", "violet independent")
+        independent = self.put("b", "violet independent")
         self.put("c", "violet foreign", workspace="other")
         self.typed.sync("demo")
         self.memory.revoke_source("demo", "a", "withdraw-a")
         self.assertEqual(self.typed.search("demo", "violet")["status"], "index_stale")
         self.typed.sync("demo")
         self.assertEqual(self.typed.search("demo", "violet")["context"], "violet independent")
+        referenced = self.typed.search("demo", "violet", render_source_references=True)
+        self.assertEqual([item["ref"] for item in referenced["items"]], [independent])
+        body, suffix = referenced["context"].rsplit(" (ref: ", 1)
+        self.assertEqual(body, "violet independent")
+        self.assertEqual(json.loads(suffix[:-1]), independent)
 
     def test_superseded_version_never_returns_for_history(self):
         first = self.put("rule", "Cotton rule.", {"valid_from": "2031-01-01T00:00:00Z", "valid_until": "2031-02-01T00:00:00Z"})
-        self.put("rule", "Linen rule.", {"valid_from": "2031-02-01T00:00:00Z"}, previous=first["version_id"])
+        second = self.put("rule", "Linen rule.", {"valid_from": "2031-02-01T00:00:00Z"}, previous=first["version_id"])
         self.typed.sync("demo")
         result = self.typed.search("demo", "rule", as_of="2031-01-15T00:00:00Z")
         self.assertEqual(result["context"], "")
         self.assertEqual(result["historical_version_access"], "unsupported")
         self.assertFalse(self.memory.read(first)["allowed"])
+        referenced = self.typed.search("demo", "rule", as_of="2031-02-01T00:00:00Z", render_source_references=True)
+        self.assertEqual([item["ref"] for item in referenced["items"]], [second])
+        self.assertNotEqual(first["version_id"], second["version_id"])
+        self.assertEqual(json.loads(referenced["context"].rsplit(" (ref: ", 1)[1][:-1]), second)
 
     def test_time_boundaries_and_missing_time(self):
         self.put("state", "gate open", {"valid_from": "2031-01-01T00:00:00Z", "valid_until": "2031-01-02T00:00:00Z"})
@@ -144,6 +184,9 @@ class TypedRetrievalTests(unittest.TestCase):
         for value in ({"confidence": True}, {"valid_from": "tomorrow"}, {"preconditions": {"x": []}}, {"arbitrary_rights": "admin"}):
             with self.assertRaises(RetrievalError):
                 metadata(value)
+        for invalid in (1, None, "true"):
+            with self.assertRaisesRegex(RetrievalError, "invalid_reference_rendering"):
+                self.typed.search("demo", "synthetic", render_source_references=invalid)
         with self.assertRaisesRegex(RetrievalError, "index_must_be_separate"):
             TypedMemory(self.memory, self.memory.path)
 
