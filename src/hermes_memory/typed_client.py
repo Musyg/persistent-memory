@@ -9,7 +9,7 @@ import urllib.parse
 import urllib.request
 
 from .typed_protocol import ContractError, R3_SHA, canonical, require, strict_json
-from .typed_memory import metadata, RetrievalError
+from .typed_memory import metadata, RetrievalError, render_context_item
 
 
 def token_from_file(path):
@@ -36,7 +36,9 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Client:
-    def __init__(self, base_url, token_file, policy_id, workspace, timeout=3):
+    def __init__(self, base_url, token_file, policy_id, workspace, timeout=3, *, render_source_references=False):
+        require(type(render_source_references) is bool, "invalid_reference_rendering")
+        self.render_source_references = render_source_references
         url = urllib.parse.urlsplit(base_url)
         require(url.scheme in {"http", "https"} and url.hostname and not url.username and not url.password and url.path in {"", "/"} and not url.query and not url.fragment, "invalid_endpoint")
         if url.scheme == "http":
@@ -109,7 +111,7 @@ class Client:
             except RetrievalError as exc:
                 raise ContractError("response_metadata_invalid") from exc
             require(normalized == item["metadata"], "response_metadata_noncanonical")
-        context = "\n\n".join(item["text"] for item in items)
+        context = "\n\n".join(render_context_item(item["text"], item["ref"], self.render_source_references) for item in items)
         require(result.get("context") == context and type(result.get("context_chars")) is int and result["context_chars"] == len(context) and len(context) <= arguments.get("max_context_chars", 2000), "response_context_binding")
         require(type(result.get("context_empty")) is bool and result["context_empty"] == (not context), "response_empty_binding")
         return result

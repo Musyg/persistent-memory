@@ -1,7 +1,7 @@
 """Small stdlib wire helpers; importing them does not open an authority store."""
 import json
 
-R3_SHA = "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed"
+R3_SHA = "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427"
 
 
 class ContractError(ValueError):

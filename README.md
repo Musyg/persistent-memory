@@ -57,11 +57,15 @@ Refs include a workspace, stable artifact identity and immutable version. Update
 
 Typed envelopes support `document`, `observation`, `hypothesis`, `procedure`, `task` and `feedback`; explicit validity intervals, aliases and exact preconditions; FTS5 lexical candidates; a character budget; and coverage/exclusion details. A hypothesis remains a hypothesis. Declared confidence is not a learned quality score or a ranking weight.
 
-The typed policy is the frozen R3 implementation. Its bounded synthetic comparison improved evidence selection but exceeded its registered relative latency gate. No production speed improvement, semantic search, graph inference, historical-version search, or automatic learning is claimed. Experimental R4 is not included.
+The typed policy retains the R3 retrieval contract with optional exact-reference rendering. Its bounded synthetic comparison improved evidence selection but exceeded its registered relative latency gate. No production speed improvement, semantic search, graph inference, historical-version search, or automatic learning is claimed. Experimental R4 is not included.
+
+Set `render_source_references=True` in `TypedMemory.search` to append each validated immutable ref to its complete text. The full text, JSON ref and separators share the character budget; an item that does not fit is excluded intact. Plain text remains the default.
 
 ## CLI, optional HTTP and MCP
 
 `hermes-memory` provides initialization, core RPC, a synthetic demo, HTTP and MCP stdio. `hermes-memory-typed` provides explicit typed admission, synchronization, context and optional serving. See [API.md](docs/API.md) for copyable local commands.
+
+The Python server API adds `make_server(..., typed_only=True)` to expose only the authenticated typed POST routes; core `/rpc`, `/validate` and GET routes are refused. Configure `Policy(render_source_references=True)` and `Client(..., render_source_references=True)` together when using referenced contexts. These options bind a configured workspace and bearer token; they do not authenticate a person or voice. See [API.md](docs/API.md).
 
 The typed HTTP routes and client are read-only; the optional combined server also exposes the **privileged core `/rpc` API** under the same token. It is intended for a trusted application boundary, not an untrusted multi-tenant deployment. Workspace names are logical partitions, not user ACLs. No public vector backend adapter is advertised; generic core projections retain exact refs but are not Qdrant or LanceDB integrations.
 
@@ -71,7 +75,7 @@ The typed HTTP routes and client are read-only; the optional combined server als
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a1-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a2-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v

@@ -1,8 +1,8 @@
 {
   "license": "MIT",
-  "release_candidate": "0.3.0a1",
+  "release_candidate": "0.3.0a2",
   "private_history_included": false,
-  "scope": "original core v0.1 plus frozen typed retrieval R3 and portable integration R3; source selection only; opt-in finite structured rendering, reviewed admission, verified shared loading and fresh synthetic examples",
+  "scope": "original core v0.1 plus typed retrieval R3 with opt-in exact-reference rendering and fixed-workspace typed-only HTTP boundary and portable integration R3; source selection only; opt-in finite structured rendering, reviewed admission, verified shared loading and fresh synthetic examples",
   "files": [
     {
       "path": ".gitignore",
@@ -39,27 +39,48 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "metadata reconciliation to unchanged public baseline document",
-      "package_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b",
-      "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f"
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "39762f854de2ca6d9c9a70bb048e4426c70321a12ba8ed4c80a93f196c0e3f9c",
+      "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
+      "assembly_history": [
+        {
+          "package_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b",
+          "transformation": "metadata reconciliation to unchanged public baseline document"
+        }
+      ],
+      "previous_public_worktree_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b"
     },
     {
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
-      "package_sha256": "9b14843fa20ea666b055adda7a266530b900115234e7bdc92e695cf26cca16ec",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "bd2ead4f054f2cf05d1e39e2cd03a34f91e4d8697e082f8053c6078877b10b2c",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
-      "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50"
+      "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
+      "assembly_history": [
+        {
+          "package_sha256": "9b14843fa20ea666b055adda7a266530b900115234e7bdc92e695cf26cca16ec",
+          "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        }
+      ],
+      "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f"
     },
     {
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
-      "package_sha256": "35d4d32fd608089f8e5297577078099d39090056df190576dd5ebf54c4902fba",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "425ce163cd1fca7126d7dbf5d21ba9d6dd7c8df566ae1a4c785ca0604d310a1c",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
-      "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130"
+      "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
+      "assembly_history": [
+        {
+          "package_sha256": "35d4d32fd608089f8e5297577078099d39090056df190576dd5ebf54c4902fba",
+          "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        }
+      ],
+      "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7"
     },
     {
       "path": "RELEASE-PROVENANCE.json",
@@ -73,8 +94,15 @@
       "path": "benchmarks/run_benchmark.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c"
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6",
+      "assembly_history": [
+        {
+          "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ],
+      "previous_public_worktree_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6"
     },
     {
       "path": "docs/ADMISSION.fr.md",
@@ -108,8 +136,15 @@
       "path": "docs/API.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f"
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "f8819bca1fa070b07f4e32f62bf199dc11b86f80bd021638a6868b06f388f772",
+      "assembly_history": [
+        {
+          "package_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ],
+      "previous_public_worktree_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f"
     },
     {
       "path": "docs/RECOVERY.md",
@@ -138,9 +173,16 @@
       "path": "docs/TESTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture; root version/documentation assembly",
-      "package_sha256": "e3936541ad419d3180f3e53efd923a3b42dd95f887db04ad443cbc202e36f278",
-      "previous_assembly_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef"
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "1e65cd8dc92790ce68385d10a61ed7a4b6c39c7250dc3a6c4a2e383d0324e946",
+      "previous_assembly_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef",
+      "assembly_history": [
+        {
+          "package_sha256": "e3936541ad419d3180f3e53efd923a3b42dd95f887db04ad443cbc202e36f278",
+          "transformation": "new generic source, documentation or synthetic fixture; root version/documentation assembly"
+        }
+      ],
+      "previous_public_worktree_sha256": "ebb490b7272a53748769840fcfd1b5251aeceaa5358d7bf5b67caef3c0d6aa3c"
     },
     {
       "path": "examples/policy.json",
@@ -167,10 +209,17 @@
       "path": "pyproject.toml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly",
-      "package_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "053d7de577e456da507e2f672a7d4adfde81f858a1cdfefa7d040a348915731b",
       "previous_registry_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100",
-      "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803"
+      "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803",
+      "assembly_history": [
+        {
+          "package_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22",
+          "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        }
+      ],
+      "previous_public_worktree_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22"
     },
     {
       "path": "scripts/check_distributions.py",
@@ -200,9 +249,16 @@
       "path": "src/hermes_memory/__init__.py",
       "origin": "core-v0.1/__init__.py",
       "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
-      "package_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411",
-      "transformation": "distribution version only; root version/documentation assembly",
-      "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54"
+      "package_sha256": "cf3fd68da77792f6e2a7299af5ab95fc21dff017d8e3fcd7870c45e2fe8833d5",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
+      "assembly_history": [
+        {
+          "package_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411",
+          "transformation": "distribution version only; root version/documentation assembly"
+        }
+      ],
+      "previous_public_worktree_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411"
     },
     {
       "path": "src/hermes_memory/__main__.py",
@@ -321,22 +377,43 @@
       "path": "src/hermes_memory/typed_client.py",
       "origin": "integration-r3/typed_client.py",
       "original_sha256": "ef56472a785bab92ab80b6b8767cd0491fb49529d47b02c1f47d1e437ac6876b",
-      "package_sha256": "44911a49db3e1611c8bff3e874240e2726c849690867708203740260f16439c2",
-      "transformation": "package-relative imports only"
+      "package_sha256": "f67e5615efa6ae8e55660b3aee472d89965d2ca91015eb365926c6e22be8669b",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "44911a49db3e1611c8bff3e874240e2726c849690867708203740260f16439c2",
+          "transformation": "package-relative imports only"
+        }
+      ],
+      "previous_public_worktree_sha256": "44911a49db3e1611c8bff3e874240e2726c849690867708203740260f16439c2"
     },
     {
       "path": "src/hermes_memory/typed_facade.py",
       "origin": "integration-r3/typed_facade.py",
       "original_sha256": "20730ea26a05f352278533593184f37a24199e51666cf6f88523504f6493e547",
-      "package_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead",
-      "transformation": "package-relative imports only"
+      "package_sha256": "3d78dd5219a4d8b7da621cc26c653257964101e7e8c6d42f30b47cfa20b0225c",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead",
+          "transformation": "package-relative imports only"
+        }
+      ],
+      "previous_public_worktree_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead"
     },
     {
       "path": "src/hermes_memory/typed_memory.py",
       "origin": "typed-retrieval-r3/typed_memory.py",
       "original_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
-      "package_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
-      "transformation": "byte-identical"
+      "package_sha256": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
+          "transformation": "byte-identical"
+        }
+      ],
+      "previous_public_worktree_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed"
     },
     {
       "path": "src/hermes_memory/typed_memory_tool.py",
@@ -349,8 +426,15 @@
       "path": "src/hermes_memory/typed_protocol.py",
       "origin": "integration-r3/typed_protocol.py",
       "original_sha256": "cd6edffb5e706480d99f7e585e4e6daacbe15e1979f5641b06a07e7da1f5703a",
-      "package_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26",
-      "transformation": "package imports unchanged; module docstring reflects namespace import behavior"
+      "package_sha256": "1e6916200a16b64032dc31d6b079dfd1ec35e6d9f2ca818450a56a2c04e3b862",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26",
+          "transformation": "package imports unchanged; module docstring reflects namespace import behavior"
+        }
+      ],
+      "previous_public_worktree_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26"
     },
     {
       "path": "tests/observe_public_installed.py",
@@ -439,15 +523,29 @@
       "path": "tests/test_typed_independent_r3.py",
       "origin": "typed-review/test_independent_r3.py",
       "original_sha256": "b7d169d398605a58a0c407b9df629ce16832ae37da857e8e72523ff8ed46f41e",
-      "package_sha256": "6d09d80accbccf279666caaa37da5fd1c66c40ad97b6bdc0a77d8678c2cc4214",
-      "transformation": "review base import renamed; assertions unchanged"
+      "package_sha256": "0198c34f7380ca0c63f1be5ed557e16785fac30288643c9324e03b81ba9b88fe",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "6d09d80accbccf279666caaa37da5fd1c66c40ad97b6bdc0a77d8678c2cc4214",
+          "transformation": "review base import renamed; assertions unchanged"
+        }
+      ],
+      "previous_public_worktree_sha256": "6d09d80accbccf279666caaa37da5fd1c66c40ad97b6bdc0a77d8678c2cc4214"
     },
     {
       "path": "tests/test_typed_memory.py",
       "origin": "typed-retrieval-r3/test_typed_memory.py",
       "original_sha256": "79d0d647d04be213b6752a24a1b11bbbaf0db1ef411bb8f829dc85bc2ad1f138",
-      "package_sha256": "d6cd8da282a33adb817512b16542132ab3cd642150ea4c18bdf893c3654463a0",
-      "transformation": "installed core discovery and package imports; assertions unchanged"
+      "package_sha256": "37ceaebcaf2e6a4837c5ba2de72cc3d0fc11f211c39bbd34480cbeca1bd5dec2",
+      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "assembly_history": [
+        {
+          "package_sha256": "d6cd8da282a33adb817512b16542132ab3cd642150ea4c18bdf893c3654463a0",
+          "transformation": "installed core discovery and package imports; assertions unchanged"
+        }
+      ],
+      "previous_public_worktree_sha256": "d6cd8da282a33adb817512b16542132ab3cd642150ea4c18bdf893c3654463a0"
     },
     {
       "path": "tests/test_typed_review_edges.py",
@@ -467,5 +565,21 @@
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
   "experimental_r4_included": false,
   "public_project": "Persistent Memory",
-  "previous_registry_sha256": "cfdbdbf484aa0a05ca03e98c6649c708d9caeb517c1cc5595306afcf95f2049c"
+  "previous_registry_sha256": "cfdbdbf484aa0a05ca03e98c6649c708d9caeb517c1cc5595306afcf95f2049c",
+  "previous_inventory_sha256": "344b35d94b1b5497e43b02695cd2df16f58dd9ff92bb4884f4a3aba0b8e0bf93",
+  "focused_typed_extension": {
+    "qualification": "Linux focused source composition, seven existing methods, no failures/errors/skips",
+    "qualification_receipt_sha256": "f90eba466b73e0866cc1defc7c306b7e4b1152336d775bb02f94ad97feb76385",
+    "qualified_source_hashes": {
+      "src/hermes_memory/typed_memory.py": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427",
+      "src/hermes_memory/typed_client.py": "f67e5615efa6ae8e55660b3aee472d89965d2ca91015eb365926c6e22be8669b",
+      "src/hermes_memory/typed_facade.py": "3d78dd5219a4d8b7da621cc26c653257964101e7e8c6d42f30b47cfa20b0225c",
+      "src/hermes_memory/typed_protocol.py": "1e6916200a16b64032dc31d6b079dfd1ec35e6d9f2ca818450a56a2c04e3b862",
+      "tests/test_typed_memory.py": "37ceaebcaf2e6a4837c5ba2de72cc3d0fc11f211c39bbd34480cbeca1bd5dec2",
+      "tests/test_typed_independent_r3.py": "0198c34f7380ca0c63f1be5ed557e16785fac30288643c9324e03b81ba9b88fe"
+    },
+    "full_installed_release_qualification": "pending new release CI; prior installed observations retained",
+    "historical_release_provenance_unchanged": true,
+    "human_or_voice_authentication_claimed": false
+  }
 }

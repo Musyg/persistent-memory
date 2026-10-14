@@ -16,7 +16,9 @@ hermes-memory-typed --authority example-state/authority.db --anchor example-stat
 
 An identical source retry converges to its existing ref. An update must carry its current `expected_version`; do not derive identity from text alone. `put` does not refresh the search index. `sync` checks configured document/content limits before publication. Query-time automatic sync is absent.
 
-Python API: `TypedMemory.put(workspace, source_id, text, attributes, expected_version=None)`, `sync(workspace, max_documents=5000, max_content_bytes=33554432)`, and `search(workspace, query, as_of=None, conditions=None, evidence_kinds=None, top_k=5, max_context_chars=2000, candidate_limit=100)`.
+Python API: `TypedMemory.put(workspace, source_id, text, attributes, expected_version=None)`, `sync(workspace, max_documents=5000, max_content_bytes=33554432)`, and `search(workspace, query, as_of=None, conditions=None, evidence_kinds=None, top_k=5, max_context_chars=2000, candidate_limit=100, render_source_references=False)`.
+
+`render_source_references=True` renders each admitted complete text followed by its exact JSON ref. The body, ref and `\n\n` separators count toward the same Python-character budget. No partial body/ref pair is returned.
 
 Metadata admits only `evidence_kind`, `valid_from`, `valid_until`, `observed_at`, `aliases`, `preconditions`, `confidence`. Times use UTC ISO strings ending in `Z`; validity is start-inclusive and end-exclusive. Preconditions require exact supplied values. Past timestamps filter current heads and do not retrieve superseded versions. Confidence is declared metadata, not calibrated probability.
 
@@ -32,6 +34,20 @@ hermes-memory-typed --authority example-state/authority.db --anchor example-stat
 ```
 
 Typed routes: `POST /typed/v1/context` and `/typed/v1/status`, bearer authentication, strict JSON schema, 16 KiB requests and 256 KiB responses. Typed admission and sync are local administrative calls, not HTTP routes.
+
+The Python API can instead expose a fixed typed workspace with `make_server(memory, facade, token=token, typed_only=True)`. It refuses core `/rpc`, `/validate`, all GET requests and unknown routes; absent or wrong bearer tokens are refused before dispatch. Local `admit_source` and `sync` remain administrative operations. The CLI `serve` command retains its combined-server default; `typed_only` is a Python server API option; rendering can also be enabled through the existing policy configuration.
+
+```python
+from pathlib import Path
+from hermes_memory.typed_facade import Facade, Policy, make_server
+
+policy = Policy(enabled=True, render_source_references=True)
+facade = Facade(memory, Path("example-state/index.db"), policy)
+# The application supplies its configured token and owns server startup/shutdown.
+server = make_server(memory, facade, token=token, typed_only=True)
+```
+
+Use `Client(..., render_source_references=True)` with this rendering policy. Server policy chooses the workspace and rendering mode; requests cannot override either. A client/server rendering mismatch is refused. This workspace/token boundary is not human or voice authentication, and logical workspaces remain distinct from user ACLs.
 
 **The combined server also retains the privileged core `/rpc` API.** The same bearer token covers all core operations; there is no per-user or per-workspace authorization. Do not hand this token to an untrusted agent or expose the service as a multi-tenant gateway. The process is a stdlib reference server, not an internet-facing production gateway.
 

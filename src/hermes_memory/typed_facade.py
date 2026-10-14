@@ -25,9 +25,11 @@ class Policy:
     max_documents: int = 100
     max_content_bytes: int = 4194304
     concurrent_queries: int = 2
+    render_source_references: bool = False
 
     def __post_init__(self):
         require(type(self.enabled) is bool, "invalid_enabled")
+        require(type(self.render_source_references) is bool, "invalid_render_source_references")
         for value in (self.policy_id, self.workspace):
             require(type(value) is str and 0 < len(value) <= 128 and all(c.isalnum() or c in "-_." for c in value), "invalid_policy_name")
         require(self.workspace.startswith("hermes-typed-") and len(self.workspace) > len("hermes-typed-"), "dedicated_typed_cohort_required")
@@ -82,7 +84,7 @@ class Facade:
         require(type(top) is int and 1 <= top <= self.policy.top_k, "top_k_exceeds_policy")
         require(type(budget) is int and 0 <= budget <= self.policy.max_context_chars, "context_budget_exceeds_policy")
         with self.admitted(self._queries):
-            result = self.typed().search(self.policy.workspace, request["query"], as_of=request.get("as_of"), conditions=request.get("conditions"), evidence_kinds=request.get("evidence_kinds"), top_k=top, max_context_chars=budget, candidate_limit=self.policy.candidate_limit)
+            result = self.typed().search(self.policy.workspace, request["query"], as_of=request.get("as_of"), conditions=request.get("conditions"), evidence_kinds=request.get("evidence_kinds"), top_k=top, max_context_chars=budget, candidate_limit=self.policy.candidate_limit, render_source_references=self.policy.render_source_references)
         return {**result, "schema_version": 1, "policy_id": self.policy.policy_id, "library_sha256": R3_SHA}
 
     def status(self, request):
@@ -123,14 +125,26 @@ class Facade:
         return {"schema_version": 1, "policy_id": self.policy.policy_id, **result}
 
 
-def make_server(memory, facade, host="127.0.0.1", port=0, token=None):
+def make_server(memory, facade, host="127.0.0.1", port=0, token=None, *, typed_only=False):
+    require(type(typed_only) is bool, "invalid_typed_only")
     require(not facade.policy.enabled or type(token) is str and len(token) >= 32, "typed_authentication_required", 403)
     server = make_core_server(memory, host, port, token)
     original = server.RequestHandlerClass
 
     class Handler(original):
+        def do_GET(self):
+            if not typed_only:
+                return super().do_GET()
+            if not self.authorized():
+                return self.answer(401, {"error": "unauthorized"})
+            return self.answer(405, {"status": "refused", "reason": "typed_only_route"})
+
         def do_POST(self):
             if not self.path.startswith(PREFIX):
+                if typed_only:
+                    if not self.authorized():
+                        return self.answer(401, {"error": "unauthorized"})
+                    return self.answer(405, {"status": "refused", "reason": "typed_only_route"})
                 return super().do_POST()
             if not self.authorized():
                 return self.answer(401, {"error": "unauthorized"})

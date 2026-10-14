@@ -57,11 +57,15 @@ Chaque référence contient un espace, une identité d'objet stable et une versi
 
 Les enveloppes typées distinguent document, observation, hypothèse, procédure, tâche et feedback. Elles peuvent porter des intervalles de validité, alias et préconditions exactes. La recherche lexicale FTS5 retourne un contexte borné, ses références, sa couverture et ses exclusions. Une hypothèse reste présentée comme telle ; la confiance déclarée ne devient ni score de qualité appris ni poids de classement.
 
-La politique livrée est R3, figée. Elle a amélioré la sélection de preuves dans une comparaison synthétique bornée, mais a dépassé son seuil de latence relative. Aucun gain de production, recherche sémantique, raisonnement sur graphe, accès aux versions historiques ou apprentissage automatique n'est revendiqué. R4 expérimental n'est pas inclus.
+La politique livrée conserve le contrat de recherche R3 avec un rendu facultatif des références exactes. Elle a amélioré la sélection de preuves dans une comparaison synthétique bornée, mais a dépassé son seuil de latence relative. Aucun gain de production, recherche sémantique, raisonnement sur graphe, accès aux versions historiques ou apprentissage automatique n'est revendiqué. R4 expérimental n'est pas inclus.
+
+Avec `render_source_references=True` dans `TypedMemory.search`, chaque texte complet porte sa référence immuable validée. Texte, référence JSON et séparateurs partagent le budget de caractères ; un élément trop long est exclu entier. Le texte seul reste le mode par défaut.
 
 ## Interfaces et vérification
 
 `hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](docs/API.md) fonctionnent en local avec des chemins génériques.
+
+L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [API.md](docs/API.md).
 
 Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. Aucun adaptateur public Qdrant ou LanceDB n'est annoncé.
 
@@ -69,7 +73,7 @@ Les routes HTTP typées et leur client sont en lecture seule. Le serveur combin�
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a1-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a2-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v

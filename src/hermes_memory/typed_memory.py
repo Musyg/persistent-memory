@@ -119,6 +119,14 @@ class CoreV01Adapter:
             return cp, rows, excluded, content_bytes
 
 
+def render_context_item(text, ref, render_source_references=False):
+    """Render an already validated immutable ref; never infer evidence identity."""
+    require(type(render_source_references) is bool, "invalid_reference_rendering")
+    if not render_source_references:
+        return text
+    return text + " (ref: " + json.dumps(ref, ensure_ascii=True, sort_keys=True, separators=(",", ":"), allow_nan=False) + ")"
+
+
 class TypedMemory:
     def __init__(self, memory, index_path):
         self.core = CoreV01Adapter(memory)
@@ -195,8 +203,9 @@ CREATE VIRTUAL TABLE lexical USING fts5(text, tokenize='unicode61');
     def _empty(status, reason):
         return {"status": status, "reason": reason, "items": [], "context": "", "context_empty": True, "complete": False}
 
-    def search(self, workspace, query, *, as_of=None, conditions=None, evidence_kinds=None, top_k=5, max_context_chars=2000, candidate_limit=100):
+    def search(self, workspace, query, *, as_of=None, conditions=None, evidence_kinds=None, top_k=5, max_context_chars=2000, candidate_limit=100, render_source_references=False):
         self.core.module.name(workspace)
+        require(type(render_source_references) is bool, "invalid_reference_rendering")
         require(type(query) is str and 0 < len(query) <= 4096, "invalid_query")
         require(type(top_k) is int and 0 < top_k <= 64, "invalid_top_k")
         require(type(max_context_chars) is int and 0 <= max_context_chars <= 64000, "invalid_context_budget")
@@ -257,7 +266,8 @@ CREATE VIRTUAL TABLE lexical USING fts5(text, tokenize='unicode61');
                     reason = "outside_declared_valid_time"
                 elif any(key not in inputs or type(inputs[key]) is not type(value) or inputs[key] != value for key, value in attrs["preconditions"].items()):
                     reason = "precondition_unknown_or_false"
-                extra = len(envelope["text"]) + (2 if items else 0)
+                rendered = render_context_item(envelope["text"], ref, render_source_references)
+                extra = len(rendered) + (2 if items else 0)
                 if reason is None and size + extra > max_context_chars:
                     reason = "context_budget"
                 if reason is not None:
@@ -269,7 +279,7 @@ CREATE VIRTUAL TABLE lexical USING fts5(text, tokenize='unicode61');
             final = self.memory.checkpoint()
             if final != cp:
                 return self._empty("epoch_changed", "concurrent_authority_change")
-            context = "\n\n".join(item["text"] for item in items)
+            context = "\n\n".join(render_context_item(item["text"], item["ref"], render_source_references) for item in items)
             return {"status": "completed", "reason": None, "epoch": cp["epoch"], "items": items, "context": context, "context_empty": not context, "context_chars": size, "exclusions": exclusions, "coverage": coverage, "complete": not truncated and coverage["unmanaged"] == 0, "completeness_scope": "indexed_managed_candidates_at_current_epoch_not_all_results_or_history", "backend": "sqlite_fts5+exact_identifier", "historical_version_access": "unsupported", "confidence_policy": "declared_not_ranked", "budget_unit": "python_characters"}
         except RetrievalError as exc:
             if str(exc) in {"projection_reference_invalid", "projection_scope_mismatch", "reference_response_mismatch", "validation_response_count"}:
