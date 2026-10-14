@@ -1,0 +1,28 @@
+{
+  "schema": "hermes-policy-registry.native-effects-provenance.v1",
+  "module": "hermes_policy_registry.registry",
+  "entry_point": "Registry.evaluate_native_effect_reports",
+  "assessment_protocol": "native-effects-v1",
+  "policy_family": "retrieval",
+  "qualified_source_sha256": "96b352e42460270c775affb085ba90bd8c7c16ead6babdef1d50a478956ddb8e",
+  "qualified_test_sha256": "26801d753505c83b96473a286eb445ee0867330ce86ca595117c299a160c0df6",
+  "qualification": {
+    "platform": "Linux",
+    "python": "3.12.3",
+    "methods": 1,
+    "synthetic_subcases_passed": 22,
+    "failures": 0,
+    "skips": 0,
+    "provider_calls": 0,
+    "original_receipt_sha256": "ddd100cb8f57064e2c1910b968f0de53a651200f8c6af81523f9aa25930c9a30",
+    "scope": "Source-contract qualification, not installed distribution or production activation."
+  },
+  "source_origin": "Generic reusable policy-registry library and synthetic fixtures.",
+  "original_project_provenance_rewritten": false,
+  "limits": [
+    "Trusted callback is not authenticated by the library.",
+    "No operational learning-loop installation.",
+    "No private memory, production traces, credentials or embeddings included.",
+    "No global quality score claimed."
+  ]
+}

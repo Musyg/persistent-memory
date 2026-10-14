@@ -273,6 +273,205 @@ class Registry:
             assessment_ref = self._save(connection, "assessment", assessment)
             return self._event(connection, policy_ref, "evaluated", expected_seq, {"assessment_ref": assessment_ref})
 
+    def evaluate_native_effect_reports(self, policy_ref, run_links, cost_report_ref, expected_seq, revalidate):
+        """native-effects-v1 assessment only; trusted revalidation is not runtime activation."""
+        require(type(run_links) is list and 0 < len(run_links) <= 256, "bounded_native_run_links_required")
+        require(type(expected_seq) is int and expected_seq >= 0, "native_sequence_required")
+        require(self.protocol["family"] == "retrieval" and self.protocol["judge"] ==
+                {"kind": "executable", "identifier": "native-effects-v1", "revision": "1"},
+                "native_effects_protocol_required")
+        require(cost_report_ref is None or is_ref(cost_report_ref), "native_cost_reference_required")
+        with self.transaction() as connection:
+            policy = self._load(connection, policy_ref, "artifact")
+            head = self._head(connection, policy_ref)
+            require(head["state"] in {"proposed", "evaluated"}, "evaluation_transition_forbidden")
+            require(policy["family"] == self.protocol["family"] and
+                    policy["safety_contract_ref"] == self.protocol["safety_contract_ref"], "protocol_or_safety_contract_mismatch")
+            revoked = {row[0] for row in connection.execute("SELECT ref FROM revoked")}
+            dependencies = set(policy["dependencies"]) | {policy_ref, self.protocol_ref, policy["implementation_ref"],
+                policy["configuration_ref"], policy["safety_contract_ref"]}
+            seen_links, seen_experiences, seen_cases, executed, datasets = set(), set(), set(), set(), set()
+            resolved, reasons = [], []
+            for link in run_links:
+                require(type(link) is dict and set(link) == {"report_ref", "run_id"} and
+                        is_ref(link["report_ref"]) and type(link["run_id"]) is str, "invalid_native_run_link")
+                marker = (link["report_ref"], link["run_id"])
+                require(marker not in seen_links, "duplicate_run")
+                seen_links.add(marker)
+                report = self._load(connection, link["report_ref"], "report")
+                require(report.get("schema") == "native-effects-v1" and type(report.get("version")) is int and
+                        report["version"] == 1, "native_effects_report_required")
+                dataset = report.get("dataset_sha256")
+                require(type(dataset) is str and is_ref("sha256:" + dataset), "quality_dataset_required")
+                datasets.add(dataset)
+                rows = report.get("runs")
+                require(type(rows) is list and len(rows) <= 256 and all(type(row) is dict for row in rows),
+                        "bounded_native_runs_required")
+                matches = [row for row in rows if row.get("run_id") == link["run_id"]]
+                require(len(matches) == 1, "run_missing_or_ambiguous")
+                run = matches[0]
+                require({"run_id", "task_id", "policy", "execution", "outcome", "source_snapshots", "records"} <= set(run)
+                        and type(run["policy"]) is dict and type(run["execution"]) is dict and type(run["outcome"]) is dict
+                        and type(run["records"]) is dict and set(run["records"]) == {"experience", "evaluation"},
+                        "native_run_fields_required")
+                exp, ev = run["records"]["experience"], run["records"]["evaluation"]
+                self.records.validate(exp); self.records.validate(ev)
+                require(exp["kind"] == "experience" and ev["kind"] == "evaluation" and
+                        ev["experience_ref"] == exp["record_id"], "evaluation_experience_binding_mismatch")
+                require(exp["record_id"] not in seen_experiences, "duplicate_experience")
+                seen_experiences.add(exp["record_id"])
+                require(run.get("task_id") == exp["case_id"], "run_case_binding_mismatch")
+                case = (dataset, exp["case_id"])
+                require(case not in seen_cases, "duplicate_quality_case")
+                seen_cases.add(case)
+                require(exp["family"] == policy["family"] and exp["policy_ref"] in policy["execution_policy_refs"]
+                        and identity(run["policy"]) == exp["policy_ref"], "executed_policy_binding_mismatch")
+                require(run["execution"] == {"implementation_ref": policy["implementation_ref"],
+                        "configuration_ref": policy["configuration_ref"]}, "native_execution_binding_mismatch")
+                executed.add(exp["policy_ref"])
+                outcome, snapshots = run["outcome"], run["source_snapshots"]
+                require(identity(outcome) == exp["outcome_ref"], "native_outcome_identity_mismatch")
+                self._save(connection, "report", run["policy"], exp["policy_ref"])
+                self._save(connection, "report", outcome, exp["outcome_ref"])
+                dependencies.update([exp["policy_ref"], exp["outcome_ref"]])
+                require(type(snapshots) is list and len(snapshots) <= 15, "bounded_native_snapshots_required")
+                for snapshot in snapshots:
+                    require(type(snapshot) is dict and type(snapshot.get("id")) is str and
+                            type(snapshot.get("text")) is str and snapshot["text"] and
+                            type(snapshot.get("record")) is dict and snapshot["record"] and
+                            snapshot["record"].get("fact", snapshot["record"].get("text")) == snapshot["text"],
+                            "full_native_source_snapshot_required")
+                refs = [identity(snapshot) for snapshot in snapshots]
+                require(refs == exp["source_refs"] and len(refs) == len(set(refs)), "native_snapshot_identity_mismatch")
+                for snapshot, ref in zip(snapshots, refs):
+                    self._save(connection, "report", snapshot, ref)
+                dependencies.update(refs)
+                require(outcome.get("execution_status") in {"completed", "unavailable", "error"}, "execution_status_required")
+                receipt, reopened = outcome.get("consumer_action_observation"), run.get("reopened_effect")
+                verified = False
+                if type(receipt) is dict:
+                    effect = {key: receipt.get(key) for key in ("operation", "arguments", "effect_state")}
+                    authority = receipt.get("authority_check")
+                    verified = (outcome["execution_status"] == "completed" and receipt.get("phase") == "after_consumption"
+                        and receipt.get("status") == "completed" and type(effect["arguments"]) is dict
+                        and type(effect["effect_state"]) is dict and type(authority) is dict
+                        and authority.get("phase") == "before_consumption"
+                        and authority.get("status") in {"current", "withdrawn", "unsupported"}
+                        and type(effect["operation"]) is str
+                        and effect["operation"] in {"create_work_order", "set_retention_hours", "hold_request", "record_clarification_request"}
+                        and (authority.get("status") == "current" or effect["operation"] in {"hold_request", "record_clarification_request"})
+                        and type(reopened) is dict and reopened == {"phase": "after_independent_reopen", "effect_ref": identity(effect)})
+                    effect_ref = self._save(connection, "report", receipt)
+                    dependencies.add(effect_ref)
+                    if type(reopened) is dict:
+                        reopen_ref = self._save(connection, "report", reopened)
+                        dependencies.add(reopen_ref)
+                if not verified:
+                    reasons.append("native_consumed_effect_or_reopen_unverified")
+                self._save(connection, "experience", exp, exp["record_id"])
+                self._save(connection, "evaluation", ev, ev["record_id"])
+                chain = [self._load(connection, row[0], "evaluation") for row in
+                         connection.execute("SELECT ref FROM objects WHERE kind='evaluation'")]
+                chain = [record for record in chain if record["experience_ref"] == exp["record_id"]]
+                require(outcome["execution_status"] == "completed" or all(record["status"] != "observed" for record in chain),
+                        "unavailable_execution_observed")
+                resolution = self._resolve(exp, chain, revoked)
+                latest = next(record for record in chain if record["record_id"] == resolution["latest"])
+                dependencies.update([link["report_ref"], exp["record_id"], latest["record_id"], latest["rubric_ref"]])
+                dependencies.update(record["record_id"] for record in chain)
+                dependencies.update(record["rubric_ref"] for record in chain)
+                label_current = ev["record_id"] == latest["record_id"]
+                if not label_current:
+                    reasons.append("native_report_evaluation_superseded")
+                resolved.append({"run_id": link["run_id"], "experience_ref": exp["record_id"], "evaluation_ref": latest["record_id"],
+                    "judge": latest["judge"], "rubric_ref": latest["rubric_ref"], "status": latest["status"],
+                    "eligible": resolution["success_eligible"], "success": latest["success"], "score": latest["score"],
+                    "reason": resolution["reason"], "native_effect_verified": verified, "native_label_current": label_current})
+            require(executed == set(policy["execution_policy_refs"]), "unevaluated_declared_configuration")
+            cost = {"report_ref": cost_report_ref, "available": False, "p95_ratio": None,
+                    "metric_scope": "paired_end_to_end_wall_cpu",
+                    "metrics_unassessed": ["cpu_ratio", "provider_usage", "monetary_cost", "rss", "io", "energy"]}
+            if cost_report_ref is not None:
+                dependencies.add(cost_report_ref)
+                report = self._load(connection, cost_report_ref, "report")
+                require(report.get("schema") == "native-effects-v1-cost" and type(report.get("version")) is int and
+                        report["version"] == 1 and report.get("dataset_sha256") in datasets
+                        and len(datasets) == 1 and report.get("candidate_implementation_ref") == policy["implementation_ref"]
+                        and report.get("configuration_ref") == policy["configuration_ref"], "native_cost_binding_mismatch")
+                baseline_ref = report.get("baseline_ref")
+                require(is_ref(baseline_ref) and baseline_ref in policy["dependencies"], "native_baseline_dependency_required")
+                baseline = self._load(connection, baseline_ref, "report")
+                require(baseline.get("schema") == "native-effects-v1-baseline" and type(baseline.get("version")) is int
+                        and baseline["version"] == 1 and is_ref(baseline.get("implementation_ref"))
+                        and is_ref(baseline.get("configuration_ref")), "native_baseline_binding_required")
+                dependencies.update([baseline_ref, baseline["implementation_ref"], baseline["configuration_ref"]])
+                samples = report.get("samples")
+                complete = (report.get("boundary") == ["retrieval", "proposal", "consume", "reopen"]
+                    and type(samples) is list and 0 < len(samples) <= 512)
+                keys, times = {"baseline": set(), "candidate": set()}, {"baseline": [], "candidate": []}
+                if type(samples) is list:
+                    require(len(samples) <= 512, "bounded_native_cost_samples_required")
+                    for row in samples:
+                        require(type(row) is dict and type(row.get("role")) is str and row["role"] in keys and type(row.get("task_id")) is str
+                                and type(row.get("repeat")) is int and row["repeat"] >= 0, "native_cost_sample_binding_required")
+                        role, key = row["role"], (row["task_id"], row["repeat"])
+                        expected_implementation = baseline["implementation_ref"] if role == "baseline" else policy["implementation_ref"]
+                        expected_configuration = baseline["configuration_ref"] if role == "baseline" else policy["configuration_ref"]
+                        require(row.get("implementation_ref") == expected_implementation and
+                                row.get("configuration_ref") == expected_configuration, "native_cost_execution_mismatch")
+                        require(key not in keys[role], "duplicate_cost_sample")
+                        keys[role].add(key)
+                        phases = row.get("phase_wall_ns")
+                        measured = (row.get("execution_status") == "completed" and type(row.get("wall_ns")) is int
+                            and row["wall_ns"] > 0 and type(row.get("cpu_ns")) is int and row["cpu_ns"] >= 0
+                            and type(phases) is dict and set(phases) == {"retrieval", "proposal", "consume", "reopen"}
+                            and all(type(value) is int and value >= 0 for value in phases.values())
+                            and sum(phases.values()) <= row["wall_ns"])
+                        complete = complete and measured
+                        if measured:
+                            times[role].append(row["wall_ns"])
+                if keys["baseline"] or keys["candidate"]:
+                    require(keys["baseline"] == keys["candidate"] and
+                            {case for _, case in seen_cases} <= {case for case, _ in keys["candidate"]}, "cost_quality_case_mismatch")
+                if complete:
+                    base = sorted(times["baseline"])[math.ceil(.95 * len(times["baseline"])) - 1]
+                    candidate = sorted(times["candidate"])[math.ceil(.95 * len(times["candidate"])) - 1]
+                    cost.update(available=True, baseline_p95_ns=base, candidate_p95_ns=candidate, p95_ratio=candidate / base)
+            if not cost["available"]:
+                reasons.append("native_full_cost_unavailable")
+            elif cost["p95_ratio"] > self.protocol["max_p95_ratio"]:
+                reasons.append("latency_gate_not_met")
+            # The trusted hook must freshly validate the complete immutable chain,
+            # expected-effect judgement and end-to-end cost, not just an emitter marker.
+            required = tuple(sorted(dependencies))
+            validation = revalidate(required) if callable(revalidate) else None
+            rights_valid = (type(validation) is dict and set(validation) == {"status", "checked"}
+                and validation["status"] == "valid" and type(validation["checked"]) is list
+                and all(type(ref) is str for ref in validation["checked"]) and sorted(validation["checked"]) == list(required))
+            if not rights_valid:
+                reasons.append("native_rights_and_currentness_unverified")
+            observed = [row for row in resolved if row["eligible"] and row["native_effect_verified"] and row["native_label_current"]]
+            successes = sum(row["success"] is True for row in observed)
+            rate = successes / len(observed) if observed else None
+            unobserved = len(resolved) - len(observed)
+            if len(observed) < self.protocol["min_observed"]:
+                reasons.append("insufficient_observed_evidence")
+            if unobserved > self.protocol["max_unobserved"]:
+                reasons.append("unavailable_or_withdrawn_evidence")
+            if rate is not None and rate < self.protocol["min_success_rate"]:
+                reasons.append("quality_gate_not_met")
+            if dependencies & revoked:
+                reasons.append("revoked_dependency")
+            assessment = {"schema": "native-effects-v1", "policy_ref": policy_ref, "protocol_ref": self.protocol_ref,
+                "runs": resolved, "cost": cost, "observed": len(observed), "unobserved": unobserved,
+                "successes": successes, "success_rate": rate, "reasons": sorted(set(reasons)),
+                "eligible_for_admission_review": not reasons, "dependencies": sorted(dependencies),
+                "native_revalidation": {"status": "valid" if rights_valid else "unverified", "checked": list(required) if rights_valid else []},
+                "provenance_authenticated": False, "authorized_for_learning": False, "runtime_activated": False}
+            assessment_ref = self._save(connection, "assessment", assessment)
+            return self._event(connection, policy_ref, "evaluated", expected_seq, {"assessment_ref": assessment_ref})
+
+
     def inspect(self, policy_ref):
         with self.transaction() as connection:
             head = self._head(connection, policy_ref)

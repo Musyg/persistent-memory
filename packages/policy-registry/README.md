@@ -4,7 +4,7 @@
 
 Record immutable policies, their evaluation evidence, explicit admissions and rollbacks. The registry uses SQLite and the Python standard library. It is independent of `hermes-memory-core` and needs no model, service or private data.
 
-Five policy families can be represented: prompt, retrieval, routing, workflow and skill. This version implements **one retrieval-report evaluation adapter**. Representing a family does not provide an optimizer for that family.
+Five policy families can be represented: prompt, retrieval, routing, workflow and skill. This version implements retrieval-report evaluation and a native-effect assessment adapter for retrieval policies. Representing a family does not provide an optimizer for that family.
 
 ## Install and try
 
@@ -24,13 +24,15 @@ python3 -m unittest discover -s tests -v
 hermes-policy --help
 ```
 
-The source distribution includes20 author tests,14 independent tests and2 public-demo tests. Tests construct synthetic inputs; neither a private source path nor a live backend is required.
+The source distribution includes21 author tests,14 independent tests and2 public-demo tests. Tests construct synthetic inputs; neither a private source path nor a live backend is required.
 
 ## Contracts
 
-`Registry.create(path, load_learning_records(), protocol)` creates an exclusive database under an existing private parent. Use `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `admit`, `revoke`, `rollback` and `inspect`. State changes use expected-sequence compare-and-swap.
+`Registry.create(path, load_learning_records(), protocol)` creates an exclusive database under an existing private parent. Use `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `evaluate_native_effect_reports`, `admit`, `revoke`, `rollback` and `inspect`. State changes use expected-sequence compare-and-swap.
 
 A policy's immutable configuration identifies the exact executed policy digests, including budgets. Declared configurations must all have execution evidence. The adapter checks run, policy, source and outcome references, original record seals, rubric and judge revision. Cost and quality evidence use the same dataset; costs pair candidate and baseline by case/repetition. Duplicate cases cannot inflate the number of observations.
+
+`evaluate_native_effect_reports` accepts the explicit `native-effects-v1` protocol. It checks immutable execution/evaluation/source links, a consumed effect independently reopened from storage, current dependencies and paired wall time covering retrieval, proposal, consumption and reopening. Its 22 synthetic qualification cases include incomplete, tampered, withdrawn and superseded evidence. Provider billing, CPU ratios, RSS and energy are not assessed. This is a Python API; the existing CLI/demo still exercises retrieval reports. It does not install a learning loop or activate a policy. See [native-effect provenance](PROVENANCE-native-effects-v1.json).
 
 Observed false/zero means observed failure. Unavailable, not sampled and withdrawn remain unobserved. A later correction or withdrawal invalidates the previous assessment; source revocation makes dependent admission ineffective. Records remain available. A rollback is terminal for an artifact; revised code or configuration has a new identity.
 

@@ -233,5 +233,229 @@ class RegistryTests(unittest.TestCase):
                 self.evaluate()
 
 
+    def test_native_effects_v1_exact_evidence_cost_and_reopened_withdrawal(self):
+        # Synthetic adapter contracts only: no native agent/model quality claim.
+        import hashlib
+        import json
+        judge = {"kind": "executable", "identifier": "native-effects-v1", "revision": "1"}
+        snapshot = {"id": "fact:1", "text": "synthetic current source", "record": {"id": 1, "fact": "synthetic current source"}}
+        effect = {"operation": "create_work_order", "arguments": {"project": "synthetic", "time": "14:30"},
+                  "effect_state": {"work_orders": [{"project": "synthetic", "time": "14:30"}]}}
+        receipt = {**effect, "phase": "after_consumption", "status": "completed",
+                   "authority_check": {"phase": "before_consumption", "status": "current"}}
+        reopening = {"phase": "after_independent_reopen", "effect_ref": identity(effect)}
+        rubric = identity({"schema": "native-effects-v1", "synthetic_expected_effect": effect})
+        native_policy = {"id": "native-synthetic-only", "implementation_ref": "sha256:" + self.code,
+                         "budget": {"top_k": 1, "max_context_chars": 100}}
+        configuration = identity({"schema": "execution-policy-set-v1", "policy_refs": [identity(native_policy)]})
+        baseline = {"schema": "native-effects-v1-baseline", "version": 1,
+                    "implementation_ref": "sha256:" + "b" * 64,
+                    "configuration_ref": identity({"synthetic_baseline": "core_lexical_budgeted", "budget": native_policy["budget"]})}
+        safety = identity({"schema": "native-effects-v1", "authorization_changes": False,
+                           "cost_boundary": ["retrieval", "proposal", "consume", "reopen"]})
+        profile = {**self.protocol, "judge": judge, "rubric_refs": [rubric], "safety_contract_ref": safety}
+        # A controlled existing-fixture SQLite source/effect, independently reopened
+        # by the trusted validation callback. This does not execute the real consumer.
+        effects_path = self.path / "synthetic-native-effects.sqlite"
+        with sqlite3.connect(effects_path) as connection:
+            connection.execute("CREATE TABLE source(body TEXT, allowed INTEGER, current INTEGER)")
+            connection.execute("INSERT INTO source VALUES(?,1,1)", (snapshot["text"],))
+            connection.execute("CREATE TABLE work_orders(project TEXT, time TEXT)")
+            connection.execute("INSERT INTO work_orders VALUES('synthetic','14:30')")
+        scenarios = ("valid", "source-tamper", "outcome-tamper", "reopen-tamper", "output-only", "missing-rights",
+                     "partial-rights", "rights-withdrawn", "missing-cost", "retrieval-only-cost", "unknown-cpu",
+                     "duplicate-run", "duplicate-case", "wrong-execution", "false-zero", "not-sampled",
+                     "cost-refusal", "stale-sequence", "withdraw-label-session-B", "revoke-source-session-B", "selected-only",
+                     "stale-evaluation")
+        results = []
+        for scenario in scenarios:
+            with self.subTest(native_contract=scenario):
+                registry = Registry.create(self.path / ("native-" + scenario + ".sqlite"), self.records, profile)
+                baseline_ref = registry.add_report(baseline)
+                artifact = {**self.artifact, "name": "synthetic-native-assessment-" + scenario,
+                            "implementation_ref": "sha256:" + self.code, "configuration_ref": configuration,
+                            "safety_contract_ref": safety, "execution_policy_refs": [identity(native_policy)], "dependencies": [baseline_ref]}
+                proposed = registry.propose(artifact); policy_ref = proposed["policy_ref"]
+                outcome = {"execution_status": "completed", "consumer_action_observation": copy.deepcopy(receipt),
+                           "synthetic": True, "authorized_for_learning": False, "provenance_verified": False}
+                if scenario == "false-zero":
+                    outcome["consumer_action_observation"]["effect_state"] = {"work_orders": []}
+                    with sqlite3.connect(effects_path) as connection:
+                        connection.execute("DELETE FROM work_orders")
+                if scenario == "selected-only":
+                    outcome["consumer_action_observation"]["phase"] = "after_selection"
+                if scenario == "output-only":
+                    outcome.pop("consumer_action_observation")
+                    outcome["generated_proposal"] = copy.deepcopy(effect)
+                experience = self.records.seal({"schema_version": self.records.VERSION, "kind": "experience",
+                    "created_at": "2026-10-14T00:00:00Z", "case_id": "synthetic-native-case", "family": "retrieval",
+                    "policy_ref": identity(native_policy), "source_refs": [identity(snapshot)], "lineage_status": "observed",
+                    "outcome_ref": identity(outcome)})
+                evaluation = self.records.seal({"schema_version": self.records.VERSION, "kind": "evaluation",
+                    "created_at": "2026-10-14T00:00:00Z", "experience_ref": experience["record_id"], "status": "observed",
+                    "success": False if scenario == "false-zero" else True, "score": 0 if scenario == "false-zero" else 10,
+                    "judge": judge, "rubric_ref": rubric, "reason": None, "supersedes": None})
+                if scenario == "not-sampled":
+                    body = {k: v for k, v in evaluation.items() if k != "record_id"}
+                    body.update(status="not_sampled", success=None, score=None, reason="not_sampled")
+                    evaluation = self.records.seal(body)
+                run = {"run_id": "synthetic-native-run", "task_id": experience["case_id"], "policy": native_policy,
+                       "execution": {"implementation_ref": artifact["implementation_ref"], "configuration_ref": configuration},
+                       "outcome": copy.deepcopy(outcome), "source_snapshots": [copy.deepcopy(snapshot)],
+                       "records": {"experience": experience, "evaluation": evaluation}, "reopened_effect": copy.deepcopy(reopening)}
+                if scenario == "false-zero":
+                    observed_effect = {key: outcome["consumer_action_observation"][key] for key in ("operation", "arguments", "effect_state")}
+                    run["reopened_effect"]["effect_ref"] = identity(observed_effect)
+                if scenario == "source-tamper":
+                    run["source_snapshots"][0]["record"]["id"] = 2
+                if scenario == "outcome-tamper":
+                    run["outcome"]["consumer_action_observation"]["effect_state"] = {"work_orders": []}
+                if scenario == "reopen-tamper":
+                    run["reopened_effect"]["effect_ref"] = "sha256:" + "c" * 64
+                if scenario == "output-only":
+                    run.pop("reopened_effect")
+                if scenario == "wrong-execution":
+                    run["execution"]["implementation_ref"] = "sha256:" + "c" * 64
+                report_ref = registry.add_report({"schema": "native-effects-v1", "version": 1,
+                    "data_class": "synthetic", "dataset_sha256": self.dataset, "runs": [run]})
+                links = [{"report_ref": report_ref, "run_id": run["run_id"]}]
+                if scenario == "duplicate-run":
+                    links.append(copy.deepcopy(links[0]))
+                if scenario == "duplicate-case":
+                    repeated = copy.deepcopy(run)
+                    repeated["run_id"] += "-same-case"
+                    repeated_experience = {k: v for k, v in experience.items() if k != "record_id"}
+                    repeated_experience["created_at"] = "2026-10-14T00:00:01Z"
+                    repeated["records"]["experience"] = self.records.seal(repeated_experience)
+                    repeated_evaluation = {k: v for k, v in evaluation.items() if k != "record_id"}
+                    repeated_evaluation["experience_ref"] = repeated["records"]["experience"]["record_id"]
+                    repeated["records"]["evaluation"] = self.records.seal(repeated_evaluation)
+                    repeated_ref = registry.add_report({"schema": "native-effects-v1", "version": 1,
+                        "data_class": "synthetic", "dataset_sha256": self.dataset, "runs": [repeated]})
+                    links.append({"report_ref": repeated_ref, "run_id": repeated["run_id"]})
+                correction = None
+                if scenario == "stale-evaluation":
+                    registry.add_record(experience); registry.add_record(evaluation)
+                    body = {k: v for k, v in evaluation.items() if k != "record_id"}
+                    body.update(created_at="2026-10-14T00:00:01Z", supersedes=evaluation["record_id"])
+                    correction = self.records.seal(body)
+                    registry.add_record(correction)
+                samples = [{"role": role, "task_id": experience["case_id"], "repeat": 0, "execution_status": "completed",
+                    "wall_ns": 100 if role == "baseline" else 200 if scenario == "cost-refusal" else 100,
+                    "implementation_ref": baseline["implementation_ref"] if role == "baseline" else artifact["implementation_ref"],
+                    "configuration_ref": baseline["configuration_ref"] if role == "baseline" else configuration,
+                    "cpu_ns": 0, "phase_wall_ns": {"retrieval": 10, "proposal": 20, "consume": 20, "reopen": 10}}
+                    for role in ("baseline", "candidate")]
+                if scenario == "unknown-cpu":
+                    samples[1]["cpu_ns"] = None
+                cost_ref = registry.add_report({"schema": "native-effects-v1-cost", "version": 1, "data_class": "synthetic",
+                    "dataset_sha256": self.dataset, "candidate_implementation_ref": artifact["implementation_ref"],
+                    "baseline_ref": baseline_ref,
+                    "configuration_ref": configuration, "boundary": ["retrieval"] if scenario == "retrieval-only-cost"
+                    else ["retrieval", "proposal", "consume", "reopen"], "samples": samples})
+                if scenario == "missing-cost":
+                    cost_ref = None
+                expected_refs = {identity(snapshot), identity(native_policy), identity(outcome), report_ref,
+                    experience["record_id"], evaluation["record_id"], rubric, policy_ref, identity(profile),
+                    artifact["implementation_ref"], configuration, safety, baseline_ref}
+                if "consumer_action_observation" in outcome:
+                    expected_refs.add(identity(outcome["consumer_action_observation"]))
+                if "reopened_effect" in run:
+                    expected_refs.add(identity(run["reopened_effect"]))
+                if cost_ref is not None:
+                    expected_refs.update([cost_ref, baseline["implementation_ref"], baseline["configuration_ref"]])
+                if correction is not None:
+                    expected_refs.add(correction["record_id"])
+                expected_refs = sorted(expected_refs)
+                checked = []
+                def revalidate(refs):
+                    checked.append(list(refs))
+                    with sqlite3.connect(effects_path.resolve().as_uri() + "?mode=ro", uri=True) as observed:
+                        source = observed.execute("SELECT body,allowed,current FROM source").fetchone()
+                        actual_effect = observed.execute("SELECT project,time FROM work_orders").fetchall()
+                    # Reopened state is judged against the versioned expected effect;
+                    # wrapper success, selection and proposal output are insufficient.
+                    actual_state = {"work_orders": [{"project": project, "time": clock} for project, clock in actual_effect]}
+                    receipt_effect = outcome.get("consumer_action_observation", {}).get("effect_state")
+                    success = actual_state == effect["effect_state"]
+                    label = correction or evaluation
+                    judged = label["status"] != "observed" or (label["success"] is success and label["score"] == (10 if success else 0))
+                    valid = (list(refs) == expected_refs and source == (snapshot["text"], 1, 1)
+                             and actual_state == receipt_effect and judged)
+                    return {"status": "valid" if valid else "unverified", "checked": list(refs)[:-1] if scenario == "partial-rights" else list(refs)}
+                validator = None if scenario == "missing-rights" else revalidate
+                if scenario == "rights-withdrawn":
+                    with sqlite3.connect(effects_path) as connection:
+                        connection.execute("UPDATE source SET allowed=0")
+                failures = {"source-tamper": "native_snapshot_identity_mismatch", "outcome-tamper": "native_outcome_identity_mismatch",
+                            "wrong-execution": "native_execution_binding_mismatch", "duplicate-run": "duplicate_run",
+                            "duplicate-case": "duplicate_quality_case", "stale-sequence": "stale_policy_state"}
+                try:
+                    expected_seq = proposed["seq"] - 1 if scenario == "stale-sequence" else proposed["seq"]
+                    if scenario in failures:
+                        with self.assertRaisesRegex(PolicyError, failures[scenario]):
+                            registry.evaluate_native_effect_reports(policy_ref, links, cost_ref, expected_seq, validator)
+                        self.assertEqual(registry.inspect(policy_ref)["state"], "proposed")
+                        results.append({"case": scenario, "refused_before_event": failures[scenario]})
+                        continue
+                    event = registry.evaluate_native_effect_reports(policy_ref, links, cost_ref, expected_seq, validator)
+                    state = Registry(registry.path, self.records).inspect(policy_ref)
+                    assessment = state["assessment"]
+                    self.assertEqual(state["state"], "evaluated"); self.assertTrue(state["assessment_current"])
+                    self.assertFalse(state["runtime_activated"]); self.assertFalse(assessment["authorized_for_learning"])
+                    self.assertFalse(assessment["provenance_authenticated"])
+                    eligible = scenario in ("valid", "withdraw-label-session-B", "revoke-source-session-B")
+                    self.assertEqual(assessment["eligible_for_admission_review"], eligible, scenario)
+                    if validator is not None:
+                        self.assertEqual(checked, [assessment["dependencies"]])
+                    if scenario == "valid":
+                        raw_source = json.dumps(snapshot, indent=2).encode("utf-8")
+                        self.assertNotEqual("sha256:" + hashlib.sha256(raw_source).hexdigest(), identity(snapshot))
+                        self.assertEqual(assessment["native_revalidation"]["checked"], expected_refs)
+                        self.assertEqual(assessment["cost"]["p95_ratio"], 1)
+                        self.assertTrue(assessment["cost"]["available"])  # measured CPU zero is valid
+                    if scenario in ("missing-rights", "partial-rights", "rights-withdrawn"):
+                        self.assertIn("native_rights_and_currentness_unverified", assessment["reasons"])
+                    if scenario in ("missing-cost", "retrieval-only-cost", "unknown-cpu"):
+                        self.assertIn("native_full_cost_unavailable", assessment["reasons"])
+                        self.assertIsNone(assessment["cost"]["p95_ratio"])
+                    if scenario in ("output-only", "selected-only", "reopen-tamper"):
+                        self.assertIn("native_consumed_effect_or_reopen_unverified", assessment["reasons"])
+                    if scenario == "stale-evaluation":
+                        self.assertIn("native_report_evaluation_superseded", assessment["reasons"])
+                        self.assertFalse(assessment["runs"][0]["native_label_current"])
+                        self.assertEqual(assessment["observed"], 0)
+                    if scenario == "false-zero":
+                        self.assertIs(assessment["runs"][0]["success"], False); self.assertEqual(assessment["runs"][0]["score"], 0)
+                        self.assertEqual((assessment["observed"], assessment["successes"], assessment["success_rate"]), (1, 0, 0.0))
+                        self.assertIn("quality_gate_not_met", assessment["reasons"])
+                    if scenario == "not-sampled":
+                        self.assertIsNone(assessment["success_rate"]); self.assertEqual(assessment["observed"], 0)
+                    if not eligible:
+                        with self.assertRaisesRegex(PolicyError, "evaluation_gate_refused"):
+                            registry.admit(policy_ref, event["seq"], lambda refs: {"status": "valid", "checked": list(refs)})
+                    if scenario in ("withdraw-label-session-B", "revoke-source-session-B"):
+                        registry.admit(policy_ref, event["seq"], lambda refs: {"status": "valid", "checked": list(refs)})
+                        session_b = Registry(registry.path, self.records)
+                        self.assertEqual(session_b.inspect(policy_ref)["effective_state"], "admitted")
+                        if scenario == "withdraw-label-session-B":
+                            revision = {k: v for k, v in evaluation.items() if k != "record_id"}
+                            revision.update(created_at="2026-10-14T00:01:00Z", status="withdrawn", success=None, score=None,
+                                            reason="label_withdrawn", supersedes=evaluation["record_id"])
+                            session_b.add_record(self.records.seal(revision))
+                        else:
+                            session_b.revoke(identity(snapshot), "synthetic source withdrawal")
+                        session_c = Registry(registry.path, self.records)
+                        self.assertEqual(session_c.inspect(policy_ref)["effective_state"], "rollback")
+                        self.assertFalse(session_c.inspect(policy_ref)["runtime_activated"])
+                    results.append({"case": scenario, "eligible_for_review": eligible, "reasons": assessment["reasons"]})
+                finally:
+                    with sqlite3.connect(effects_path) as connection:
+                        connection.execute("UPDATE source SET allowed=1")
+                        connection.execute("DELETE FROM work_orders")
+                        connection.execute("INSERT INTO work_orders VALUES('synthetic','14:30')")
+        self.assertEqual(len(results), len(scenarios))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

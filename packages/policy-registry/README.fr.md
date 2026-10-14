@@ -4,7 +4,7 @@
 
 Ce registre conserve des politiques immuables, leurs preuves d'évaluation, les admissions explicites et les retraits. Il utilise SQLite et la bibliothèque standard Python. Il fonctionne indépendamment de `hermes-memory-core`, sans modèle, service ni données privées.
 
-Cinq familles peuvent être représentées : prompt, récupération, routage, workflow et compétence. Cette version fournit **un adaptateur d'évaluation de rapports de récupération**. Elle ne fournit pas cinq optimiseurs.
+Cinq familles peuvent être représentées : prompt, récupération, routage, workflow et compétence. Cette version fournit une évaluation de rapports et un adaptateur d'évaluation des effets natifs pour les politiques de récupération. Elle ne fournit pas cinq optimiseurs.
 
 ## Installer et essayer
 
@@ -24,13 +24,15 @@ python3 -m unittest discover -s tests -v
 hermes-policy --help
 ```
 
-La distribution source contient20 tests auteur,14 tests indépendants et2 tests de démonstration publique. Tous utilisent des données synthétiques, sans chemin privé ni service réel.
+La distribution source contient21 tests auteur,14 tests indépendants et2 tests de démonstration publique. Tous utilisent des données synthétiques, sans chemin privé ni service réel.
 
 ## Contrats
 
-`Registry.create(path, load_learning_records(), protocol)` crée exclusivement une nouvelle base sous un parent privé existant. Les opérations sont `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `admit`, `revoke`, `rollback` et `inspect`. Toute transition vérifie la séquence attendue avant écriture.
+`Registry.create(path, load_learning_records(), protocol)` crée exclusivement une nouvelle base sous un parent privé existant. Les opérations sont `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `evaluate_native_effect_reports`, `admit`, `revoke`, `rollback` et `inspect`. Toute transition vérifie la séquence attendue avant écriture.
 
 La configuration immuable désigne les empreintes exactes des politiques exécutées, budgets compris. Toutes les variantes déclarées doivent avoir été exercées. L'adaptateur vérifie les liens entre exécution, politique, sources, résultats, empreintes d'enregistrements, grille et révision du juge. Coût et qualité portent sur le même jeu de données ; les durées candidat et référence sont appariées par cas et répétition. Les doublons ne peuvent pas gonfler le nombre d'observations.
+
+`evaluate_native_effect_reports` accepte le protocole explicite `native-effects-v1`. Il vérifie les liens immuables entre exécutions, évaluations et sources, un effet consommé puis relu indépendamment dans le stockage, les dépendances actuelles et des durées appariées couvrant récupération, proposition, consommation et relecture. Ses 22 cas de qualification synthétiques comprennent les preuves incomplètes, altérées, retirées et remplacées. La facturation fournisseur, les ratios CPU, la RAM et l’énergie ne sont pas évalués. Cette fonction est une API Python ; la CLI et la démonstration existantes utilisent encore les rapports de récupération. Elle n’installe aucune boucle d’apprentissage et n’active aucune politique. Voir la [provenance des effets natifs](PROVENANCE-native-effects-v1.json).
 
 Un résultat observé faux ou nul reste un échec observé. Une donnée indisponible, non échantillonnée ou retirée reste non observée. Une correction ou un retrait invalide l'ancienne évaluation ; la révocation d'une source rend l'admission dépendante inefficace. Les enregistrements sont conservés. Un rollback est terminal pour cet artefact ; un code ou une configuration révisés ont une nouvelle identité.
 
