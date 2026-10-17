@@ -8,4 +8,4 @@ Run the installed-artifact suite described in `docs/TESTING.md`. Document before
 
 Do not submit private memories, conversations, credentials, model account tokens, production logs, host topology, database backups or personal embeddings. Use minimal generated fixtures. A contribution must identify its license and provenance. This project's MIT license applies to its original code; third-party assets require their own compatible permissions.
 
-The current alpha reserves a separate policy-evidence module for future evaluated/admitted/rollback decisions. No learning algorithm may change user permissions, bypass authority revalidation or silently promote an experimental policy.
+The optional [policy registry](PACKAGES.md) records proposals, evaluations, explicit admissions and rollbacks. No learning algorithm may change user permissions, bypass authority revalidation or silently promote an experimental policy.

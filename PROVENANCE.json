@@ -15,8 +15,14 @@
       "path": "CONTRIBUTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6"
+      "transformation": "documentation-only correction: link the existing optional policy registry instead of reserving a future module; code and permissions unchanged",
+      "package_sha256": "567835fe3e266c90108aa3fdd6a674ef494a0b2bd86e1a59648d88f23a47b115",
+      "assembly_history": [
+        {
+          "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "LICENSE",
