@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hermes-policy-registry"
-version = "0.2.0a1"
+version = "0.2.0a2"
 description = "Immutable policy and evaluation registry; explicit admission without runtime authorization"
 readme = "README.md"
 requires-python = ">=3.11"

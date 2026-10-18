@@ -15,8 +15,8 @@
       "path": "MANIFEST.in",
       "origin": "new-public-synthetic-demo-or-doc",
       "original_sha256": null,
-      "package_sha256": "0d7dce0cb5388bce6f2e6258ef1b586811a605c338e73f9d9a7f7d4aee07647b",
-      "transformation": "new synthetic fixture/example/test or documentation"
+      "package_sha256": "2c8c2797e0cf0d3efb70a803408771857aa65f2053444abf6318b733461f9fcd",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
     },
     {
       "path": "NOTICE.md",
@@ -26,25 +26,39 @@
       "transformation": "byte-identical"
     },
     {
-      "path": "pyproject.toml",
-      "origin": "policy-registry-r2/pyproject.toml",
-      "original_sha256": "49f7843415980707d2dcbad15ebab32c6c1c782f9dde9276e546d58c26fd4b4d",
-      "package_sha256": "e814120d27bc10a4a7edf5f03f05f67f3cc902405d926a0d195897c3aabdfd09",
-      "transformation": "public packaging/docs only"
+      "path": "PROVENANCE-native-effects-v1.json",
+      "origin": "new-public-generic-workflow-or-synthetic-fixture",
+      "original_sha256": null,
+      "package_sha256": "53d29bae1ba8f016e23ab9272d3291c5deb5a142e1bfb25df9860f52cdb07cc8",
+      "transformation": "New reusable workflow assessment provenance or synthetic test."
+    },
+    {
+      "path": "PROVENANCE-workflow-effects-v1.json",
+      "origin": "new-public-generic-workflow-or-synthetic-fixture",
+      "original_sha256": null,
+      "package_sha256": "8a48af0a34843bc77a298357264f394156f2cbb778aab97f49583b4ba28a3f6e",
+      "transformation": "New reusable workflow assessment provenance or synthetic test."
     },
     {
       "path": "README.fr.md",
       "origin": "new-public-synthetic-demo-or-doc",
       "original_sha256": null,
-      "package_sha256": "4045107d7a26368d80a8a973d1f7931e1fd4d3256cbe5e45dc4e24b64e8bfa94",
-      "transformation": "new synthetic fixture/example/test or documentation"
+      "package_sha256": "dde2656af405f43254cb3a4eee075bfd084789706c5d6009319d0dddb26efe10",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
     },
     {
       "path": "README.md",
       "origin": "policy-registry-r2/README.md",
       "original_sha256": "1778a7ccc1cce53404562b3416c4a20f4084150bdd2d74c58423efa860738abe",
-      "package_sha256": "23301db63631facd5efa08dbb4f1e934bdd178fd5d1b2621c60028de7b0d2927",
-      "transformation": "public packaging/docs only"
+      "package_sha256": "e95513f5cfdfa0591d2509815d2a7523cf2a3c373c0ccd355572c3b0cab997ca",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
+    },
+    {
+      "path": "pyproject.toml",
+      "origin": "policy-registry-r2/pyproject.toml",
+      "original_sha256": "49f7843415980707d2dcbad15ebab32c6c1c782f9dde9276e546d58c26fd4b4d",
+      "package_sha256": "fcd20c9fc59efefd46b5f9a4e09cbfec51bad59b4a8d6d90a3c2eef7b4a3449c",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
     },
     {
       "path": "src/hermes_policy_registry/__init__.py",
@@ -92,8 +106,8 @@
       "path": "src/hermes_policy_registry/registry.py",
       "origin": "policy-registry-r2/src/hermes_policy_registry/registry.py",
       "original_sha256": "13960628d0d476983b89d36667cbd73ecdbd1336b23441125cec317df338eccd",
-      "package_sha256": "13960628d0d476983b89d36667cbd73ecdbd1336b23441125cec317df338eccd",
-      "transformation": "byte-identical"
+      "package_sha256": "66d114d246619c983de05803c32f5b58b79b93221fa24f445be2a9afa74b0631",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
     },
     {
       "path": "tests/test_independent_registry.py",
@@ -101,6 +115,13 @@
       "original_sha256": "94a409ff2cc24bb78ac5e4b9660ddabafabc245e7108dc11caf454eab8f0166f",
       "package_sha256": "94a409ff2cc24bb78ac5e4b9660ddabafabc245e7108dc11caf454eab8f0166f",
       "transformation": "byte-identical"
+    },
+    {
+      "path": "tests/test_independent_workflow_effects.py",
+      "origin": "new-public-generic-workflow-or-synthetic-fixture",
+      "original_sha256": null,
+      "package_sha256": "bb47f145948a6ec245d6f72d4b066a80fb58d447c581ac93f10dfcbbd30e7a48",
+      "transformation": "New reusable workflow assessment provenance or synthetic test."
     },
     {
       "path": "tests/test_public_demo.py",
@@ -113,8 +134,52 @@
       "path": "tests/test_registry.py",
       "origin": "policy-registry-r2/tests/test_registry.py",
       "original_sha256": "7ca4a13dae9ab993ba7e77b402238d123f38610593589c458cf9a4773e877150",
-      "package_sha256": "7ca4a13dae9ab993ba7e77b402238d123f38610593589c458cf9a4773e877150",
-      "transformation": "byte-identical"
+      "package_sha256": "26801d753505c83b96473a286eb445ee0867330ce86ca595117c299a160c0df6",
+      "transformation": "Qualified workflow assessment extension, independent synthetic fixture, versioned packaging or public documentation."
+    }
+  ],
+  "package_version": "0.2.0a2",
+  "assembly_history": [
+    {
+      "package_version": "0.2.0a2",
+      "changes": [
+        {
+          "path": "MANIFEST.in",
+          "previous_package_sha256": "0d7dce0cb5388bce6f2e6258ef1b586811a605c338e73f9d9a7f7d4aee07647b",
+          "previous_transformation": "new synthetic fixture/example/test or documentation",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        },
+        {
+          "path": "pyproject.toml",
+          "previous_package_sha256": "e814120d27bc10a4a7edf5f03f05f67f3cc902405d926a0d195897c3aabdfd09",
+          "previous_transformation": "public packaging/docs only",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        },
+        {
+          "path": "README.fr.md",
+          "previous_package_sha256": "4045107d7a26368d80a8a973d1f7931e1fd4d3256cbe5e45dc4e24b64e8bfa94",
+          "previous_transformation": "new synthetic fixture/example/test or documentation",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        },
+        {
+          "path": "README.md",
+          "previous_package_sha256": "23301db63631facd5efa08dbb4f1e934bdd178fd5d1b2621c60028de7b0d2927",
+          "previous_transformation": "public packaging/docs only",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        },
+        {
+          "path": "src/hermes_policy_registry/registry.py",
+          "previous_package_sha256": "13960628d0d476983b89d36667cbd73ecdbd1336b23441125cec317df338eccd",
+          "previous_transformation": "byte-identical",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        },
+        {
+          "path": "tests/test_registry.py",
+          "previous_package_sha256": "7ca4a13dae9ab993ba7e77b402238d123f38610593589c458cf9a4773e877150",
+          "previous_transformation": "byte-identical",
+          "reason": "Public workflow assessment delta or current provenance reconciliation."
+        }
+      ]
     }
   ]
 }

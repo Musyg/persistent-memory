@@ -45,8 +45,8 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "39762f854de2ca6d9c9a70bb048e4426c70321a12ba8ed4c80a93f196c0e3f9c",
+      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
+      "package_sha256": "af06c6ecd7b62c43ebcc35f287113f21aa4499d19ce2129ae38bcb6c0139b5a1",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
@@ -60,8 +60,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "bd2ead4f054f2cf05d1e39e2cd03a34f91e4d8697e082f8053c6078877b10b2c",
+      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
+      "package_sha256": "a2183add715b25cb2400682a5abd199790f352bb966ae22373527cf599cec036",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -76,8 +76,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "425ce163cd1fca7126d7dbf5d21ba9d6dd7c8df566ae1a4c785ca0604d310a1c",
+      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
+      "package_sha256": "f1d0c5c77a8de17eb98caf1f59ebc9e65173852fd26d9d62e891f74be2c5cf84",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -210,6 +210,62 @@
       "original_sha256": null,
       "transformation": "new generic source, documentation or synthetic fixture",
       "package_sha256": "944d7688f8e0b78114083664156277b24c310434762b940d5421733a7cae882f"
+    },
+    {
+      "path": "packages/policy-registry/MANIFEST.in",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "2c8c2797e0cf0d3efb70a803408771857aa65f2053444abf6318b733461f9fcd",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/PROVENANCE-workflow-effects-v1.json",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "8a48af0a34843bc77a298357264f394156f2cbb778aab97f49583b4ba28a3f6e",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/PROVENANCE.json",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "e6b04c97c18e18e0b8f7fafd5fb233dee49f73790c35a10b88e2223f56076d96",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/README.fr.md",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "dde2656af405f43254cb3a4eee075bfd084789706c5d6009319d0dddb26efe10",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/README.md",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "e95513f5cfdfa0591d2509815d2a7523cf2a3c373c0ccd355572c3b0cab997ca",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/pyproject.toml",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "fcd20c9fc59efefd46b5f9a4e09cbfec51bad59b4a8d6d90a3c2eef7b4a3449c",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/src/hermes_policy_registry/registry.py",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "66d114d246619c983de05803c32f5b58b79b93221fa24f445be2a9afa74b0631",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+    },
+    {
+      "path": "packages/policy-registry/tests/test_independent_workflow_effects.py",
+      "origin": "public-generic-workflow-assessment-or-synthetic-test",
+      "original_sha256": null,
+      "package_sha256": "bb47f145948a6ec245d6f72d4b066a80fb58d447c581ac93f10dfcbbd30e7a48",
+      "transformation": "New generic reusable workflow provenance or independent synthetic test."
     },
     {
       "path": "pyproject.toml",
@@ -587,5 +643,29 @@
     "full_installed_release_qualification": "pending new release CI; prior installed observations retained",
     "historical_release_provenance_unchanged": true,
     "human_or_voice_authentication_claimed": false
-  }
+  },
+  "assembly_history": [
+    {
+      "public_component": "hermes-policy-registry",
+      "package_version": "0.2.0a2",
+      "changes": [
+        {
+          "path": "README.md",
+          "previous_package_sha256": "425ce163cd1fca7126d7dbf5d21ba9d6dd7c8df566ae1a4c785ca0604d310a1c",
+          "previous_transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        },
+        {
+          "path": "README.fr.md",
+          "previous_package_sha256": "bd2ead4f054f2cf05d1e39e2cd03a34f91e4d8697e082f8053c6078877b10b2c",
+          "previous_transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        },
+        {
+          "path": "PACKAGES.md",
+          "previous_package_sha256": "39762f854de2ca6d9c9a70bb048e4426c70321a12ba8ed4c80a93f196c0e3f9c",
+          "previous_transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        }
+      ],
+      "scope": "Independent installable optional package; core version and release assets preserved."
+    }
+  ]
 }

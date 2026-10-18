@@ -4,7 +4,7 @@
 
 Record immutable policies, their evaluation evidence, explicit admissions and rollbacks. The registry uses SQLite and the Python standard library. It is independent of `hermes-memory-core` and needs no model, service or private data.
 
-Five policy families can be represented: prompt, retrieval, routing, workflow and skill. This version implements retrieval-report evaluation and a native-effect assessment adapter for retrieval policies. Representing a family does not provide an optimizer for that family.
+Five policy families can be represented: prompt, retrieval, routing, workflow and skill. Version 0.2.0a2 implements retrieval-report evaluation and native-effect assessment for retrieval and workflow policies. Representing a family does not provide an optimizer for that family.
 
 ## Install and try
 
@@ -24,11 +24,11 @@ python3 -m unittest discover -s tests -v
 hermes-policy --help
 ```
 
-The source distribution includes21 author tests,14 independent tests and2 public-demo tests. Tests construct synthetic inputs; neither a private source path nor a live backend is required.
+The source distribution includes 49 tests: 21 author tests, 14 independent registry tests, 12 independent workflow-effect tests and 2 public-demo tests. Tests construct synthetic inputs; neither a private source path nor a live backend is required.
 
 ## Contracts
 
-`Registry.create(path, load_learning_records(), protocol)` creates an exclusive database under an existing private parent. Use `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `evaluate_native_effect_reports`, `admit`, `revoke`, `rollback` and `inspect`. State changes use expected-sequence compare-and-swap.
+`Registry.create(path, load_learning_records(), protocol)` creates an exclusive database under an existing private parent. Use `propose`, `add_report`, `add_record`, `evaluate_retrieval_reports`, `evaluate_native_effect_reports`, `evaluate_workflow_effect_reports`, `admit`, `revoke`, `rollback` and `inspect`. State changes use expected-sequence compare-and-swap.
 
 A policy's immutable configuration identifies the exact executed policy digests, including budgets. Declared configurations must all have execution evidence. The adapter checks run, policy, source and outcome references, original record seals, rubric and judge revision. Cost and quality evidence use the same dataset; costs pair candidate and baseline by case/repetition. Duplicate cases cannot inflate the number of observations.
 
@@ -39,6 +39,14 @@ Observed false/zero means observed failure. Unavailable, not sampled and withdra
 Admission requires a fresh external dependency-validation callback. The caller must connect it to a trusted authority. The registry cannot authenticate that callback or the judge, and does not deploy, execute or select an active policy. Permission changes are outside the learning process.
 
 The existing `hermes-policy pilot --r3-report ... --r4-report ... --output ...` command accepts the adapter's precise versioned report format. It imports supplied measurements and refuses automatic activation. Such reports are not bundled: the standalone synthetic demo above is the supported zero-input walkthrough. The schema examples in the tests show exact report bindings. An optional `--learning-records` override must match the bundled contract hash.
+
+## Workflow effects (0.2.0a2)
+
+`Registry.evaluate_workflow_effect_reports(policy_ref, run_links, cost_report_ref, expected_seq, revalidate, verify_effect)` assesses the explicit `native-workflow-effects-v1` protocol for the `workflow` family. Reports bind the rule, oracle, dataset, executed configuration, sealed experience/evaluation and consumed effect. The rule, oracle and dataset references must be declared dependencies; the oracle must match the configured rubric.
+
+The host supplies `verify_effect`. It receives a detached JSON envelope containing `schema`, `rule_ref`, `oracle_ref`, `dataset_ref` and `run`. It must independently reopen the actual effect, compare it with the expected outcome and verify the evaluation label. A positive reply has exactly `status: "verified"`, `effect_ref`, `rule_ref`, `oracle_ref` and `dataset_ref`, with matching immutable identities. A report's own acknowledgement or reopening marker is insufficient. The separate `revalidate` callback freshly checks the complete dependency chain.
+
+The adapter retains compare-and-swap, duplicate-case rejection, source withdrawal, evaluation supersession and paired cost checks. Its twelve independent tests use synthetic SQLite effects, including forged success, wrong outcomes, missing verification, stale identities and rollback. Their constructed cost samples test bindings only, not performance. The registry records assessment and explicit admission; a trusted host remains responsible for applying or reverting real workflow behavior. Neither this API nor the unchanged retrieval demo deploys a workflow or trains model weights. See [workflow provenance](PROVENANCE-workflow-effects-v1.json).
 
 ## Boundaries
 

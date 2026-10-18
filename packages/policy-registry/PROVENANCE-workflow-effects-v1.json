@@ -1,0 +1,32 @@
+{
+  "schema": "hermes-policy-registry.workflow-effects-provenance.v1",
+  "package_version": "0.2.0a2",
+  "entry_point": "Registry.evaluate_workflow_effect_reports",
+  "assessment_protocol": "native-workflow-effects-v1",
+  "policy_family": "workflow",
+  "qualified_source_sha256": "66d114d246619c983de05803c32f5b58b79b93221fa24f445be2a9afa74b0631",
+  "qualified_test_sha256": "bb47f145948a6ec245d6f72d4b066a80fb58d447c581ac93f10dfcbbd30e7a48",
+  "source_origin": "Generic reusable policy-registry library and independently authored synthetic SQLite fixtures.",
+  "qualification": {
+    "platform": "Linux",
+    "python": "3.12.3",
+    "tests_passed": 33,
+    "new_workflow_tests": 12,
+    "historical_registry_tests": 21,
+    "synthetic_subtests_passed": 22,
+    "failures": 0,
+    "skips": 0,
+    "provider_calls": 0,
+    "receipt_sha256": "1707a0e9f718ccca592594a08bdc42435f4e71e329af03d24ee7c071372c22b0",
+    "scope": "Focused source-contract qualification before installed distribution verification."
+  },
+  "limits": [
+    "Host verification and dependency callbacks are trusted, not authenticated by the library.",
+    "No automatic deployment, runtime selection, permission change or model-weight training.",
+    "Synthetic binding tests do not establish operational utility or a general quality score.",
+    "Constructed contract-fixture costs are not comparative latency measurements."
+  ],
+  "private_history_included": false,
+  "private_memory_included": false,
+  "private_traces_included": false
+}

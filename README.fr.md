@@ -1,6 +1,6 @@
 # Mémoire persistante pour agents IA
 
-Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`.
+Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.md).
 
 [English](README.md) · [API et service](docs/API.md) · [Contrat de reprise](docs/RECOVERY.md) · [Contribuer](CONTRIBUTING.md)
 

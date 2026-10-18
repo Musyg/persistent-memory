@@ -275,10 +275,22 @@ class Registry:
 
     def evaluate_native_effect_reports(self, policy_ref, run_links, cost_report_ref, expected_seq, revalidate):
         """native-effects-v1 assessment only; trusted revalidation is not runtime activation."""
+        return self._evaluate_effect_reports(policy_ref, run_links, cost_report_ref, expected_seq, revalidate,
+                                             family="retrieval", schema="native-effects-v1")
+
+    def evaluate_workflow_effect_reports(self, policy_ref, run_links, cost_report_ref, expected_seq, revalidate, verify_effect):
+        """Assess host-verified workflow effects; never executes or activates a policy."""
+        require(callable(verify_effect), "workflow_effect_verifier_required")
+        return self._evaluate_effect_reports(policy_ref, run_links, cost_report_ref, expected_seq, revalidate,
+                                             family="workflow", schema="native-workflow-effects-v1",
+                                             verify_effect=verify_effect)
+
+    def _evaluate_effect_reports(self, policy_ref, run_links, cost_report_ref, expected_seq, revalidate, *, family, schema, verify_effect=None):
+        """Shared immutable evidence assessment; never executes or activates a policy."""
         require(type(run_links) is list and 0 < len(run_links) <= 256, "bounded_native_run_links_required")
         require(type(expected_seq) is int and expected_seq >= 0, "native_sequence_required")
-        require(self.protocol["family"] == "retrieval" and self.protocol["judge"] ==
-                {"kind": "executable", "identifier": "native-effects-v1", "revision": "1"},
+        require(self.protocol["family"] == family and self.protocol["judge"] ==
+                {"kind": "executable", "identifier": schema, "revision": "1"},
                 "native_effects_protocol_required")
         require(cost_report_ref is None or is_ref(cost_report_ref), "native_cost_reference_required")
         with self.transaction() as connection:
@@ -292,6 +304,7 @@ class Registry:
                 policy["configuration_ref"], policy["safety_contract_ref"]}
             seen_links, seen_experiences, seen_cases, executed, datasets = set(), set(), set(), set(), set()
             resolved, reasons = [], []
+            workflow_binding = None
             for link in run_links:
                 require(type(link) is dict and set(link) == {"report_ref", "run_id"} and
                         is_ref(link["report_ref"]) and type(link["run_id"]) is str, "invalid_native_run_link")
@@ -299,11 +312,22 @@ class Registry:
                 require(marker not in seen_links, "duplicate_run")
                 seen_links.add(marker)
                 report = self._load(connection, link["report_ref"], "report")
-                require(report.get("schema") == "native-effects-v1" and type(report.get("version")) is int and
+                require(report.get("schema") == schema and type(report.get("version")) is int and
                         report["version"] == 1, "native_effects_report_required")
                 dataset = report.get("dataset_sha256")
                 require(type(dataset) is str and is_ref("sha256:" + dataset), "quality_dataset_required")
                 datasets.add(dataset)
+                if family == "workflow":
+                    rule_ref, oracle_ref = report.get("rule_ref"), report.get("oracle_ref")
+                    dataset_ref = "sha256:" + dataset
+                    require(is_ref(rule_ref) and is_ref(oracle_ref) and
+                            {rule_ref, oracle_ref, dataset_ref} <= set(policy["dependencies"]),
+                            "workflow_rule_oracle_dataset_dependencies_required")
+                    require(oracle_ref in self.protocol["rubric_refs"], "workflow_oracle_not_admitted")
+                    binding = (rule_ref, oracle_ref, dataset_ref)
+                    require(workflow_binding is None or workflow_binding == binding, "workflow_report_binding_mismatch")
+                    workflow_binding = binding
+                    dependencies.update(binding)
                 rows = report.get("runs")
                 require(type(rows) is list and len(rows) <= 256 and all(type(row) is dict for row in rows),
                         "bounded_native_runs_required")
@@ -316,6 +340,9 @@ class Registry:
                         "native_run_fields_required")
                 exp, ev = run["records"]["experience"], run["records"]["evaluation"]
                 self.records.validate(exp); self.records.validate(ev)
+                if family == "workflow":
+                    require(run.get("rule_ref") == rule_ref and run.get("oracle_ref") == oracle_ref and
+                            ev.get("rubric_ref") == oracle_ref, "workflow_run_oracle_binding_mismatch")
                 require(exp["kind"] == "experience" and ev["kind"] == "evaluation" and
                         ev["experience_ref"] == exp["record_id"], "evaluation_experience_binding_mismatch")
                 require(exp["record_id"] not in seen_experiences, "duplicate_experience")
@@ -358,9 +385,19 @@ class Registry:
                         and authority.get("phase") == "before_consumption"
                         and authority.get("status") in {"current", "withdrawn", "unsupported"}
                         and type(effect["operation"]) is str
-                        and effect["operation"] in {"create_work_order", "set_retention_hours", "hold_request", "record_clarification_request"}
-                        and (authority.get("status") == "current" or effect["operation"] in {"hold_request", "record_clarification_request"})
+                        and (family == "workflow" or effect["operation"] in {"create_work_order", "set_retention_hours", "hold_request", "record_clarification_request"})
+                        and (family == "workflow" or authority.get("status") == "current" or effect["operation"] in {"hold_request", "record_clarification_request"})
                         and type(reopened) is dict and reopened == {"phase": "after_independent_reopen", "effect_ref": identity(effect)})
+                    if family == "workflow":
+                        verified = verified and 0 < len(effect["operation"]) <= 128
+                        # Detached JSON prevents a verifier from mutating the imported report.
+                        # The host still owns independent reopening, authority and oracle trust.
+                        evidence = {"schema": schema, "rule_ref": rule_ref, "oracle_ref": oracle_ref,
+                                    "dataset_ref": dataset_ref, "run": run}
+                        checked = verify_effect(json.loads(canonical(evidence))) if verified else None
+                        verified = (verified and type(checked) is dict and
+                            checked == {"status": "verified", "effect_ref": identity(effect),
+                                        "rule_ref": rule_ref, "oracle_ref": oracle_ref, "dataset_ref": dataset_ref})
                     effect_ref = self._save(connection, "report", receipt)
                     dependencies.add(effect_ref)
                     if type(reopened) is dict:
@@ -394,14 +431,14 @@ class Registry:
             if cost_report_ref is not None:
                 dependencies.add(cost_report_ref)
                 report = self._load(connection, cost_report_ref, "report")
-                require(report.get("schema") == "native-effects-v1-cost" and type(report.get("version")) is int and
+                require(report.get("schema") == schema + "-cost" and type(report.get("version")) is int and
                         report["version"] == 1 and report.get("dataset_sha256") in datasets
                         and len(datasets) == 1 and report.get("candidate_implementation_ref") == policy["implementation_ref"]
                         and report.get("configuration_ref") == policy["configuration_ref"], "native_cost_binding_mismatch")
                 baseline_ref = report.get("baseline_ref")
                 require(is_ref(baseline_ref) and baseline_ref in policy["dependencies"], "native_baseline_dependency_required")
                 baseline = self._load(connection, baseline_ref, "report")
-                require(baseline.get("schema") == "native-effects-v1-baseline" and type(baseline.get("version")) is int
+                require(baseline.get("schema") == schema + "-baseline" and type(baseline.get("version")) is int
                         and baseline["version"] == 1 and is_ref(baseline.get("implementation_ref"))
                         and is_ref(baseline.get("configuration_ref")), "native_baseline_binding_required")
                 dependencies.update([baseline_ref, baseline["implementation_ref"], baseline["configuration_ref"]])
@@ -462,7 +499,7 @@ class Registry:
                 reasons.append("quality_gate_not_met")
             if dependencies & revoked:
                 reasons.append("revoked_dependency")
-            assessment = {"schema": "native-effects-v1", "policy_ref": policy_ref, "protocol_ref": self.protocol_ref,
+            assessment = {"schema": schema, "policy_ref": policy_ref, "protocol_ref": self.protocol_ref,
                 "runs": resolved, "cost": cost, "observed": len(observed), "unobserved": unobserved,
                 "successes": successes, "success_rate": rate, "reasons": sorted(set(reasons)),
                 "eligible_for_admission_review": not reasons, "dependencies": sorted(dependencies),
