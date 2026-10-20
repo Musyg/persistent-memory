@@ -55,6 +55,73 @@ pas de nouvelle opération mémoire.
 | 4. Withdraw / Retirer | Current deadline and dependent brief are denied; the language preference remains readable. / Date et brief dérivé refusés ; langue indépendante préservée. |
 | 5. Restore / Restaurer | An old content backup starts quarantined. After current-authority verification, withdrawn versions stay denied and the independent control is readable. / L'ancienne sauvegarde est mise en quarantaine, puis vérifiée contre l'autorité courante ; les versions retirées restent refusées et le contrôle indépendant reste lisible. |
 
+## Reproduce the comparison / Reproduire la comparaison
+
+The same example can also execute an explicitly defined **key-value cache without
+dependency tracking** alongside the core. This is a small illustrative reference,
+not a competitor evaluation or a claim about every RAG system. Both branches
+receive the same source facts, the same explicitly rebuilt brief text, source
+withdrawal and restoration of their pre-withdrawal content snapshot.
+
+Le même exemple peut exécuter un **cache clé-valeur sans suivi des dépendances**
+en parallèle du noyau. Cette référence minimale décrit un contrat précis ; elle
+ne représente ni un concurrent, ni tous les systèmes RAG. Les deux branches
+reçoivent les mêmes faits, le même texte de résumé reconstruit explicitement,
+le retrait de la source et la restauration de leur contenu antérieur au retrait.
+
+```sh
+.venv/bin/python examples/portfolio_demo.py --compare \
+  --directory /tmp/persistent-memory-atlas-comparison-new \
+  --output /tmp/persistent-memory-atlas-comparison-new.json
+```
+
+Without `--compare`, the original five-event trace format remains unchanged.
+With it, the new `persistent-memory.portfolio-demo.comparison.v1` envelope contains
+the actual original `core_trace`, three `cases`, all reference operation receipts,
+shared fixture inputs and their digest, the example digest, a digest of the
+reference receipts and checked comparison invariants. Each reference receipt
+records the actual operation, its inputs, result and resulting state digest.
+Observations are captured while the operations run, not reconstructed from
+expected answers afterwards. No existing recorded portfolio trace is overwritten.
+
+Sans `--compare`, le format original à cinq événements est conservé. L'option
+produit une enveloppe `persistent-memory.portfolio-demo.comparison.v1` contenant
+la vraie `core_trace`, trois `cases`, les reçus des opérations du cache, les mêmes
+entrées fictives, leurs empreintes et les invariants vérifiés. Chaque reçu donne
+l'opération réelle, ses entrées, son résultat et l'empreinte de l'état obtenu.
+Les observations sont capturées pendant l'exécution, sans fabriquer les sorties
+à partir des résultats attendus. La trace historique du portfolio est préservée.
+
+| Case / Cas | Reference and core / Référence et noyau |
+| --- | --- |
+| Correction, before rebuild / avant reconstruction | Both receive Monday. The cache still returns its stored Friday brief; the core denies its old exact-version brief. / Les deux reçoivent lundi ; le cache conserve le résumé vendredi, le noyau refuse l'ancien résumé lié à la version remplacée. |
+| Correction, after rebuild / après reconstruction | Both receive and return the same Monday brief. The cache is correct after explicit rebuilding. / Les deux reçoivent et retournent le même résumé lundi ; le cache est corrigé par la reconstruction explicite. |
+| Withdrawal / Retrait | The cache removes the requested date key; its separately stored brief remains. The core denies the date and the brief through its declared dependencies. / Le cache supprime la date demandée, mais conserve le résumé séparé ; le noyau refuse les deux via les dépendances déclarées. |
+| Restore / Restauration | The cache reloads its actual JSON snapshot, including date and brief. The core restores content against its separately retained current authority and freshness witness; withdrawn date and brief remain denied. / Le cache recharge son vrai snapshot JSON, date et résumé inclus ; le noyau confronte le contenu à son autorité et son témoin courants conservés à part, et refuse encore date et résumé retirés. |
+
+The cache stores content in a Python dictionary and writes/reads a real JSON
+snapshot. Updating or deleting a key affects only that key. Declared dependency
+inputs are present in receipts but are not tracked or revalidated by the cache.
+It has no separate revocation authority or freshness witness. The core retains
+both outside the content backup. This architectural difference is part of the
+comparison, not a hidden assumption. Explicit cache invalidation or rebuilding
+can address stale content; the reference intentionally implements neither an
+automatic dependency policy nor a persistent revocation authority. The independent
+French project-language fact remains readable in both branches after every case.
+There is no comparison of speed, durability, reliability or model quality.
+
+Le cache conserve le contenu dans un dictionnaire Python et écrit/relit un vrai
+snapshot JSON. Une écriture ou suppression ne modifie que la clé visée. Les
+dépendances reçues figurent dans les reçus mais ne sont ni suivies ni revalidées.
+Le cache ne possède ni autorité de retrait séparée ni témoin de fraîcheur ; le
+noyau les conserve hors de la sauvegarde de contenu. Cette différence
+d'architecture est explicite. Une invalidation ou reconstruction du cache peut
+corriger du contenu obsolète ; cette référence ne met en œuvre ni politique
+automatique de dépendances ni autorité persistante de retrait. Le français,
+langue de communication du projet, reste lisible dans les deux branches après
+chaque cas. Aucune mesure comparative de vitesse, durabilité, fiabilité ou qualité
+de modèle n'est revendiquée.
+
 ## Scope / Périmètre
 
 This is a deterministic application example and recorded execution, **not** a
