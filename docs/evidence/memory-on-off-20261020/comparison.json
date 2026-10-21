@@ -33,7 +33,7 @@
     "not_confidence_interval": true
   },
   "methodology": {
-    "scope": "Isolated selected Hermes fact-enrichment response path; not the standalone public library or full production bootstrap.",
+    "scope": "Isolated selected fact-enrichment response path; not the standalone public library or full production bootstrap.",
     "requested_model": "gpt-4.1",
     "observed_model": "gpt-4.1-2025-04-14",
     "temperature": 0.7,

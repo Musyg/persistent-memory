@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 
 SCHEMA = "persistent-memory.memory-on-off.v1"
-EXPECTED_SHA256 = "e2424bf6329766d3133eb411914456dfc419b1bb94a9bd9b21a3382898db0483"
+EXPECTED_SHA256 = "c780e229b7aaa5bc5bf6c5343778a44307359a11f909ba2eccd142a1d5715e36"
 ARMS = ("presence", "absence")
 OUTCOMES = ("gain", "loss", "tie_success", "tie_failure", "unknown")
 DEFAULT = Path(__file__).resolve().parents[1] / "docs/evidence/memory-on-off-20261020/comparison.json"
