@@ -94,3 +94,7 @@ La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md)
 - L'application reste responsable du consentement, des droits, de la rétention et de la protection de ses fichiers.
 
 Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [PACKAGES.md](PACKAGES.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
+
+## Comparaison observée avec et sans mémoire
+
+Un parcours de réponse Hermes isolé accomplit huit tâches synthétiques sur huit avec ses faits persistants ; sans eux, quatre réussissent, trois échouent et une reste indéterminée. Consulter les [huit paires, réponses originales et vérificateur hors réseau](docs/MEMORY-COMPARISON.md#français). Cette petite expérience applicative reste distincte du noyau seul et de l’exemple déterministe noyau/cache.

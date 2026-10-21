@@ -141,3 +141,9 @@ désapprentissage. L'autorité et son témoin de fraîcheur doivent être conser
 hors des sauvegardes de contenu. Leur retour arrière coordonné dépasse cette garantie.
 
 See / Voir [recovery contract](RECOVERY.md) and [public API](API.md).
+
+## Recorded model comparison / Comparaison enregistrée avec un modèle
+
+The [memory on/off comparison](MEMORY-COMPARISON.md) records eight paired synthetic tasks on an isolated Hermes fact-enrichment path. It includes original answers, two anonymized annotations and an offline data verifier. It is separate from the deterministic examples above and does not replay the private integration.
+
+Le [comparatif avec/sans mémoire](MEMORY-COMPARISON.md#français) présente huit tâches synthétiques comparées sur un parcours factuel Hermes isolé, leurs réponses originales, deux annotations anonymisées et un vérificateur des données hors réseau. Il est distinct des exemples déterministes ci-dessus et ne rejoue pas l’intégration privée.

@@ -98,3 +98,7 @@ The optional [synthetic LanceDB demonstration](docs/BENCHMARK-LANCE.md) exercise
 - The application decides consent, retention, user permissions, trusted storage and backup policy.
 
 MIT license. File selection and packaging transformations are recorded in `PROVENANCE.json`. The optional policy registry is a separate distribution; see [PACKAGES.md](PACKAGES.md). It does not activate policies or grant runtime permissions.
+
+## Observed memory on/off comparison
+
+An isolated Hermes response path completed eight of eight selected synthetic tasks with persistent facts; without them, four succeeded, three failed and one remained undetermined. See the [eight paired tasks, original answers and offline data verifier](docs/MEMORY-COMPARISON.md). This small application experiment is separate from the standalone library and deterministic core/cache example.
