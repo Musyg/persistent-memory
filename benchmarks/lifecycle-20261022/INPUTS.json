@@ -1,0 +1,109 @@
+{
+  "schema": "persistent-memory.lifecycle-inputs.v1",
+  "files": {
+    "benchmarks/run_benchmark.py": {
+      "sha256": "6072722e5eaa1b837872e17c76ad4efbb589170c0c0e984fa9df4bfe64d2231b",
+      "bytes": 44575
+    },
+    "benchmarks/lifecycle_reference.py": {
+      "sha256": "6cab0f2bbb36ff5c8cfde007817e550ab3a9dbd5e8b702b2850f9a80dec06353",
+      "bytes": 13384
+    },
+    "tests/test_product.py": {
+      "sha256": "e253385a970743c76d81a14863dc7fda37777b622acd7c92aa9ea9d8c9c056e9",
+      "bytes": 15050
+    },
+    "benchmarks/lifecycle-20261022/FIXTURE.json": {
+      "sha256": "3a713fda0be8e7f2b7a580c10b9053ee3b2eb051423955467f10dfd50c8971d4",
+      "bytes": 622361
+    },
+    "src/hermes_memory/ADMISSION-PROVENANCE.json": {
+      "sha256": "dc404e35ae2b6500bda478befbf9363e7b4a371f581c914dc5e8e852312df530",
+      "bytes": 3247
+    },
+    "src/hermes_memory/admission.py": {
+      "sha256": "c8633047e6d45f23bad9075a7e1c0b6a91f55aa22fa0a5ba02ddc963161d3bd5",
+      "bytes": 295
+    },
+    "src/hermes_memory/admission_demo.py": {
+      "sha256": "4154aa2c0763f98ebb9b3a4f04ef54b80c01a0dd9890b5c8213895fa68c82119",
+      "bytes": 5010
+    },
+    "src/hermes_memory/cli.py": {
+      "sha256": "edca745f2128acd04c0a42fce9debd7b10b9193598eb8b861e2d4f07446ec5bb",
+      "bytes": 3037
+    },
+    "src/hermes_memory/compiler.py": {
+      "sha256": "de80d1843c57c5460469cb13cdf5b5546df6ca9cf4bd9097c1f50a95a83f504e",
+      "bytes": 454
+    },
+    "src/hermes_memory/core.py": {
+      "sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+      "bytes": 37441
+    },
+    "src/hermes_memory/demo.py": {
+      "sha256": "96f22c21f1852f3160d83c83d4653a25211d867b71e204564cf580c84aa6de6e",
+      "bytes": 3204
+    },
+    "src/hermes_memory/interfaces.py": {
+      "sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
+      "bytes": 7282
+    },
+    "src/hermes_memory/quality_contract.py": {
+      "sha256": "e7d3bc73cded3e8608d7bf5dd0d1b504670bbe9aef5e45fd562f38cd4ee9abe3",
+      "bytes": 808
+    },
+    "src/hermes_memory/structured_memory.py": {
+      "sha256": "21c777c8f1de3cf61ef3e348bdcba185b3a43132c5547a85b3b1c0d5dd3ad792",
+      "bytes": 266
+    },
+    "src/hermes_memory/typed_admin.py": {
+      "sha256": "173b8de2eef84afe6d39d4b3d0c69a2717e91ef4509753dfaa284494a2b138ce",
+      "bytes": 2144
+    },
+    "src/hermes_memory/typed_client.py": {
+      "sha256": "f67e5615efa6ae8e55660b3aee472d89965d2ca91015eb365926c6e22be8669b",
+      "bytes": 8753
+    },
+    "src/hermes_memory/typed_facade.py": {
+      "sha256": "3d78dd5219a4d8b7da621cc26c653257964101e7e8c6d42f30b47cfa20b0225c",
+      "bytes": 10532
+    },
+    "src/hermes_memory/typed_memory.py": {
+      "sha256": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427",
+      "bytes": 17393
+    },
+    "src/hermes_memory/typed_memory_tool.py": {
+      "sha256": "0718b389c70fcf4202ff9bd2d6ae0ef5ec5931b88077a51e80b047adb5f84a69",
+      "bytes": 2769
+    },
+    "src/hermes_memory/typed_protocol.py": {
+      "sha256": "1e6916200a16b64032dc31d6b079dfd1ec35e6d9f2ca818450a56a2c04e3b862",
+      "bytes": 1093
+    },
+    "src/hermes_memory/_admission_loader.py": {
+      "sha256": "e783edac0a6952395e78df5656ef00e791980fbcd0cf4e2231deb41c161d95a7",
+      "bytes": 3598
+    },
+    "src/hermes_memory/__init__.py": {
+      "sha256": "cf3fd68da77792f6e2a7299af5ab95fc21dff017d8e3fcd7870c45e2fe8833d5",
+      "bytes": 78
+    },
+    "src/hermes_memory/__main__.py": {
+      "sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
+      "bytes": 29
+    },
+    "src/hermes_memory/_admission_sources/admission.py": {
+      "sha256": "6fb7fd9a6eaecd0da2a50acd05ba253841da3ec41d904b324c8184720db43600",
+      "bytes": 15828
+    },
+    "src/hermes_memory/_admission_sources/quality_contract.py": {
+      "sha256": "0d16ebbf0042f03a5d6b36b1ed3b32b58e00945b73af1582f4bf2760492123b4",
+      "bytes": 8795
+    },
+    "src/hermes_memory/_admission_sources/structured_memory.py": {
+      "sha256": "4febba12532671486bdb82e1eb39009cd7bb10206e33c10d46807e718da99697",
+      "bytes": 16801
+    }
+  }
+}
