@@ -1,0 +1,87 @@
+{
+  "actual_billed_USD": null,
+  "cases": 8,
+  "completed_responses": 16,
+  "conservative_exposure_USD": "0.2236416",
+  "development_only": true,
+  "expected_critical_control_detected_by_both": true,
+  "expected_verdict_matches": 16,
+  "external_human_quality_audits": 0,
+  "historical_V21_scores_unchanged": true,
+  "judge_attempts": 16,
+  "known_usage_estimate_USD": "0.0132789",
+  "limitations": [
+    "16 fixed diagnostic judgments are not a representative accuracy estimate.",
+    "AI judges may share errors; no independent human quality audit.",
+    "The intentional synthetic critical assertion is an expected positive control, not a production incident.",
+    "Calibration does not replace fresh, frozen, separately reported confirmation tasks."
+  ],
+  "projection": {
+    "all16_body_strings_and_parsed_reasons_exact": true,
+    "all8_prompt_strings_exact": true,
+    "all_retained_case_values_exact": true,
+    "case_fields_retained": [
+      "case_id",
+      "category",
+      "task",
+      "answer",
+      "policy_id",
+      "delivered_evidence",
+      "supplied_citation_ids",
+      "oracle",
+      "expected_success",
+      "expected_critical_violation"
+    ],
+    "case_row_hash_encoding": "SHA256 of UTF-8 JSON with ensure_ascii=false, sorted keys, compact separators, no final newline.",
+    "never_copied": [
+      "raw provider response IDs, headers or fingerprints",
+      "operator paths, fleet coordinates, nonces or environment settings",
+      "authorization grants or financial ledgers",
+      "production memories, voice identities or private traces"
+    ],
+    "public_projection_created_after_calibration": true,
+    "request_hashes_bound_to_prepared_prompts": true
+  },
+  "provider_retries": 0,
+  "public_data": {
+    "CASES.json": {
+      "bytes": 11729,
+      "sha256": "bdee9fc70b87948035ce1e3811ce080e2d67b9890e4fc804d512a0bd11c1d0c8"
+    },
+    "JUDGMENTS.json": {
+      "bytes": 16199,
+      "sha256": "953d0c5bfa4843b1b6c7a8d4fac592a2622019eb225b1776989ab67788317202"
+    },
+    "PROMPTS.json": {
+      "bytes": 24991,
+      "sha256": "2f66369fb95ae9420fb8dd06f39e91b739a5190d31334c4ebe209a6c01c40f50"
+    }
+  },
+  "schema": "persistent-memory.public-evaluator-calibration-provenance.v1",
+  "scope": "Eight fixed evaluator calibration cases before the independent confirmation study; not a memory-quality benchmark.",
+  "source_commitments": {
+    "ACTUAL-REVIEW.json": {
+      "bytes": 9063,
+      "sha256": "fe97f88f4bc3c72625d954d8fbf091d29d60fd1a34dc01ca76ead0544fa0e39c"
+    },
+    "CASES.json": {
+      "bytes": 12110,
+      "sha256": "8a54fe282b6c141b56a5de1a2e2aa6a6e52cad75f43680033ddada932a46038c"
+    },
+    "CLOSED-ACCOUNTING.json": {
+      "bytes": 780,
+      "sha256": "9b55a33f45996ff2378c727aca445e1ced059591c4ad994c65f8c13704a27ec5"
+    },
+    "PREPARED.json": {
+      "bytes": 29309,
+      "sha256": "cd5fa6245ba4e1a4ff82c11144fb7c6e5c60e0995a814720940fa3df8b649443"
+    }
+  },
+  "source_provider_report_commitment": {
+    "bytes": 96893,
+    "sha256": "6dfa855f4454b62cad6c7670650f7768d79ffbb875f1b94dabff9faa68d7192d"
+  },
+  "startup_incident_attempts": 0,
+  "synthetic": true,
+  "usage_coverage_requests": 16
+}

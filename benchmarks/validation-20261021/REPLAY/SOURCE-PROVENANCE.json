@@ -1,0 +1,43 @@
+{
+  "Windows_check": "AST and exact bytes only",
+  "dev_inputs": {
+    "bytes": 2718,
+    "development_only": true,
+    "real_study_data": false,
+    "sha256": "c884fc57a1b72a58a75e91edd6386d34e879c1ec508abe01602352e8bb78778a",
+    "source_logical_member": "V0-REPLAY/DEV-INPUTS.json"
+  },
+  "historical_rate_contract_not_future_price_verification": true,
+  "new_generation_not_bit_identical_replay": true,
+  "new_runner_transport_ledger": false,
+  "provider_calls": 0,
+  "runtime_tests_executed": false,
+  "schema": "persistent-memory.public-replay.source-preparation.v1",
+  "sources": {
+    "bounded_provider.py": {
+      "bytes": 26807,
+      "exact_copy": true,
+      "sha256": "e6119655abc7277d26a6025b6d4069565de21b04d9faf8e6f8a4682f1a8bdb11",
+      "source_logical_member": "BUNDLE/bounded_provider.py"
+    },
+    "memory_packet.py": {
+      "bytes": 8430,
+      "exact_copy": true,
+      "sha256": "a4462456bfa124149934c01d6e7815c1dde137d6bda5f1acc96f3e0b4a49895c",
+      "source_logical_member": "memory_packet.py"
+    },
+    "portable_consumer.py": {
+      "bytes": 12682,
+      "exact_copy": true,
+      "sha256": "b34be4f3b03e438195cdf4c7ee4788eac4e5e018d6b320a52c1445ae8c3ab0d4",
+      "source_logical_member": "portable_consumer.py"
+    },
+    "run_pilot.py": {
+      "bytes": 5359,
+      "exact_copy": true,
+      "sha256": "c60541a00450fd6e893dacbd1200ff761970dcd95a6cf50a2f19a63ce9cdc9dc",
+      "source_logical_member": "run_pilot.py"
+    }
+  },
+  "status": "exact_source_copies_and_inactive_DEV_examples_native_qualification_pending"
+}

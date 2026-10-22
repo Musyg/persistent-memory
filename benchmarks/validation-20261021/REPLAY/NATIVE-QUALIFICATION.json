@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "native_linux": true,
+  "uid": 1000,
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "inactive_config_checks": [
+    {
+      "model": "luna",
+      "refused_before_credential": true,
+      "ledger_created": false
+    },
+    {
+      "model": "sol",
+      "refused_before_credential": true,
+      "ledger_created": false
+    }
+  ],
+  "existing_mock_HTTP_requests": 6,
+  "provider_requests": 0,
+  "network_disabled": true,
+  "dependency_versions": {
+    "hermes-memory-core": "0.3.0a2",
+    "httpx": "0.28.1",
+    "httpcore": "1.0.9",
+    "anyio": "4.12.1",
+    "h11": "0.16.0",
+    "certifi": "2023.11.17",
+    "idna": "3.6",
+    "sniffio": "1.3.1"
+  },
+  "imported_core_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+  "study_cohort_read": false,
+  "site_changed": false,
+  "schema": "persistent-memory.public-replay.native-qualification-projection.v1",
+  "projection_created_after_measurement": true,
+  "source_receipt_sha256": "b53eac915dbed341ba0d4a28343bcf109efc7012d90a558c6ee978c4a6a63038",
+  "source_test_sha256": "d6a2a91ddb0b3d88ee6f4b32cefc12cfcae2d7751e4858a08e20e330b2cfbd7b",
+  "removed_fields": [
+    "installed_origins",
+    "stdout",
+    "stderr",
+    "source_pins operational envelope"
+  ],
+  "source_files_sha256": {
+    "CODE/bounded_provider.py": "e6119655abc7277d26a6025b6d4069565de21b04d9faf8e6f8a4682f1a8bdb11",
+    "CODE/memory_packet.py": "a4462456bfa124149934c01d6e7815c1dde137d6bda5f1acc96f3e0b4a49895c",
+    "CODE/portable_consumer.py": "b34be4f3b03e438195cdf4c7ee4788eac4e5e018d6b320a52c1445ae8c3ab0d4",
+    "CODE/run_pilot.py": "c60541a00450fd6e893dacbd1200ff761970dcd95a6cf50a2f19a63ce9cdc9dc"
+  },
+  "environment": "independent-linux-environment-B",
+  "real_provider_compatibility_not_retested": true
+}

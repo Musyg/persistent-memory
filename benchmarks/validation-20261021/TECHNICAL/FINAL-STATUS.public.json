@@ -1,0 +1,65 @@
+{
+  "data": {
+    "critical_claim_scope": "No unexpected violation of the exercised invariants; not a production-wide certificate.",
+    "fresh_remote_or_runtime_calls": 0,
+    "passed_receipt_verification": true,
+    "pause_stop_sent_to_any_unit": false,
+    "same_3000_cases_and_counters_reproduced": true,
+    "site_touched": false,
+    "status": "technical_trajectories_complete_reproduced_load_5000_not_qualified",
+    "summary": {
+      "load-environment-A": {
+        "completed_case_retrievals": 1100,
+        "completed_sizes": [
+          100,
+          1000
+        ],
+        "explicit_calls_completed_cases_excluding_initialization_and_internals": 3310,
+        "no_semantic_failure_deduced_from_timeout": true,
+        "size_5000_partial_operation_count": "unknown",
+        "size_5000_phase": "unknown",
+        "size_5000_report": "not_returned",
+        "status": "runtime_timeout_40_minutes_not_user_stop"
+      },
+      "trajectories-environment-A": {
+        "completed": 3000,
+        "elapsed_seconds": 1760.959967177827,
+        "expected_caught_faults": 1000,
+        "expected_rejections": 1000,
+        "explicit_calls_including_initialization_excluding_internal_SQLite": 86965,
+        "family_counts": {
+          "anchor_gap": 500,
+          "isolation": 500,
+          "outbox": 500,
+          "restore": 500,
+          "revision": 500,
+          "revoke_late": 500
+        },
+        "read_invariants": 57763,
+        "semantic_sha256": "73eb3be8daad42ef6d1fb66d502bf7822cc858e814baee816b0f9ebb12ad9137",
+        "status": "passed_complete_before_pause_control"
+      },
+      "trajectories-environment-B": {
+        "completed": 3000,
+        "elapsed_seconds": 1728.1751798440237,
+        "expected_caught_faults": 1000,
+        "expected_rejections": 1000,
+        "explicit_calls_including_initialization_excluding_internal_SQLite": 86965,
+        "family_counts": {
+          "anchor_gap": 500,
+          "isolation": 500,
+          "outbox": 500,
+          "restore": 500,
+          "revision": 500,
+          "revoke_late": 500
+        },
+        "read_invariants": 57763,
+        "semantic_sha256": "73eb3be8daad42ef6d1fb66d502bf7822cc858e814baee816b0f9ebb12ad9137",
+        "status": "passed_complete_before_pause_control"
+      }
+    },
+    "unique_trajectories_not_sum_of_host_repetitions": 3000
+  },
+  "post_measurement_projection": true,
+  "schema": "persistent-memory.technical-terminal-projection.v1"
+}

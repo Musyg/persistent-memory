@@ -1,0 +1,29 @@
+{
+  "files": {
+    "CASES.json": {
+      "bytes": 11729,
+      "sha256": "bdee9fc70b87948035ce1e3811ce080e2d67b9890e4fc804d512a0bd11c1d0c8"
+    },
+    "JUDGMENTS.json": {
+      "bytes": 16199,
+      "sha256": "953d0c5bfa4843b1b6c7a8d4fac592a2622019eb225b1776989ab67788317202"
+    },
+    "PROMPTS.json": {
+      "bytes": 24991,
+      "sha256": "2f66369fb95ae9420fb8dd06f39e91b739a5190d31334c4ebe209a6c01c40f50"
+    },
+    "PROVENANCE.json": {
+      "bytes": 3169,
+      "sha256": "f139051a83ae067bf5a867d7f7187f0b16dd9e87070a7a1399cb58e1886c2941"
+    },
+    "README.fr.md": {
+      "bytes": 2570,
+      "sha256": "bd543228072cdb68ad5b9c8060c4b551cc77f8e9a4fe347173b19b2459a6f86c"
+    },
+    "README.md": {
+      "bytes": 2139,
+      "sha256": "e9e9a8013e196904f4826ac893f0141abdb0885af5ce9a25c15a73138df7dab6"
+    }
+  },
+  "schema": "persistent-memory.public-calibration-manifest.v1"
+}

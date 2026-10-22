@@ -1,0 +1,236 @@
+{
+  "excluded_envelope_fields": [
+    "systemd",
+    "journal",
+    "file_meta",
+    "unselected files: unit/transport/stdout/stderr logs",
+    "absolute installation paths",
+    "work directories",
+    "SSH/native transport envelopes"
+  ],
+  "fleet_access": false,
+  "no_semantic_data_repair": true,
+  "original_receipts_private_and_unchanged": true,
+  "post_measurement_projection": true,
+  "preparation_incidents": [
+    {
+      "disposition": "Located existing review in publication staging and read it; no artifact or runtime effect.",
+      "error": "Initial review lookup used its absent lot-root location."
+    }
+  ],
+  "preserved_value_comparisons": [
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "distributions-environment-A.json",
+      "public_retained_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "retained_source_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "source_fields_removed": [
+        "work_dir",
+        "suites/*/installed_origin",
+        "suites/*/stdout_log",
+        "suites/*/stderr_log"
+      ],
+      "source_logical_subdocument": "files/distribution-report.json",
+      "source_receipt_id": "S001"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "distribution-outcome-environment-A.json",
+      "public_retained_values_sha256": "fa90777959a5b019bece347c1b9dacabced6a817f387e93020db0d165e360a4b",
+      "retained_source_values_sha256": "fa90777959a5b019bece347c1b9dacabced6a817f387e93020db0d165e360a4b",
+      "source_fields_removed": [
+        "distribution_report (duplicate, projected separately)"
+      ],
+      "source_logical_subdocument": "files/RESULT.json",
+      "source_receipt_id": "S001"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "distributions-environment-B.json",
+      "public_retained_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "retained_source_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "source_fields_removed": [
+        "work_dir",
+        "suites/*/installed_origin",
+        "suites/*/stdout_log",
+        "suites/*/stderr_log"
+      ],
+      "source_logical_subdocument": "files/distribution-report.json",
+      "source_receipt_id": "S002"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "distribution-outcome-environment-B.json",
+      "public_retained_values_sha256": "f6b37eb62ad9e677803cf8fa42a3b2131e5e0bd34c7a6a10ab5df4422eea8b3d",
+      "retained_source_values_sha256": "f6b37eb62ad9e677803cf8fa42a3b2131e5e0bd34c7a6a10ab5df4422eea8b3d",
+      "source_fields_removed": [
+        "distribution_report (duplicate, projected separately)"
+      ],
+      "source_logical_subdocument": "files/RESULT.json",
+      "source_receipt_id": "S002"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": true,
+      "public_file": "trajectories-environment-A.json",
+      "public_retained_values_sha256": "f51f25ba16741367d576f7e4a6a35ea05b7ebc337abcf23d8dc6616adeae55aa",
+      "retained_source_values_sha256": "f51f25ba16741367d576f7e4a6a35ea05b7ebc337abcf23d8dc6616adeae55aa",
+      "source_fields_removed": [],
+      "source_logical_subdocument": "files/benchmark.stdout.json",
+      "source_receipt_id": "S003"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "trajectory-outcome-environment-A.json",
+      "public_retained_values_sha256": "e64f0bae579949c84594f1e305945cca4e894edd97af057470c91ae19006e43e",
+      "retained_source_values_sha256": "e64f0bae579949c84594f1e305945cca4e894edd97af057470c91ae19006e43e",
+      "source_fields_removed": [
+        "installed_origin",
+        "report (duplicate, preserved separately)"
+      ],
+      "source_logical_subdocument": "files/RESULT.json",
+      "source_receipt_id": "S003"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": true,
+      "public_file": "trajectories-environment-B.json",
+      "public_retained_values_sha256": "61b3769b55035e4eb13c886899abeaf52bfdf49abe9e4a6dcb4b627f4417ee47",
+      "retained_source_values_sha256": "61b3769b55035e4eb13c886899abeaf52bfdf49abe9e4a6dcb4b627f4417ee47",
+      "source_fields_removed": [],
+      "source_logical_subdocument": "files/benchmark.stdout.json",
+      "source_receipt_id": "S004"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "trajectory-outcome-environment-B.json",
+      "public_retained_values_sha256": "1645d55e938f02d14ae1c24ca8bcd58cbe912920955605774a301536f7381443",
+      "retained_source_values_sha256": "1645d55e938f02d14ae1c24ca8bcd58cbe912920955605774a301536f7381443",
+      "source_fields_removed": [
+        "installed_origin",
+        "report (duplicate, preserved separately)"
+      ],
+      "source_logical_subdocument": "files/RESULT.json",
+      "source_receipt_id": "S004"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": true,
+      "public_file": "load-environment-A-100.json",
+      "public_retained_values_sha256": "4cbd31b4ef2ddb51ae7d2657c572487cbe4e340bc16569e8b43b0159ba1e4874",
+      "retained_source_values_sha256": "4cbd31b4ef2ddb51ae7d2657c572487cbe4e340bc16569e8b43b0159ba1e4874",
+      "source_fields_removed": [],
+      "source_logical_subdocument": "files/volume-100.stdout.json",
+      "source_receipt_id": "S005"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": true,
+      "public_file": "load-environment-A-1000.json",
+      "public_retained_values_sha256": "fb1fdbb717a55ee7b7706f6c6debeb14943837d6524c6cc86a7137a0421ba446",
+      "retained_source_values_sha256": "fb1fdbb717a55ee7b7706f6c6debeb14943837d6524c6cc86a7137a0421ba446",
+      "source_fields_removed": [],
+      "source_logical_subdocument": "files/volume-1000.stdout.json",
+      "source_receipt_id": "S005"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "load-environment-B.json",
+      "public_retained_values_sha256": "ff5490331244a220c8951b7fe17829f667c4ca9229a48b93227d8b6929864b08",
+      "retained_source_values_sha256": "ff5490331244a220c8951b7fe17829f667c4ca9229a48b93227d8b6929864b08",
+      "source_fields_removed": [
+        "installed_origin"
+      ],
+      "source_logical_subdocument": "files/RESULT.json",
+      "source_receipt_id": "S006"
+    },
+    {
+      "all_retained_values_equal": true,
+      "embedded_file_bytes_exact": false,
+      "public_file": "FINAL-STATUS.public.json",
+      "public_retained_values_sha256": "68eea97145f42727061fe3ef1c8e5f1dbb0cbd8e1e56881bd45b4a6aea72f93e",
+      "retained_source_values_sha256": "68eea97145f42727061fe3ef1c8e5f1dbb0cbd8e1e56881bd45b4a6aea72f93e",
+      "source_fields_removed": [
+        "summary/*/journal",
+        "inputs",
+        "pause_receipts_sha256",
+        "remaining",
+        "next_useful_action",
+        "coordination_note",
+        "schema (public wrapper declares projection)"
+      ],
+      "source_logical_subdocument": "terminal/technical-outcomes-with-environment-aliases",
+      "source_receipt_id": "S007"
+    }
+  ],
+  "provider_calls": 0,
+  "runtime_or_benchmark_executed": false,
+  "schema": "persistent-memory.technical-evidence-projection.v1",
+  "site_changed": false,
+  "source_ids_are_logical_not_machine_names": true,
+  "sources": [
+    {
+      "bytes": 172738,
+      "id": "S001",
+      "logical_path": "receipts/distributions/environment-A",
+      "published_original": false,
+      "sha256": "e5667968ccf2dd40a47361b2c695c1799a935bc86772f608af9de71576c7750e"
+    },
+    {
+      "bytes": 164905,
+      "id": "S002",
+      "logical_path": "receipts/distributions/environment-B",
+      "published_original": false,
+      "sha256": "fedc8dc311ef6f07b7fb2e32178524d60a5d1f8861b149b18cf53288f165137d"
+    },
+    {
+      "bytes": 810050,
+      "id": "S003",
+      "logical_path": "receipts/trajectories/environment-A",
+      "published_original": false,
+      "sha256": "b9fba08c6ae98de049a26dd2a57bc2d1d4703434ae15951f45679f6e3d034983"
+    },
+    {
+      "bytes": 810055,
+      "id": "S004",
+      "logical_path": "receipts/trajectories/environment-B",
+      "published_original": false,
+      "sha256": "be3522ba8e653d5f3fd4800ab8ed55d1a05d0af1482c6ad5ff3e8e292709bea9"
+    },
+    {
+      "bytes": 11703,
+      "id": "S005",
+      "logical_path": "receipts/volume/environment-A",
+      "published_original": false,
+      "sha256": "5d1932db6528ee329c12ed9aac9047f510ac0686d1870c1b8925b120a0c4949c"
+    },
+    {
+      "bytes": 8381,
+      "id": "S006",
+      "logical_path": "receipts/volume/environment-B",
+      "published_original": false,
+      "sha256": "e8900643bda3b981f83282c54719ee1baa7e8f368553b7a0b0c5d20784e5f644"
+    },
+    {
+      "bytes": 6279,
+      "id": "S007",
+      "logical_path": "receipts/final-technical-status",
+      "published_original": false,
+      "sha256": "bb8000c876ba8d29c8f03bf226702d29d9a73c0b221068ec21269dd32a7259aa"
+    },
+    {
+      "bytes": 400,
+      "id": "S008",
+      "logical_path": "receipts/volume/benchmark-source-staging/environment-A",
+      "published_original": false,
+      "sha256": "2fc7d93010fdc5bb94a13b6283842b4b49e0d8e090df522f425f9420de541e64"
+    }
+  ]
+}

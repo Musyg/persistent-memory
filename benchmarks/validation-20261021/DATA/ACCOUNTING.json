@@ -1,0 +1,8 @@
+{
+  "actual_billed_usd": null,
+  "conservative_debit_usd": "141.9995136",
+  "schema": "persistent-memory.volume.reporting-accounting.v1",
+  "usage_calculated_usd": null,
+  "usage_calculation_scope": "All generation, judge and four compatibility-probe requests; standard global prices without cache discount; not an invoice.",
+  "usage_coverage_requests": 11703
+}

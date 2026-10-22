@@ -1,0 +1,27 @@
+{
+  "files": {
+    "README.fr.md": {
+      "bytes": 1356,
+      "sha256": "c4017c76049e57fae3e3482dcecd48c4a77dc80e61150e9aaacdd9888ac6247c"
+    },
+    "README.md": {
+      "bytes": 1185,
+      "sha256": "d292411615729e89c5004cb26e40a4363f919bfb76f2bc254162dea93c0fbc90"
+    },
+    "REPLAY.json": {
+      "bytes": 17233,
+      "sha256": "c5e1e9e869e588c9e4de7945805b3f9fe36e6cbcefa2d23df965bb801960af06"
+    },
+    "SELECTION.json": {
+      "bytes": 1301,
+      "sha256": "b1bcf9c9aed25acddbc0845ed4c985d4bc7e6417d9796407a234282eccd43bee"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 1398,
+      "sha256": "66c07264d4f8773303a77c8b6c80722fb12425d7bcccdea0399d3c6dc492db7d"
+    }
+  },
+  "privacy_review_required_by_root": true,
+  "projection_created_after_measurement": true,
+  "schema": "persistent-memory.v4-public-projection.v1"
+}

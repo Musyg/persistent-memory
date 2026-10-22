@@ -1,0 +1,8 @@
+{
+  "post_measurement_projection": true,
+  "same_benchmark_revision_claimed": false,
+  "schema": "persistent-memory.technical-benchmark-provenance.v1",
+  "trajectory_benchmark_sha256": "641c1a20f879cf914babbed9b0be6119aa90f4d528791b17401e574a40059991",
+  "volume_benchmark_sha256": "66ebda8d8f297c25c63c5fcc9f2839089d95d33921a1137af9fbabb26e4b8766",
+  "volume_source_receipt_id": "S008"
+}

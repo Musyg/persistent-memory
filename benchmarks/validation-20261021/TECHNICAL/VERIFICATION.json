@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "public_file": "distributions-environment-A.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "fa90777959a5b019bece347c1b9dacabced6a817f387e93020db0d165e360a4b",
+      "public_file": "distribution-outcome-environment-A.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "f51f25ba16741367d576f7e4a6a35ea05b7ebc337abcf23d8dc6616adeae55aa",
+      "public_file": "trajectories-environment-A.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "e64f0bae579949c84594f1e305945cca4e894edd97af057470c91ae19006e43e",
+      "public_file": "trajectory-outcome-environment-A.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "f2aef712c38f51988a3a059b2e735bb0fd247a595da96acf4650c25cb5f703e0",
+      "public_file": "distributions-environment-B.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "f6b37eb62ad9e677803cf8fa42a3b2131e5e0bd34c7a6a10ab5df4422eea8b3d",
+      "public_file": "distribution-outcome-environment-B.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "61b3769b55035e4eb13c886899abeaf52bfdf49abe9e4a6dcb4b627f4417ee47",
+      "public_file": "trajectories-environment-B.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "1645d55e938f02d14ae1c24ca8bcd58cbe912920955605774a301536f7381443",
+      "public_file": "trajectory-outcome-environment-B.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "4cbd31b4ef2ddb51ae7d2657c572487cbe4e340bc16569e8b43b0159ba1e4874",
+      "public_file": "load-environment-A-100.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "fb1fdbb717a55ee7b7706f6c6debeb14943837d6524c6cc86a7137a0421ba446",
+      "public_file": "load-environment-A-1000.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "ff5490331244a220c8951b7fe17829f667c4ca9229a48b93227d8b6929864b08",
+      "public_file": "load-environment-B.json"
+    },
+    {
+      "all_retained_values_equal": true,
+      "common_retained_values_sha256": "68eea97145f42727061fe3ef1c8e5f1dbb0cbd8e1e56881bd45b4a6aea72f93e",
+      "public_file": "FINAL-STATUS.public.json"
+    }
+  ],
+  "distribution_executions_per_environment": 392,
+  "exact_embedded_reports": 4,
+  "fleet_access": false,
+  "generated_case_rows_compared_per_environment": 3000,
+  "known_operational_markers_absent": true,
+  "method": "Document transformation and exact value comparison only; no application, benchmark or provider execution.",
+  "provider_calls": 0,
+  "retained_projection_checks": 12,
+  "root_final_publication_qualification_pending": true,
+  "runtime_executions": 0,
+  "schema": "persistent-memory.technical-projection-verification.v1",
+  "site_changed": false,
+  "source_receipt_count": 8,
+  "timeout_5000_preserved": true,
+  "trajectory_semantics_equal_except_elapsed_seconds": true,
+  "unique_cases_not_sum_of_repetitions": 3000
+}

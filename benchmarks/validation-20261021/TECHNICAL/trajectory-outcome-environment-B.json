@@ -1,0 +1,12 @@
+{
+  "data": {
+    "benchmark_sha256": "641c1a20f879cf914babbed9b0be6119aa90f4d528791b17401e574a40059991",
+    "elapsed_seconds": 1728.1751798440237,
+    "passed": true,
+    "production_changed": false,
+    "provider_calls": 0
+  },
+  "environment": "environment-B",
+  "post_measurement_projection": true,
+  "schema": "persistent-memory.technical-trajectory-outcome.v1"
+}

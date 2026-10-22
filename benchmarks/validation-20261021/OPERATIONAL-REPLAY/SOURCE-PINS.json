@@ -1,0 +1,23 @@
+{
+  "admitted_phase_sha256": "6855e977f136ef3796b05cd14a5eb299e4e4d19f9508b836d7fe009a61b2bfcb",
+  "canonical_transport_receipt_sha256": "5c11d41b0c75b83c98d1c0dd1b91494820961eb0a5d890f1a187a7f1180483c4",
+  "operator_sha256": "157b7ae2a81b9e1550f8027ecc92b7e12c30f6682423236946e352ff82579d72",
+  "profile_configuration_sha256": "c100586f0707640f4b443b59ec8e800c58d3c974590feb9c5238b1e8b3573774",
+  "public_modules": {
+    "BUNDLE/bounded_provider.py": "e6119655abc7277d26a6025b6d4069565de21b04d9faf8e6f8a4682f1a8bdb11",
+    "memory_packet.py": "a4462456bfa124149934c01d6e7815c1dde137d6bda5f1acc96f3e0b4a49895c",
+    "portable_consumer.py": "b34be4f3b03e438195cdf4c7ee4788eac4e5e018d6b320a52c1445ae8c3ab0d4",
+    "run_pilot.py": "c60541a00450fd6e893dacbd1200ff761970dcd95a6cf50a2f19a63ce9cdc9dc"
+  },
+  "runtime": {
+    "actual_import_hash_precheck": true,
+    "core_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+    "environment": "independent-linux-environment-B",
+    "package": "hermes-memory-core",
+    "package_version": "0.3.0a2",
+    "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "typed_sha256": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427"
+  },
+  "schema": "persistent-memory.public-v4-source-pins.v1",
+  "selection_sha256": "5c25653db846d3e4ec4c126078a3f883fdfcc8aedd8f3b586780b6df2833209b"
+}

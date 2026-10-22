@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-A",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "ae19d3da61004e8953fbf3c707a9d461677cc920dc6b62381d2ec1319816ccdd",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S001",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-A",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "9cd282d561842ec8a9201e45f286b32990f2d6e97f47e50a7ed2df98ce97ae12",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S001",
+      "variant": "sdist"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-A",
+      "imported_from_site_packages": true,
+      "module": "hermes_policy_registry",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "ff58edd5949fb7868e58a86f10a7915642465d8d2455dd7ab8db478f4f6bc397",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S001",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-A",
+      "imported_from_site_packages": true,
+      "module": "hermes_policy_registry",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "1394b6857ca88e44714c4dde4f07024f0cc39a4e1d31d02ac5033d7432d6f2b7",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S001",
+      "variant": "sdist"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "ae19d3da61004e8953fbf3c707a9d461677cc920dc6b62381d2ec1319816ccdd",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S002",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "9cd282d561842ec8a9201e45f286b32990f2d6e97f47e50a7ed2df98ce97ae12",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S002",
+      "variant": "sdist"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_policy_registry",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "ff58edd5949fb7868e58a86f10a7915642465d8d2455dd7ab8db478f4f6bc397",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S002",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_policy_registry",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "1394b6857ca88e44714c4dde4f07024f0cc39a4e1d31d02ac5033d7432d6f2b7",
+      "source_logical_field": "files/distribution-report.json/suites/*/installed_origin",
+      "source_receipt_id": "S002",
+      "variant": "sdist"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-A",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "9cace5c193adb44d925f43556f9f28226fcec55720999356ec7fbb423901af18",
+      "source_logical_field": "files/RESULT.json/installed_origin",
+      "source_receipt_id": "S003",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "9cace5c193adb44d925f43556f9f28226fcec55720999356ec7fbb423901af18",
+      "source_logical_field": "files/RESULT.json/installed_origin",
+      "source_receipt_id": "S004",
+      "variant": "wheel"
+    },
+    {
+      "derived_after_measurement": true,
+      "environment": "environment-B",
+      "imported_from_site_packages": true,
+      "module": "hermes_memory",
+      "original_absolute_path_published": false,
+      "original_origin_value_sha256": "9cace5c193adb44d925f43556f9f28226fcec55720999356ec7fbb423901af18",
+      "source_logical_field": "files/RESULT.json/installed_origin",
+      "source_receipt_id": "S006",
+      "variant": "wheel"
+    }
+  ],
+  "not_historical_public_paths": true,
+  "post_measurement_projection": true,
+  "schema": "persistent-memory.technical-installed-origin-attestations.v1"
+}

@@ -1,0 +1,30 @@
+{
+  "fresh_cell_ids": [
+    "V4-20261021-FR-L-R1-ON",
+    "V4-20261021-FR-L-R1-OFF",
+    "V4-20261021-FR-S-R1-ON",
+    "V4-20261021-FR-S-R1-OFF",
+    "V4-20261021-EN-L-R1-ON",
+    "V4-20261021-EN-L-R1-OFF",
+    "V4-20261021-EN-S-R1-ON",
+    "V4-20261021-EN-S-R1-OFF"
+  ],
+  "historical_results_replaced": 0,
+  "included_in_3900_episode_study": false,
+  "included_in_7800_judgment_study": false,
+  "prospective_before_this_replay": true,
+  "schema": "persistent-memory.public-v4-selection.v1",
+  "selected_at_utc": "2026-10-21T20:30:27.223090+00:00",
+  "selected_cases": {
+    "en": "F01-G02-T02",
+    "fr": "F01-G01-T05"
+  },
+  "selection_rule": "For each language fr,en choose lexicographically smallest case_id in frozen SUBSET100 using only METADATA; rep1, models Luna/Sol, arms A/B; source cases unchanged; fresh cell IDs.",
+  "selection_sha256": "5c25653db846d3e4ec4c126078a3f883fdfcc8aedd8f3b586780b6df2833209b",
+  "source_pins": {
+    "CASES.json": "d6050241fafbe08267e0b167aba05e26f4a1cab022b13996c7c6a5811407a7a4",
+    "GENERATION-PLAN.json": "bac2e8696a0afb19f2495b8bef29c7c7b806e3be9be20eda621df9789f033206",
+    "METADATA.json": "ad7a8139e971372cb22f9de5e00039c781c514c89df3dad8f0fceeedcdcee40b",
+    "SUBSET.json": "6c999d8e4485b3bf78353ba4e855cd394faa07f522c9afb35dec6cb52c605d4f"
+  }
+}

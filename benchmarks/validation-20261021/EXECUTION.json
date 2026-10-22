@@ -1,0 +1,68 @@
+{
+  "schema": "persistent-memory.volume.historical-execution.v1",
+  "campaign_dates": [
+    "2026-10-21",
+    "2026-10-22"
+  ],
+  "status": "closed_historical_automated_study_not_absolute_quality_qualified",
+  "study": {
+    "planned_generation_episodes": 3900,
+    "completed_generation_responses": 3900,
+    "judge_attempts": 7800,
+    "completed_judge_responses": 7799,
+    "judge_timeouts": 1,
+    "closed_judge_children": 244,
+    "judge_provider_retries": 0,
+    "compatibility_probe_attempts": 4,
+    "all_provider_attempts": 11704,
+    "conservative_exposure_USD": "141.9995136",
+    "known_usage_estimate_subtotal_USD": "8.0136644",
+    "known_usage_coverage_requests": 11703,
+    "complete_usage_estimate_USD": null,
+    "actual_billed_USD": null
+  },
+  "distinct_operational_replay": {
+    "included_in_study_scores": false,
+    "provider_attempts": 8,
+    "completed_responses": 8,
+    "provider_retries": 0,
+    "conservative_exposure_USD": "0.1806336",
+    "known_usage_estimate_subtotal_USD": "0.0061570",
+    "known_usage_coverage_requests": 8,
+    "actual_billed_USD": null
+  },
+  "combined_closed_scope": {
+    "provider_attempts": 11712,
+    "known_usage_coverage_requests": 11711,
+    "conservative_exposure_USD": "142.1801472",
+    "known_usage_estimate_subtotal_USD": "8.0198214",
+    "complete_usage_estimate_USD": null,
+    "actual_billed_USD": null,
+    "active_reservation_USD": "0"
+  },
+  "interpretation": {
+    "attempt_is_not_provider_acceptance_or_invoice": true,
+    "known_usage_estimates_exclude_cache_discounts": true,
+    "one_attempt_has_no_usage_response": true,
+    "conservative_exposure_is_not_invoice": true,
+    "historical_results_preserved": true,
+    "external_human_quality_audits": 0,
+    "scenario_groups": 100,
+    "synthetic_tasks": 500,
+    "repetitions_per_task": 3
+  },
+  "source_commitments": {
+    "closed_study_accounting": {
+      "sha256": "800ef4f3a4f38f73502cc1ae92c2f904b006d48e02b6e67b1074d9309758dd5b",
+      "bytes": 1343
+    },
+    "closed_replay_accounting": {
+      "sha256": "322f3c582c5fd1b73ad9b85a3f2ed00f1dabd929dc205865f7fddf88c88a0034",
+      "bytes": 464
+    },
+    "historical_report": {
+      "sha256": "a3e3f5be6f6a34e2862b9ea51d778e8d9cf5a7215afb23d03edc1dc8bfc53c07",
+      "bytes": 1414110
+    }
+  }
+}

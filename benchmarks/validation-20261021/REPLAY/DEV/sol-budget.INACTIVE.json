@@ -1,0 +1,49 @@
+{
+  "authorized_for_execution": false,
+  "cells": [
+    {
+      "arm": "memory_on",
+      "cell_id": "DEV-NEW-memory_on",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "DEV-NEW-memory_off",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    },
+    {
+      "arm": "simple_baseline",
+      "cell_id": "DEV-NEW-simple_baseline",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    }
+  ],
+  "dataset_sha256": "c884fc57a1b72a58a75e91edd6386d34e879c1ec508abe01602352e8bb78778a",
+  "endpoint": "https://api.openai.com/v1/chat/completions",
+  "expires_at_epoch": 0,
+  "framing_token_allowance": 1024,
+  "full_request_bytes": 10240,
+  "input_tokens_per_request": 11264,
+  "max_requests": 3,
+  "max_total_usd": "0.129024",
+  "message_bytes": 10240,
+  "model": "gpt-6.1-sol",
+  "output_tokens_per_request": 2048,
+  "per_request_usd": "0.043008",
+  "price_verified": false,
+  "profile": "volume_sol61_low_v1",
+  "purpose": "generation",
+  "reasoning_total_bound_verified": false,
+  "request_options": {
+    "reasoning_effort": "low"
+  },
+  "response_models": [
+    "gpt-6.1-sol"
+  ],
+  "schema_version": 1,
+  "timeout_seconds": 90,
+  "tokenizer_bound_verified": false,
+  "wall_seconds": 300
+}

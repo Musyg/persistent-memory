@@ -1,0 +1,38 @@
+{
+  "development_only": false,
+  "inputs": {
+    "accounting": {
+      "path": "DATA/ACCOUNTING.json",
+      "sha256": "2c76c2d4e799a5eb64876d684eb5ca8246483be88b91f2bddb53bfe16d9e36b9"
+    },
+    "analysis": {
+      "path": "CODE/volume_analysis.py",
+      "sha256": "edb74bc815cb35e56e68b7b78d2af9b76eb396b08a9e62d787e18df9ec87c7f6"
+    },
+    "generation_plan": {
+      "path": "DATA/GENERATION-PLAN-PROJECTION.json",
+      "sha256": "ca089f927d1db25b9e5188f6d007b9e2691c586a2e572126be2b7a670b05181d"
+    },
+    "generations": {
+      "path": "DATA/GENERATIONS.json",
+      "sha256": "ad405851818f6fd1eeccc2a6a3806139edde901a537d84d5333d02706471c208"
+    },
+    "judgments": {
+      "path": "DATA/JUDGMENTS.json",
+      "sha256": "cac29026adbb3b192016c84aec3d2e1a339b74f9681465152bb64802ac95c3f6"
+    },
+    "metadata": {
+      "path": "DATA/METADATA.json",
+      "sha256": "e57d4f46dbe2ddd0d481b5b3a19b9081cf3185293fa3fe5df53244cacaafcb8f"
+    },
+    "study_freeze": {
+      "path": "DATA/STUDY-FREEZE-PROJECTION.json",
+      "sha256": "805d7b152ef1c18a6096f86b9ca95e4cfe83b62e0d47490106ca1d31988016ff"
+    },
+    "subset": {
+      "path": "DATA/SUBSET.json",
+      "sha256": "464a70d3a122cb31c4ca10241ace1a76fcd4a7b709a1f8efff062cf3d5c0cf5b"
+    }
+  },
+  "schema": "persistent-memory.volume.reporting-inputs.v1"
+}

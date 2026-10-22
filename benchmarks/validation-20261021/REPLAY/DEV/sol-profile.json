@@ -1,0 +1,30 @@
+{
+  "cells": [
+    {
+      "arm": "memory_on",
+      "cell_id": "DEV-NEW-memory_on",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "DEV-NEW-memory_off",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    },
+    {
+      "arm": "simple_baseline",
+      "cell_id": "DEV-NEW-simple_baseline",
+      "stage": "rep1",
+      "task_id": "DEV-REPLAY-UPDATE"
+    }
+  ],
+  "dataset_sha256": "c884fc57a1b72a58a75e91edd6386d34e879c1ec508abe01602352e8bb78778a",
+  "max_requests": 3,
+  "max_total_usd": "0.129024",
+  "per_request_usd": "0.043008",
+  "profile": "volume_sol61_low_v1",
+  "purpose": "generation",
+  "schema_version": 1,
+  "wall_seconds": 300
+}

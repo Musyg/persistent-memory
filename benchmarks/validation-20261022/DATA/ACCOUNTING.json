@@ -1,0 +1,8 @@
+{
+  "actual_billed_usd": null,
+  "conservative_debit_usd": "212.0767488",
+  "schema": "persistent-memory.volume.reporting-accounting.v1",
+  "usage_calculated_usd": null,
+  "usage_calculation_scope": "Current fresh study generation/judge known coverage; all-program usage incomplete and invoice unknown.",
+  "usage_coverage_requests": 4500
+}

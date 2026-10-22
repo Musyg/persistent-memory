@@ -105,7 +105,7 @@ def extract_sources(archive, destination):
     destination.mkdir()
     with tarfile.open(archive, 'r:gz') as tar:
         members = tar.getmembers()
-        if len(members) > 500 or sum(m.size for m in members) > 32 * 1024 * 1024:
+        if len(members) > 500 or sum(m.size for m in members) > 64 * 1024 * 1024:
             raise RuntimeError('Unexpected source archive size')
         for member in members:
             target = (destination / member.name).resolve()

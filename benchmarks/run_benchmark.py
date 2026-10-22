@@ -132,6 +132,138 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
 
 
 
+def transition_trajectories(trajectories=3000, seed=20261021, batch_size=50):
+    """Seeded permutations of existing CoreScenarios, not independent clients."""
+    from collections import Counter
+    from unittest.mock import patch
+    import sqlite3
+    from hermes_memory import MemoryError
+
+    if not (type(trajectories) is int and 1 <= trajectories <= 3000
+            and type(seed) is int and 0 <= seed < 2 ** 64
+            and type(batch_size) is int and 1 <= batch_size <= 100):
+        raise ValueError('Expected 1..3000 trajectories, uint64 seed, batch 1..100')
+    generator = random.Random(seed)
+    families = ['revision', 'revoke_late', 'restore', 'outbox', 'anchor_gap', 'isolation']
+    schedule = [families[i % len(families)] for i in range(trajectories)]
+    generator.shuffle(schedule)
+    calls, checks, rows = Counter(), Counter(), []
+    started = time.perf_counter()
+
+    def call(obj, method, *args, **kwargs):
+        calls[type(obj).__name__ + '.' + method] += 1
+        return getattr(obj, method)(*args, **kwargs)
+
+    def allowed(memory, refs, expected):
+        for ref in refs:
+            decision = call(memory, 'read', ref)
+            checks['read_invariants'] += 1
+            assert decision['allowed'] is expected, decision
+
+    for batch_start in range(0, trajectories, batch_size):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            authority = Authority.create(root / 'authority.db', root / 'anchor.json')
+            memory = Memory.create(root / 'content.db', authority)
+            calls['Authority.create'] += 1
+            calls['Memory.create'] += 1
+            for index in range(batch_start, min(batch_start + batch_size, trajectories)):
+                family, depth = schedule[index], generator.randrange(1, 4)
+                workspace, source_id = 'synthetic', 'source-' + str(index)
+                text = 'Synthetic trajectory ' + str(index)
+                source = call(memory, 'register_source', workspace, source_id, text)['ref']
+                allowed(memory, [source], True)
+                independent = call(memory, 'register_source', workspace, 'independent-' + str(index), 'independent')['ref']
+                dependents, parent = [], source
+                allowed(memory, [source, independent], True)
+                for level in range(depth):
+                    parent = call(memory, 'derive', workspace, 'derived-' + str(index) + '-' + str(level),
+                                  text, 'fact', [{'ref': parent, 'relation': 'derives'}],
+                                  call(memory, 'checkpoint')['epoch'])['ref']
+                    dependents.append(parent)
+                    allowed(memory, [source, independent, *dependents], True)
+                epoch = call(memory, 'checkpoint')['epoch']
+                if family == 'revision':
+                    current = call(memory, 'register_source', workspace, source_id, text + ' revised',
+                                   expected_version=source['version_id'])['ref']
+                    allowed(memory, [source, *dependents], False)
+                    allowed(memory, [current, independent], True)
+                elif family == 'isolation':
+                    try:
+                        call(memory, 'derive', 'other', 'cross-' + str(index), text, 'fact',
+                             [{'ref': source, 'relation': 'derives'}], epoch)
+                    except MemoryError:
+                        checks['expected_rejections'] += 1
+                    else:
+                        raise AssertionError('Cross-workspace dependency admitted')
+                    allowed(memory, [source, independent, *dependents], True)
+                else:
+                    if family == 'restore':
+                        backup = root / ('backup-' + str(index) + '.db')
+                        call(memory, 'backup', backup)
+                    if family == 'outbox':
+                        try:
+                            call(memory, 'drain_outbox', fail_after_projection=True)
+                        except MemoryError:
+                            checks['expected_faults'] += 1
+                        else:
+                            raise AssertionError('Projection crash not injected')
+                        allowed(memory, [source, independent, *dependents], True)
+                        call(memory, 'drain_outbox')
+                        allowed(memory, [source, independent, *dependents], True)
+                        call(memory, 'drain_outbox')
+                        allowed(memory, [source, independent, *dependents], True)
+                    if family == 'anchor_gap':
+                        with patch('hermes_memory.core.atomic_json', side_effect=OSError('synthetic anchor outage')):
+                            try:
+                                call(memory, 'revoke_source', workspace, source_id, 'revoke-' + str(index))
+                            except OSError:
+                                checks['expected_faults'] += 1
+                            else:
+                                raise AssertionError('Anchor outage not injected')
+                        allowed(memory, [source, independent, *dependents], False)
+                        with sqlite3.connect(authority.path) as connection:
+                            connection.row_factory = sqlite3.Row
+                            trusted = authority._checkpoint(connection)
+                        calls['Authority._checkpoint_trusted_repair_only'] += 1
+                        call(authority, 'recover_anchor', trusted)
+                    else:
+                        call(memory, 'revoke_source', workspace, source_id, 'revoke-' + str(index))
+                    allowed(memory, [source, *dependents], False)
+                    allowed(memory, [independent], True)
+                    if family == 'revoke_late':
+                        try:
+                            call(memory, 'derive', workspace, 'late-' + str(index), text, 'fact',
+                                 [{'ref': source, 'relation': 'derives'}], epoch)
+                        except MemoryError:
+                            checks['expected_rejections'] += 1
+                        else:
+                            raise AssertionError('Late revoked write admitted')
+                        allowed(memory, [source, *dependents], False)
+                        allowed(memory, [independent], True)
+                    if family == 'restore':
+                        restored = Memory.open(backup, authority)
+                        calls['Memory.open'] += 1
+                        allowed(restored, [source, independent, *dependents], False)
+                        call(restored, 'restore_verify', call(authority, 'checkpoint'))
+                        allowed(restored, [source, *dependents], False)
+                        allowed(restored, [independent], True)
+                checks['completed_trajectories'] += 1
+                assert sum(calls.values()) <= 100000, 'explicit operation cap'
+                rows.append({'index': index, 'family': family, 'dependency_depth': depth, 'passed': True})
+    report = {'mode': 'seeded_existing_core_scenario_transitions', 'seed': seed,
+              'trajectories': trajectories, 'completed': len(rows), 'batch_size': batch_size,
+              'database_batches': math.ceil(trajectories / batch_size),
+              'family_counts': dict(Counter(schedule)), 'checks': dict(checks),
+              'explicit_method_calls': dict(calls), 'explicit_method_calls_total': sum(calls.values()),
+              'call_scope': 'explicit harness calls including initialization; internal SQLite work excluded',
+              'generated_cases': rows, 'elapsed_seconds': time.perf_counter() - started,
+              'provider_requests': 0, 'independent_clients': 0, 'business_tasks': 0,
+              'oracle_passed': len(rows) == trajectories}
+    print(json.dumps(report, indent=2))
+    return report
+
+
 def lance_hybrid_demo():
     """Local synthetic binding/currentness exercise; no learned ranking claim."""
     import importlib.metadata
@@ -241,6 +373,7 @@ def lance_hybrid_demo():
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--trajectories', type=int, help='Run 1..3000 seeded core transition trajectories.')
     parser.add_argument('--lance-hybrid', action='store_true',
                         help='Run the optional local synthetic LanceDB binding demo.')
     parser.add_argument('--documents', type=int, help='Typed volume mode: 1..5000 synthetic sources (default 24).')
@@ -248,6 +381,10 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, help='Typed volume mode: query seed 0..2^64-1 (default 0).')
     args = parser.parse_args()
     volume = any(value is not None for value in (args.documents, args.repetitions, args.seed))
+    if args.trajectories is not None and (args.lance_hybrid or args.documents is not None or args.repetitions is not None):
+        parser.error('--trajectories cannot be combined with retrieval or Lance modes')
+    if args.trajectories is not None and not 1 <= args.trajectories <= 3000:
+        parser.error('Expected trajectories 1..3000')
     if args.lance_hybrid and volume:
         parser.error('--lance-hybrid cannot be combined with typed volume options')
     documents = 24 if args.documents is None else args.documents
@@ -255,7 +392,9 @@ if __name__ == '__main__':
     seed = 0 if args.seed is None else args.seed
     if not 1 <= documents <= 5000 or not 1 <= repetitions <= 100000 or not 0 <= seed < 2 ** 64:
         parser.error('Expected documents 1..5000, repetitions 1..100000 and seed 0..2^64-1')
-    if args.lance_hybrid:
+    if args.trajectories is not None:
+        transition_trajectories(args.trajectories, seed)
+    elif args.lance_hybrid:
         lance_hybrid_demo()
     else:
         report = main(documents, repetitions, seed, volume=volume)

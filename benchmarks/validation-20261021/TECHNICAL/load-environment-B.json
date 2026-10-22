@@ -1,0 +1,77 @@
+{
+  "data": {
+    "benchmark_sha256": "66ebda8d8f297c25c63c5fcc9f2839089d95d33921a1137af9fbabb26e4b8766",
+    "cases": [
+      {
+        "documents": 100,
+        "elapsed_seconds": 5.711555562913418,
+        "passed": true,
+        "result": {
+          "API_calls_requested_by_benchmark": 0,
+          "candidate_truncated_queries": 0,
+          "cold_cache_controlled": false,
+          "disk_bytes_after_revocation_sync": 364682,
+          "distinct_queries": 68,
+          "expected_hits": 100,
+          "general_speed_superiority_claimed": false,
+          "independent_business_tasks": 0,
+          "ingest_seconds": 0.8869083819445223,
+          "initial_sync_seconds": 0.014516465831547976,
+          "initialization_calls": {
+            "Authority.create": 1,
+            "Memory.create": 1,
+            "TypedMemory": 1
+          },
+          "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+          "max_seconds": 0.06937821116298437,
+          "mean_seconds": 0.03662901076488197,
+          "median_seconds": 0.01828251453116536,
+          "mode": "synthetic_typed_volume",
+          "omissions": 0,
+          "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+          "oracle_passed": true,
+          "p50_seconds": 0.01828251453116536,
+          "p95_method": "nearest_rank",
+          "p95_seconds": 0.06918356101959944,
+          "package_version": "0.3.0a2",
+          "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+          "provider_requests": 0,
+          "public_method_calls": {
+            "memory.read": 100,
+            "memory.revoke_source": 1,
+            "typed.put": 100,
+            "typed.search": 102,
+            "typed.sync": 2
+          },
+          "public_method_calls_total": 305,
+          "python_version": "3.12.3",
+          "query_kind": "unique_synthetic_lexical_token",
+          "query_schedule_sha256": "c8e6fc4b2ee963640ff0da1604d62367d1e24f3766e5f5c37c404e034303866c",
+          "ranking_quality_evaluated": false,
+          "repetitions": 100,
+          "retrieval_trials": 100,
+          "revocation_checked": true,
+          "revocation_sync_seconds": 0.014648906886577606,
+          "rss_peak_bytes": 28344320,
+          "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+          "seed": 20261021,
+          "sqlite_version": "3.45.1",
+          "status_counts": {
+            "completed": 100
+          },
+          "synthetic_documents": 100,
+          "unexpected_items": 0
+        },
+        "retrievals": 100
+      }
+    ],
+    "explicit_calls_total": 305,
+    "operation_cap": 100000,
+    "passed": true,
+    "production_changed": false,
+    "provider_calls": 0
+  },
+  "environment": "environment-B",
+  "post_measurement_projection": true,
+  "schema": "persistent-memory.technical-volume-projection.v1"
+}

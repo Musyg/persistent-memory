@@ -1,0 +1,43 @@
+{
+  "analysis_projection": true,
+  "campaign_max_USD": "250",
+  "cases": 500,
+  "executable": false,
+  "frozen_members": {
+    "CASES.json": {
+      "bytes": 813298,
+      "sha256": "d6050241fafbe08267e0b167aba05e26f4a1cab022b13996c7c6a5811407a7a4"
+    },
+    "METADATA.json": {
+      "bytes": 66075,
+      "sha256": "ad7a8139e971372cb22f9de5e00039c781c514c89df3dad8f0fceeedcdcee40b"
+    },
+    "ORACLE.json": {
+      "bytes": 640112,
+      "sha256": "f1a00c4a2cc64eab3241a3f807f8c36e6052924d242b8c397323aac194f01945"
+    },
+    "SUBSET.json": {
+      "bytes": 4322,
+      "sha256": "6c999d8e4485b3bf78353ba4e855cd394faa07f522c9afb35dec6cb52c605d4f"
+    },
+    "volume_analysis.py": {
+      "bytes": 15363,
+      "sha256": "23a678b5030c07451d7b7266bee64ec86ab56bb8621344eaeb748d20e34d8941"
+    }
+  },
+  "generation_max_USD": "32.90112",
+  "holdout_outputs_observed": 0,
+  "judge_max_USD": "109.02528",
+  "latent_groups": 100,
+  "planned_episodes": 3900,
+  "prior_debit_USD": "0.0731136",
+  "projection_created_after_measurement": true,
+  "schema": "persistent-memory.volume.study-freeze.v1",
+  "scope": "public 0.3.0a2 plus portable pre-retrieval text consumer; not fleet-wide Hermes certification",
+  "secondary_analysis": {
+    "Luna_A_minus_C_subset100_seed": 20261025,
+    "Sol_A_minus_B_subset100_seed": 20261026,
+    "method": "same grouped stratified 10000 bootstrap and conservative unknown bounds as frozen primary; secondary, no500taskclaim"
+  },
+  "source_study_freeze_sha256": "e76ff8aa957db7a96527b0495b60d14c6041206da410ad7dbb02d6a56cd01fea"
+}

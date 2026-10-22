@@ -1,0 +1,20 @@
+{
+  "analysis_sha256": "edb74bc815cb35e56e68b7b78d2af9b76eb396b08a9e62d787e18df9ec87c7f6",
+  "files": {
+    "REPORT.en.md": {
+      "bytes": 4061,
+      "sha256": "03e260d73692332e2a954c02ec858c25c4829a0b7dbd809834dadb7e5bd83b81"
+    },
+    "REPORT.fr.md": {
+      "bytes": 4347,
+      "sha256": "d6b2b32b9263516c698d0392e5e4c7b67436e88321ecfc63ec780ccc6cca41f8"
+    },
+    "REPORT.json": {
+      "bytes": 584651,
+      "sha256": "9b2ae3f38303de2766516f7b38bb5d021d03f271f36817cd9741868e1e4d7114"
+    }
+  },
+  "input_manifest_sha256": "842fb169368b121d4a7df97cf6e6fd5038769bba31b28fee85140f328f6e2444",
+  "reporter_sha256": "2156dbbc2ba0729f405fc01eb0bac9d98e65648c30c393dd404a63fd09226ea4",
+  "schema": "persistent-memory.volume.reporting-artifacts.v1"
+}
