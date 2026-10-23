@@ -701,7 +701,7 @@ def compare_transitions(fixture_path=None, variants=10, seed=COMPARISON_SEED, *,
     return report
 
 
-ACTION_SUPPORT_SHA256 = 'd03206379d8cb491ac19a254712538e2a0fda9f6cc5429347c275274efe9c351'
+ACTION_SUPPORT_SHA256 = '74138918d82aa405261e60d1e7a258bbbc4e2dec6c629c7017ef8e381c35d9e4'
 
 
 def _action_support():
@@ -1185,9 +1185,379 @@ def efficiency_analysis(inputs_path=None, inputs_sha256=None, *, emit=True):
     return result
 
 
+def calculate_action_transfer(observations, fixture_raw, plan_raw, *, primary_interval):
+    """Pure receipt analysis; caller hash-binds the existing primary_interval.
+
+    fixture_raw and plan_raw are exact bytes, not reserialized dictionaries.
+    observations has schema/dataset_sha256/plan_sha256/mode/rows. Each of its
+    576 rows has cell/dataset_sha256/plan_sha256/consume/verification/
+    emission_status/terminal_category. consume and verification are existing
+    P2/P3 receipts or None. Every planned cell remains in the denominator.
+    The caller must load primary_interval from volume_analysis.py SHA256
+    edb74bc815cb35e56e68b7b78d2af9b76eb396b08a9e62d787e18df9ec87c7f6.
+    No file, provider, credential, scorer or bootstrap implementation here.
+    """
+    import collections
+    from decimal import Decimal
+    import hashlib
+    import json
+    import math
+    import re
+
+    def check(condition, reason):
+        if not condition:
+            raise ValueError('action_analysis:' + reason)
+
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            check(key not in result, 'duplicate_json_key')
+            result[key] = value
+        return result
+
+    def nonfinite(value):
+        raise ValueError('action_analysis:nonfinite_json:' + value)
+
+    def read_pinned(raw):
+        check(type(raw) is bytes and 0 < len(raw) <= 4 * 1024 ** 2, 'raw_input_bytes')
+        return json.loads(raw, object_pairs_hook=unique, parse_constant=nonfinite), hashlib.sha256(raw).hexdigest()
+
+    fixture, dataset_pin = read_pinned(fixture_raw)
+    plan, plan_pin = read_pinned(plan_raw)
+    models = ('gpt-6-luna', 'gpt-6.1-sol')
+    arms = ('memory_on', 'strong_versioned_lexical', 'full_history_bounded', 'memory_off')
+    families = {'procedure', 'correction', 'revocation', 'selfcontained'}
+    emissions = {'confirmed_emitted', 'confirmed_not_emitted', 'unknown', 'not_executed'}
+    cell_fields = {'cell_id', 'world_id', 'template_id', 'model', 'arm', 'repetition'}
+    check(callable(primary_interval), 'existing_interval_function_required')
+    check(type(fixture) is dict and fixture.get('schema') == 'persistent-memory.action-transfer.fixture.v1'
+          and fixture.get('synthetic') is True and type(fixture.get('worlds')) is list
+          and type(fixture.get('templates')) is list and len(fixture['worlds']) == 24
+          and len(fixture['templates']) == 12, 'fixture_scope')
+    worlds = {}
+    for world in fixture['worlds']:
+        check(type(world) is dict and type(world.get('world_id')) is str and world['world_id'] not in worlds
+              and world.get('family') in families and world.get('language') in ('FR', 'EN')
+              and type(world.get('template_id')) is str, 'world_binding')
+        worlds[world['world_id']] = world
+    template_map = {}
+    for template in fixture['templates']:
+        check(type(template) is dict and type(template.get('template_id')) is str
+              and template['template_id'] not in template_map and template.get('family') in families
+              and type(template.get('world_ids')) is list and len(template['world_ids']) == 2, 'template_binding')
+        members = [w for w in worlds.values() if w['template_id'] == template['template_id']]
+        check(len(members) == 2 and {w['world_id'] for w in members} == set(template['world_ids'])
+              and {w['language'] for w in members} == {'FR', 'EN'}
+              and {w['family'] for w in members} == {template['family']}, 'template_world_lineage')
+        template_map[template['template_id']] = template
+    check(set(w['template_id'] for w in worlds.values()) == set(template_map)
+          and collections.Counter(w['family'] for w in worlds.values()) == dict.fromkeys(families, 6),
+          'family_denominators')
+    check(type(plan) is dict and set(plan) == {'schema', 'dataset_sha256', 'cells'}
+          and plan['schema'] == 'persistent-memory.action-transfer.plan.v1'
+          and plan['dataset_sha256'] == dataset_pin and type(plan['cells']) is list
+          and len(plan['cells']) == 576, 'plan_scope_or_dataset_pin')
+    planned, grid = {}, set()
+    for cell in plan['cells']:
+        check(type(cell) is dict and set(cell) == cell_fields and type(cell['cell_id']) is str
+              and re.fullmatch(r'[A-Za-z0-9_.:-]{1,128}', cell['cell_id']) is not None
+              and cell['cell_id'] not in planned and cell['world_id'] in worlds
+              and cell['template_id'] == worlds[cell['world_id']]['template_id']
+              and cell['model'] in models and cell['arm'] in arms
+              and type(cell['repetition']) is int and 1 <= cell['repetition'] <= 3, 'planned_cell_binding')
+        key = (cell['world_id'], cell['model'], cell['arm'], cell['repetition'])
+        check(key not in grid, 'duplicate_planned_coordinate')
+        grid.add(key)
+        planned[cell['cell_id']] = cell
+    check(grid == {(wid, model, arm, rep) for wid in worlds for model in models
+                   for arm in arms for rep in (1, 2, 3)}, 'complete_cartesian_plan')
+    check(type(observations) is dict and set(observations) == {
+        'schema', 'dataset_sha256', 'plan_sha256', 'mode', 'rows'}
+        and observations['schema'] == 'persistent-memory.action-transfer.observations.v1'
+        and observations['dataset_sha256'] == dataset_pin and observations['plan_sha256'] == plan_pin
+        and observations['mode'] in ('paid', 'fake') and type(observations['rows']) is list
+        and len(observations['rows']) == 576, 'observation_scope_or_pins')
+    fake = observations['mode'] == 'fake'
+    rates = {'gpt-6-luna': (Decimal('0.10'), Decimal('0.50'), Decimal('0.01')),
+             'gpt-6.1-sol': (Decimal('2.00'), Decimal('10.00'), Decimal('0.10'))}
+    row_fields = {'cell', 'dataset_sha256', 'plan_sha256', 'consume', 'verification',
+                  'emission_status', 'terminal_category'}
+    joined, by_group, seen, matched = [], collections.defaultdict(list), set(), {}
+    for row in observations['rows']:
+        check(type(row) is dict and set(row) == row_fields and type(row['cell']) is dict, 'row_schema')
+        cell = row['cell']
+        cid = cell.get('cell_id')
+        check(type(cid) is str and cid in planned and cid not in seen and cell == planned[cid]
+              and row['dataset_sha256'] == dataset_pin and row['plan_sha256'] == plan_pin
+              and row['emission_status'] in emissions and type(row['terminal_category']) is str
+              and 0 < len(row['terminal_category']) <= 128, 'row_identity_or_emission')
+        seen.add(cid)
+        consume, verification = row['consume'], row['verification']
+        score = control = None
+        usage = context = latency = None
+        usage_status, cost = 'missing', None
+        called = None
+        if consume is not None:
+            check(type(consume) is dict and consume.get('schema') == 'persistent-memory.action-transfer.consume-receipt.v1'
+                  and consume.get('cell') == cell and consume.get('dataset_sha256') == dataset_pin
+                  and consume.get('plan_sha256') == plan_pin and consume.get('mode') == observations['mode']
+                  and consume.get('fake_proof_only') is fake and type(consume.get('provider_called')) is bool
+                  and consume.get('status') in ('completed', 'unavailable', 'error', 'invalidated')
+                  and type(consume.get('category')) is str, 'consume_binding')
+            called = consume['provider_called']
+            check(row['emission_status'] in ({'confirmed_emitted', 'unknown'} if called else {'confirmed_not_emitted'}),
+                  'consume_emission_contradiction')
+            check(not fake or not called, 'fake_provider_called')
+            check(fake or consume['status'] != 'completed' or called, 'paid_completion_without_provider')
+            check(fake or consume['status'] != 'completed' or row['emission_status'] == 'confirmed_emitted',
+                  'completed_response_emission_unknown')
+            start, end = consume.get('started_ns'), consume.get('ended_ns')
+            check(type(start) is int and type(end) is int and 0 <= start <= end
+                  and type(consume.get('pid')) is int and consume['pid'] > 0, 'consume_timing_or_pid')
+            first_exit = consume.get('p1_exit')
+            check(type(first_exit) is dict and type(first_exit.get('pid')) is int and first_exit['pid'] > 0
+                  and first_exit['pid'] != consume['pid'] and type(first_exit.get('returncode')) is int
+                  and first_exit['returncode'] == 0 and type(first_exit.get('exited_ns')) is int
+                  and 0 <= first_exit['exited_ns'] <= start, 'first_process_exit_boundary')
+            latency = end - start
+            packet, preflight = consume.get('packet'), consume.get('preflight')
+            check(type(packet) is dict and packet.get('arm') == cell['arm']
+                  and type(packet.get('context')) is str and type(packet.get('items')) is list
+                  and len(packet['items']) <= 5 and len(packet['context']) <= 2000
+                  and type(packet.get('context_chars')) is int and type(packet.get('context_utf8_bytes')) is int
+                  and packet.get('context_chars') == len(packet['context'])
+                  and packet.get('context_utf8_bytes') == len(packet['context'].encode('utf-8')),
+                  'context_coverage_or_bound')
+            check(type(preflight) is dict and type(preflight.get('full_request_bytes')) is int
+                  and 0 < preflight['full_request_bytes'] <= 10240
+                  and preflight.get('input_token_upper_bound') == preflight['full_request_bytes'] + 1024,
+                  'request_preflight_bound')
+            context = {'chars': packet['context_chars'], 'utf8_bytes': packet['context_utf8_bytes'],
+                       'items': len(packet['items']), 'full_request_bytes': preflight['full_request_bytes']}
+            reported = consume.get('usage')
+            if reported is not None:
+                check(type(reported) is dict, 'usage_object')
+                valid = all(type(reported.get(k)) is int and reported[k] >= 0
+                            for k in ('prompt_tokens', 'completion_tokens', 'total_tokens'))
+                valid = valid and reported['total_tokens'] == reported['prompt_tokens'] + reported['completion_tokens']
+                if valid:
+                    details = reported.get('prompt_tokens_details')
+                    completion = reported.get('completion_tokens_details')
+                    cached = details.get('cached_tokens') if type(details) is dict else None
+                    written = details.get('cache_write_tokens') if type(details) is dict else None
+                    reasoning = completion.get('reasoning_tokens') if type(completion) is dict else None
+                    cached = cached if type(cached) is int and 0 <= cached <= reported['prompt_tokens'] else None
+                    written = written if type(written) is int and 0 <= written <= reported['prompt_tokens'] else None
+                    reasoning = reasoning if type(reasoning) is int and 0 <= reasoning <= reported['completion_tokens'] else None
+                    if cached is not None and written is not None and cached + written > reported['prompt_tokens']:
+                        cached = written = None
+                    usage = {k: reported[k] for k in ('prompt_tokens', 'completion_tokens', 'total_tokens')}
+                    usage.update(cached_tokens=cached, cache_write_tokens=written, reasoning_tokens=reasoning)
+                    detail_valid = (type(details) is dict and type(completion) is dict
+                        and cached is not None and written is not None and reasoning is not None
+                        and all(type(details.get(k)) is int and details[k] >= 0 for k in ('cached_tokens', 'cache_write_tokens', 'audio_tokens'))
+                        and all(type(completion.get(k)) is int and completion[k] >= 0 for k in
+                                ('reasoning_tokens', 'audio_tokens', 'accepted_prediction_tokens', 'rejected_prediction_tokens')))
+                    detail_valid = detail_valid and cached + written <= reported['prompt_tokens'] and reasoning <= reported['completion_tokens']
+                    priceable = detail_valid and all(details[k] == 0 for k in ('cache_write_tokens', 'audio_tokens'))
+                    priceable = priceable and all(completion[k] == 0 for k in ('audio_tokens', 'accepted_prediction_tokens', 'rejected_prediction_tokens'))
+                    usage_status = 'complete_priceable' if priceable else 'tokens_known_tariff_or_details_unknown'
+                    if priceable and called:
+                        inp, out, cache = rates[cell['model']]
+                        cost = ((reported['prompt_tokens'] - cached) * inp + cached * cache
+                                + reported['completion_tokens'] * out) / Decimal(1000000)
+                else:
+                    usage_status = 'invalid_or_incomplete_reported_usage'
+            if not called:
+                check(reported is None, 'usage_without_provider_emission')
+                usage_status = 'not_emitted'
+        else:
+            check(verification is None and row['emission_status'] in emissions, 'verifier_without_consumer')
+        if row['emission_status'] == 'not_executed':
+            check(consume is None and verification is None, 'not_executed_has_receipt')
+        if verification is not None:
+            check(type(verification) is dict
+                  and verification.get('schema') == 'persistent-memory.action-transfer.verification.v1'
+                  and verification.get('cell') == cell and verification.get('dataset_sha256') == dataset_pin
+                  and verification.get('plan_sha256') == plan_pin and verification.get('fake_proof_only') is fake
+                  and type(verification.get('task_success')) is bool
+                  and type(verification.get('effect_verified')) is bool
+                  and verification.get('category') == row['terminal_category'], 'verification_binding')
+            exit_proof = verification.get('p2_exit')
+            check(type(exit_proof) is dict and exit_proof.get('pid') == consume.get('pid')
+                  and type(exit_proof.get('returncode')) is int and exit_proof['returncode'] == 0
+                  and type(exit_proof.get('exited_ns')) is int and type(verification.get('started_ns')) is int
+                  and consume['ended_ns'] <= exit_proof['exited_ns'] <= verification['started_ns']
+                  and type(verification.get('ended_ns')) is int
+                  and verification['started_ns'] <= verification['ended_ns']
+                  and type(verification.get('pid')) is int and verification['pid'] > 0
+                  and verification['pid'] not in (consume['pid'], first_exit['pid']),
+                  'actual_host_reopen_boundary')
+            checks = verification.get('checks')
+            check(type(checks) is dict and type(checks.get('control.json')) is dict
+                  and set(checks['control.json']) == {'present', 'exact_bytes'}
+                  and all(type(v) is bool for v in checks['control.json'].values()), 'positive_control_observation')
+            control = all(checks['control.json'].values())
+            if consume['status'] == 'completed' and verification['effect_verified']:
+                score = verification['task_success']
+                check(not score or control, 'success_without_positive_control')
+            check(not verification['task_success'] or score is True, 'inconsistent_host_success')
+        elif consume is not None:
+            check(row['terminal_category'] == consume['category'], 'terminal_category_binding')
+        world = worlds[cell['world_id']]
+        item = {'cell_id': cid, 'world_id': cell['world_id'], 'template_id': cell['template_id'],
+                'family': world['family'], 'language': world['language'], 'model': cell['model'],
+                'arm': cell['arm'], 'repetition': cell['repetition'], 'success': score,
+                'control_success': control, 'category': row['terminal_category'],
+                'emission_status': row['emission_status'], 'provider_called': called,
+                'usage_status': usage_status, 'usage': usage, 'context': context,
+                'consumer_p2_ns': latency, 'estimated_generation_usd': str(cost) if cost is not None else None}
+        joined.append(item)
+        by_group[(cell['model'], cell['arm'])].append(item)
+        matched[(cell['model'], cell['arm'], cell['world_id'], cell['repetition'])] = score
+    check(seen == set(planned), 'missing_planned_observation_rows')
+
+    def counts(rows):
+        known_costs = [Decimal(r['estimated_generation_usd']) for r in rows if r['estimated_generation_usd'] is not None]
+        usable = [r['usage'] for r in rows if r['usage'] is not None]
+        emitted = sum(r['emission_status'] == 'confirmed_emitted' for r in rows)
+        complete_cost = len(known_costs) == emitted and not any(r['emission_status'] == 'unknown' for r in rows)
+        successes = sum(r['success'] is True for r in rows)
+        known_sum = sum(known_costs, Decimal(0))
+        return {'planned': len(rows), 'success': successes, 'failure': sum(r['success'] is False for r in rows),
+                'unknown': sum(r['success'] is None for r in rows),
+                'control_success': sum(r['control_success'] is True for r in rows),
+                'control_failure': sum(r['control_success'] is False for r in rows),
+                'control_unknown': sum(r['control_success'] is None for r in rows),
+                'control_success_fraction_bounds': [sum(r['control_success'] is True for r in rows) / len(rows),
+                                                     sum(r['control_success'] is not False for r in rows) / len(rows)],
+                'success_fraction_bounds': [successes / len(rows), sum(r['success'] is not False for r in rows) / len(rows)],
+                'categories': dict(sorted(collections.Counter(r['category'] for r in rows).items())),
+                'emission_accounting': dict(sorted(collections.Counter(r['emission_status'] for r in rows).items())),
+                'usage_status': dict(sorted(collections.Counter(r['usage_status'] for r in rows).items())),
+                'observed_token_coverage': len(usable),
+                'observed_tokens_known_subtotal': {k: sum(u[k] for u in usable) for k in ('prompt_tokens', 'completion_tokens', 'total_tokens')},
+                'usage_detail_coverage': {k: sum(type(u[k]) is int for u in usable)
+                                          for k in ('cached_tokens', 'cache_write_tokens', 'reasoning_tokens')},
+                'observed_detail_known_subtotals': {k: sum(u[k] for u in usable if type(u[k]) is int)
+                                                    for k in ('cached_tokens', 'cache_write_tokens', 'reasoning_tokens')},
+                'generation_estimate_coverage': len(known_costs), 'known_generation_estimate_usd': str(known_sum),
+                'generation_estimate_complete_for_emissions': complete_cost,
+                'estimated_usd_per_conforming_task': str(known_sum / successes)
+                    if not fake and complete_cost and successes else None,
+                'consumer_p2_timing_coverage': sum(r['consumer_p2_ns'] is not None for r in rows),
+                'consumer_p2_ns_known_total': sum(r['consumer_p2_ns'] for r in rows if r['consumer_p2_ns'] is not None),
+                'context_coverage': sum(r['context'] is not None for r in rows),
+                'context_known_subtotals': {k: sum(r['context'][k] for r in rows if r['context'] is not None)
+                                          for k in ('chars', 'utf8_bytes', 'items', 'full_request_bytes')}}
+
+    metadata = [{'case_id': w['world_id'], 'family': w['family'], 'scenario_group': w['template_id']}
+                for w in sorted(worlds.values(), key=lambda w: w['world_id'])]
+    contrasts = []
+    allowed_statistics = {'planned_tasks', 'scenario_groups', 'families', 'point_bounds',
+                          'effect_uncertainty_interval_95', 'a_one_sided_95_lower',
+                          'bootstrap_samples', 'bootstrap_seed', 'method', 'tasks'}
+    for model in models:
+        for baseline in arms[1:]:
+            scores = {wid: {'memory_on': [matched[(model, 'memory_on', wid, rep)] for rep in (1, 2, 3)],
+                            'memory_off': [matched[(model, baseline, wid, rep)] for rep in (1, 2, 3)]}
+                      for wid in worlds}
+            statistics = primary_interval(metadata, scores, samples=10000, seed=20261023)
+            check(type(statistics) is dict and statistics.get('planned_tasks') == 24
+                  and statistics.get('scenario_groups') == 12 and statistics.get('families') == 4
+                  and statistics.get('bootstrap_samples') == 10000 and statistics.get('bootstrap_seed') == 20261023,
+                  'existing_interval_denominator')
+            interval = statistics.get('effect_uncertainty_interval_95')
+            check(type(interval) is list and len(interval) == 2 and all(type(v) in (int, float)
+                  and math.isfinite(v) and -1 <= v <= 1 for v in interval) and interval[0] <= interval[1],
+                  'existing_interval_output')
+            contrasts.append({'model': model, 'arm_a': 'memory_on', 'arm_b': baseline,
+                              'paired_responses': 72, 'worlds': 24, 'template_clusters': 12,
+                              'repetitions_within_world': 3,
+                              'statistics': {k: v for k, v in statistics.items() if k in allowed_statistics}})
+    groups = [{'model': model, 'arm': arm, 'worlds': 24, 'template_clusters': 12,
+               **counts(by_group[(model, arm)]),
+               'families': [{'family': family, **counts([r for r in by_group[(model, arm)] if r['family'] == family])}
+                            for family in sorted(families)]} for model in models for arm in arms]
+    return {'schema': 'persistent-memory.action-transfer.analysis.v1', 'mode': observations['mode'],
+            'model_success_measured': not fake and any(r['success'] is not None for r in joined),
+            'dataset_sha256': dataset_pin, 'plan_sha256': plan_pin,
+            'planned_cells': 576, 'worlds': 24, 'template_clusters': 12, 'families': 4, 'repetitions': 3,
+            'groups': groups, 'contrasts': contrasts, 'episodes': sorted(joined, key=lambda r: r['cell_id']),
+            'overall': counts(joined), 'actual_billed_usd': None,
+            'historical_price_date': '2026-10-23',
+            'historical_standard_usd_per_million': {model: {'input': str(rate[0]), 'output': str(rate[1]),
+                                                         'cached_input': str(rate[2])}
+                                                   for model, rate in rates.items()},
+            'cost_scope': 'Reported generation usage only; no invoice, judge, retrieval, storage, infrastructure or human cost.',
+            'interval_source_required_sha256': 'edb74bc815cb35e56e68b7b78d2af9b76eb396b08a9e62d787e18df9ec87c7f6',
+            'interval_source_binding': 'Caller must hash-bind the injected existing primary_interval before this pure function.',
+            'limits': {'new_winning_gate': False, 'quality_noninferiority_confirmed': False,
+                       'equal_spend_comparison': False, 'dominance_claimed': False,
+                       'autonomous_learning_claimed': False, 'invoice_known': False,
+                       'reasoning_is_subset_of_completion': True, 'unsupported_cache_write_not_priced': True,
+                       'unknown_usage_not_zero': True, 'financial_exposure_or_refund_inferred': False,
+                       'latency_scope': 'P2 process duration only; not full P1-to-P3 wall time or provider-only latency.'}}
+
+
+ACTION_REPORT_FIXTURE_SHA256 = '0313a0c2e237d2220cecac6094fb68b9885810680fcea942af9f84dd20da6c88'
+ACTION_REPORT_PLAN_SHA256 = '3a4f2d213ad20596c0810009cf022e530ca71ee7392af9a1dec6655374998c31'
+ACTION_REPORT_INTERVAL_SHA256 = 'edb74bc815cb35e56e68b7b78d2af9b76eb396b08a9e62d787e18df9ec87c7f6'
+ACTION_REPORT_CALCULATION_SHA256 = '139302066f6826f5708607920f347e8022d8aa15b3fedde1c4d3a8d506c2decf'
+
+
+def action_report(observations_path, observations_sha256, *, emit=True,
+                  fixture_path=None, fixture_sha256=None, plan_path=None, plan_sha256=None):
+    """Reproduce the prospective analysis from pinned observations, entirely offline."""
+    import re
+
+    def read(path, pin, maximum):
+        if type(pin) is not str or re.fullmatch('[0-9a-f]{64}', pin) is None or path is None:
+            raise ValueError('action_report:explicit_sha256_required')
+        path = Path(path).absolute()
+        if not path.is_file() or any(part.is_symlink() for part in (path, *path.parents)):
+            raise ValueError('action_report:regular_file_without_symlinks_required')
+        if not 0 < path.stat().st_size <= maximum:
+            raise ValueError('action_report:input_size_limit')
+        with path.open('rb') as stream:
+            raw = stream.read(maximum + 1)
+        if not 0 < len(raw) <= maximum or hashlib.sha256(raw).hexdigest() != pin:
+            raise ValueError('action_report:input_size_or_pin_mismatch')
+        return raw
+
+    root = Path(__file__).absolute().parent
+    raw = read(observations_path, observations_sha256, 64 * 1024 ** 2)
+    explicit = (fixture_path, fixture_sha256, plan_path, plan_sha256)
+    if any(value is not None for value in explicit):
+        if not all(value is not None for value in explicit):
+            raise ValueError('action_report:explicit_fixture_and_plan_require_all_four_paths_and_pins')
+    else:
+        fixture_path, fixture_sha256 = root / 'action-20261023' / 'FIXTURE.json', ACTION_REPORT_FIXTURE_SHA256
+        plan_path, plan_sha256 = root / 'action-20261023' / 'PLAN.json', ACTION_REPORT_PLAN_SHA256
+    fixture_raw = read(fixture_path, fixture_sha256, 4 * 1024 ** 2)
+    plan_raw = read(plan_path, plan_sha256, 4 * 1024 ** 2)
+    interval_path = root / 'validation-20261022' / 'CODE' / 'volume_analysis.py'
+    interval_raw = read(interval_path, ACTION_REPORT_INTERVAL_SHA256, 4 * 1024 ** 2)
+    namespace = {'__name__': '_persistent_memory_action_interval', '__file__': str(interval_path)}
+    # Execute the bytes whose pin was checked, rather than rereading a loader path.
+    exec(compile(interval_raw, str(interval_path), 'exec'), namespace)
+    result = calculate_action_transfer(_efficiency_json(raw), fixture_raw, plan_raw,
+                                      primary_interval=namespace['primary_interval'])
+    result['provenance'] = {'observations_sha256': observations_sha256,
+                            'fixture_sha256': fixture_sha256,
+                            'plan_sha256': plan_sha256,
+                            'interval_source_sha256': ACTION_REPORT_INTERVAL_SHA256,
+                            'qualified_calculation_source_sha256': ACTION_REPORT_CALCULATION_SHA256}
+    if emit:
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
+    return result
+
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--action-report', type=Path, help='Analyse pinned action-transfer observations offline.')
+    parser.add_argument('--action-report-sha256', help='SHA-256 of the explicit action-transfer observations file.')
     parser.add_argument('--action-transfer', action='store_true', help='Run one pinned prospective action-transfer cell or child phase.')
     parser.add_argument('--action-phase', choices=('observe', 'propose', 'verify'), help='Internal phase over a pinned projection only.')
     parser.add_argument('--action-cell-id', help='Select exactly one cell from the complete frozen plan.')
@@ -1215,7 +1585,31 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, help='Typed volume mode: query seed 0..2^64-1 (default 0).')
     args = parser.parse_args()
     action_values = [value for key, value in vars(args).items()
-                     if key.startswith('action_') and key not in ('action_transfer', 'action_provider_mode')]
+                     if key.startswith('action_') and key not in (
+                         'action_transfer', 'action_provider_mode', 'action_report', 'action_report_sha256')]
+    if args.action_report is not None or args.action_report_sha256 is not None:
+        import sys
+        if args.action_report is None or args.action_report_sha256 is None:
+            parser.error('--action-report and --action-report-sha256 are both required')
+        report_input_keys = {'action_fixture', 'action_fixture_sha256', 'action_plan', 'action_plan_sha256'}
+        forbidden_action_values = [value for key, value in vars(args).items()
+                                   if key.startswith('action_') and key not in report_input_keys
+                                   | {'action_transfer', 'action_provider_mode', 'action_report', 'action_report_sha256'}]
+        if (args.action_transfer or any(value is not None for value in forbidden_action_values)
+                or any(argument.startswith('--') and '--action-mode'.startswith(argument.split('=', 1)[0])
+                       for argument in sys.argv[1:])
+                or args.efficiency or args.efficiency_inputs is not None or args.efficiency_inputs_sha256 is not None
+                or args.trajectories is not None or args.compare_transitions or args.comparison_fixture is not None
+                or args.variants is not None or args.lance_hybrid or args.documents is not None
+                or args.repetitions is not None or args.seed is not None):
+            parser.error('--action-report cannot be combined with action, provider or another mode options')
+        try:
+            action_report(args.action_report, args.action_report_sha256,
+                          fixture_path=args.action_fixture, fixture_sha256=args.action_fixture_sha256,
+                          plan_path=args.action_plan, plan_sha256=args.action_plan_sha256)
+        except (ValueError, KeyError, TypeError, OSError, RuntimeError) as error:
+            parser.error(str(error))
+        raise SystemExit(0)
     if not args.action_transfer and (any(value is not None for value in action_values) or args.action_provider_mode != 'fake'):
         parser.error('action options require --action-transfer')
     if args.action_transfer:
