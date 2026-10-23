@@ -292,5 +292,128 @@ class IndependentActionAnalysisTests(unittest.TestCase):
                 json.dumps(result, allow_nan=False)
 
 
+class IndependentExperienceAnalysisTests(unittest.TestCase):
+    """IDs-only synthetic unit data; no XP fixtures, seeds or model evidence."""
+    @classmethod
+    def setUpClass(cls):
+        if sys.platform != 'linux':
+            raise RuntimeError('Linux qualification only; do not run these tests on Windows')
+        path = os.environ.get('ACTION_BENCHMARK', str(ROOT.parent / 'run_benchmark.py'))
+        cls.calculate = staticmethod(load_local(path, '_independent_experience_analysis').calculate_experience)
+
+    @staticmethod
+    def synthetic():
+        cells, episodes = [], []
+        for family in range(6):
+            for language in ('FR', 'EN'):
+                template = 'unit-family-' + str(family)
+                world = template + '-' + language
+                for model in ('gpt-6-luna', 'gpt-6.1-sol'):
+                    for repetition in (1, 2):
+                        eid = world + '-' + model + '-' + str(repetition)
+                        episode = {'episode_id': eid, 'world_id': world,
+                            'a_cell_id': eid + '-A', 'extract_cell_id': eid + '-E',
+                            'b_cell_ids': {a: eid + '-B-' + a for a in ('derived', 'raw', 'none', 'withdrawn')}}
+                        episodes.append(episode)
+                        for cid, arm in [(episode['a_cell_id'], 'none'), (episode['extract_cell_id'], 'none')] + [
+                                (cid, arm) for arm, cid in episode['b_cell_ids'].items()]:
+                            cells.append({'cell_id': cid, 'world_id': world, 'template_id': template,
+                                'model': model, 'repetition': repetition, 'arm': arm})
+        layout = {'schema': 'persistent-memory.experience-plan.v1', 'dataset_sha256': 'a' * 64,
+                  'cells': cells, 'episodes': episodes}
+        raw = json.dumps(layout, sort_keys=True).encode()
+        rows, summaries = [], []
+        by_cell = {cell['cell_id']: cell for cell in cells}
+        for episode in episodes:
+            summaries.append({'episode_id': episode['episode_id'], 'status': 'synthetic_unit_only',
+                              'elapsed_seconds': 1, 'A_feedback': None, 'lesson_grade': None})
+            for cid, kind in [(episode['a_cell_id'], 'A'), (episode['extract_cell_id'], 'extract')] + [
+                    (cid, 'B') for cid in episode['b_cell_ids'].values()]:
+                binding = {'cell': copy.deepcopy(by_cell[cid]), 'dataset_sha256': 'a' * 64, 'plan_sha256': sha(raw)}
+                consume = {**binding, 'schema': 'persistent-memory.experience-extraction.v1' if kind == 'extract'
+                    else 'persistent-memory.action-transfer.consume-receipt.v1', 'mode': 'fake',
+                    'fake_proof_only': True, 'provider_called': False, 'status': 'completed',
+                    'started_ns': 10, 'ended_ns': 20, 'writes': [], 'blocked': [], 'usage': None}
+                verification = None if kind == 'extract' else {**binding,
+                    'schema': 'persistent-memory.action-transfer.verification.v1', 'task_success': True,
+                    'effect_verified': True, 'checks': {'control.json': {'exact_bytes': True}}}
+                rows.append({**binding, 'episode_id': episode['episode_id'], 'kind': kind,
+                             'consume': consume, 'verification': verification, 'terminal_category': UNIT_ONLY})
+        observations = {'schema': 'persistent-memory.experience-observations.v1', 'dataset_sha256': 'a' * 64,
+            'plan_sha256': sha(raw), 'mode': 'fake', 'fake_proof_only': True, 'rows': rows, 'episodes': summaries}
+        return raw, observations
+
+    def test_experience_complete_counts_are_descriptive_and_fake_only(self):
+        raw, observations = self.synthetic()
+        result = self.calculate(observations, raw)
+        self.assertEqual((result['planned_cells'], result['planned_episodes']), (288, 48))
+        self.assertEqual(result['A']['planned'], 48)
+        self.assertEqual(result['extraction']['planned'], 48)
+        self.assertEqual([g['planned'] for g in result['groups']], [24] * 8)
+        self.assertEqual([c['planned_pairs'] for c in result['contrasts']], [24] * 4)
+        self.assertTrue(result['fake_proof_only'])
+        self.assertEqual(result['actual_model_episode_summaries'], 0)
+        self.assertIsNone(result['limits']['confidence_interval'])
+        self.assertFalse(result['limits']['bootstrap'])
+        self.assertIsNone(result['complete_cost_usd'])
+        self.assertEqual(result['repeated_error']['status'], 'not_measured')
+        json.dumps(result, allow_nan=False)
+
+    def test_experience_rejects_missing_duplicate_or_mismatched_bindings(self):
+        raw, original = self.synthetic()
+        variants = []
+        value = copy.deepcopy(original); value['rows'].pop(); variants.append(value)
+        value = copy.deepcopy(original); value['rows'][-1] = value['rows'][0]; variants.append(value)
+        value = copy.deepcopy(original); value['rows'][0]['consume']['plan_sha256'] = 'b' * 64; variants.append(value)
+        value = copy.deepcopy(original); value['episodes'].append(value['episodes'][0]); variants.append(value)
+        for value in variants:
+            with self.assertRaises(ValueError):
+                self.calculate(value, raw)
+        layout = json.loads(raw); layout['cells'].pop()
+        with self.assertRaises(ValueError):
+            self.calculate(original, json.dumps(layout).encode())
+
+    def test_experience_fake_subset_keeps_unknown_denominators_and_bounds(self):
+        raw, observations = self.synthetic()
+        observations['episodes'] = observations['episodes'][:12]
+        for row in observations['rows']:
+            row.update(consume=None, verification=None)
+        result = self.calculate(observations, raw)
+        self.assertEqual(result['episode_summaries_present'], 12)
+        self.assertEqual(result['actual_model_episode_summaries'], 0)
+        self.assertEqual([g['unknown'] for g in result['groups']], [24] * 8)
+        for contrast in result['contrasts']:
+            self.assertEqual(contrast['known_pairs'], 0)
+            self.assertIsNone(contrast['observed_paired_mean_difference'])
+            self.assertEqual(contrast['missing_outcome_bounds'], [-1, 1])
+
+    def test_experience_unknown_is_not_generic_failure_or_repeated_error(self):
+        raw, observations = self.synthetic()
+        episode = json.loads(raw)['episodes'][0]
+        derived = next(r for r in observations['rows'] if r['cell']['cell_id'] == episode['b_cell_ids']['derived'])
+        derived['verification'] = None
+        raw_row = next(r for r in observations['rows'] if r['cell']['cell_id'] == episode['b_cell_ids']['raw'])
+        raw_row['verification']['task_success'] = False
+        result = self.calculate(observations, raw)
+        contrast = next(c for c in result['contrasts'] if c['model'] == 'gpt-6-luna'
+                        and c['comparison'] == 'derived-minus-none')
+        self.assertEqual(contrast['known_pairs'], 23)
+        self.assertEqual(contrast['missing_outcome_bounds'], [-1 / 24, 0])
+        self.assertEqual(result['repeated_error']['unknown'], 192)
+        self.assertEqual(next(g for g in result['groups'] if g['model'] == 'gpt-6-luna'
+                              and g['arm'] == 'raw')['failure'], 1)
+
+    def test_experience_invalid_usage_is_unknown_not_negative_known_cost(self):
+        raw, observations = self.synthetic()
+        for invalid in (-1, float('nan'), 101):
+            value = copy.deepcopy(observations)
+            value['rows'][0]['consume']['usage'] = {'prompt_tokens': 100, 'completion_tokens': 2, 'total_tokens': 102,
+                'prompt_tokens_details': {'cached_tokens': invalid}, 'completion_tokens_details': {'reasoning_tokens': 0}}
+            result = self.calculate(value, raw)
+            self.assertIsNone(result['cells'][0]['observed_tokens']['cached_tokens'])
+            self.assertIsNone(result['cells'][0]['generation_estimate_usd'])
+            json.dumps(result, allow_nan=False)
+
+
 if __name__ == "__main__":
     unittest.main()

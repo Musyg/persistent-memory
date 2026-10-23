@@ -1,0 +1,44 @@
+{
+  "benchmark_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+  "calls_emitted": 288,
+  "concurrency": 3,
+  "context_characters": 8000,
+  "context_items": 5,
+  "core_sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+  "dataset_sha256": "4e7ef1f8b9cc7c351e56f4f2f27dc4ba9937f21e592def353bad2ffb14ded247",
+  "date": "2026-10-23",
+  "execution_wall_seconds": 427.51080541103147,
+  "execution_worker_sha256": "63a62b168a60b4e74448457d9bd484d4909a34260d728c1cf5f424f7769a5f7c",
+  "full_cost_USD": null,
+  "full_request_bytes": 10240,
+  "invoice_total_USD": null,
+  "maximum_input_tokens": 11264,
+  "maximum_output_tokens": 2048,
+  "models": {
+    "gpt-6-luna": 144,
+    "gpt-6.1-sol": 144
+  },
+  "no_replacement_cohort": true,
+  "no_retry": true,
+  "observations_gzip": {
+    "bytes": 467419,
+    "compression_level": 9,
+    "filename": "",
+    "mtime": 0,
+    "sha256": "33709a1627f2f269488ca39c1bd01c26794f70ed275cede1bc17302cb37c84fa"
+  },
+  "observations_uncompressed": {
+    "bytes": 5836040,
+    "sha256": "7e97bbd4b9fb476bbb887ddb2502c1cbb2f74db0aca22dcf9ad9ad11c24a89e4"
+  },
+  "plan_sha256": "262acf136653c43c485b11487e912a40ad13c416c7dbd7b71dfa3af3671e8a52",
+  "provider_source_sha256": "e6119655abc7277d26a6025b6d4069565de21b04d9faf8e6f8a4682f1a8bdb11",
+  "registry_assessment_sha256": "f5ee3ef1eeff0449099465fe1d4cae1df41b1442354ede88c81d88526ac289a7",
+  "replication_scope": "Published report calculations and synthetic fixtures are replayable offline. Exact execution/assessment sources are protocol witnesses requiring their documented qualified environment and explicit caller configuration, not standalone programs.",
+  "reserved_USD": "6.5028096",
+  "schema": "persistent-memory.experience-public-provenance.v1",
+  "scoring": "Independent exact bytes and typed-format checks on fresh B files. All scheduled outcomes retained.",
+  "source_drift": false,
+  "support_sha256": "7398732d97beaf9d511a9792f29b5265102c235c08f64ed34e60772f08e96914",
+  "synthetic": true
+}

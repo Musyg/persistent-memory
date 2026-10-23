@@ -73,14 +73,14 @@ Les routes HTTP typées et leur client sont en lecture seule. Le serveur combin�
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a2-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a3-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Ils conservent 47 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests d'assemblage du paquet. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Ils conservent 50 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests d'assemblage du paquet. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 
@@ -106,3 +106,7 @@ Le [comparatif du cycle de vie](benchmarks/lifecycle-20261022/README.fr.md) rejo
 L’[analyse secondaire d’efficacité](benchmarks/efficiency-20261023/README.fr.md) relie les 1 500 réponses historiques à leur usage déclaré. Luna avec mémoire consomme 4,70 % de tokens en moins et coûte 3,75 % de moins en génération estimée que la recherche lexicale, avec un p95 légèrement plus élevé et une supériorité de qualité non établie. C’est une empreinte observée, sans comparaison à dépense identique ni dominance générale ; l’analyse n’effectue aucun nouvel appel fournisseur.
 
 L’[étude de transfert vers des fichiers](benchmarks/action-20261023/README.fr.md) vérifie des actions CSV/JSON entre trois processus distincts. Sur 24 mondes issus de 12 structures, Luna avec mémoire réussit 66/72 tâches contre 35/72 sans mémoire, avec une réponse indisponible dans ce dernier bras ; Sol atteint 72/72 contre 36/72. La référence lexicale versionnée obtient 67/72 et 72/72 : aucun avantage sur cette référence n’est établi. Données synthétiques, échecs initiaux, calibration et amendement du protocole sont conservés avec les commandes de reproduction.
+
+L’[étude d’optimisation du noyau](benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) compare la même charge de 1 000 sources avant et après une correction de sérialisation. Le temps total instrumenté baisse de 28,01 % et 27,68 % sur deux hôtes Linux, avec les mêmes résultats vérifiés et le même stockage. Huit trajectoires de panne par arrêt réel du processus passent aussi. Il s’agit d’une observation par hôte, sans garantie de latence en production ni de passage à l’échelle général.
+
+L’[étude d’apprentissage entre missions](benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les 192 effets B ont été relus indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](benchmarks/action-20261023/experience/REPRODUCE.md).

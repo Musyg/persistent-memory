@@ -75,14 +75,14 @@ The typed HTTP routes and client are read-only; the optional combined server als
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a2-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a3-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The suite retains 47 core, 35 typed retrieval and 36 portable integration tests, plus separate package-assembly tests. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The suite retains 50 core, 35 typed retrieval and 36 portable integration tests, plus separate package-assembly tests. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 
@@ -110,3 +110,7 @@ The separate [lifecycle comparison](benchmarks/lifecycle-20261022/README.md) rep
 The [secondary efficiency analysis](benchmarks/efficiency-20261023/README.md) links all 1,500 historical answers to their reported usage. Luna with memory used 4.70% fewer tokens and 3.75% less estimated generation cost than lexical retrieval, with slightly higher p95 and inconclusive quality superiority. This is an observed footprint, not a matched-spend or general dominance claim; the analysis makes no new provider requests.
 
 The [artifact action study](benchmarks/action-20261023/README.md) verifies CSV/JSON effects across three separate processes. Across 24 worlds drawn from 12 templates, Luna with memory passed 66/72 tasks versus 35/72 without memory, with one unavailable response in that latter arm; Sol passed 72/72 versus 36/72. Versioned lexical retrieval scored 67/72 and 72/72, so superiority over that baseline is not established. Synthetic observations, initial failures, calibration and the protocol amendment are retained with reproduction commands.
+
+The [core optimization study](benchmarks/efficiency-20261023/core-optimization-20261023/README.md) measures the same 1,000-source workload before and after a small serialization change. Instrumented workload time fell by 28.01% and 27.68% on two Linux hosts, with identical checked outcomes and storage size. Eight real process-kill trajectories also passed. These are single observations per host, not a production latency or general scaling guarantee.
+
+The [learned-experience study](benchmarks/action-20261023/experience/README.md) executes A, extracts a lesson from its real outcome, then applies it to a different B task in a fresh process. Across 288 calls, Luna succeeded on 22/24 B tasks with the derived lesson, versus 13/24 with the complete trace and 7/24 without experience. Sol scored 24/24 with either the lesson or trace, versus 12/24 without experience. All 192 B effects were freshly reverified. The study reports construction overhead, failures and limits, with [offline reproduction](benchmarks/action-20261023/experience/REPRODUCE.md).

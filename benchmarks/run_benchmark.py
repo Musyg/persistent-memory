@@ -12,11 +12,61 @@ from hermes_memory import Authority, Memory
 from hermes_memory.typed_memory import TypedMemory
 
 
-def main(documents=24, repetitions=10, seed=0, *, volume=False):
+def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=None, profile_tail=False):
     if not (type(documents) is int and 1 <= documents <= 5000
             and type(repetitions) is int and 1 <= repetitions <= 100000
             and type(seed) is int and 0 <= seed < 2 ** 64):
         raise ValueError('Expected documents 1..5000, repetitions 1..100000 and seed 0..2^64-1')
+    if progress_path is not None and not volume:
+        raise ValueError('Volume progress requires typed volume mode')
+    if profile_tail and (not volume or progress_path is None):
+        raise ValueError('Tail profiling requires instrumented typed volume mode')
+    profiler = None
+    if profile_tail:
+        import cProfile
+        profiler = cProfile.Profile()
+    phase_metrics = {}
+    telemetry_started = time.perf_counter()
+    telemetry_writes = 0
+    def sample(root):
+        import os
+        import resource
+        usage = resource.getrusage(resource.RUSAGE_SELF)
+        io = None
+        proc = Path('/proc/self/io')
+        if proc.is_file():
+            io = {k: int(v) for k, v in (line.split(':', 1) for line in proc.read_text().splitlines())}
+        storage = {p.name: p.stat().st_size for p in root.iterdir() if p.is_file()}
+        current_rss = None
+        statm = Path('/proc/self/statm')
+        if statm.is_file():
+            current_rss = int(statm.read_text().split()[1]) * os.sysconf('SC_PAGE_SIZE')
+        return {'elapsed_seconds': time.perf_counter() - telemetry_started,
+                'cpu_user_seconds': usage.ru_utime, 'cpu_system_seconds': usage.ru_stime,
+                'io': io, 'storage_bytes': storage, 'storage_total_bytes': sum(storage.values()),
+                'rss_current_bytes': current_rss, 'rss_peak_native_units': usage.ru_maxrss}
+    def progress(root, phase, completed, total):
+        nonlocal telemetry_writes
+        if progress_path is None:
+            return
+        import os
+        target = Path(progress_path)
+        if target.is_symlink() or target.parent.is_symlink():
+            raise ValueError('Volume progress must be a regular path')
+        value = {'schema': 'persistent-memory.volume-progress.v1', 'phase': phase,
+                 'completed': completed, 'planned': total, 'documents': documents,
+                 'repetitions': repetitions, 'seed': seed, 'sample': sample(root)}
+        temporary = target.with_name(target.name + '.tmp')
+        with temporary.open('x', encoding='utf-8') as stream:
+            stream.write(json.dumps(value, sort_keys=True) + '\n')
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, target)
+        telemetry_writes += 1
+    def boundary(root, phase, where):
+        if progress_path is not None:
+            phase_metrics.setdefault(phase, {})[where] = sample(root)
+            progress(root, phase + '_' + where, 0 if where == 'start' else 1, 1)
     operations = {'typed.put': 0, 'typed.sync': 0, 'typed.search': 0,
                   'memory.read': 0, 'memory.revoke_source': 0}
     generator = random.Random(seed)
@@ -30,8 +80,11 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
         memory = Memory.create(root / 'memory.db', authority)
         typed = TypedMemory(memory, root / 'index.db')
         refs = []
+        boundary(root, 'ingest', 'start')
         ingest_started = time.perf_counter()
         for index in range(documents):
+            if profiler is not None and index == max(0, documents - 10):
+                profiler.enable()
             text = 'Synthetic copper item number ' + str(index)
             if volume:
                 text += ' token' + format(index, '06d')
@@ -39,12 +92,21 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
                                   text,
                                   {'evidence_kind': 'observation'})['ref'])
             operations['typed.put'] += 1
+            if (index + 1) % 50 == 0 or index + 1 == documents:
+                progress(root, 'ingest', index + 1, documents)
+        if profiler is not None:
+            profiler.disable()
         ingest_seconds = time.perf_counter() - ingest_started
+        boundary(root, 'ingest', 'end')
+        boundary(root, 'initial_sync', 'start')
         sync_started = time.perf_counter()
         typed.sync('example')
         operations['typed.sync'] += 1
         initial_sync_seconds = time.perf_counter() - sync_started
+        boundary(root, 'initial_sync', 'end')
+        boundary(root, 'search_and_read', 'start')
         timings = []
+        read_timings = []
         for _ in range(repetitions):
             selected = generator.randrange(documents) if volume else None
             query = 'token' + format(selected, '06d') if volume else 'copper'
@@ -66,18 +128,28 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
             else:
                 assert result['status'] == 'completed'
             for item in result['items']:
+                read_started = time.perf_counter()
                 assert memory.read(item['ref'])['allowed']
+                read_timings.append(time.perf_counter() - read_started)
                 operations['memory.read'] += 1
+            if (_ + 1) % 10 == 0 or _ + 1 == repetitions:
+                progress(root, 'search_and_read', _ + 1, repetitions)
+        boundary(root, 'search_and_read', 'end')
+        boundary(root, 'revoke_and_stale_check', 'start')
         memory.revoke_source('example', 'note-0', 'example-revoke-0')
         operations['memory.revoke_source'] += 1
         revocation_query = 'token000000' if volume else 'copper'
         stale = typed.search('example', revocation_query)
         operations['typed.search'] += 1
         assert stale['status'] != 'completed'
+        boundary(root, 'revoke_and_stale_check', 'end')
+        boundary(root, 'maintenance_sync', 'start')
         resync_started = time.perf_counter()
         typed.sync('example')
         operations['typed.sync'] += 1
         revocation_sync_seconds = time.perf_counter() - resync_started
+        boundary(root, 'maintenance_sync', 'end')
+        boundary(root, 'after_revoke_check', 'start')
         after = typed.search('example', revocation_query)
         operations['typed.search'] += 1
         assert all(item['ref'] != refs[0] for item in after['items'])
@@ -85,6 +157,8 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
             assert stale['status'] == 'index_stale'
             assert after['status'] == 'completed' and after['items'] == []
             disk_bytes = sum(path.stat().st_size for path in root.rglob('*') if path.is_file())
+        boundary(root, 'after_revoke_check', 'end')
+        progress(root, 'completed', repetitions, repetitions)
     report = {'synthetic_documents': documents, 'repetitions': repetitions,
               'median_seconds': statistics.median(timings), 'max_seconds': max(timings),
               'revocation_checked': True, 'cold_cache_controlled': False,
@@ -127,6 +201,27 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False):
             'provider_requests': 0,
             'ranking_quality_evaluated': False, 'independent_business_tasks': 0,
         })
+        if progress_path is not None:
+            report['end_to_end_telemetry'] = {
+                'schema': 'persistent-memory.volume-costs.v1',
+                'phases': phase_metrics, 'progress_writes': telemetry_writes,
+                'elapsed_seconds': time.perf_counter() - telemetry_started,
+                'explicit_read_seconds': sum(read_timings),
+                'explicit_read_trials': len(read_timings),
+                'scope': 'same process; includes revalidation and telemetry; no cold-cache control',
+                'provider_requests': 0, 'infrastructure_price_usd': None,
+                'energy_joules': None, 'efficiency_superiority_demonstrated': False}
+            if profiler is not None:
+                import pstats
+                profile = pstats.Stats(profiler)
+                report['tail_profile'] = {
+                    'scope': 'last ten source admissions only; these timings are profiled',
+                    'admissions_profiled': min(10, documents),
+                    'top_cumulative': [
+                        {'file': Path(key[0]).name, 'line': key[1], 'function': key[2],
+                         'primitive_calls': value[0], 'calls': value[1],
+                         'own_seconds': value[2], 'cumulative_seconds': value[3]}
+                        for key, value in sorted(profile.stats.items(), key=lambda pair: pair[1][3], reverse=True)[:40]]}
     print(json.dumps(report, indent=2))
     return report
 
@@ -701,7 +796,7 @@ def compare_transitions(fixture_path=None, variants=10, seed=COMPARISON_SEED, *,
     return report
 
 
-ACTION_SUPPORT_SHA256 = '74138918d82aa405261e60d1e7a258bbbc4e2dec6c629c7017ef8e381c35d9e4'
+ACTION_SUPPORT_SHA256 = '7398732d97beaf9d511a9792f29b5265102c235c08f64ed34e60772f08e96914'
 
 
 def _action_support():
@@ -768,6 +863,18 @@ def action_transfer_phase(args):
                     'child_phase_must_not_receive_fixture_or_full_plan')
     projection = _action_json_file(args.action_input, args.action_input_sha256)
     support.require(args.action_output is not None, 'action_phase_receipt_required')
+    xp_only = (args.action_extraction, args.action_extraction_sha256,
+               args.action_extraction_exit, args.action_extraction_exit_sha256,
+               args.action_verification, args.action_verification_sha256,
+               args.action_feedback, args.action_feedback_sha256, args.action_ledger)
+    if projection.get('schema') != 'persistent-memory.experience.phase.v1':
+        support.require(all(value is None for value in xp_only), 'legacy_phase_forbids_experience_inputs')
+    if args.action_phase != 'extract':
+        support.require(all(value is None for value in (args.action_verification, args.action_verification_sha256,
+                        args.action_feedback, args.action_feedback_sha256, args.action_ledger)), 'feedback_inputs_require_extract')
+    if args.action_phase != 'observe':
+        support.require(all(value is None for value in (args.action_extraction, args.action_extraction_sha256,
+                        args.action_extraction_exit, args.action_extraction_exit_sha256)), 'extraction_inputs_require_observe')
     if args.action_phase == 'observe':
         support.require(args.action_state is not None and args.action_artifacts is None
                         and args.action_prior_receipt is None and args.action_prior_receipt_sha256 is None
@@ -776,12 +883,36 @@ def action_transfer_phase(args):
                         and args.action_grant is None and args.action_grant_sha256 is None
                         and args.action_provider_source is None and args.action_credential_reader_source is None
                         and args.action_provider_mode == 'fake', 'observe_phase_arguments')
-        receipt = support.observe(projection, args.action_state)
+        if projection.get('schema') == 'persistent-memory.experience.phase.v1':
+            extraction = None
+            if args.action_extraction is not None or args.action_extraction_sha256 is not None:
+                extraction = _action_json_file(args.action_extraction, args.action_extraction_sha256)
+                extraction_exit = _action_json_file(args.action_extraction_exit, args.action_extraction_exit_sha256)
+            else:
+                support.require(args.action_extraction_exit is None and args.action_extraction_exit_sha256 is None,
+                                'extraction_exit_requires_receipt')
+                extraction_exit = None
+            receipt = support.observe_experience(projection, args.action_state, extraction=extraction,
+                                                extraction_exit=extraction_exit)
+        else:
+            support.require(args.action_extraction is None and args.action_extraction_sha256 is None,
+                            'legacy_observe_forbids_experience')
+            receipt = support.observe(projection, args.action_state)
     else:
         prior = _action_json_file(args.action_prior_receipt, args.action_prior_receipt_sha256)
         observed_exit = _action_json_file(args.action_prior_exit, args.action_prior_exit_sha256)
-        support.require(args.action_artifacts is not None, 'artifact_directory_required')
-        if args.action_phase == 'propose':
+        support.require(args.action_phase == 'extract' or args.action_artifacts is not None,
+                        'artifact_directory_required')
+        if args.action_phase == 'extract':
+            support.require(projection.get('schema') == 'persistent-memory.experience.phase.v1'
+                            and args.action_state is None and args.action_artifacts is None,
+                            'extraction_requires_experience_projection')
+            verification = _action_json_file(args.action_verification, args.action_verification_sha256)
+            feedback = _action_json_file(args.action_feedback, args.action_feedback_sha256)
+            receipt = support.extract_procedure(projection, prior, verification, observed_exit, feedback,
+                        ledger_path=args.action_ledger,
+                        **_action_provider_arguments(args, projection['cell']))
+        elif args.action_phase == 'propose':
             support.require(args.action_state is not None, 'p2_state_required')
             receipt = support.propose_and_consume(projection, args.action_state, args.action_artifacts,
                         prior, observed_exit, **_action_provider_arguments(args, projection['cell']))
@@ -808,6 +939,10 @@ def action_transfer_cell(args):
                     and args.action_artifacts is None and args.action_prior_receipt is None
                     and args.action_prior_receipt_sha256 is None and args.action_prior_exit is None
                     and args.action_prior_exit_sha256 is None, 'parent_phase_inputs_are_derived')
+    support.require(all(getattr(args, 'action_' + suffix) is None for suffix in (
+                    'extraction', 'extraction_sha256', 'extraction_exit', 'extraction_exit_sha256',
+                    'verification', 'verification_sha256', 'feedback', 'feedback_sha256', 'ledger')),
+                    'legacy_parent_forbids_experience_inputs')
     fixture = _action_json_file(args.action_fixture, args.action_fixture_sha256)
     plan = _action_json_file(args.action_plan, args.action_plan_sha256)
     support.require(type(fixture) is dict and set(fixture) == {'schema', 'synthetic', 'templates', 'worlds'}
@@ -1185,6 +1320,249 @@ def efficiency_analysis(inputs_path=None, inputs_sha256=None, *, emit=True):
     return result
 
 
+def calculate_experience(observations, plan):
+    """Describe the fixed XP plan; never infer missing effects or significance.
+
+    plan is the exact JSON bytes/string, observations is the worker's
+    persistent-memory.experience-observations.v1 object. No fixture is read.
+    Fake subsets keep all planned denominators and are labelled proof only.
+    """
+    from decimal import Decimal, localcontext
+
+    def check(ok, reason):
+        if not ok:
+            raise ValueError(reason)
+
+    def pin(value):
+        return type(value) is str and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
+
+    def integer(value):
+        return type(value) is int and value >= 0
+
+    def finite(value):
+        return type(value) in (int, float) and math.isfinite(value) and value >= 0
+
+    def count(values):
+        return {'planned': len(values), 'success': sum(v is True for v in values),
+                'failure': sum(v is False for v in values), 'unknown': sum(v is None for v in values)}
+
+    def duration(receipt):
+        if receipt is None:
+            return None
+        start, end = receipt.get('started_ns'), receipt.get('ended_ns')
+        check(start is None and end is None or integer(start) and integer(end) and end >= start,
+              'experience_duration')
+        return None if start is None else (end - start) / 1e9
+
+    check(type(plan) in (bytes, str), 'experience_exact_plan_bytes_required')
+    raw = plan.encode('utf-8') if type(plan) is str else plan
+    plan_pin = hashlib.sha256(raw).hexdigest()
+    layout = json.loads(raw)
+    check(type(layout) is dict and layout.get('schema') == 'persistent-memory.experience-plan.v1'
+          and pin(layout.get('dataset_sha256')) and type(layout.get('cells')) is list
+          and len(layout['cells']) == 288 and type(layout.get('episodes')) is list
+          and len(layout['episodes']) == 48, 'experience_plan_denominators')
+    models, arms = ('gpt-6-luna', 'gpt-6.1-sol'), ('derived', 'raw', 'none', 'withdrawn')
+    cells, mapping, episodes, worlds, templates, cartesian = {}, {}, {}, set(), set(), set()
+    for cell in layout['cells']:
+        check(type(cell) is dict and set(cell) == {'cell_id', 'world_id', 'template_id', 'model', 'repetition', 'arm'}
+              and all(type(cell[k]) is str and cell[k] for k in ('cell_id', 'world_id', 'template_id'))
+              and cell['cell_id'] not in cells and cell['model'] in models
+              and type(cell['repetition']) is int and cell['repetition'] in (1, 2)
+              and cell['arm'] in arms, 'experience_plan_cell')
+        cells[cell['cell_id']] = cell
+        worlds.add(cell['world_id']); templates.add(cell['template_id'])
+        check(cell['world_id'] in (cell['template_id'] + '-FR', cell['template_id'] + '-EN'),
+              'experience_plan_language')
+    check(len(worlds) == 12 and len(templates) == 6, 'experience_plan_families')
+    for episode in layout['episodes']:
+        check(type(episode) is dict and set(episode) == {'episode_id', 'world_id', 'a_cell_id', 'extract_cell_id', 'b_cell_ids'}
+              and type(episode['episode_id']) is str and episode['episode_id'] not in episodes
+              and type(episode['b_cell_ids']) is dict and set(episode['b_cell_ids']) == set(arms),
+              'experience_plan_episode')
+        ids = [(episode['a_cell_id'], 'A', 'none'), (episode['extract_cell_id'], 'extract', 'none')]
+        ids += [(episode['b_cell_ids'][arm], 'B', arm) for arm in arms]
+        check(all(type(cid) is str and cid in cells and cid not in mapping for cid, _, _ in ids)
+              and len({cid for cid, _, _ in ids}) == 6, 'experience_plan_episode_join')
+        first = cells[ids[0][0]]
+        identity = (first['world_id'], first['model'], first['repetition'])
+        check(identity not in cartesian and episode['world_id'] == first['world_id'], 'experience_episode_duplicate')
+        cartesian.add(identity)
+        for cid, kind, arm in ids:
+            cell = cells[cid]
+            check((cell['world_id'], cell['model'], cell['repetition']) == identity
+                  and cell['template_id'] == first['template_id'] and cell['arm'] == arm,
+                  'experience_episode_metadata')
+            mapping[cid] = (episode['episode_id'], kind)
+        episodes[episode['episode_id']] = episode
+    check(len(mapping) == 288 and cartesian == {(w, m, r) for w in worlds for m in models for r in (1, 2)},
+          'experience_plan_cartesian')
+    check(type(observations) is dict and observations.get('schema') == 'persistent-memory.experience-observations.v1'
+          and observations.get('dataset_sha256') == layout['dataset_sha256']
+          and observations.get('plan_sha256') == plan_pin and observations.get('mode') in ('paid', 'fake')
+          and type(observations.get('rows')) is list and len(observations['rows']) == 288
+          and type(observations.get('episodes')) is list, 'experience_observation_scope')
+    fake = observations['mode'] == 'fake'
+    check(observations.get('fake_proof_only') is fake, 'experience_fake_provenance')
+    summaries = {}
+    for summary in observations['episodes']:
+        check(type(summary) is dict and summary.get('episode_id') in episodes
+              and summary['episode_id'] not in summaries and type(summary.get('status')) is str,
+              'experience_summary_join')
+        check(summary.get('elapsed_seconds') is None or finite(summary['elapsed_seconds']), 'experience_episode_duration')
+        feedback = summary.get('A_feedback')
+        if feedback is not None:
+            check(type(feedback) is dict and (feedback.get('success') is None or type(feedback['success']) is bool)
+                  and type(feedback.get('observed')) is dict
+                  and type(feedback['observed'].get('discriminating')) is bool, 'experience_feedback')
+        grade = summary.get('lesson_grade')
+        if grade is not None:
+            check(type(grade) is dict and all(type(grade.get(k)) is bool for k in
+                  ('shape_valid', 'references_valid', 'scope_valid', 'evidence_available'))
+                  and all(grade.get(k) is None or type(grade[k]) is bool for k in ('choice_correct', 'valid'))
+                  and grade.get('text_semantics_graded') is False, 'experience_lesson_grade')
+        summaries[summary['episode_id']] = summary
+    check(fake or len(summaries) == 48, 'experience_paid_episode_denominator')
+    records, seen = [], set()
+    rates = {'gpt-6-luna': ('0.10', '0.50', '0.01'), 'gpt-6.1-sol': ('2', '10', '0.10')}
+    for row in observations['rows']:
+        check(type(row) is dict and type(row.get('cell')) is dict, 'experience_row')
+        cid = row['cell'].get('cell_id')
+        check(cid in cells and cid not in seen and row['cell'] == cells[cid]
+              and row.get('dataset_sha256') == layout['dataset_sha256'] and row.get('plan_sha256') == plan_pin,
+              'experience_row_join')
+        seen.add(cid)
+        eid, kind = mapping[cid]
+        check(row.get('episode_id', eid) == eid and row.get('kind', kind) == kind, 'experience_row_kind')
+        consume, verification = row.get('consume'), row.get('verification')
+        for receipt, schema in ((consume, 'persistent-memory.experience-extraction.v1' if kind == 'extract'
+                                 else 'persistent-memory.action-transfer.consume-receipt.v1'),
+                                (verification, 'persistent-memory.action-transfer.verification.v1')):
+            if receipt is not None:
+                check(type(receipt) is dict and receipt.get('schema') == schema
+                      and receipt.get('cell') == cells[cid] and receipt.get('dataset_sha256') == layout['dataset_sha256']
+                      and receipt.get('plan_sha256') == plan_pin, 'experience_receipt_binding')
+        if consume is not None:
+            check(consume.get('mode') == observations['mode'] and consume.get('fake_proof_only') is fake
+                  and type(consume.get('provider_called')) is bool and type(consume.get('status')) is str
+                  and (not fake or consume['provider_called'] is False),
+                  'experience_receipt_mode')
+        check(row.get('terminal_category') is None or type(row['terminal_category']) is str,
+              'experience_terminal_category')
+        check(kind != 'extract' or verification is None, 'experience_extract_not_task_effect')
+        score = None
+        if kind != 'extract' and consume is not None and verification is not None:
+            check(type(verification.get('task_success')) is bool and type(verification.get('effect_verified')) is bool,
+                  'experience_verification_booleans')
+            if consume.get('status') == 'completed' and verification['effect_verified']:
+                score = verification['task_success']
+                if score:
+                    check(verification.get('checks', {}).get('control.json', {}).get('exact_bytes') is True,
+                          'experience_positive_control')
+        tokens, cost = {}, None
+        usage = None if consume is None else consume.get('usage')
+        if usage is not None:
+            check(type(usage) is dict, 'experience_usage_object')
+            for field in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+                tokens[field] = usage.get(field) if integer(usage.get(field)) else None
+            prompt, completion, total = (tokens[k] for k in ('prompt_tokens', 'completion_tokens', 'total_tokens'))
+            pd, cd = usage.get('prompt_tokens_details'), usage.get('completion_tokens_details')
+            pd_ok, cd_ok = pd is None or type(pd) is dict, cd is None or type(cd) is dict
+            pd, cd = pd if type(pd) is dict else {}, cd if type(cd) is dict else {}
+            cached, reasoning, write = pd.get('cached_tokens', 0), cd.get('reasoning_tokens', 0), pd.get('cache_write_tokens', 0)
+            tokens['cached_tokens'] = cached if integer(cached) and prompt is not None and cached <= prompt else None
+            tokens['reasoning_tokens'] = reasoning if integer(reasoning) and completion is not None and reasoning <= completion else None
+            tokens['cache_write_tokens'] = write if integer(write) else None
+            unsupported = [pd.get('audio_tokens', 0), cd.get('audio_tokens', 0),
+                           cd.get('accepted_prediction_tokens', 0), cd.get('rejected_prediction_tokens', 0)]
+            known = (pd_ok and cd_ok and all(v is not None for v in tokens.values())
+                     and total == prompt + completion and write == 0
+                     and all(integer(v) and v == 0 for v in unsupported))
+            if known:
+                with localcontext() as ctx:
+                    ctx.prec = 50
+                    incoming, outgoing, cache = map(Decimal, rates[cells[cid]['model']])
+                    cost = str(((prompt - cached) * incoming + cached * cache + completion * outgoing) / Decimal(1000000))
+        writes, blocked = (consume or {}).get('writes'), (consume or {}).get('blocked')
+        check(writes is None or type(writes) is list, 'experience_writes')
+        check(blocked is None or type(blocked) is list, 'experience_blocked_writes')
+        records.append({'cell_id': cid, 'episode_id': eid, 'kind': kind, 'model': cells[cid]['model'],
+            'arm': cells[cid]['arm'], 'family': cells[cid]['template_id'], 'score': score,
+            'status': (consume or {}).get('status'), 'category': row.get('terminal_category'),
+            'provider_called': None if consume is None else consume['provider_called'],
+            'duration_seconds': duration(consume), 'observed_tokens': tokens,
+            'generation_estimate_usd': cost, 'committed_writes': None if writes is None else len(writes),
+            'blocked_writes': None if blocked is None else len(blocked),
+            'candidate': kind == 'extract' and (consume or {}).get('status') == 'completed'
+                         and type((consume or {}).get('procedure')) is dict,
+            'repeated_error': None})
+
+    def accounting(rows):
+        result = {'planned_cells': len(rows), 'provider_called': sum(r['provider_called'] is True for r in rows),
+                  'provider_call_unknown': sum(r['provider_called'] is None for r in rows),
+                  'generation_estimate_coverage': sum(r['generation_estimate_usd'] is not None for r in rows),
+                  'duration_known_cells': sum(r['duration_seconds'] is not None for r in rows),
+                  'duration_seconds_known_subtotal': sum(r['duration_seconds'] or 0 for r in rows),
+                  'candidate_count': sum(r['candidate'] for r in rows)}
+        for field in ('committed_writes', 'blocked_writes'):
+            result[field + '_known_subtotal'] = sum(r[field] or 0 for r in rows)
+            result[field + '_known_cells'] = sum(r[field] is not None for r in rows)
+        result['observed_tokens'] = {k: {'known_subtotal': sum(r['observed_tokens'].get(k) or 0 for r in rows),
+            'known_cells': sum(r['observed_tokens'].get(k) is not None for r in rows)}
+            for k in ('prompt_tokens', 'completion_tokens', 'total_tokens', 'cached_tokens', 'reasoning_tokens', 'cache_write_tokens')}
+        with localcontext() as ctx:
+            ctx.prec = 50
+            result['generation_estimate_usd_known_subtotal'] = str(sum(
+                (Decimal(r['generation_estimate_usd']) for r in rows if r['generation_estimate_usd'] is not None), Decimal(0)))
+        return result
+
+    groups, contrasts = [], []
+    indexed = {r['cell_id']: r for r in records}
+    for model in models:
+        for arm in arms:
+            subset = [r for r in records if r['kind'] == 'B' and r['model'] == model and r['arm'] == arm]
+            groups.append({'model': model, 'arm': arm, **count([r['score'] for r in subset]),
+                           'families': [{'family': family, **count([r['score'] for r in subset if r['family'] == family])}
+                                        for family in sorted(templates)], 'accounting': accounting(subset)})
+        for baseline in ('none', 'raw'):
+            pairs = [(indexed[e['b_cell_ids']['derived']]['score'], indexed[e['b_cell_ids'][baseline]]['score'])
+                     for e in episodes.values() if cells[e['a_cell_id']]['model'] == model]
+            observed = [int(a) - int(b) for a, b in pairs if a is not None and b is not None]
+            lower = sum((int(a) if a is not None else 0) - (int(b) if b is not None else 1) for a, b in pairs) / len(pairs)
+            upper = sum((int(a) if a is not None else 1) - (int(b) if b is not None else 0) for a, b in pairs) / len(pairs)
+            contrasts.append({'model': model, 'comparison': 'derived-minus-' + baseline, 'planned_pairs': len(pairs),
+                              'known_pairs': len(observed), 'observed_paired_mean_difference':
+                              sum(observed) / len(observed) if observed else None,
+                              'missing_outcome_bounds': [lower, upper]})
+    feedbacks = [(summaries.get(eid) or {}).get('A_feedback') for eid in episodes]
+    grades = [(summaries.get(eid) or {}).get('lesson_grade') for eid in episodes]
+    episode_times = [(summaries.get(eid) or {}).get('elapsed_seconds') for eid in episodes]
+    return {'schema': 'persistent-memory.experience-analysis.v1', 'dataset_sha256': layout['dataset_sha256'],
+        'plan_sha256': plan_pin, 'mode': observations['mode'], 'fake_proof_only': fake,
+        'planned_cells': 288, 'planned_episodes': 48, 'episode_summaries_present': len(summaries),
+        'actual_model_episode_summaries': 0 if fake else len(summaries),
+        'families': 6, 'worlds': 12, 'models': 2, 'repetitions': 2, 'B_arms': 4,
+        'A': count([r['score'] for r in records if r['kind'] == 'A']),
+        'extraction': {'planned': 48, 'completed': sum(r['status'] == 'completed' for r in records if r['kind'] == 'extract'),
+            'shape_valid': count([g['shape_valid'] if g else None for g in grades]),
+            'choice_correct': count([g['choice_correct'] if g else None for g in grades]),
+            'well_formed_wrong_choice': sum(g is not None and g['shape_valid'] and g['choice_correct'] is False for g in grades),
+            'text_semantics_graded': False},
+        'A_feedback_discriminating': count([f['observed']['discriminating'] if f else None for f in feedbacks]),
+        'A_feedback_success': count([f['success'] if f else None for f in feedbacks]),
+        'groups': groups, 'contrasts': contrasts, 'cells': records,
+        'accounting_by_phase': {kind: accounting([r for r in records if r['kind'] == kind]) for kind in ('A', 'extract', 'B')},
+        'accounting': accounting(records), 'episode_wall_seconds_known_subtotal': sum(v or 0 for v in episode_times),
+        'episode_wall_known_count': sum(v is not None for v in episode_times),
+        'historical_generation_tariff': {'date': '2026-10-23', 'unit': 'USD_per_million_tokens',
+            'model_input_output_cached': {k: list(v) for k, v in rates.items()}, 'invoice_reconciled': False},
+        'reserved_usd': None, 'actual_billed_usd': None, 'complete_cost_usd': None,
+        'repeated_error': {'status': 'not_measured', 'unknown': 192, 'reason': 'requires_separate_offline_B_feedback_validation'},
+        'limits': {'descriptive_only': True, 'independent_episodes_assumed': False, 'confidence_interval': None,
+            'p_value': None, 'bootstrap': False, 'superiority_confirmed': False, 'equal_spend_comparison': False,
+            'cache_write_pricing_supported': False, 'complete_cost_measured': False, 'runtime_activated': False}}
+
+
 def calculate_action_transfer(observations, fixture_raw, plan_raw, *, primary_interval):
     """Pure receipt analysis; caller hash-binds the existing primary_interval.
 
@@ -1559,17 +1937,19 @@ if __name__ == '__main__':
     parser.add_argument('--action-report', type=Path, help='Analyse pinned action-transfer observations offline.')
     parser.add_argument('--action-report-sha256', help='SHA-256 of the explicit action-transfer observations file.')
     parser.add_argument('--action-transfer', action='store_true', help='Run one pinned prospective action-transfer cell or child phase.')
-    parser.add_argument('--action-phase', choices=('observe', 'propose', 'verify'), help='Internal phase over a pinned projection only.')
+    parser.add_argument('--action-phase', choices=('observe', 'propose', 'verify', 'extract'), help='Internal phase over a pinned projection only.')
     parser.add_argument('--action-cell-id', help='Select exactly one cell from the complete frozen plan.')
     parser.add_argument('--action-mode', dest='action_provider_mode', choices=('fake', 'paid'), default='fake',
                         help='Explicit literal fake response, or a separately admitted cell-bound paid grant.')
     for flag in ('action-fixture', 'action-plan', 'action-input', 'action-output', 'action-state', 'action-artifacts',
                  'action-prior-receipt', 'action-prior-exit', 'action-fake-response', 'action-grant',
-                 'action-provider-source', 'action-credential-reader-source'):
+                 'action-provider-source', 'action-credential-reader-source', 'action-extraction',
+                 'action-verification', 'action-feedback', 'action-extraction-exit', 'action-ledger'):
         parser.add_argument('--' + flag, type=Path)
     for flag in ('action-fixture-sha256', 'action-plan-sha256', 'action-input-sha256',
                  'action-prior-receipt-sha256', 'action-prior-exit-sha256',
-                 'action-fake-response-sha256', 'action-grant-sha256'):
+                 'action-fake-response-sha256', 'action-grant-sha256', 'action-extraction-sha256',
+                 'action-verification-sha256', 'action-feedback-sha256', 'action-extraction-exit-sha256'):
         parser.add_argument('--' + flag)
     parser.add_argument('--efficiency', action='store_true', help='Reanalyse pinned Fresh100 usage and frozen quality offline (post-hoc).')
     parser.add_argument('--efficiency-inputs', type=Path, help='Explicit pinned efficiency manifest; requires --efficiency-inputs-sha256.')
@@ -1583,7 +1963,20 @@ if __name__ == '__main__':
     parser.add_argument('--documents', type=int, help='Typed volume mode: 1..5000 synthetic sources (default 24).')
     parser.add_argument('--repetitions', type=int, help='Typed volume mode: 1..100000 retrievals (default 10).')
     parser.add_argument('--seed', type=int, help='Typed volume mode: query seed 0..2^64-1 (default 0).')
+    parser.add_argument('--volume-progress', type=Path,
+                        help='Write bounded phase progress and measure full typed-volume costs; Linux only.')
+    parser.add_argument('--volume-profile-tail', action='store_true',
+                        help='Profile only the final ten admissions of an instrumented volume run.')
     args = parser.parse_args()
+    if args.volume_profile_tail and args.volume_progress is None:
+        parser.error('--volume-profile-tail requires --volume-progress')
+    if args.volume_progress is not None:
+        import sys
+        if (sys.platform != 'linux' or args.documents is None or args.action_transfer
+                or args.action_report is not None or args.action_report_sha256 is not None
+                or args.efficiency or args.trajectories is not None or args.compare_transitions
+                or args.lance_hybrid):
+            parser.error('--volume-progress requires Linux and an explicit --documents typed-volume run')
     action_values = [value for key, value in vars(args).items()
                      if key.startswith('action_') and key not in (
                          'action_transfer', 'action_provider_mode', 'action_report', 'action_report_sha256')]
@@ -1666,6 +2059,7 @@ if __name__ == '__main__':
     elif args.lance_hybrid:
         lance_hybrid_demo()
     else:
-        report = main(documents, repetitions, seed, volume=volume)
+        report = main(documents, repetitions, seed, volume=volume, progress_path=args.volume_progress,
+                      profile_tail=args.volume_profile_tail)
         if volume and not report['oracle_passed']:
             raise SystemExit(1)

@@ -78,13 +78,13 @@ class PaidBindingMockTests(unittest.TestCase):
         path.chmod(0o600)
         return hashlib.sha256(raw).hexdigest()
 
-    def _synthetic_case(self, model='gpt-6-luna', label='ONE'):
+    def _synthetic_case(self, model='gpt-6-luna', label='ONE', arm='memory_off'):
         support = self.support
         profile_name, effort = support.MODELS[model]
         rates = (Decimal('0.0000001'), Decimal('0.0000005')) if model == 'gpt-6-luna' else (Decimal('0.000002'), Decimal('0.00001'))
         unit = Decimal(11264) * rates[0] + Decimal(2048) * rates[1]
         cell = {'cell_id': 'SYNTHETIC-MOCK-' + label, 'world_id': 'SYNTHETIC-WORLD',
-                'template_id': 'SYNTHETIC-TEMPLATE', 'model': model, 'arm': 'memory_off', 'repetition': 1}
+                'template_id': 'SYNTHETIC-TEMPLATE', 'model': model, 'arm': arm, 'repetition': 1}
         dataset = hashlib.sha256(self._bytes({'schema': 'synthetic-mock-only-dataset-v1', **self.scope})).hexdigest()
         plan = hashlib.sha256(self._bytes({'synthetic_mock_only': True, 'cell': cell})).hexdigest()
         projection = {'schema': 'persistent-memory.action-transfer.phase.v1', 'phase': 'propose',
@@ -120,7 +120,7 @@ class PaidBindingMockTests(unittest.TestCase):
                 'budget_path': budget_path, 'grant_path': grant_path, 'grant_pin': grant_pin,
                 'ledger': self.directory / ('SYNTHETIC-MOCK-ONLY-' + label + '-ledger.sqlite'), 'unit': unit}
 
-    def _client(self, case, *, forbid_credential=False, pin=None):
+    def _client(self, case, *, forbid_credential=False, pin=None, factory=None):
         support = self.support
         original_loader = support._bound_module
         with ExitStack() as stack:
@@ -141,10 +141,10 @@ class PaidBindingMockTests(unittest.TestCase):
                     stack.enter_context(patch.object(module, 'read_credential', side_effect=read_only_synthetic))
                 return module
             stack.enter_context(patch.object(support, '_bound_module', side_effect=loader))
-            return support._paid_client(case['projection'], case['grant_path'], pin or case['grant_pin'],
+            return (factory or support._paid_client)(case['projection'], case['grant_path'], pin or case['grant_pin'],
                 self.provider_path, self.reader_path, case['ledger'])
 
-    def _mock(self, client, case, expected_prompt):
+    def _mock(self, client, case, expected_prompt=None, response_body='{"synthetic_mock_only":true}'):
         support = self.support
         def post(request):
             self.assertEqual(request.method, 'POST')
@@ -159,16 +159,18 @@ class PaidBindingMockTests(unittest.TestCase):
             self.assertEqual(client.trace['request_sha256'], fingerprint)
             self.assertEqual(client.trace['status'], 'reserved')
             self.assertIs(client.trace['provider_called'], True)
-            self.assertEqual(actual['messages'], [{'role': 'user', 'content': expected_prompt}])
+            prompt = expected_prompt if expected_prompt is not None else actual['messages'][0]['content']
+            self.assertIsInstance(prompt, str)
+            self.assertEqual(actual['messages'], [{'role': 'user', 'content': prompt}])
             self.assertEqual(actual['max_completion_tokens'], 2048)
             self.assertEqual(actual['reasoning_effort'], support.MODELS[case['projection']['cell']['model']][1])
             self.assertNotIn('temperature', actual)
-            preflight = support._request_preflight(actual['model'], expected_prompt)
+            preflight = support._request_preflight(actual['model'], prompt)
             self.assertEqual(client.trace['request_sha256'], preflight['request_sha256'])
             self.assertEqual(client.trace['input_token_upper_bound'], preflight['input_token_upper_bound'])
             self.posts.append(fingerprint)
             return self.httpx.Response(200, json={'model': actual['model'],
-                'choices': [{'finish_reason': 'stop', 'message': {'role': 'assistant', 'content': '{"synthetic_mock_only":true}'}}],
+                'choices': [{'finish_reason': 'stop', 'message': {'role': 'assistant', 'content': response_body}}],
                 'usage': {'prompt_tokens': 10, 'completion_tokens': 8, 'total_tokens': 18}})
         client._transport = self.httpx.MockTransport(post)
 
@@ -265,3 +267,73 @@ class PaidBindingMockTests(unittest.TestCase):
                     self.assertEqual(connection.execute('SELECT COUNT(*) FROM reservations').fetchone()[0], 0)
                 self._send(client, exact)
                 self.assertEqual(len(self.posts), posts_before + 1)
+
+
+    def test_experience_extraction_uses_real_cell_budget_and_explicit_ledger_once(self):
+        support = self.support
+        case = self._synthetic_case(label='XP-EXTRACT', arm='none')
+        projection = case['projection']
+        projection.update(schema='persistent-memory.experience.phase.v1', phase='extract', family='I',
+            payload={'conventions': {'I.opaque': 'Keep digits verbatim.', 'I.numeric': 'Normalize numeric IDs.'}})
+        a_cell = {**projection['cell'], 'cell_id': 'SYNTHETIC-MOCK-XP-A'}
+        # These are synthetic receipt records, not evidence of real process exits.
+        # Real subprocess boundaries are qualified by the separate fake CLI suite.
+        a = {'cell': a_cell, 'dataset_sha256': projection['dataset_sha256'],
+             'plan_sha256': projection['plan_sha256'], 'pid': os.getpid() + 1000000, 'ended_ns': 2,
+             'prompt': 'Synthetic A witness: keep 01 and 1.', 'proposal_raw': '{"ids":["01","1"]}',
+             'status': 'completed', 'category': 'pending_independent_verification',
+             'writes': [], 'blocked': [], 'after': {}}
+        a['prompt_sha256'] = support.digest(a['prompt'].encode())
+        artifact_pin = support.digest(b'{"ids":["01","1"]}\n')
+        verification = {'cell': a_cell, 'dataset_sha256': projection['dataset_sha256'],
+             'plan_sha256': projection['plan_sha256'], 'effect_verified': True, 'task_success': True,
+             'category': 'exact_task', 'checks': {},
+             'observed_inventory': {'import.json': {'kind': 'file', 'sha256': artifact_pin, 'bytes': 19}},
+             'pid': a['pid'] + 1, 'started_ns': 4, 'ended_ns': 5,
+             'p2_exit': {'pid': a['pid'], 'returncode': 0, 'exited_ns': 3}}
+        a_exit = {'pid': verification['pid'], 'returncode': 0, 'exited_ns': 6}
+        feedback = {'schema': 'experience-feedback-v1', 'check_id': 'synthetic-mock-feedback',
+             'receiver_scope': 'synthetic-mock-receiver', 'success': True, 'violation_code': None,
+             'observed': {'artifact_sha256': artifact_pin, 'attempted_convention': 'I.opaque', 'discriminating': True}}
+        source = support.experience_input(a, verification, feedback)
+        # A wrong, well-formed lesson still goes through the real paid binding.
+        lesson = {'schema': 'experience-procedure-v1', 'convention_id': 'I.numeric',
+             'scope': feedback['receiver_scope'], 'evidence_refs': [
+                 support.digest(support.canonical(source['trace']).encode()),
+                 support.digest(support.canonical(source['feedback']).encode())], 'text': 'Normalize numeric IDs.'}
+        real_paid_client = support._paid_client
+        clients = []
+
+        def bound_client(value, grant_path, grant_pin, provider_path, reader_path, ledger_path):
+            self.assertEqual(value, projection)
+            self.assertEqual((grant_path, grant_pin, provider_path, reader_path, ledger_path),
+                (case['grant_path'], case['grant_pin'], self.provider_path, self.reader_path, case['ledger']))
+            client = self._client(case, factory=real_paid_client)
+            self._mock(client, case, response_body=support.canonical(lesson))
+            clients.append(client)
+            return client
+
+        with (patch.object(support, '_paid_client', side_effect=bound_client) as binding,
+              patch('socket.socket.connect', side_effect=AssertionError('Raw network is forbidden.')),
+              patch('socket.create_connection', side_effect=AssertionError('Network fallback is forbidden.')),
+              patch('socket.getaddrinfo', side_effect=AssertionError('DNS is forbidden.'))):
+            receipt = support.extract_procedure(projection, a, verification, a_exit, feedback, mode='paid',
+                grant_path=case['grant_path'], grant_sha256=case['grant_pin'], provider_path=self.provider_path,
+                credential_reader_path=self.reader_path, ledger_path=case['ledger'])
+        binding.assert_called_once()
+        self.assertEqual(receipt['status'], 'completed')
+        self.assertEqual(receipt['procedure'], lesson)
+        self.assertFalse(receipt['candidate_promoted'])
+        self.assertEqual(receipt['input'], source)
+        self.assertIn(support.canonical(source), receipt['prompt'])
+        self.assertEqual(receipt['preflight']['request_sha256'], clients[0].trace['request_sha256'])
+        self.assertEqual(receipt['usage']['total_tokens'], 18)
+        self.assertTrue(receipt['provider_called'])
+        self.assertEqual(len(self.credential_reads), 1)
+        self.assertEqual(len(self.posts), 1)
+        with self.assertRaises(self.provider.BudgetError):
+            self._send(clients[0], receipt['prompt'])
+        with self.assertRaises(self.provider.BudgetError):
+            self._client(case, forbid_credential=True)
+        self.assertEqual(len(self.posts), 1)
+        self.assertEqual(len(self.credential_reads), 1)

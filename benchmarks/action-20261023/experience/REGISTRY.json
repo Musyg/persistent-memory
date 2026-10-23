@@ -1,0 +1,1648 @@
+{
+  "B_feedback": {
+    "XP-B-EN-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "94850e9daff875a5a7c79bfc74756472112af1ef85ca4fd84118d7a535905aaa",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-B-EN-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-L6-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-L6-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "8cb7cf69e4389656504ffff34c020c406167488af5a8a8975d4f8f387806fa76",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-B-EN-L6-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "94850e9daff875a5a7c79bfc74756472112af1ef85ca4fd84118d7a535905aaa",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-B-EN-L6-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "5178bec24a60e868a26a1d3a2f5aa89af230cca384c3eb7390328e62b707d16b",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-B-EN-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d199f041c95063318760d142d594d8cf722972fe70409574f1c32b9e67db5a36",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-B-EN-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d199f041c95063318760d142d594d8cf722972fe70409574f1c32b9e67db5a36",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-B-EN-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "0efe3bc1eb3b036e80c954ad9bff2483bdc3133391c38cee9f370caa968416f4",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-EN-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d199f041c95063318760d142d594d8cf722972fe70409574f1c32b9e67db5a36",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-B-FR-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-B-FR-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-FR-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-FR-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-FR-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-B-FR-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-FR-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "f3b10391566255eca9f36945d69ed4a740dd0e900c9fc90a4bd324aa2b44e0a0",
+      "attempted_convention": "B.inclusive",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-B-FR-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-B-FR-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "c35d15553ce4fd8604e9ecfa01c6ee35fb237310631fcb630dfbdd3986da471b",
+      "attempted_convention": "B.exclusive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-EN-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3972b345086d8ba9afe26f9f425b95b355dfa95dd2bca81fe0bb01201e511e8",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3972b345086d8ba9afe26f9f425b95b355dfa95dd2bca81fe0bb01201e511e8",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3972b345086d8ba9afe26f9f425b95b355dfa95dd2bca81fe0bb01201e511e8",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f3972b345086d8ba9afe26f9f425b95b355dfa95dd2bca81fe0bb01201e511e8",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-C-EN-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-EN-S61-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5e9c5e0295aa2a438db6e54f0c8019d291d91d863f9a84cc0fe72bc265fe8897",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-C-FR-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-C-FR-L6-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-L6-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-L6-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-L6-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-C-FR-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "1cb42a3ab4b852f6e8932f3b461125805c5923509d22e9e6d1686901002590dd",
+      "attempted_convention": "C.bom",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-C-FR-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4d18f4d164cb1408e8e30bce130af2cb78d641f1283964a4f93fe092c6736871",
+      "attempted_convention": "C.plain",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-I-EN-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "bea1db0a5cd73444968daf6b86cd4e48ec3b3a12236ee256288361ae41bb2ea1",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-EN-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4b686b29050e5ee92ceb160559cd541dca49123f9714552ad0551b61a57100c5",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-EN-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-L6-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-L6-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-L6-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-L6-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-EN-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "da2fd38c603a5f408c1fe052f44396d7063e99ece4a1f06e86f09b61dac3c763",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "da2fd38c603a5f408c1fe052f44396d7063e99ece4a1f06e86f09b61dac3c763",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "9c09fe3e6a8f0a77eddffb4d7974e65930a0ca6469b33bc6b5dfa08c4ca9b946",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-EN-S61-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "da2fd38c603a5f408c1fe052f44396d7063e99ece4a1f06e86f09b61dac3c763",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "b16c4e40e9dbcd8a76ff751025f768d310c045925e73dfdd833df0802b4afb2b",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "060f4f40ec95d002d0548d7c5ee96aa22813721afcf2db3b46873bd561aa7deb",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "060f4f40ec95d002d0548d7c5ee96aa22813721afcf2db3b46873bd561aa7deb",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "1edb69f36e5d6cd7d86b2f680df19d05f4a20f9f13b309abec7f2161fbf88bf6",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "1edb69f36e5d6cd7d86b2f680df19d05f4a20f9f13b309abec7f2161fbf88bf6",
+      "attempted_convention": "I.opaque",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-I-FR-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "060f4f40ec95d002d0548d7c5ee96aa22813721afcf2db3b46873bd561aa7deb",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-I-FR-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-I-FR-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-FR-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-FR-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "d581ff682061d56b33c696691a5cdd86d9955c14af12c809cadb7db102ecc770",
+      "attempted_convention": "I.numeric",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-I-FR-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-EN-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-R-EN-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "e148e0bf5f4ccd703c7a5b45a5975cd20dd3bf6d079da0e421a5d6bd82c4e515",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-R-EN-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "459b7dc6be716687ed10aae0b0dce1351f506bb74070d5fb133b92fdf8e89ef9",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-EN-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "e148e0bf5f4ccd703c7a5b45a5975cd20dd3bf6d079da0e421a5d6bd82c4e515",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-R-EN-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-EN-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "6be38070fceb4c8f48e96409a33e757be6b8dc84f5539bc7acef309f36bdbf1c",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-EN-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-EN-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "3de5a243ada5c4f9e1092d47dd81375dfd94245a221a052ed3d080a37a44e9d3",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-EN-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-R-EN-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "e148e0bf5f4ccd703c7a5b45a5975cd20dd3bf6d079da0e421a5d6bd82c4e515",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-R-EN-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-R-EN-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "e148e0bf5f4ccd703c7a5b45a5975cd20dd3bf6d079da0e421a5d6bd82c4e515",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-R-EN-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-R-EN-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "e148e0bf5f4ccd703c7a5b45a5975cd20dd3bf6d079da0e421a5d6bd82c4e515",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-R-EN-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "22d72a1f8e75f69e916159cf555ff1694e393b8a8f94f00ddcb6a443f23d0226",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-R-EN-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f303e225df69f2cebb369b4653bc7f32101795bf0d6c9686e218d475a697f206",
+      "attempted_convention": "R.signed",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "0b7c190bd290c614e1ae29b3e52527adddca5461e2bf7d0eb2f5793d559fc8ca",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-FR-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "63c347c15ee2aee5ff38fa1933ea40decee25a7c6aac867d8ebab5ce3f6fdcfa",
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-R-FR-S61-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "4e680375e35dadc0797e491f69bd040e60c4c57f54168ad3ab6c062c7cd9fa40",
+      "attempted_convention": "R.sealed",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f7f1556366a4fb4c185d1bcd4c9851f5b5420ed4bbb3b9e849d57997ffce520e",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": null,
+      "attempted_convention": null,
+      "classification": "unknown_wrong_cause",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "807b81564b43e476bf4ccb873c55b89e7afac5a68e950145279b9ef6efe66173",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-S-EN-S61-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "f7f1556366a4fb4c185d1bcd4c9851f5b5420ed4bbb3b9e849d57997ffce520e",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-S-FR-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-L6-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-L6-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-L6-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-L6-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "21b9d8a2a2f0d6cfc4caa79429e42e8dff81d3339c347d3020e051257789574d",
+      "attempted_convention": "S.debit_negative",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-S-FR-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-S-FR-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "06e88be6cf556b81928c694f7c01a0690e0cdc5f0c2ed3213395e566e726f960",
+      "attempted_convention": "S.debit_positive",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-L6-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-L6-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-L6-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-L6-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-L6-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-L6-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-L6-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-L6-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-S61-R1-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-S61-R1-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-S61-R1-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-S61-R1-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-S61-R2-BD": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-S61-R2-BN": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-EN-S61-R2-BR": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "4bf5731b00f06f63c4d5c69b6a39a98e923bfae902c9c7d8f19452e9b613c377",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_match",
+      "recurrence": false
+    },
+    "XP-T-EN-S61-R2-BW": {
+      "A_receiver_mismatch": true,
+      "artifact_sha256": "7f54c89a020444959d24a6d0a37af8da1725f21071e2f4006d37892ee66c1b0c",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_mismatch",
+      "recurrence": true
+    },
+    "XP-T-FR-L6-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5013c223daf7c980ee5f364a67e86ec488a21821586041fdd56a3f04a1d1534e",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-L6-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "5013c223daf7c980ee5f364a67e86ec488a21821586041fdd56a3f04a1d1534e",
+      "attempted_convention": "T.secondary",
+      "classification": "receiver_mismatch",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R1-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R1-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R1-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R1-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R2-BD": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R2-BN": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R2-BR": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    },
+    "XP-T-FR-S61-R2-BW": {
+      "A_receiver_mismatch": false,
+      "artifact_sha256": "16ab439e6a5a05d4b6c4f3ee5f5e124d8f624787ed0b9203f91a3668d4f66f0d",
+      "attempted_convention": "T.primary",
+      "classification": "receiver_match",
+      "recurrence": null
+    }
+  },
+  "B_labels": {
+    "XP-B-EN-L6-R1-BD": true,
+    "XP-B-EN-L6-R1-BN": true,
+    "XP-B-EN-L6-R1-BR": false,
+    "XP-B-EN-L6-R1-BW": true,
+    "XP-B-EN-L6-R2-BD": true,
+    "XP-B-EN-L6-R2-BN": false,
+    "XP-B-EN-L6-R2-BR": false,
+    "XP-B-EN-L6-R2-BW": false,
+    "XP-B-EN-S61-R1-BD": true,
+    "XP-B-EN-S61-R1-BN": false,
+    "XP-B-EN-S61-R1-BR": true,
+    "XP-B-EN-S61-R1-BW": true,
+    "XP-B-EN-S61-R2-BD": true,
+    "XP-B-EN-S61-R2-BN": false,
+    "XP-B-EN-S61-R2-BR": true,
+    "XP-B-EN-S61-R2-BW": false,
+    "XP-B-FR-L6-R1-BD": false,
+    "XP-B-FR-L6-R1-BN": false,
+    "XP-B-FR-L6-R1-BR": false,
+    "XP-B-FR-L6-R1-BW": true,
+    "XP-B-FR-L6-R2-BD": true,
+    "XP-B-FR-L6-R2-BN": false,
+    "XP-B-FR-L6-R2-BR": false,
+    "XP-B-FR-L6-R2-BW": false,
+    "XP-B-FR-S61-R1-BD": true,
+    "XP-B-FR-S61-R1-BN": true,
+    "XP-B-FR-S61-R1-BR": true,
+    "XP-B-FR-S61-R1-BW": false,
+    "XP-B-FR-S61-R2-BD": true,
+    "XP-B-FR-S61-R2-BN": false,
+    "XP-B-FR-S61-R2-BR": true,
+    "XP-B-FR-S61-R2-BW": true,
+    "XP-C-EN-L6-R1-BD": true,
+    "XP-C-EN-L6-R1-BN": false,
+    "XP-C-EN-L6-R1-BR": true,
+    "XP-C-EN-L6-R1-BW": false,
+    "XP-C-EN-L6-R2-BD": true,
+    "XP-C-EN-L6-R2-BN": false,
+    "XP-C-EN-L6-R2-BR": false,
+    "XP-C-EN-L6-R2-BW": false,
+    "XP-C-EN-S61-R1-BD": true,
+    "XP-C-EN-S61-R1-BN": true,
+    "XP-C-EN-S61-R1-BR": true,
+    "XP-C-EN-S61-R1-BW": true,
+    "XP-C-EN-S61-R2-BD": true,
+    "XP-C-EN-S61-R2-BN": true,
+    "XP-C-EN-S61-R2-BR": true,
+    "XP-C-EN-S61-R2-BW": true,
+    "XP-C-FR-L6-R1-BD": true,
+    "XP-C-FR-L6-R1-BN": false,
+    "XP-C-FR-L6-R1-BR": true,
+    "XP-C-FR-L6-R1-BW": false,
+    "XP-C-FR-L6-R2-BD": true,
+    "XP-C-FR-L6-R2-BN": false,
+    "XP-C-FR-L6-R2-BR": true,
+    "XP-C-FR-L6-R2-BW": false,
+    "XP-C-FR-S61-R1-BD": true,
+    "XP-C-FR-S61-R1-BN": false,
+    "XP-C-FR-S61-R1-BR": true,
+    "XP-C-FR-S61-R1-BW": false,
+    "XP-C-FR-S61-R2-BD": true,
+    "XP-C-FR-S61-R2-BN": false,
+    "XP-C-FR-S61-R2-BR": true,
+    "XP-C-FR-S61-R2-BW": false,
+    "XP-I-EN-L6-R1-BD": true,
+    "XP-I-EN-L6-R1-BN": false,
+    "XP-I-EN-L6-R1-BR": false,
+    "XP-I-EN-L6-R1-BW": true,
+    "XP-I-EN-L6-R2-BD": true,
+    "XP-I-EN-L6-R2-BN": true,
+    "XP-I-EN-L6-R2-BR": true,
+    "XP-I-EN-L6-R2-BW": true,
+    "XP-I-EN-S61-R1-BD": true,
+    "XP-I-EN-S61-R1-BN": false,
+    "XP-I-EN-S61-R1-BR": true,
+    "XP-I-EN-S61-R1-BW": false,
+    "XP-I-EN-S61-R2-BD": true,
+    "XP-I-EN-S61-R2-BN": true,
+    "XP-I-EN-S61-R2-BR": true,
+    "XP-I-EN-S61-R2-BW": false,
+    "XP-I-FR-L6-R1-BD": false,
+    "XP-I-FR-L6-R1-BN": false,
+    "XP-I-FR-L6-R1-BR": true,
+    "XP-I-FR-L6-R1-BW": false,
+    "XP-I-FR-L6-R2-BD": true,
+    "XP-I-FR-L6-R2-BN": false,
+    "XP-I-FR-L6-R2-BR": false,
+    "XP-I-FR-L6-R2-BW": false,
+    "XP-I-FR-S61-R1-BD": true,
+    "XP-I-FR-S61-R1-BN": true,
+    "XP-I-FR-S61-R1-BR": true,
+    "XP-I-FR-S61-R1-BW": true,
+    "XP-I-FR-S61-R2-BD": true,
+    "XP-I-FR-S61-R2-BN": true,
+    "XP-I-FR-S61-R2-BR": true,
+    "XP-I-FR-S61-R2-BW": false,
+    "XP-R-EN-L6-R1-BD": true,
+    "XP-R-EN-L6-R1-BN": false,
+    "XP-R-EN-L6-R1-BR": false,
+    "XP-R-EN-L6-R1-BW": false,
+    "XP-R-EN-L6-R2-BD": true,
+    "XP-R-EN-L6-R2-BN": false,
+    "XP-R-EN-L6-R2-BR": true,
+    "XP-R-EN-L6-R2-BW": false,
+    "XP-R-EN-S61-R1-BD": true,
+    "XP-R-EN-S61-R1-BN": false,
+    "XP-R-EN-S61-R1-BR": true,
+    "XP-R-EN-S61-R1-BW": false,
+    "XP-R-EN-S61-R2-BD": true,
+    "XP-R-EN-S61-R2-BN": false,
+    "XP-R-EN-S61-R2-BR": true,
+    "XP-R-EN-S61-R2-BW": false,
+    "XP-R-FR-L6-R1-BD": true,
+    "XP-R-FR-L6-R1-BN": true,
+    "XP-R-FR-L6-R1-BR": true,
+    "XP-R-FR-L6-R1-BW": false,
+    "XP-R-FR-L6-R2-BD": true,
+    "XP-R-FR-L6-R2-BN": true,
+    "XP-R-FR-L6-R2-BR": false,
+    "XP-R-FR-L6-R2-BW": false,
+    "XP-R-FR-S61-R1-BD": true,
+    "XP-R-FR-S61-R1-BN": true,
+    "XP-R-FR-S61-R1-BR": true,
+    "XP-R-FR-S61-R1-BW": true,
+    "XP-R-FR-S61-R2-BD": true,
+    "XP-R-FR-S61-R2-BN": true,
+    "XP-R-FR-S61-R2-BR": true,
+    "XP-R-FR-S61-R2-BW": true,
+    "XP-S-EN-L6-R1-BD": true,
+    "XP-S-EN-L6-R1-BN": true,
+    "XP-S-EN-L6-R1-BR": true,
+    "XP-S-EN-L6-R1-BW": true,
+    "XP-S-EN-L6-R2-BD": true,
+    "XP-S-EN-L6-R2-BN": true,
+    "XP-S-EN-L6-R2-BR": true,
+    "XP-S-EN-L6-R2-BW": true,
+    "XP-S-EN-S61-R1-BD": true,
+    "XP-S-EN-S61-R1-BN": false,
+    "XP-S-EN-S61-R1-BR": true,
+    "XP-S-EN-S61-R1-BW": false,
+    "XP-S-EN-S61-R2-BD": true,
+    "XP-S-EN-S61-R2-BN": true,
+    "XP-S-EN-S61-R2-BR": true,
+    "XP-S-EN-S61-R2-BW": false,
+    "XP-S-FR-L6-R1-BD": true,
+    "XP-S-FR-L6-R1-BN": false,
+    "XP-S-FR-L6-R1-BR": false,
+    "XP-S-FR-L6-R1-BW": false,
+    "XP-S-FR-L6-R2-BD": true,
+    "XP-S-FR-L6-R2-BN": false,
+    "XP-S-FR-L6-R2-BR": true,
+    "XP-S-FR-L6-R2-BW": false,
+    "XP-S-FR-S61-R1-BD": true,
+    "XP-S-FR-S61-R1-BN": true,
+    "XP-S-FR-S61-R1-BR": true,
+    "XP-S-FR-S61-R1-BW": false,
+    "XP-S-FR-S61-R2-BD": true,
+    "XP-S-FR-S61-R2-BN": false,
+    "XP-S-FR-S61-R2-BR": true,
+    "XP-S-FR-S61-R2-BW": true,
+    "XP-T-EN-L6-R1-BD": true,
+    "XP-T-EN-L6-R1-BN": false,
+    "XP-T-EN-L6-R1-BR": true,
+    "XP-T-EN-L6-R1-BW": false,
+    "XP-T-EN-L6-R2-BD": true,
+    "XP-T-EN-L6-R2-BN": false,
+    "XP-T-EN-L6-R2-BR": false,
+    "XP-T-EN-L6-R2-BW": false,
+    "XP-T-EN-S61-R1-BD": true,
+    "XP-T-EN-S61-R1-BN": false,
+    "XP-T-EN-S61-R1-BR": true,
+    "XP-T-EN-S61-R1-BW": false,
+    "XP-T-EN-S61-R2-BD": true,
+    "XP-T-EN-S61-R2-BN": false,
+    "XP-T-EN-S61-R2-BR": true,
+    "XP-T-EN-S61-R2-BW": false,
+    "XP-T-FR-L6-R1-BD": true,
+    "XP-T-FR-L6-R1-BN": false,
+    "XP-T-FR-L6-R1-BR": true,
+    "XP-T-FR-L6-R1-BW": true,
+    "XP-T-FR-L6-R2-BD": true,
+    "XP-T-FR-L6-R2-BN": true,
+    "XP-T-FR-L6-R2-BR": true,
+    "XP-T-FR-L6-R2-BW": false,
+    "XP-T-FR-S61-R1-BD": true,
+    "XP-T-FR-S61-R1-BN": true,
+    "XP-T-FR-S61-R1-BR": true,
+    "XP-T-FR-S61-R1-BW": true,
+    "XP-T-FR-S61-R2-BD": true,
+    "XP-T-FR-S61-R2-BN": true,
+    "XP-T-FR-S61-R2-BR": true,
+    "XP-T-FR-S61-R2-BW": true
+  },
+  "assessment_source_sha256": "f5ee3ef1eeff0449099465fe1d4cae1df41b1442354ede88c81d88526ac289a7",
+  "fresh_verifier_callbacks": 192,
+  "native_collection_sha256": "1e1e22947dd3baf09b905f6bee1ce6e6306639be677a5c07ef8730710a5eb974",
+  "observations_sha256": "7e97bbd4b9fb476bbb887ddb2502c1cbb2f74db0aca22dcf9ad9ad11c24a89e4",
+  "original_inventory_files": 7424,
+  "original_inventory_sha256": "6717088d33b8fc075e08c43c0b13eb78123447bd98243940ebfe45ac322e878d",
+  "original_quality_labels_preserved": true,
+  "original_study_unchanged": true,
+  "partitions": 16,
+  "planned_B": 192,
+  "provider_requests": 0,
+  "quality": {
+    "denominator": 192,
+    "failures": 73,
+    "successes": 119,
+    "unknown": 0
+  },
+  "recurrence_groups": [
+    {
+      "A_mismatch_eligible": 11,
+      "arm": "derived",
+      "model": "gpt-6-luna",
+      "not_repeated": 11,
+      "planned_B": 24,
+      "receiver_match": 22,
+      "receiver_mismatch": 1,
+      "unknown_wrong_cause": 1
+    },
+    {
+      "A_mismatch_eligible": 11,
+      "arm": "none",
+      "cause_unknown": 2,
+      "model": "gpt-6-luna",
+      "not_repeated": 2,
+      "planned_B": 24,
+      "receiver_match": 7,
+      "receiver_mismatch": 13,
+      "repeated": 7,
+      "unknown_wrong_cause": 4
+    },
+    {
+      "A_mismatch_eligible": 11,
+      "arm": "raw",
+      "cause_unknown": 4,
+      "model": "gpt-6-luna",
+      "not_repeated": 5,
+      "planned_B": 24,
+      "receiver_match": 13,
+      "receiver_mismatch": 6,
+      "repeated": 2,
+      "unknown_wrong_cause": 5
+    },
+    {
+      "A_mismatch_eligible": 11,
+      "arm": "withdrawn",
+      "cause_unknown": 2,
+      "model": "gpt-6-luna",
+      "not_repeated": 3,
+      "planned_B": 24,
+      "receiver_match": 7,
+      "receiver_mismatch": 10,
+      "repeated": 6,
+      "unknown_wrong_cause": 7
+    },
+    {
+      "A_mismatch_eligible": 13,
+      "arm": "derived",
+      "model": "gpt-6.1-sol",
+      "not_repeated": 13,
+      "planned_B": 24,
+      "receiver_match": 24
+    },
+    {
+      "A_mismatch_eligible": 13,
+      "arm": "none",
+      "model": "gpt-6.1-sol",
+      "not_repeated": 3,
+      "planned_B": 24,
+      "receiver_match": 12,
+      "receiver_mismatch": 12,
+      "repeated": 10
+    },
+    {
+      "A_mismatch_eligible": 13,
+      "arm": "raw",
+      "model": "gpt-6.1-sol",
+      "not_repeated": 13,
+      "planned_B": 24,
+      "receiver_match": 24
+    },
+    {
+      "A_mismatch_eligible": 13,
+      "arm": "withdrawn",
+      "cause_unknown": 3,
+      "model": "gpt-6.1-sol",
+      "not_repeated": 3,
+      "planned_B": 24,
+      "receiver_match": 10,
+      "receiver_mismatch": 10,
+      "repeated": 7,
+      "unknown_wrong_cause": 4
+    }
+  ],
+  "runtime_activated": false,
+  "schema": "persistent-memory.experience-revalidation.public.v1",
+  "unknown_cause_is_not_recurrence": true
+}

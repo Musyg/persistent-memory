@@ -12,4 +12,4 @@ recursive-include benchmarks/validation-20261021 *.py *.json *.md SHA256SUMS SHA
 recursive-include benchmarks/validation-20261022 *.py *.json *.md SHA256SUMS SHA256SUMS-SUPPLEMENTAL *.sha256
 recursive-include benchmarks/lifecycle-20261022 *.json *.md
 recursive-include benchmarks/efficiency-20261023 *.json *.md
-recursive-include benchmarks/action-20261023 *.json *.md
+recursive-include benchmarks/action-20261023 *.json *.md *.json.gz

@@ -38,9 +38,12 @@ class Ref:
     artifact_id: str
     version_id: str
     def __post_init__(self):
-        for x in asdict(self).values():
+        values = (self.workspace, self.artifact_id, self.version_id) if type(self) is Ref else asdict(self).values()
+        for x in values:
             name(x)
     def to_dict(self):
+        if type(self) is Ref:
+            return {'workspace': self.workspace, 'artifact_id': self.artifact_id, 'version_id': self.version_id}
         return asdict(self)
 
 def ref(x):
@@ -132,10 +135,11 @@ CREATE TABLE outbox (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL, delivered I
         for row in c.execute('SELECT * FROM events ORDER BY seq'):
             seq += 1
             require(row['seq'] == seq and row['previous'] == previous, 'ledger_invalid')
-            expected = digest(canonical({'seq':seq,'payload':json.loads(row['payload']),'previous':previous}))
+            payload = json.loads(row['payload'])
+            expected = digest(canonical({'seq':seq,'payload':payload,'previous':previous}))
             require(row['digest'] == expected, 'ledger_invalid')
             previous = expected
-            payloads.append((seq,json.loads(row['payload'])))
+            payloads.append((seq,payload))
         if verify_state:self._verify_state(c,payloads)
         return {'generation':generation,'epoch':seq,'digest':previous}
 
@@ -145,7 +149,7 @@ CREATE TABLE outbox (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL, delivered I
             op=p.get('op')
             require(op in {'put','rename','status','revoke'},'unknown_ledger_operation')
             if op=='put':
-                r=ref(p['ref']);identity=(r['workspace'],r['artifact_id']);k=key(r)
+                r=ref(p['ref']);identity=(r['workspace'],r['artifact_id']);k=canonical(r)
                 require(k not in expected_objects and type(p.get('provenance_known')) is bool,'invalid_put_event')
                 expected_objects[k]={'kind':p['kind'],'content_sha256':p['content_sha256'],'dependencies':canonical(p['dependencies']),'provenance_known':int(p['provenance_known']),'status':'active','epoch':seq}
                 prior=heads.get(identity,{'alias':None})

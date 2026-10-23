@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "release_candidate": "0.3.0a2",
+  "release_candidate": "0.3.0a3",
   "private_history_included": false,
   "scope": "original core v0.1 plus typed retrieval R3 with opt-in exact-reference rendering and fixed-workspace typed-only HTTP boundary and portable integration R3; source selection only; opt-in finite structured rendering, reviewed admission, verified shared loading and fresh synthetic examples",
   "files": [
@@ -35,23 +35,35 @@
       "path": "MANIFEST.in",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "bounded public admission extension; prior source provenance retained",
-      "package_sha256": "f928f01ca11979ee0c1a6099ae251f9967f714b41cff0fd1e0a2f023a573a72a",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "f9903dbd16b1d11dcffefe03ffc4f4066868507dcc289e3fa7010a22d3fc23d2",
       "previous_registry_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
-      "previous_assembly_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa"
+      "previous_assembly_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "f928f01ca11979ee0c1a6099ae251f9967f714b41cff0fd1e0a2f023a573a72a",
+          "transformation": "bounded public admission extension; prior source provenance retained"
+        }
+      ]
     },
     {
       "path": "PACKAGES.md",
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
-      "package_sha256": "af06c6ecd7b62c43ebcc35f287113f21aa4499d19ce2129ae38bcb6c0139b5a1",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "7f8c181e62daa17b4b50cf38c33fe2ec5fdcadb6431eedd2559e7c8b4250b897",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
           "package_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b",
           "transformation": "metadata reconciliation to unchanged public baseline document"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "af06c6ecd7b62c43ebcc35f287113f21aa4499d19ce2129ae38bcb6c0139b5a1",
+          "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
         }
       ],
       "previous_public_worktree_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b"
@@ -60,14 +72,19 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
-      "package_sha256": "a2183add715b25cb2400682a5abd199790f352bb966ae22373527cf599cec036",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "aad460a8b9b454595d6f69b453de79e92437fb625ce086e79b16ca37948fea11",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
         {
           "package_sha256": "9b14843fa20ea666b055adda7a266530b900115234e7bdc92e695cf26cca16ec",
           "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "a2183add715b25cb2400682a5abd199790f352bb966ae22373527cf599cec036",
+          "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
         }
       ],
       "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f"
@@ -76,14 +93,19 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved.",
-      "package_sha256": "f1d0c5c77a8de17eb98caf1f59ebc9e65173852fd26d9d62e891f74be2c5cf84",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "ffe2f86a6063bc1588eadfe926d27b6d1386d4880b36f521bf3ec1752f44bf10",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
         {
           "package_sha256": "35d4d32fd608089f8e5297577078099d39090056df190576dd5ebf54c4902fba",
           "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "f1d0c5c77a8de17eb98caf1f59ebc9e65173852fd26d9d62e891f74be2c5cf84",
+          "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
         }
       ],
       "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7"
@@ -100,12 +122,17 @@
       "path": "benchmarks/run_benchmark.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
       "assembly_history": [
         {
           "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6"
@@ -156,8 +183,15 @@
       "path": "docs/RECOVERY.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "6b911572ee3ba74f135753babb5d0b602284adfd9c054772bf398aec19732ebd"
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "fefd0b56dcdd9105e974fbbee1bde7196861fb85bf078329086475ddfcc2b79b",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "6b911572ee3ba74f135753babb5d0b602284adfd9c054772bf398aec19732ebd",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "docs/STRUCTURED.fr.md",
@@ -179,13 +213,18 @@
       "path": "docs/TESTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "1e65cd8dc92790ce68385d10a61ed7a4b6c39c7250dc3a6c4a2e383d0324e946",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "4674ca68277f535cd2b037c146c27b1227a61d62b480e6b7b39af75268e597a3",
       "previous_assembly_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef",
       "assembly_history": [
         {
           "package_sha256": "e3936541ad419d3180f3e53efd923a3b42dd95f887db04ad443cbc202e36f278",
           "transformation": "new generic source, documentation or synthetic fixture; root version/documentation assembly"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "1e65cd8dc92790ce68385d10a61ed7a4b6c39c7250dc3a6c4a2e383d0324e946",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "ebb490b7272a53748769840fcfd1b5251aeceaa5358d7bf5b67caef3c0d6aa3c"
@@ -271,14 +310,19 @@
       "path": "pyproject.toml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "053d7de577e456da507e2f672a7d4adfde81f858a1cdfefa7d040a348915731b",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "4fd11aa54634e5c54dec837fb32557f6d80b55c303ea4b4306dc1b4a33500243",
       "previous_registry_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100",
       "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803",
       "assembly_history": [
         {
           "package_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22",
           "transformation": "bounded public admission extension; prior source provenance retained; root version/documentation assembly"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "053d7de577e456da507e2f672a7d4adfde81f858a1cdfefa7d040a348915731b",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "d37595d872ad9be7bb66130668c3657fa693d986d297af8e8c52125dbfc2ba22"
@@ -287,10 +331,17 @@
       "path": "scripts/check_distributions.py",
       "origin": "new-public-admission-assembly",
       "original_sha256": null,
-      "package_sha256": "edf0c36dfd4a72fb975b545dac7dba33a6b633c9b495178462359ee4e608873b",
-      "transformation": "new portable source, documentation, synthetic fixture or packaging metadata",
+      "package_sha256": "ba209667683d8198b0935d7476ee4a5076da741d7bc46f805ce9041e618ca9d6",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
       "license": "MIT",
-      "previous_assembly_sha256": "f8b5a6c61fe4722269ba6e483f39ac3efcee334187efa1a7a32e141da712003a"
+      "previous_assembly_sha256": "f8b5a6c61fe4722269ba6e483f39ac3efcee334187efa1a7a32e141da712003a",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "edf0c36dfd4a72fb975b545dac7dba33a6b633c9b495178462359ee4e608873b",
+          "transformation": "new portable source, documentation, synthetic fixture or packaging metadata"
+        }
+      ]
     },
     {
       "path": "setup.cfg",
@@ -311,13 +362,18 @@
       "path": "src/hermes_memory/__init__.py",
       "origin": "core-v0.1/__init__.py",
       "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
-      "package_sha256": "cf3fd68da77792f6e2a7299af5ab95fc21dff017d8e3fcd7870c45e2fe8833d5",
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "0ef32489e48ff1e5f00354f2f6627d7040ea95e0ef6fcba63962e4331e4429b5",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
       "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
       "assembly_history": [
         {
           "package_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411",
           "transformation": "distribution version only; root version/documentation assembly"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "cf3fd68da77792f6e2a7299af5ab95fc21dff017d8e3fcd7870c45e2fe8833d5",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "4b2db06bd127723867e0f9e1e67a5cfc7e7384913e011d5ec72f593ed9cba411"
@@ -395,8 +451,15 @@
       "path": "src/hermes_memory/core.py",
       "origin": "core-v0.1/core.py",
       "original_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
-      "package_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
-      "transformation": "byte-identical"
+      "package_sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0",
+          "transformation": "byte-identical"
+        }
+      ]
     },
     {
       "path": "src/hermes_memory/demo.py",
@@ -467,12 +530,17 @@
       "path": "src/hermes_memory/typed_memory.py",
       "origin": "typed-retrieval-r3/typed_memory.py",
       "original_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
-      "package_sha256": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427",
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
       "assembly_history": [
         {
           "package_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed",
           "transformation": "byte-identical"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "7e87940e6de8aadae220f52087bf23299287d4f127ceafff7fdea4e36998a427",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "96df9605db923af4ec368ad7d550a02fb9d0c9f270499d6851cb0b727178a5ed"
@@ -488,12 +556,17 @@
       "path": "src/hermes_memory/typed_protocol.py",
       "origin": "integration-r3/typed_protocol.py",
       "original_sha256": "cd6edffb5e706480d99f7e585e4e6daacbe15e1979f5641b06a07e7da1f5703a",
-      "package_sha256": "1e6916200a16b64032dc31d6b079dfd1ec35e6d9f2ca818450a56a2c04e3b862",
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+      "package_sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
       "assembly_history": [
         {
           "package_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26",
           "transformation": "package imports unchanged; module docstring reflects namespace import behavior"
+        },
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "1e6916200a16b64032dc31d6b079dfd1ec35e6d9f2ca818450a56a2c04e3b862",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
         }
       ],
       "previous_public_worktree_sha256": "99745bf4096a8a140177548f92f99b8556c8380679dba0f7ed88064fcf22ba26"
@@ -549,8 +622,15 @@
       "path": "tests/test_core_independent.py",
       "origin": "core-v0.1/tests/test_core_independent.py",
       "original_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
-      "package_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
-      "transformation": "byte-identical"
+      "package_sha256": "af8c394467ac333444c6f55d3756393c5b62b3bfbfbad41c9419f3b18587c8f6",
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
+          "transformation": "byte-identical"
+        }
+      ]
     },
     {
       "path": "tests/test_integration.py",
@@ -570,8 +650,15 @@
       "path": "tests/test_product.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "2a84cead8ff5555b84339a0ba672aafb0ba3cff5f5997264391dc2c5e18597b4"
+      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+      "package_sha256": "baad2766058c1987952e35a1efcbb65dbf8ced8ca0e4549e8f7a89ca12f16c97",
+      "assembly_history": [
+        {
+          "release_candidate": "0.3.0a2",
+          "package_sha256": "2a84cead8ff5555b84339a0ba672aafb0ba3cff5f5997264391dc2c5e18597b4",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "tests/test_public_installed.py",
@@ -622,6 +709,174 @@
       "original_sha256": "bbfe2c38bb0dd8a1864ffc48957118125f1f5aac92c438e3e53895e9cfe37bfd",
       "package_sha256": "6d37cfdc10bf4551a68d6ad33a56bdee83b468cc7d444d48a889feb0d17e06be",
       "transformation": "installed core discovery/imports; base renamed to avoid duplicate test discovery"
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/AUTHOR.py",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "6657b25d75bbb3c617240a64fd181cf364da728afaeb3ff42df5638a601fbefc",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/CAP-DECISION.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "bf8360bd35d93d5241ad7ff0f4a311feba8a7946e2ec4f36ba0ab7aceb983a4f",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/INTERFACE.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "9c328f914f8f3bf149d34bea749c6ed762f76e5e9940ad5137b991a8e7b1c8db",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/MANIFEST.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "c63a7299fc38868ec0d2c66000af4be999421c3fc47ea60c57cdca1eb4e47a6b",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/OBSERVATIONS.json.gz",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "33709a1627f2f269488ca39c1bd01c26794f70ed275cede1bc17302cb37c84fa",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/PLAN.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "262acf136653c43c485b11487e912a40ad13c416c7dbd7b71dfa3af3671e8a52",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/PROMPT-REPRESENTATION.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "30accb12b2a7849c3a49605fb6e57c9e280d1e546e8bae0df0ca466e50f62065",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/PROTOCOL.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "7078bd3e5f6c242227763c9961e843456f96fe9fd419114a25a277d0b4eeb7b6",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/README.fr.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "ba62eb5c02d96021779b52847ce0ae05f616934e476afcd5a0406e1f49bc9cef",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/README.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "9604d8615fbb9c60be9ec12ec5acaf8de52b2839b5ff10c8cc553e9a972995d5",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/REGISTRY.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "c392a96cfa552e1fd17975d4315da67565b5fcefe8517a12c9efdec033f9857b",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/REPRODUCE.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "79757049f880d58c68d929ae3015a68d9b82cf7131dad4428b864ce43aad32fa",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/RESULT.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "19cb6d83b1e8c399e7f4f471163a382344f8e4e59fb9d4b716ea5f2b8224c011",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/RUN-PROVENANCE.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "6afbfa22009492364f774ce64cb6287f1d6e0c4df289144d4d5fe406cff63069",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/SEALED-FIXTURE.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "4e7ef1f8b9cc7c351e56f4f2f27dc4ba9937f21e592def353bad2ffb14ded247",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/SEALED-SEEDS.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "f529a38e529b7ab0bac5cf39577a999773556b154b029a0e20b7c7028e5b88cc",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/TASK-DESIGN.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "027558b19c534ada71cda634c890217e688b01bef3e227ce78ffeeace1b598bd",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/TESTS/test_experience_fixture.py",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "7a44a5bb002a3e62fe8e03a46294055be099c7b5cd3cd1755cd62f8d96432677",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/execution_worker.py",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "63a62b168a60b4e74448457d9bd484d4909a34260d728c1cf5f424f7769a5f7c",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/fixture_contract.py",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "e27b8d8e25b414d7a602a2e33d323db5359302b86ef0102e9ea5a8b6db8b1a7d",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/action-20261023/experience/registry_assessment.py",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "f5ee3ef1eeff0449099465fe1d4cae1df41b1442354ede88c81d88526ac289a7",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "765792aa8275091fb55146952c0553a4a3a2bc9579fe4197a7fa8b4785f6cc91",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/efficiency-20261023/core-optimization-20261023/README.md",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "e9474cff2bdcd96c9d01b9575a6ee73d834eea719af4c7132c449175e325b646",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "benchmarks/efficiency-20261023/core-optimization-20261023/RESULT.json",
+      "origin": "public-synthetic-proof-20261023",
+      "original_sha256": null,
+      "package_sha256": "1b495e6bd742c6caac89ad341a7301d48061242b8a697c5ce60f137f98b9a769",
+      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
@@ -667,5 +922,56 @@
       ],
       "scope": "Independent installable optional package; core version and release assets preserved."
     }
-  ]
+  ],
+  "qualification_update_20261023": {
+    "base_public_commit": "1b643b4f985283fdcc75e57e3ce5442c06d00149",
+    "previous_provenance_sha256": "f500ed7ec1117fce859196c5c6bd6bb57de44f2230e5a5d87e876356c586b1ff",
+    "changed_selected_paths": [
+      "MANIFEST.in",
+      "PACKAGES.md",
+      "README.fr.md",
+      "README.md",
+      "benchmarks/run_benchmark.py",
+      "docs/RECOVERY.md",
+      "docs/TESTING.md",
+      "pyproject.toml",
+      "scripts/check_distributions.py",
+      "src/hermes_memory/__init__.py",
+      "src/hermes_memory/core.py",
+      "src/hermes_memory/typed_memory.py",
+      "src/hermes_memory/typed_protocol.py",
+      "tests/test_core_independent.py",
+      "tests/test_product.py"
+    ],
+    "added_selected_paths": [
+      "benchmarks/action-20261023/experience/AUTHOR.py",
+      "benchmarks/action-20261023/experience/CAP-DECISION.md",
+      "benchmarks/action-20261023/experience/INTERFACE.md",
+      "benchmarks/action-20261023/experience/MANIFEST.json",
+      "benchmarks/action-20261023/experience/OBSERVATIONS.json.gz",
+      "benchmarks/action-20261023/experience/PLAN.json",
+      "benchmarks/action-20261023/experience/PROMPT-REPRESENTATION.md",
+      "benchmarks/action-20261023/experience/PROTOCOL.md",
+      "benchmarks/action-20261023/experience/README.fr.md",
+      "benchmarks/action-20261023/experience/README.md",
+      "benchmarks/action-20261023/experience/REGISTRY.json",
+      "benchmarks/action-20261023/experience/REPRODUCE.md",
+      "benchmarks/action-20261023/experience/RESULT.json",
+      "benchmarks/action-20261023/experience/RUN-PROVENANCE.json",
+      "benchmarks/action-20261023/experience/SEALED-FIXTURE.json",
+      "benchmarks/action-20261023/experience/SEALED-SEEDS.json",
+      "benchmarks/action-20261023/experience/TASK-DESIGN.md",
+      "benchmarks/action-20261023/experience/TESTS/test_experience_fixture.py",
+      "benchmarks/action-20261023/experience/execution_worker.py",
+      "benchmarks/action-20261023/experience/fixture_contract.py",
+      "benchmarks/action-20261023/experience/registry_assessment.py",
+      "benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md",
+      "benchmarks/efficiency-20261023/core-optimization-20261023/README.md",
+      "benchmarks/efficiency-20261023/core-optimization-20261023/RESULT.json"
+    ],
+    "core_sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+    "private_history_included": false,
+    "public_observations": "benchmarks/action-20261023/experience/RUN-PROVENANCE.json",
+    "qualified_protocol_sources_are_not_standalone": true
+  }
 }

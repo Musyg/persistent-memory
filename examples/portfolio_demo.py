@@ -18,7 +18,7 @@ from hermes_memory import Authority, Memory
 
 
 BASE_COMMIT = "c2546be8abb05aadd518fb143d040cec0c4769a9"
-CORE_SHA256 = "5ad093031bb061360c616ed44ab321499f3765b7e887928d073ee20ed6a37bb0"
+CORE_SHA256 = "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb"
 WORKSPACE = "portfolio-atlas"
 FIXTURE = {
     "date_v1": "Projet Atlas : livraison vendredi.",

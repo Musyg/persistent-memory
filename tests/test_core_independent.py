@@ -1,5 +1,6 @@
 """Independent synthetic acceptance probes against real standalone core."""
 import json
+from dataclasses import dataclass
 from pathlib import Path
 import shutil
 import sqlite3
@@ -38,6 +39,64 @@ class CoreReview(unittest.TestCase):
         f=self.derive('F',[a]); w=self.derive('W',[f],kind='wiki');v=self.derive('V',[w],kind='vector')
         for r in (a,b,f,w,v):self.memory.project(r)
         return a,b,f,w,v
+
+    def test_ref_rejects_invalid_identifiers_and_shapes(self):
+        class StringSubclass(str):
+            pass
+        valid={'workspace':'w','artifact_id':'item','version_id':'v1'}
+        invalid=(None,True,1,1.5,[],{},b'x','','a\x00b','a\nb','a'*513,'\U0001f600'*129,StringSubclass('w'))
+        for field in valid:
+            for value in invalid:
+                candidate={**valid,field:value}
+                for operation in (lambda x:core.Ref(**x),core.ref,core.key):
+                    with self.subTest(field=field,value=repr(value),operation=operation):
+                        with self.assertRaisesRegex(MemoryError,'^invalid_identifier$'):
+                            operation(candidate)
+            boundary={**valid,field:'\U0001f600'*128}
+            self.assertEqual(core.ref(boundary),boundary)
+        for candidate in (None,[],('w','item','v1'),{},
+                          {'workspace':'w','artifact_id':'item'},{**valid,'extra':'x'}):
+            for operation in (core.ref,core.key):
+                with self.subTest(candidate=candidate,operation=operation):
+                    with self.assertRaisesRegex(MemoryError,'^invalid_ref$'):
+                        operation(candidate)
+
+    def test_ref_serialization_is_independent_and_canonical(self):
+        reference=core.Ref('m\u00e9moire','item','v1')
+        expected={'workspace':'m\u00e9moire','artifact_id':'item','version_id':'v1'}
+        first,second=reference.to_dict(),reference.to_dict()
+        self.assertEqual(first,expected)
+        self.assertIsNot(first,second)
+        first['artifact_id']='changed'
+        self.assertEqual(second,expected)
+        self.assertEqual(reference.to_dict(),expected)
+        source=dict(expected)
+        copied=core.ref(source)
+        source['version_id']='changed'
+        self.assertEqual(copied,expected)
+        copied_from_ref=core.ref(reference)
+        copied_from_ref['workspace']='changed'
+        self.assertEqual(reference.to_dict(),expected)
+        canonical='{"artifact_id":"item","version_id":"v1","workspace":"m\u00e9moire"}'
+        self.assertEqual(core.key(reference),canonical)
+        self.assertEqual(core.key(dict(reversed(list(expected.items())))),canonical)
+
+    def test_ref_dataclass_subclass_keeps_legacy_serialization_and_validation(self):
+        @dataclass(frozen=True)
+        class TaggedRef(core.Ref):
+            tag: str='extra'
+        reference=TaggedRef('w','item','v1')
+        expected={'workspace':'w','artifact_id':'item','version_id':'v1','tag':'extra'}
+        self.assertEqual(reference.to_dict(),expected)
+        self.assertEqual(core.ref(reference),expected)
+        self.assertEqual(core.key(reference),core.canonical(expected))
+        copied=reference.to_dict()
+        copied['tag']='changed'
+        self.assertEqual(reference.to_dict(),expected)
+        for invalid in (None,'bad\nvalue'):
+            with self.subTest(tag=invalid):
+                with self.assertRaisesRegex(MemoryError,'^invalid_identifier$'):
+                    TaggedRef('w','item','v1',invalid)
 
     def test_T01_T03_composed_transitive_chain_and_independent_B(self):
         a,b,f,w,v=self.chain()

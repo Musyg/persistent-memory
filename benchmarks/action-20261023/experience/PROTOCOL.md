@@ -1,0 +1,35 @@
+# Expérience produite et réutilisée / Produced and reused experience
+
+2026-10-23. Protocole prospectif, avant appels / Prospective protocol, before requests. Reprend la proposition TASK-DESIGN.md avec les décisions ci-dessous ; les études historiques ne changent pas. Règles et interfaces publiques : INTERFACE.md et fixture_contract.py. Aucune fixture réelle ne doit être lue par les auteurs du support ou du prompt avant gel de leur code.
+
+## FR
+
+Six familles, deux langues, douze mondes à paramètres distincts. Chaque modèle réalise deux épisodes par monde : 48 épisodes avec Luna et Sol, pas 48 capacités indépendantes. Chaque épisode comprend une mission A, une extraction de leçon et quatre missions B dans de nouveaux processus, soit 288 générations au maximum, sans réessai. La paire B change l’objectif métier, pas seulement un identifiant. Les valeurs B et le choix de convention proviennent du germe secret scellé ; ils ne sont pas déduits du germe public A.
+
+A essaie une des deux conventions publiques du destinataire. Pour chaque témoin légal, les deux sorties possibles sont distinctes et le retour métier suffit à inférer la convention cachée. Le retour provient des octets A réellement relus après sortie, séparément du contrôle positif. Il indique résultat, convention tentée observée et empreinte, sans livrer de règle correcte ou d’oracle B. Une proposition ne correspondant à aucun témoin légal ne justifie aucune inférence. A indisponible ou non discriminant et dépassement du transcript complet : toutes les comparaisons B de cet épisode restent inconnues, au dénominateur, sans remplacement.
+
+L’extracteur reçoit exactement {schema,trace,feedback}. Le bras raw reçoit ces mêmes octets canoniques, sans synthèse, trace fournisseur ou troncature. Le candidat du modèle reste inchangé, même si sa convention ou sa portée sont fausses. La justesse n’est pas un filtre de stockage. L’hôte enregistre Atrace et feedback comme sources puis appelle Memory.derive avec deux dépendances derives fortes et l’epoch courant. Le candidat n’est pas promu. Les parents servent à la provenance ; ils ne sont jamais ajoutés secrètement au contexte derived.
+
+Les comparaisons primaires sont derived contre raw et derived contre none, appariées sur les mêmes 48 épisodes. Le quatrième bras retire la source feedback et vérifie que la fermeture des dépendances bloque la leçon ; il sert uniquement à l’éligibilité et à la sécurité, jamais à gonfler un score de qualité. Tous les bras ont la même autorisation métier réelle, indépendante de la leçon, plus control.json obligatoire et un champ de données non fiable. B peut agir sans expérience ; aucune suspension automatique ne lui est imposée.
+
+Plafond XP local : cinq éléments et 5 000 caractères, métadonnées et références incluses. Le contexte raw ne se duplique pas. Limites client historiques inchangées : requête 10 240 octets, entrée conservatrice 11 264 tokens, sortie 2 048. Toute sortie manquante, invalide ou inconnue reste visible. Analyse descriptive des différences appariées, avec bornes des inconnus ; aucun bootstrap historique divisant par trois, intervalle de confiance ou test de significativité. Rapporter les six familles, douze mondes, langues et modèles.
+
+Mesurer validité structurée et provenance des leçons, qualité B sur fichiers frais, répétition des erreurs A, contrôles et tentatives interdites, écritures/outils, durée A/extraction/stockage/B/chaîne, tokens et coûts avec couverture. Texte libre des leçons non noté comme vérité. Cache-write sans tarif, usage absent et facture restent inconnus. Tous résultats seront conservés, y compris erreurs de modèle et défauts du harnais. Aucun choix de nouveaux cas après observation des scores.
+
+## EN
+
+Six families and two languages give twelve independently parameterized worlds. Two models and two repetitions give 48 episodes. Each episode has A, one extraction and four fresh-process B conditions: at most 288 generations, without retries. B changes its business objective as well as values. Its parameters and the receiver convention use the sealed secret seed, not the public A seed.
+
+Every legal A witness distinguishes the two public receiver conventions. Feedback comes from actual reopened business bytes, separately from the positive control; it never supplies a correct lesson or B oracle. Missing or non-discriminating A evidence, or a raw-input overflow, makes the entire paired B episode unknown and retained, without replacement. A valid but wrong choice still supplies discriminating feedback and remains eligible for learning.
+
+The extractor and raw arm receive exactly the same canonical {schema,trace,feedback} input. Generated lessons are not repaired or correctness-filtered. Memory.derive links the candidate to actual trace and feedback source refs with strong derives dependencies and the current epoch; it is not promoted. Derived context contains only the allowlisted lesson plus common business authority, never hidden parent text. Withdrawal revokes the feedback parent and checks dependency closure; this fourth condition is a safety test, excluded from primary quality comparisons.
+
+Primary comparisons are derived minus raw and derived minus none on the same 48 episodes. All arms share real business authority and a positive control. No-experience agents may choose and write; they are not mechanically forced to fail. Local XP context is at most five items/5,000 characters including metadata/refs, without duplicate raw text or truncation. Existing client bounds remain unchanged. Use descriptive paired effects and unknown-outcome bounds only, not the old three-repetition interval helper. Report the six families/twelve worlds honestly.
+
+Keep lesson validity, B file quality, repeated errors, control/security results, tools/writes, phase and end-to-end time, tokens and cost coverage. Unsupported cache-write tariffs, missing usage and invoices remain unknown. All observations and deviations are retained; no post-result case replacement or winning threshold.
+
+## Scellement et budget / Seal and budget
+
+Flat plan.cells contains 288 exact six-key cells. plan.episodes contains 48 ID-only A/extraction/B links; stage/episode metadata never changes the provider cell contract. SEALED-FIXTURE.json, SEALED-SEEDS.json and their expected files remain unavailable to support/prompt authors and Root until support/prompt freeze. MANIFEST.json publishes hashes and sizes only; Root can freeze and stage by hash without opening the holdout. Pure oracle tests run on Linux; Windows is data authoring and AST only.
+
+Historical maximum-generation estimate: 144×0.0021504 +144×0.043008 = 6.5028096 USD, not a current rate or invoice. Any prospective admission belongs to Root, at most 8 USD including checked margin within 10.8282112 remaining. This protocol opens no provider grant, credential access, production change or public publication. Existing runner, Memory, Registry, finite actions and fresh-file verification are reused; no new runner, transport or ledger.
