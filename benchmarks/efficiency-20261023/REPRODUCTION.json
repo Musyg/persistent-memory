@@ -1,0 +1,29 @@
+{
+  "schema": "persistent-memory.efficiency-reproduction.v1",
+  "post_hoc": true,
+  "native_platforms": "two Linux environments",
+  "identical_result_sha256": "d5155c38ee0789fa6df15612d8c4dad86d2b93cdc7b11bbdecbe7e3e6f532c8d",
+  "identical_result_bytes": 978864,
+  "focused_product_tests_per_environment": 15,
+  "new_provider_requests": 0,
+  "new_judgments": 0,
+  "source_files": {
+    "benchmarks/run_benchmark.py": {
+      "sha256": "1138e8108fc5ad1e0ab46aba93d2df5e0724970bc83b9096b423a09a14767bac",
+      "bytes": 65626
+    },
+    "tests/test_product.py": {
+      "sha256": "baad2766058c1987952e35a1efcbb65dbf8ced8ca0e4549e8f7a89ca12f16c97",
+      "bytes": 24471
+    },
+    "benchmarks/efficiency-20261023/INPUTS.json": {
+      "sha256": "76a58fae321ccbb99ef0376ca6e4249aa15203689d4589a0d3f9a07cbd2b13e7",
+      "bytes": 1190
+    }
+  },
+  "historical_generations": 1500,
+  "historical_scenario_groups": 100,
+  "paired_response_comparisons": 900,
+  "paired_independent_groups_per_contrast": 100,
+  "context_tokens_separately_measured": false
+}

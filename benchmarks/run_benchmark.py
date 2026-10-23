@@ -701,9 +701,289 @@ def compare_transitions(fixture_path=None, variants=10, seed=COMPARISON_SEED, *,
     return report
 
 
+EFFICIENCY_INPUTS_SHA256 = '76a58fae321ccbb99ef0376ca6e4249aa15203689d4589a0d3f9a07cbd2b13e7'
+EFFICIENCY_GROUPS = (('gpt-6-luna', 'memory_off'), ('gpt-6-luna', 'memory_on'),
+                     ('gpt-6-luna', 'simple_baseline'), ('gpt-6.1-sol', 'memory_off'),
+                     ('gpt-6.1-sol', 'memory_on'))
+
+
+def _efficiency_require(condition, reason):
+    if not condition:
+        raise ValueError('efficiency:' + reason)
+
+
+def _efficiency_json(raw):
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            _efficiency_require(key not in result, 'duplicate_json_key')
+            result[key] = value
+        return result
+    def invalid(value):
+        raise ValueError('efficiency:nonfinite_json:' + value)
+    return json.loads(raw, object_pairs_hook=unique, parse_constant=invalid)
+
+
+def calculate_efficiency(generations, frozen_report, historical_prices):
+    """Pure post-hoc join of observed usage and already-frozen quality; no scorer."""
+    from collections import Counter, defaultdict
+    from decimal import Decimal, InvalidOperation
+    import copy
+    import re
+
+    check = _efficiency_require
+    check(type(generations) is dict and type(frozen_report) is dict, 'input_objects')
+    check(type(historical_prices) is dict and set(historical_prices) == {
+        'observed_utc', 'USD_per_million', 'source_urls', 'source_sha256', 'pricing_mode'}, 'price_schema')
+    check(type(historical_prices['observed_utc']) is str and historical_prices['observed_utc']
+          and type(historical_prices['pricing_mode']) is str and historical_prices['pricing_mode']
+          and type(historical_prices['source_sha256']) is str
+          and re.fullmatch('[0-9a-f]{64}', historical_prices['source_sha256']) is not None
+          and type(historical_prices['source_urls']) is list and len(historical_prices['source_urls']) == 2
+          and all(type(url) is str and url.startswith('https://developers.openai.com/')
+                  for url in historical_prices['source_urls']), 'price_provenance')
+    rates = historical_prices['USD_per_million']
+    expected_rates = {'gpt-6-luna': ('0.10', '0.50'), 'gpt-6.1-sol': ('2.00', '10.00')}
+    check(type(rates) is dict and set(rates) == set(expected_rates), 'price_models')
+    prices = {}
+    for model, expected in expected_rates.items():
+        check(type(rates[model]) is dict and set(rates[model]) == {'input', 'output'}, 'price_fields')
+        parsed = []
+        for field, fixed in zip(('input', 'output'), expected):
+            value = rates[model][field]
+            check(type(value) is str and 0 < len(value) <= 32, 'price_string')
+            try:
+                number = Decimal(value)
+            except InvalidOperation as error:
+                raise ValueError('efficiency:invalid_price') from error
+            check(number.is_finite() and number > 0 and number == Decimal(fixed), 'historical_price_changed')
+            parsed.append(number)
+        prices[model] = parsed
+    check(generations.get('schema') == 'persistent-memory.volume.normalized-generations.v1'
+          and generations.get('development_only') is False and generations.get('oracle_opened') is False
+          and type(generations.get('planned_episodes')) is int and generations['planned_episodes'] == 1500
+          and type(generations.get('emission_unknown_episodes')) is int
+          and generations['emission_unknown_episodes'] == 0, 'generation_scope')
+    check(frozen_report.get('schema') == 'persistent-memory.volume.analysis.v1'
+          and frozen_report.get('planned_episodes') == 1500 and frozen_report.get('planned_tasks') == 100
+          and frozen_report.get('execution_confirmed_complete') is True, 'quality_scope')
+    tasks = frozen_report.get('primary', {}).get('tasks')
+    check(type(tasks) is list and len(tasks) == 100, 'task_denominator')
+    task_map, scenario_groups, families = {}, set(), Counter()
+    for task in tasks:
+        check(type(task) is dict, 'task_shape')
+        case, group, family = (task.get(field) for field in ('case_id', 'scenario_group', 'family'))
+        check(type(case) is str and re.fullmatch('V22-F(0[1-9]|10)-G(0[1-9]|10)-T01', case)
+              and group == case[:-4] and family == case[4:7]
+              and case not in task_map and group not in scenario_groups, 'task_binding')
+        task_map[case] = task
+        scenario_groups.add(group)
+        families[family] += 1
+    check(len(scenario_groups) == 100 and len(families) == 10 and set(families.values()) == {10},
+          'scenario_group_denominator')
+    raw = generations.get('results')
+    episodes = frozen_report.get('episodes')
+    check(type(raw) is dict and len(raw) == 1500 and type(episodes) is list and len(episodes) == 1500,
+          'episode_denominator')
+    quality = {}
+    for episode in episodes:
+        check(type(episode) is dict and type(episode.get('cell_id')) is str
+              and episode['cell_id'] not in quality, 'duplicate_or_invalid_quality_cell')
+        quality[episode['cell_id']] = episode
+    check(set(raw) == set(quality), 'generation_quality_cell_set')
+    joined, grouped, matched = [], defaultdict(list), {}
+    policies = {'memory_off': ('no_memory', 'OFF'), 'memory_on': ('typed_fts_budgeted', 'ON'),
+                'simple_baseline': ('core_lexical_budgeted', 'LEX')}
+    token_fields = ('prompt_tokens', 'completion_tokens', 'total_tokens')
+    for cell_id in sorted(raw):
+        row, q = raw[cell_id], quality[cell_id]
+        check(type(row) is dict, 'generation_shape')
+        model, arm, case, rep = (q.get(k) for k in ('model', 'arm', 'case_id', 'repetition'))
+        check((model, arm) in EFFICIENCY_GROUPS and case in task_map
+              and type(rep) is int and 1 <= rep <= 3, 'quality_cell_binding')
+        policy, suffix = policies[arm]
+        prefix = 'L' if model == 'gpt-6-luna' else 'S'
+        expected_id = 'V22-' + prefix + '-' + case + '-R' + str(rep) + '-' + suffix
+        check(cell_id == expected_id and row.get('cell_id') == cell_id and row.get('case_id') == case
+              and type(row.get('repetition')) is int and row['repetition'] == rep - 1
+              and row.get('policy_id') == policy and row.get('requested_model') == model
+              and row.get('response_model') == model, 'generation_cell_binding')
+        check(row.get('status') == q.get('generation_status') == 'completed'
+              and row.get('provider_called') is True and row.get('finish_reason') == 'stop'
+              and type(row.get('body')) is str and bool(row['body'].strip())
+              and row.get('generation_body_sha256') == hashlib.sha256(row['body'].encode('utf-8')).hexdigest()
+              and q.get('status') == 'confirmed' and type(q.get('success')) is bool
+              and type(q.get('critical_violation')) is bool, 'incomplete_or_unknown_observation')
+        check(type(row.get('context')) is str and type(row.get('evidence')) is list
+              and (arm != 'memory_off' or (not row['context'] and not row['evidence'])), 'context_scope')
+        check(type(row.get('total_ns')) is int and row['total_ns'] >= 0, 'missing_consumer_latency')
+        usage = row.get('usage')
+        check(type(usage) is dict and all(type(usage.get(k)) is int and 0 <= usage[k] <= 1000000
+                                        for k in token_fields), 'incomplete_integer_usage')
+        check(usage['total_tokens'] == usage['prompt_tokens'] + usage['completion_tokens']
+              and type(row.get('output_tokens')) is int and row['output_tokens'] == usage['completion_tokens'],
+              'token_total_mismatch')
+        prompt_details, completion_details = usage.get('prompt_tokens_details'), usage.get('completion_tokens_details')
+        check(type(prompt_details) is dict and set(prompt_details) == {'audio_tokens', 'cache_write_tokens', 'cached_tokens'}
+              and type(completion_details) is dict and set(completion_details) == {
+                  'accepted_prediction_tokens', 'audio_tokens', 'reasoning_tokens', 'rejected_prediction_tokens'}
+              and all(type(v) is int and v >= 0 for details in (prompt_details, completion_details)
+                      for v in details.values()), 'incomplete_usage_details')
+        check(prompt_details['cached_tokens'] + prompt_details['cache_write_tokens'] <= usage['prompt_tokens']
+              and completion_details['reasoning_tokens'] <= usage['completion_tokens'], 'usage_detail_overflow')
+        check(all(value == 0 for value in prompt_details.values())
+              and all(completion_details[key] == 0 for key in (
+                  'accepted_prediction_tokens', 'audio_tokens', 'rejected_prediction_tokens')),
+              'unsupported_cache_audio_or_prediction_tariff')
+        cost = (Decimal(usage['prompt_tokens']) * prices[model][0]
+                + Decimal(usage['completion_tokens']) * prices[model][1]) / Decimal(1000000)
+        item = {'cell_id': cell_id, 'model': model, 'arm': arm, 'case_id': case,
+                'scenario_group': task_map[case]['scenario_group'], 'family': task_map[case]['family'],
+                'repetition': rep, 'success': q['success'], 'critical_violation': q['critical_violation'],
+                'conforming': q['success'] and not q['critical_violation'],
+                **{k: usage[k] for k in token_fields},
+                'cached_tokens': prompt_details['cached_tokens'], 'cache_write_tokens': prompt_details['cache_write_tokens'],
+                'reasoning_tokens': completion_details['reasoning_tokens'],
+                'context_chars': len(row['context']), 'context_utf8_bytes': len(row['context'].encode('utf-8')),
+                'consumer_total_ns': row['total_ns'],
+                'estimated_generation_usd': str(cost)}
+        match_key = (model, arm, case, rep)
+        check(match_key not in matched, 'duplicate_matched_cell')
+        matched[match_key] = item
+        grouped[(model, arm)].append(item)
+        joined.append(item)
+    check(set(grouped) == set(EFFICIENCY_GROUPS), 'model_arm_set')
+    summaries, frozen_groups, frozen_latencies = [], {}, {}
+    for row in frozen_report.get('by_model_arm', []):
+        key = (row.get('model'), row.get('arm'))
+        check(key not in frozen_groups, 'duplicate_quality_group')
+        frozen_groups[key] = row
+    for row in frozen_report.get('latencies_and_usage', []):
+        key = (row.get('model'), row.get('arm'))
+        check(key not in frozen_latencies, 'duplicate_latency_group')
+        frozen_latencies[key] = row
+    check(set(frozen_groups) == set(frozen_latencies) == set(EFFICIENCY_GROUPS), 'frozen_group_set')
+    metrics = (*token_fields, 'cached_tokens', 'cache_write_tokens', 'reasoning_tokens',
+               'context_chars', 'context_utf8_bytes', 'consumer_total_ns')
+    for key in EFFICIENCY_GROUPS:
+        rows, known, latency = grouped[key], frozen_groups[key], frozen_latencies[key]
+        check(len(rows) == 300 and {(r['case_id'], r['repetition']) for r in rows}
+              == {(case, rep) for case in task_map for rep in (1, 2, 3)}, 'matched_three_repetitions')
+        totals = {field: sum(row[field] for row in rows) for field in metrics}
+        positives = sum(row['success'] for row in rows)
+        conforming = sum(row['conforming'] for row in rows)
+        check(known.get('planned') == known.get('delivered') == 300 and known.get('success') == positives
+              and known.get('failure') == 300 - positives and known.get('unknown') == known.get('not_executed') == 0,
+              'frozen_quality_aggregate_mismatch')
+        check(latency.get('planned') == latency.get('usage_requests') == 300
+              and latency.get('usage_missing_requests') == 0
+              and latency.get('observed_tokens') == {field: totals[field] for field in token_fields[:2]},
+              'frozen_usage_aggregate_mismatch')
+        for field in ('observed_all_statuses', 'completed_only'):
+            observed = latency.get(field, {})
+            check(observed.get('n') == 300 and all(type(observed.get(k)) in (int, float)
+                  and math.isfinite(observed[k]) and observed[k] >= 0 for k in ('p50_seconds', 'p95_seconds')),
+                  'frozen_latency_coverage')
+        cost = sum((Decimal(row['estimated_generation_usd']) for row in rows), Decimal(0))
+        summaries.append({'model': key[0], 'arm': key[1], 'answers': 300, 'tasks': 100,
+                          'scenario_groups': 100, 'repetitions': 3, 'usage_coverage': 300,
+                          'successes': positives, 'conforming_answers': conforming, 'observed': totals,
+                          'estimated_generation_usd': str(cost), 'estimated_usd_per_answer': str(cost / 300),
+                          'estimated_usd_per_conforming_answer': str(cost / conforming) if conforming else None,
+                          'frozen_consumer_latency': copy.deepcopy(latency)})
+    contrasts = [('gpt-6-luna', 'memory_on', 'memory_off'),
+                 ('gpt-6-luna', 'memory_on', 'simple_baseline'),
+                 ('gpt-6.1-sol', 'memory_on', 'memory_off')]
+    secondaries = {(row['model'], row['arm_a'], row['arm_b']): row['statistics']
+                   for row in frozen_report.get('secondary_comparisons', [])}
+    check(set(secondaries) == set(contrasts[1:]) and len(frozen_report['secondary_comparisons']) == 2,
+          'frozen_quality_contrasts')
+    comparisons = []
+    for model, arm_a, arm_b in contrasts:
+        pairs = [(matched[(model, arm_a, case, rep)], matched[(model, arm_b, case, rep)])
+                 for case in sorted(task_map) for rep in (1, 2, 3)]
+        delta = {}
+        for field in (*metrics, 'estimated_generation_usd'):
+            a_sum = sum((Decimal(str(a[field])) for a, _ in pairs), Decimal(0))
+            b_sum = sum((Decimal(str(b[field])) for _, b in pairs), Decimal(0))
+            difference = a_sum - b_sum
+            delta[field] = {'sum_difference': str(difference) if field == 'estimated_generation_usd' else int(difference),
+                            'mean_difference': str(difference / 300),
+                            'relative_change_vs_b': float(difference / b_sum) if b_sum else None}
+        statistics = frozen_report['primary'] if arm_b == 'memory_off' and model == 'gpt-6-luna' else secondaries[(model, arm_a, arm_b)]
+        check(type(statistics.get('effect_uncertainty_interval_95')) is list
+              and len(statistics['effect_uncertainty_interval_95']) == 2
+              and all(type(value) in (int, float) and math.isfinite(value) and -1 <= value <= 1
+                      for value in statistics['effect_uncertainty_interval_95'])
+              and statistics['effect_uncertainty_interval_95'][0] <= statistics['effect_uncertainty_interval_95'][1]
+              and statistics.get('planned_tasks') == statistics.get('scenario_groups') == 100,
+              'frozen_quality_interval')
+        outcomes = Counter(('success' if a['success'] else 'failure') + '/' + ('success' if b['success'] else 'failure')
+                           for a, b in pairs)
+        comparisons.append({'model': model, 'arm_a': arm_a, 'arm_b': arm_b, 'paired_responses': 300,
+                            'independent_scenario_groups': 100, 'repetitions_kept_within_case': 3,
+                            'observed_deltas_a_minus_b': delta, 'paired_quality_outcomes': dict(outcomes),
+                            'frozen_quality_statistics': copy.deepcopy({k: v for k, v in statistics.items() if k != 'tasks'}),
+                            'exploratory': True, 'new_uncertainty_estimated': False})
+    return {'schema': 'persistent-memory.efficiency-analysis.v1', 'mode': 'frozen_paired_efficiency_v1',
+            'post_hoc': True, 'exploratory': True, 'provider_requests': 0, 'new_judgments': 0,
+            'tasks': 100, 'scenario_groups': 100, 'repetitions': 3, 'generation_answers': 1500,
+            'usage_coverage': 1500, 'usage_missing': 0, 'episodes': joined, 'groups': summaries,
+            'paired_comparisons': comparisons, 'historical_prices': copy.deepcopy(historical_prices),
+            'estimated_generation_usd': str(sum((Decimal(r['estimated_generation_usd']) for r in joined), Decimal(0))),
+            'actual_billed_usd': None, 'cost_scope': 'Generation usage only, at frozen historical standard prices; no invoice, judge, retrieval, storage or operating cost.',
+            'reasoning_accounting': 'Reasoning is a subset of completion_tokens and is not charged twice.',
+            'cache_policy': 'Observed zero cached/cache-write tokens; nonzero cache, audio or prediction usage is unsupported and rejected.',
+            'latency_scope': 'Frozen consumer total_ns summaries include preparation, retrieval, generation and checks; not provider-only latency.',
+            'limits': {'quality_noninferiority_confirmed': False, 'equal_budget_comparison': False,
+                       'dominance_claimed': False, 'cross_model_causality_claimed': False,
+                       'token_uncertainty_estimated': False, 'full_history_baseline': False,
+                       'zero_denominator_ratio': 'null', 'context_tokens_separately_measured': False}}
+
+
+def efficiency_analysis(inputs_path=None, inputs_sha256=None, *, emit=True):
+    """Read pinned public receipts and emit a separate, explicitly post-hoc analysis."""
+    check = _efficiency_require
+    default = Path(__file__).resolve().parent / 'efficiency-20261023' / 'INPUTS.json'
+    path = default if inputs_path is None else Path(inputs_path)
+    check(inputs_path is None or inputs_sha256 is not None, 'custom_manifest_requires_sha256')
+    pin = EFFICIENCY_INPUTS_SHA256 if inputs_sha256 is None else inputs_sha256
+    check(type(pin) is str and len(pin) == 64 and all(c in '0123456789abcdef' for c in pin), 'manifest_pin_shape')
+    check(path.is_file() and not path.is_symlink() and path.stat().st_size <= 1024 * 1024, 'manifest_file')
+    raw = path.read_bytes()
+    check(hashlib.sha256(raw).hexdigest() == pin, 'manifest_pin_mismatch')
+    config = _efficiency_json(raw)
+    check(type(config) is dict and set(config) == {'schema', 'post_hoc', 'inputs', 'historical_prices', 'denominators'}
+          and config['schema'] == 'persistent-memory.efficiency-inputs.v1' and config['post_hoc'] is True
+          and config['denominators'] == {'tasks': 100, 'scenario_groups': 100, 'repetitions': 3, 'episodes': 1500}
+          and type(config['inputs']) is dict and set(config['inputs']) == {'generations', 'report'}, 'manifest_scope')
+    root, values = path.resolve().parent.parent, {}
+    for name, ref in config['inputs'].items():
+        check(type(ref) is dict and set(ref) == {'path', 'sha256'} and type(ref['path']) is str
+              and type(ref['sha256']) is str and len(ref['sha256']) == 64, 'input_reference')
+        relative = Path(ref['path'])
+        target = path.resolve().parent / relative
+        check(not relative.is_absolute() and target.is_file() and not target.is_symlink()
+              and target.resolve().is_relative_to(root) and target.stat().st_size <= 64 * 1024 ** 2, 'input_path')
+        body = target.read_bytes()
+        check(hashlib.sha256(body).hexdigest() == ref['sha256'], 'input_pin_mismatch')
+        values[name] = _efficiency_json(body)
+    check(values['report'].get('provenance', {}).get('inputs', {}).get('generations', {}).get('sha256')
+          == config['inputs']['generations']['sha256'], 'quality_generation_pin_binding')
+    result = calculate_efficiency(values['generations'], values['report'], config['historical_prices'])
+    result['provenance'] = {'inputs_manifest_sha256': pin, 'inputs': config['inputs'],
+                            'source_quality_preserved': True, 'source_generations_preserved': True}
+    if emit:
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
+    return result
+
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--efficiency', action='store_true', help='Reanalyse pinned Fresh100 usage and frozen quality offline (post-hoc).')
+    parser.add_argument('--efficiency-inputs', type=Path, help='Explicit pinned efficiency manifest; requires --efficiency-inputs-sha256.')
+    parser.add_argument('--efficiency-inputs-sha256', help='SHA-256 of an explicit efficiency manifest.')
     parser.add_argument('--trajectories', type=int, help='Run 1..3000 seeded core transition trajectories.')
     parser.add_argument('--compare-transitions', action='store_true', help='Compare three lifecycle arms against the frozen synthetic oracle.')
     parser.add_argument('--comparison-fixture', type=Path, help='Explicit lifecycle fixture (default: packaged frozen fixture).')
@@ -714,6 +994,18 @@ if __name__ == '__main__':
     parser.add_argument('--repetitions', type=int, help='Typed volume mode: 1..100000 retrievals (default 10).')
     parser.add_argument('--seed', type=int, help='Typed volume mode: query seed 0..2^64-1 (default 0).')
     args = parser.parse_args()
+    if not args.efficiency and (args.efficiency_inputs is not None or args.efficiency_inputs_sha256 is not None):
+        parser.error('--efficiency-inputs and --efficiency-inputs-sha256 require --efficiency')
+    if args.efficiency:
+        if (args.trajectories is not None or args.compare_transitions or args.comparison_fixture is not None
+                or args.variants is not None or args.lance_hybrid or args.documents is not None
+                or args.repetitions is not None or args.seed is not None):
+            parser.error('--efficiency cannot be combined with another mode')
+        try:
+            efficiency_analysis(args.efficiency_inputs, args.efficiency_inputs_sha256)
+        except (ValueError, KeyError, TypeError, OSError) as error:
+            parser.error(str(error))
+        raise SystemExit(0)
     if not args.compare_transitions and (args.comparison_fixture is not None or args.variants is not None):
         parser.error('--comparison-fixture and --variants require --compare-transitions')
     if args.compare_transitions and (args.trajectories is not None or args.lance_hybrid or args.documents is not None or args.repetitions is not None):

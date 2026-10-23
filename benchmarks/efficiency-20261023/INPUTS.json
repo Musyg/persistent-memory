@@ -1,0 +1,39 @@
+{
+  "schema": "persistent-memory.efficiency-inputs.v1",
+  "post_hoc": true,
+  "inputs": {
+    "generations": {
+      "path": "../validation-20261022/DATA/GENERATIONS.json",
+      "sha256": "ad405851818f6fd1eeccc2a6a3806139edde901a537d84d5333d02706471c208"
+    },
+    "report": {
+      "path": "../validation-20261022/EXPECTED-REPORT/REPORT.json",
+      "sha256": "9b2ae3f38303de2766516f7b38bb5d021d03f271f36817cd9741868e1e4d7114"
+    }
+  },
+  "historical_prices": {
+    "observed_utc": "2026-10-22T05:42:35.359241+00:00",
+    "USD_per_million": {
+      "gpt-6-luna": {
+        "input": "0.10",
+        "output": "0.50"
+      },
+      "gpt-6.1-sol": {
+        "input": "2.00",
+        "output": "10.00"
+      }
+    },
+    "source_urls": [
+      "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+    ],
+    "source_sha256": "678691fc5b89ca501f7a780408a67a1f8b3434abea3582d2e98f082ec6d27033",
+    "pricing_mode": "Standard short global; no hosted tools, regional premium or explicit cache writes"
+  },
+  "denominators": {
+    "tasks": 100,
+    "scenario_groups": 100,
+    "repetitions": 3,
+    "episodes": 1500
+  }
+}

@@ -1,6 +1,7 @@
 """Product-specific tests; separate from inherited core/retrieval contracts."""
 import asyncio
 import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -72,6 +73,152 @@ class ProductTests(unittest.TestCase):
             self.assertFalse(report['ranking_quality_evaluated'])
         self.assertEqual(reports[0]['query_schedule_sha256'], reports[1]['query_schedule_sha256'])
         self.assertLessEqual(reports[0]['distinct_queries'], 3)
+
+    @staticmethod
+    def _efficiency_inputs():
+        module, folder = ProductTests._lifecycle_benchmark()
+        manifest_path = folder / 'efficiency-20261023/INPUTS.json'
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+        inputs = {name: json.loads((manifest_path.parent / ref['path']).read_text(encoding='utf-8'))
+                  for name, ref in manifest['inputs'].items()}
+        return module, manifest_path, manifest, inputs
+
+    def test_efficiency_preserves_quality_and_separates_reasoning_and_cost_scope(self):
+        module, _, manifest, inputs = self._efficiency_inputs()
+        original = copy.deepcopy(inputs)
+        report = module.calculate_efficiency(inputs['generations'], inputs['report'], manifest['historical_prices'])
+        self.assertEqual(inputs, original)
+        self.assertEqual(report['usage_coverage'], 1500)
+        self.assertEqual(len(report['episodes']), 1500)
+        self.assertEqual(len(report['groups']), 5)
+        self.assertEqual(report['provider_requests'], 0)
+        self.assertEqual(report['new_judgments'], 0)
+        self.assertTrue(report['post_hoc'])
+        self.assertTrue(report['exploratory'])
+        self.assertIsNone(report['actual_billed_usd'])
+        self.assertFalse(report['limits']['quality_noninferiority_confirmed'])
+        self.assertFalse(report['limits']['dominance_claimed'])
+        self.assertEqual(report['estimated_generation_usd'], '0.7040665')
+        groups = {(row['model'], row['arm']): row for row in report['groups']}
+        self.assertEqual(groups[('gpt-6-luna', 'memory_on')]['successes'], 298)
+        self.assertEqual(groups[('gpt-6-luna', 'simple_baseline')]['successes'], 294)
+        self.assertEqual(groups[('gpt-6.1-sol', 'memory_off')]['observed']['reasoning_tokens'], 33)
+        self.assertEqual(groups[('gpt-6.1-sol', 'memory_on')]['observed']['reasoning_tokens'], 9)
+        for row in report['groups']:
+            self.assertEqual(row['answers'], 300)
+            self.assertEqual(row['scenario_groups'], 100)
+            self.assertEqual(row['observed']['total_tokens'],
+                             row['observed']['prompt_tokens'] + row['observed']['completion_tokens'])
+            self.assertEqual(row['observed']['cached_tokens'], 0)
+        comparisons = report['paired_comparisons']
+        self.assertEqual(len(comparisons), 3)
+        self.assertEqual(sum(row['paired_responses'] for row in comparisons), 900)
+        lexical = comparisons[1]
+        self.assertEqual(lexical['observed_deltas_a_minus_b']['total_tokens']['sum_difference'], -5829)
+        self.assertEqual(lexical['observed_deltas_a_minus_b']['context_chars']['sum_difference'], -4653)
+        self.assertEqual(lexical['observed_deltas_a_minus_b']['estimated_generation_usd']['sum_difference'], '-0.0007325')
+        self.assertEqual(lexical['frozen_quality_statistics']['effect_uncertainty_interval_95'],
+                         inputs['report']['secondary_comparisons'][0]['statistics']['effect_uncertainty_interval_95'])
+
+    def test_efficiency_rejects_incomplete_and_misbound_observations(self):
+        module, _, manifest, inputs = self._efficiency_inputs()
+        for mutation in ('missing_usage', 'boolean_tokens', 'negative_tokens', 'total_mismatch',
+                         'missing_details', 'cache_overflow', 'cached_without_tariff', 'reasoning_overflow',
+                         'missing_generation', 'duplicate_quality', 'missing_quality', 'wrong_case',
+                         'wrong_cell_id', 'wrong_repetition', 'wrong_model', 'wrong_policy', 'unknown_quality',
+                         'changed_body', 'missing_group', 'usage_aggregate', 'quality_aggregate'):
+            changed = copy.deepcopy(inputs)
+            rows = changed['generations']['results']
+            cell_id = next(iter(rows))
+            row = rows[cell_id]
+            q = next(item for item in changed['report']['episodes'] if item['cell_id'] == cell_id)
+            if mutation == 'missing_usage':
+                del row['usage']
+            elif mutation == 'boolean_tokens':
+                row['usage']['prompt_tokens'] = True
+            elif mutation == 'negative_tokens':
+                row['usage']['prompt_tokens'] = -1
+            elif mutation == 'total_mismatch':
+                row['usage']['total_tokens'] += 1
+            elif mutation == 'missing_details':
+                del row['usage']['completion_tokens_details']['reasoning_tokens']
+            elif mutation == 'cache_overflow':
+                row['usage']['prompt_tokens_details']['cached_tokens'] = row['usage']['prompt_tokens'] + 1
+            elif mutation == 'cached_without_tariff':
+                row['usage']['prompt_tokens_details']['cached_tokens'] = 1
+            elif mutation == 'reasoning_overflow':
+                row['usage']['completion_tokens_details']['reasoning_tokens'] = row['usage']['completion_tokens'] + 1
+            elif mutation == 'missing_generation':
+                del rows[cell_id]
+            elif mutation == 'duplicate_quality':
+                changed['report']['episodes'][0] = copy.deepcopy(changed['report']['episodes'][1])
+            elif mutation == 'missing_quality':
+                changed['report']['episodes'].pop()
+            elif mutation == 'wrong_case':
+                row['case_id'] = 'V22-F10-G10-T01'
+            elif mutation == 'wrong_cell_id':
+                row['cell_id'] = 'V22-L-misbound-R1-LEX'
+            elif mutation == 'wrong_repetition':
+                row['repetition'] = 1
+            elif mutation == 'wrong_model':
+                row['response_model'] = 'gpt-6.1-sol'
+            elif mutation == 'wrong_policy':
+                row['policy_id'] = 'no_memory'
+            elif mutation == 'unknown_quality':
+                q['success'] = None
+            elif mutation == 'changed_body':
+                row['body'] += ' changed'
+            elif mutation == 'missing_group':
+                changed['report']['primary']['tasks'][0]['scenario_group'] = 'other'
+            elif mutation == 'usage_aggregate':
+                changed['report']['latencies_and_usage'][0]['observed_tokens']['prompt_tokens'] += 1
+            else:
+                changed['report']['by_model_arm'][0]['success'] += 1
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                module.calculate_efficiency(changed['generations'], changed['report'], manifest['historical_prices'])
+
+    def test_efficiency_rejects_invalid_or_changed_historical_prices(self):
+        module, _, manifest, inputs = self._efficiency_inputs()
+        for price in ('NaN', 'Infinity', '-0.1', '0', '0.11', 0.1, True, None):
+            changed = copy.deepcopy(manifest['historical_prices'])
+            changed['USD_per_million']['gpt-6-luna']['input'] = price
+            with self.subTest(price=price), self.assertRaises(ValueError):
+                module.calculate_efficiency(inputs['generations'], inputs['report'], changed)
+
+    def test_efficiency_cli_isolated_offline_and_manifest_pins(self):
+        module, manifest_path, _, _ = self._efficiency_inputs()
+        benchmark = manifest_path.parent.parent / 'run_benchmark.py'
+        for custom in (False, True):
+            arguments = ['--efficiency']
+            if custom:
+                arguments += ['--efficiency-inputs', str(manifest_path),
+                              '--efficiency-inputs-sha256', module.EFFICIENCY_INPUTS_SHA256]
+            result = subprocess.run([sys.executable, '-I', str(benchmark), *arguments],
+                                    text=True, capture_output=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            report = json.loads(result.stdout)
+            self.assertEqual(report['mode'], 'frozen_paired_efficiency_v1')
+            self.assertEqual(report['provenance']['inputs_manifest_sha256'], module.EFFICIENCY_INPUTS_SHA256)
+            self.assertEqual(report['usage_missing'], 0)
+            self.assertEqual(report['estimated_generation_usd'], '0.7040665')
+        for arguments in (['--efficiency', '--documents', '1'], ['--efficiency', '--seed', '0'],
+                          ['--efficiency', '--trajectories', '1'], ['--efficiency', '--compare-transitions'],
+                          ['--efficiency', '--lance-hybrid'], ['--efficiency-inputs', str(manifest_path)],
+                          ['--efficiency', '--efficiency-inputs', str(manifest_path)],
+                          ['--efficiency', '--efficiency-inputs-sha256', '0' * 64]):
+            with self.subTest(arguments=arguments):
+                result = subprocess.run([sys.executable, '-I', str(benchmark), *arguments],
+                                        text=True, capture_output=True, timeout=15)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(result.stdout, '')
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory) / 'benchmarks' / 'efficiency'
+            folder.mkdir(parents=True)
+            duplicate = b'{"post_hoc":true,"post_hoc":true}'
+            bad_manifest = folder / 'INPUTS.json'
+            bad_manifest.write_bytes(duplicate)
+            with self.assertRaisesRegex(ValueError, 'duplicate_json_key'):
+                module.efficiency_analysis(bad_manifest, hashlib.sha256(duplicate).hexdigest(), emit=False)
 
     @staticmethod
     def _lifecycle_benchmark():
