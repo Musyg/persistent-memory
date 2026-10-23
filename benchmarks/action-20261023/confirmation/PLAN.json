@@ -1,0 +1,4614 @@
+{
+  "cells": [
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P1-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P1-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P1-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P1-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P1",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P2-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P2-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P2-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P2-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P2",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-P3-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-P3-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-P3-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-P3-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-P3",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C1-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C1-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C1-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C1-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C1",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C2-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C2-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C2-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C2-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-C3-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-C3-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-C3-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-C3-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-C3",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R1-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R1-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R1-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R1-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R1",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R2-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R2-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R2-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R2-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R2",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-R3-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-R3-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-R3-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-R3-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-R3",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S1-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S1-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S1-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S1-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S2-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S2-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S2-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S2-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S2",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-FR-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-FR-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-FR-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-FR-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-L6-R1-ON",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-L6-R1-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-L6-R1-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-L6-R1-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-S61-R1-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-S61-R1-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-S61-R1-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-S61-R1-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-L6-R2-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-L6-R2-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-L6-R2-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-L6-R2-ON",
+      "model": "gpt-6-luna",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-S61-R2-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-S61-R2-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-S61-R2-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-S61-R2-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-L6-R3-HIST",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-L6-R3-OFF",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-L6-R3-ON",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-L6-R3-LEX",
+      "model": "gpt-6-luna",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "full_history_bounded",
+      "cell_id": "AT2-S3-EN-S61-R3-HIST",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_off",
+      "cell_id": "AT2-S3-EN-S61-R3-OFF",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "memory_on",
+      "cell_id": "AT2-S3-EN-S61-R3-ON",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    },
+    {
+      "arm": "strong_versioned_lexical",
+      "cell_id": "AT2-S3-EN-S61-R3-LEX",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "template_id": "AT-S3",
+      "world_id": "AT-S3-EN"
+    }
+  ],
+  "dataset_sha256": "763af4de662fc6002ebf9bdbf901a7df623f3d0a97f23c01792e15d28f315ae8",
+  "schema": "persistent-memory.action-transfer.plan.v1"
+}
