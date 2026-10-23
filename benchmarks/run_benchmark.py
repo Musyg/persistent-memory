@@ -701,6 +701,213 @@ def compare_transitions(fixture_path=None, variants=10, seed=COMPARISON_SEED, *,
     return report
 
 
+ACTION_SUPPORT_SHA256 = 'd03206379d8cb491ac19a254712538e2a0fda9f6cc5429347c275274efe9c351'
+
+
+def _action_support():
+    import importlib.util
+    import sys
+    path = Path(__file__).resolve().with_name('action_transfer.py')
+    if path.is_symlink() or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != ACTION_SUPPORT_SHA256:
+        raise ValueError('action_support_source_pin')
+    key = '_persistent_memory_action_support_' + ACTION_SUPPORT_SHA256[:16]
+    existing = sys.modules.get(key)
+    if existing is not None:
+        if Path(existing.__file__).resolve() != path:
+            raise ValueError('action_support_module_conflict')
+        return existing
+    spec = importlib.util.spec_from_file_location(key, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[key] = module
+    try:
+        spec.loader.exec_module(module)
+    except BaseException:
+        del sys.modules[key]
+        raise
+    return module
+
+
+def _action_json_file(path, pin):
+    support = _action_support()
+    support.require(path is not None and pin is not None, 'explicit_pinned_action_input_required')
+    raw = support._file_bytes(path, maximum=4 * 1024 ** 2)
+    support.require(hashlib.sha256(raw).hexdigest() == support._pin(pin), 'action_input_pin_mismatch')
+    return support.json_value(raw)
+
+
+def _action_dump(path, value):
+    support = _action_support()
+    raw = (support.canonical(value) + '\n').encode('utf-8')
+    support._write_new(path, raw)
+    return {'path': str(path), 'sha256': hashlib.sha256(raw).hexdigest()}
+
+
+def _action_provider_arguments(args, cell):
+    support = _action_support()
+    paid = (args.action_grant, args.action_grant_sha256, args.action_provider_source,
+            args.action_credential_reader_source)
+    if args.action_provider_mode == 'fake':
+        support.require(all(value is None for value in paid), 'fake_mode_forbids_paid_paths')
+        fake = _action_json_file(args.action_fake_response, args.action_fake_response_sha256)
+        support.require(type(fake) is dict and set(fake) == {'schema', 'cell_id', 'body', 'finish_reason'}
+                        and fake['schema'] == 'persistent-memory.action-transfer.fake-response.v1'
+                        and fake['cell_id'] == cell['cell_id'] and type(fake['body']) is str
+                        and fake['finish_reason'] in ('stop', 'length'), 'literal_fake_response_binding')
+        return {'mode': 'fake', 'fake_response': fake['body'], 'fake_finish_reason': fake['finish_reason']}
+    support.require(all(value is not None for value in paid) and args.action_fake_response is None
+                    and args.action_fake_response_sha256 is None, 'explicit_paid_grant_and_sources_required')
+    return {'mode': 'paid', 'grant_path': args.action_grant, 'grant_sha256': args.action_grant_sha256,
+            'provider_path': args.action_provider_source, 'credential_reader_path': args.action_credential_reader_source}
+
+
+def action_transfer_phase(args):
+    """One child phase over a pinned projection; never opens a fixture or full plan."""
+    support = _action_support()
+    support.require(args.action_fixture is None and args.action_fixture_sha256 is None
+                    and args.action_plan is None and args.action_plan_sha256 is None and args.action_cell_id is None,
+                    'child_phase_must_not_receive_fixture_or_full_plan')
+    projection = _action_json_file(args.action_input, args.action_input_sha256)
+    support.require(args.action_output is not None, 'action_phase_receipt_required')
+    if args.action_phase == 'observe':
+        support.require(args.action_state is not None and args.action_artifacts is None
+                        and args.action_prior_receipt is None and args.action_prior_receipt_sha256 is None
+                        and args.action_prior_exit is None and args.action_prior_exit_sha256 is None
+                        and args.action_fake_response is None and args.action_fake_response_sha256 is None
+                        and args.action_grant is None and args.action_grant_sha256 is None
+                        and args.action_provider_source is None and args.action_credential_reader_source is None
+                        and args.action_provider_mode == 'fake', 'observe_phase_arguments')
+        receipt = support.observe(projection, args.action_state)
+    else:
+        prior = _action_json_file(args.action_prior_receipt, args.action_prior_receipt_sha256)
+        observed_exit = _action_json_file(args.action_prior_exit, args.action_prior_exit_sha256)
+        support.require(args.action_artifacts is not None, 'artifact_directory_required')
+        if args.action_phase == 'propose':
+            support.require(args.action_state is not None, 'p2_state_required')
+            receipt = support.propose_and_consume(projection, args.action_state, args.action_artifacts,
+                        prior, observed_exit, **_action_provider_arguments(args, projection['cell']))
+        else:
+            support.require(args.action_state is None and args.action_fake_response is None
+                            and args.action_fake_response_sha256 is None and args.action_grant is None
+                            and args.action_grant_sha256 is None and args.action_provider_source is None
+                            and args.action_credential_reader_source is None and args.action_provider_mode == 'fake',
+                            'verifier_must_not_receive_provider_or_state')
+            receipt = support.verify_actual_files(projection, args.action_artifacts, prior, observed_exit)
+    _action_dump(args.action_output, receipt)
+    print(support.canonical(receipt))
+    return receipt
+
+
+def action_transfer_cell(args):
+    """Existing benchmark parent: select one frozen cell, then reap P1, P2 and P3."""
+    import os
+    import subprocess
+    import sys
+    support = _action_support()
+    support.require(sys.platform == 'linux', 'action_process_execution_requires_linux')
+    support.require(args.action_input is None and args.action_input_sha256 is None and args.action_state is None
+                    and args.action_artifacts is None and args.action_prior_receipt is None
+                    and args.action_prior_receipt_sha256 is None and args.action_prior_exit is None
+                    and args.action_prior_exit_sha256 is None, 'parent_phase_inputs_are_derived')
+    fixture = _action_json_file(args.action_fixture, args.action_fixture_sha256)
+    plan = _action_json_file(args.action_plan, args.action_plan_sha256)
+    support.require(type(fixture) is dict and set(fixture) == {'schema', 'synthetic', 'templates', 'worlds'}
+                    and fixture['schema'] == 'persistent-memory.action-transfer.fixture.v1'
+                    and fixture['synthetic'] is True and len(fixture['worlds']) == 24
+                    and len(fixture['templates']) == 12, 'action_fixture_scope')
+    worlds = {world['world_id']: world for world in fixture['worlds']}
+    templates = {template['template_id']: template for template in fixture['templates']}
+    support.require(len(worlds) == 24 and len(templates) == 12
+                    and {world['template_id'] for world in worlds.values()} == set(templates), 'action_world_template_identity')
+    support.require(type(plan) is dict and set(plan) == {'schema', 'dataset_sha256', 'cells'}
+                    and plan['schema'] == 'persistent-memory.action-transfer.plan.v1'
+                    and plan['dataset_sha256'] == args.action_fixture_sha256
+                    and type(plan['cells']) is list and len(plan['cells']) == 576, 'action_plan_scope')
+    selected, seen_ids, actual = None, set(), set()
+    for candidate in plan['cells']:
+        cell = support._cell(candidate)
+        support.require(cell['cell_id'] not in seen_ids and cell['world_id'] in worlds
+                        and cell['template_id'] == worlds[cell['world_id']]['template_id'], 'plan_cell_world_binding')
+        seen_ids.add(cell['cell_id'])
+        actual.add((cell['world_id'], cell['model'], cell['arm'], cell['repetition']))
+        if cell['cell_id'] == args.action_cell_id:
+            selected = cell
+    expected = {(world, model, arm, rep) for world in worlds for model in support.MODELS
+                for arm in support.ARMS for rep in (1, 2, 3)}
+    support.require(actual == expected and len(seen_ids) == len(actual) == 576 and selected is not None,
+                    'complete_immutable_cell_plan_required')
+    support.require(args.action_output is not None, 'new_action_output_directory_required')
+    # Validate the literal fake response or presence of paid arguments before spawning.
+    _action_provider_arguments(args, selected)
+    root = Path(args.action_output)
+    root.mkdir(mode=0o700, parents=False, exist_ok=False)
+    root = root.resolve()
+    state, artifacts = root / 'state', root / 'artifacts'
+    phases, exits = {}, {}
+    prior_ref = prior_exit_ref = None
+    world = worlds[selected['world_id']]
+    for phase in ('observe', 'propose', 'verify'):
+        folder = root / phase
+        folder.mkdir(mode=0o700)
+        # In particular, the oracle projection does not exist until P2 has exited.
+        projection = support.project_world(world, selected, phase,
+            dataset_sha256=args.action_fixture_sha256, plan_sha256=args.action_plan_sha256)
+        projected = _action_dump(folder / 'INPUT.json', projection)
+        receipt_path = root / (phase + '-receipt.json')
+        command = [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--action-transfer', '--action-phase', phase,
+                   '--action-input', projected['path'], '--action-input-sha256', projected['sha256'],
+                   '--action-output', str(receipt_path)]
+        if phase in ('observe', 'propose'):
+            command += ['--action-state', str(state.resolve())]
+        if phase != 'observe':
+            command += ['--action-artifacts', str(artifacts.resolve()),
+                        '--action-prior-receipt', prior_ref['path'], '--action-prior-receipt-sha256', prior_ref['sha256'],
+                        '--action-prior-exit', prior_exit_ref['path'], '--action-prior-exit-sha256', prior_exit_ref['sha256']]
+        if phase == 'propose':
+            command += ['--action-mode', args.action_provider_mode]
+            provider_fields = (('action_fake_response', '--action-fake-response'),
+                ('action_fake_response_sha256', '--action-fake-response-sha256'), ('action_grant', '--action-grant'),
+                ('action_grant_sha256', '--action-grant-sha256'), ('action_provider_source', '--action-provider-source'),
+                ('action_credential_reader_source', '--action-credential-reader-source'))
+            for attr, flag in provider_fields:
+                item = getattr(args, attr)
+                if item is not None:
+                    command += [flag, str(item.resolve()) if isinstance(item, Path) else item]
+        process = subprocess.Popen(command, cwd=folder, env={'PATH': os.defpath, 'LANG': 'C.UTF-8', 'LC_ALL': 'C.UTF-8'},
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding='utf-8')
+        timed_out = False
+        try:
+            stdout, stderr = process.communicate(timeout=240)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            process.kill()
+            stdout, stderr = process.communicate()
+        observed_exit = {'pid': process.pid, 'returncode': process.returncode, 'exited_ns': time.monotonic_ns()}
+        support._write_new(folder / 'STDOUT.txt', stdout.encode('utf-8'))
+        support._write_new(folder / 'STDERR.txt', stderr.encode('utf-8'))
+        exit_ref = _action_dump(folder / 'EXIT.json', observed_exit)
+        support.require(not timed_out and process.returncode == 0 and receipt_path.is_file(), 'action_child_failed:' + phase)
+        raw = support._file_bytes(receipt_path, maximum=4 * 1024 ** 2)
+        receipt = support.json_value(raw)
+        support.require(stdout.encode('utf-8') == raw and receipt['pid'] == process.pid
+                        and receipt['cell'] == selected and receipt['dataset_sha256'] == args.action_fixture_sha256
+                        and receipt['plan_sha256'] == args.action_plan_sha256
+                        and receipt['ended_ns'] <= observed_exit['exited_ns'], 'action_child_receipt_binding')
+        phases[phase] = {'receipt': receipt, 'receipt_sha256': hashlib.sha256(raw).hexdigest(),
+                         'projection_sha256': projected['sha256']}
+        exits[phase] = observed_exit
+        prior_ref = {'path': str(receipt_path.resolve()), 'sha256': phases[phase]['receipt_sha256']}
+        prior_exit_ref = {'path': str(Path(exit_ref['path']).resolve()), 'sha256': exit_ref['sha256']}
+    report = {'schema': 'persistent-memory.action-transfer.cell-report.v1', 'cell': selected,
+              'dataset_sha256': args.action_fixture_sha256, 'plan_sha256': args.action_plan_sha256,
+              'fake_proof_only': args.action_provider_mode == 'fake', 'phases': phases, 'exits': exits,
+              'task_success': phases['verify']['receipt']['task_success'],
+              'provider_called': phases['propose']['receipt']['provider_called'],
+              'runtime_activated': False, 'autonomous_learning_claimed': False}
+    _action_dump(root / 'REPORT.json', report)
+    print(support.canonical(report))
+    return report
+
+
 EFFICIENCY_INPUTS_SHA256 = '76a58fae321ccbb99ef0376ca6e4249aa15203689d4589a0d3f9a07cbd2b13e7'
 EFFICIENCY_GROUPS = (('gpt-6-luna', 'memory_off'), ('gpt-6-luna', 'memory_on'),
                      ('gpt-6-luna', 'simple_baseline'), ('gpt-6.1-sol', 'memory_off'),
@@ -981,6 +1188,19 @@ def efficiency_analysis(inputs_path=None, inputs_sha256=None, *, emit=True):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--action-transfer', action='store_true', help='Run one pinned prospective action-transfer cell or child phase.')
+    parser.add_argument('--action-phase', choices=('observe', 'propose', 'verify'), help='Internal phase over a pinned projection only.')
+    parser.add_argument('--action-cell-id', help='Select exactly one cell from the complete frozen plan.')
+    parser.add_argument('--action-mode', dest='action_provider_mode', choices=('fake', 'paid'), default='fake',
+                        help='Explicit literal fake response, or a separately admitted cell-bound paid grant.')
+    for flag in ('action-fixture', 'action-plan', 'action-input', 'action-output', 'action-state', 'action-artifacts',
+                 'action-prior-receipt', 'action-prior-exit', 'action-fake-response', 'action-grant',
+                 'action-provider-source', 'action-credential-reader-source'):
+        parser.add_argument('--' + flag, type=Path)
+    for flag in ('action-fixture-sha256', 'action-plan-sha256', 'action-input-sha256',
+                 'action-prior-receipt-sha256', 'action-prior-exit-sha256',
+                 'action-fake-response-sha256', 'action-grant-sha256'):
+        parser.add_argument('--' + flag)
     parser.add_argument('--efficiency', action='store_true', help='Reanalyse pinned Fresh100 usage and frozen quality offline (post-hoc).')
     parser.add_argument('--efficiency-inputs', type=Path, help='Explicit pinned efficiency manifest; requires --efficiency-inputs-sha256.')
     parser.add_argument('--efficiency-inputs-sha256', help='SHA-256 of an explicit efficiency manifest.')
@@ -994,6 +1214,24 @@ if __name__ == '__main__':
     parser.add_argument('--repetitions', type=int, help='Typed volume mode: 1..100000 retrievals (default 10).')
     parser.add_argument('--seed', type=int, help='Typed volume mode: query seed 0..2^64-1 (default 0).')
     args = parser.parse_args()
+    action_values = [value for key, value in vars(args).items()
+                     if key.startswith('action_') and key not in ('action_transfer', 'action_provider_mode')]
+    if not args.action_transfer and (any(value is not None for value in action_values) or args.action_provider_mode != 'fake'):
+        parser.error('action options require --action-transfer')
+    if args.action_transfer:
+        if (args.efficiency or args.efficiency_inputs is not None or args.efficiency_inputs_sha256 is not None
+                or args.trajectories is not None or args.compare_transitions or args.comparison_fixture is not None
+                or args.variants is not None or args.lance_hybrid or args.documents is not None
+                or args.repetitions is not None or args.seed is not None):
+            parser.error('--action-transfer cannot be combined with another mode')
+        try:
+            if args.action_phase is None:
+                action_transfer_cell(args)
+            else:
+                action_transfer_phase(args)
+        except (ValueError, KeyError, TypeError, OSError, RuntimeError) as error:
+            parser.error(str(error))
+        raise SystemExit(0)
     if not args.efficiency and (args.efficiency_inputs is not None or args.efficiency_inputs_sha256 is not None):
         parser.error('--efficiency-inputs and --efficiency-inputs-sha256 require --efficiency')
     if args.efficiency:

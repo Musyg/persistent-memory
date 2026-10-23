@@ -1,0 +1,3040 @@
+{
+  "schema": "persistent-memory.action-transfer.fixture.v1",
+  "synthetic": true,
+  "templates": [
+    {
+      "family": "procedure",
+      "template_id": "AT-P1",
+      "world_ids": [
+        "AT-P1-FR",
+        "AT-P1-EN"
+      ]
+    },
+    {
+      "family": "procedure",
+      "template_id": "AT-P2",
+      "world_ids": [
+        "AT-P2-FR",
+        "AT-P2-EN"
+      ]
+    },
+    {
+      "family": "procedure",
+      "template_id": "AT-P3",
+      "world_ids": [
+        "AT-P3-FR",
+        "AT-P3-EN"
+      ]
+    },
+    {
+      "family": "correction",
+      "template_id": "AT-C1",
+      "world_ids": [
+        "AT-C1-FR",
+        "AT-C1-EN"
+      ]
+    },
+    {
+      "family": "correction",
+      "template_id": "AT-C2",
+      "world_ids": [
+        "AT-C2-FR",
+        "AT-C2-EN"
+      ]
+    },
+    {
+      "family": "correction",
+      "template_id": "AT-C3",
+      "world_ids": [
+        "AT-C3-FR",
+        "AT-C3-EN"
+      ]
+    },
+    {
+      "family": "revocation",
+      "template_id": "AT-R1",
+      "world_ids": [
+        "AT-R1-FR",
+        "AT-R1-EN"
+      ]
+    },
+    {
+      "family": "revocation",
+      "template_id": "AT-R2",
+      "world_ids": [
+        "AT-R2-FR",
+        "AT-R2-EN"
+      ]
+    },
+    {
+      "family": "revocation",
+      "template_id": "AT-R3",
+      "world_ids": [
+        "AT-R3-FR",
+        "AT-R3-EN"
+      ]
+    },
+    {
+      "family": "selfcontained",
+      "template_id": "AT-S1",
+      "world_ids": [
+        "AT-S1-FR",
+        "AT-S1-EN"
+      ]
+    },
+    {
+      "family": "selfcontained",
+      "template_id": "AT-S2",
+      "world_ids": [
+        "AT-S2-FR",
+        "AT-S2-EN"
+      ]
+    },
+    {
+      "family": "selfcontained",
+      "template_id": "AT-S3",
+      "world_ids": [
+        "AT-S3-FR",
+        "AT-S3-EN"
+      ]
+    }
+  ],
+  "worlds": [
+    {
+      "current_contract": {
+        "observation_id": "obs-p1-fr-2",
+        "source_id": "contract-aabf598d8",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p1-fr-1",
+          "observation_id": "obs-p1-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p1-fr-2",
+          "observation_id": "obs-p1-fr-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-432962-other"
+            }
+          },
+          "observation_id": "obs-p1-fr-1",
+          "source_id": "note-dbe3e7e1b",
+          "text": "q9bbba5d0f : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-50bc9f."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-432962"
+            }
+          },
+          "observation_id": "obs-p1-fr-2",
+          "source_id": "contract-aabf598d8",
+          "text": "q9bbba5d0f : contrat CSV approuvé. Correspondance champ=>colonne : item_id=>id_112, label=>label_6b1, quantity=>qty_6b9. Ordre des colonnes ci-dessus ; ordre des lignes d'entrée. Délimiteur \"|\", encodage utf-8, fins de ligne CRLF, guillemets CSV doubles. Chaque quantité entière devient une chaîne décimale ; aucune colonne ajoutée."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "aWRfMTEyfGxhYmVsXzZiMXxxdHlfNmI5DQppdGVtLTI1ZDR8IsOpY2xhdDt8ZmluInw4DQppdGVtLWQzMzZ8InZvaXggIiJkb3VjZSIiInwxNA0KaXRlbS1kYWY5fCJsaWduZQpzdWl2YW50ZSJ8MjQNCg==",
+            "format": {
+              "columns": [
+                "id_112",
+                "label_6b1",
+                "qty_6b9"
+              ],
+              "delimiter": "|",
+              "encoding": "utf-8",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-25d4",
+                  "éclat;|fin",
+                  "8"
+                ],
+                [
+                  "item-d336",
+                  "voix \"douce\"",
+                  "14"
+                ],
+                [
+                  "item-daf9",
+                  "ligne\nsuivante",
+                  "24"
+                ]
+              ]
+            },
+            "sha256": "798bde717d69053e7cd5e4c8255c01d4c1435bd0c8367f355cd86411ba525c06"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 15776409395229636628,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Exporter toutes les lignes de data.rows selon le contrat courant dans export.csv. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-432962"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-25d4",
+              "label": "éclat;|fin",
+              "quantity": 8
+            },
+            {
+              "item_id": "item-d336",
+              "label": "voix \"douce\"",
+              "quantity": 14
+            },
+            {
+              "item_id": "item-daf9",
+              "label": "ligne\nsuivante",
+              "quantity": 24
+            }
+          ]
+        },
+        "query": "q9bbba5d0f",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-aabf598d8"
+        }
+      },
+      "template_id": "AT-P1",
+      "workspace": "ws-352d45a258",
+      "world_id": "AT-P1-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-p1-en-2",
+        "source_id": "contract-f7ea0562b",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p1-en-1",
+          "observation_id": "obs-p1-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p1-en-2",
+          "observation_id": "obs-p1-en-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-1d1584-other"
+            }
+          },
+          "observation_id": "obs-p1-en-1",
+          "source_id": "note-3b3902ff9",
+          "text": "q6381e67f8: note for a different project only; inapplicable output code = lane-d0f18d."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-1d1584"
+            }
+          },
+          "observation_id": "obs-p1-en-2",
+          "source_id": "contract-f7ea0562b",
+          "text": "q6381e67f8: approved CSV contract. Field=>column mapping: item_id=>id_8e6, label=>label_c9a, quantity=>qty_948. Use that column order and input row order. Delimiter \"\\t\", encoding utf-8-sig, CRLF, doubled CSV quotes. Render integer quantities as decimal strings; add no columns."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "77u/aWRfOGU2CWxhYmVsX2M5YQlxdHlfOTQ4DQppdGVtLWZmZWUJw6ljbGF0O3xmaW4JNg0KaXRlbS1iYWJhCSJ2b2l4ICIiZG91Y2UiIiIJMTINCml0ZW0tMTdlMgkibGlnbmUKc3VpdmFudGUiCTI1DQo=",
+            "format": {
+              "columns": [
+                "id_8e6",
+                "label_c9a",
+                "qty_948"
+              ],
+              "delimiter": "\t",
+              "encoding": "utf-8-sig",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-ffee",
+                  "éclat;|fin",
+                  "6"
+                ],
+                [
+                  "item-baba",
+                  "voix \"douce\"",
+                  "12"
+                ],
+                [
+                  "item-17e2",
+                  "ligne\nsuivante",
+                  "25"
+                ]
+              ]
+            },
+            "sha256": "bced2b9c1ce8da8c99e762081acb2ad9c3b5212ba4e2caa8cd6a551144391f43"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 5710572512271964166,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Export every data.rows row using the current contract into export.csv. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-1d1584"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-ffee",
+              "label": "éclat;|fin",
+              "quantity": 6
+            },
+            {
+              "item_id": "item-baba",
+              "label": "voix \"douce\"",
+              "quantity": 12
+            },
+            {
+              "item_id": "item-17e2",
+              "label": "ligne\nsuivante",
+              "quantity": 25
+            }
+          ]
+        },
+        "query": "q6381e67f8",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-f7ea0562b"
+        }
+      },
+      "template_id": "AT-P1",
+      "workspace": "ws-2ac07a48a0",
+      "world_id": "AT-P1-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-p2-fr-2",
+        "source_id": "contract-c8f4cfa2c",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p2-fr-1",
+          "observation_id": "obs-p2-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p2-fr-2",
+          "observation_id": "obs-p2-fr-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-3e5de2-other"
+            }
+          },
+          "observation_id": "obs-p2-fr-1",
+          "source_id": "note-445f244f2",
+          "text": "q0fda14867 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-5e8f2b."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-3e5de2"
+            }
+          },
+          "observation_id": "obs-p2-fr-2",
+          "source_id": "contract-c8f4cfa2c",
+          "text": "q0fda14867 : contrat de routage approuvé {\"priorities\":{\"normal\":51,\"urgent\":23},\"routes\":{\"kind-4ecc\":\"lane-3faa3c\",\"kind-a575\":\"lane-d7ce8e\",\"kind-b284\":\"lane-8b507d\"}}. Produire un tableau dans l'ordre d'entrée ; chaque objet a exactement request_id, queue (routes[kind]) et priority entière (priorities[urgency])."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "orders.json": {
+            "base64": "W3sicHJpb3JpdHkiOjIzLCJxdWV1ZSI6ImxhbmUtZDdjZThlIiwicmVxdWVzdF9pZCI6InJlcS04NDE2MyJ9LHsicHJpb3JpdHkiOjUxLCJxdWV1ZSI6ImxhbmUtM2ZhYTNjIiwicmVxdWVzdF9pZCI6InJlcS00ZWFjZiJ9LHsicHJpb3JpdHkiOjIzLCJxdWV1ZSI6ImxhbmUtOGI1MDdkIiwicmVxdWVzdF9pZCI6InJlcS1jMWQ2ZSJ9XQo=",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "priority": 23,
+                  "queue": "lane-d7ce8e",
+                  "request_id": "req-84163"
+                },
+                {
+                  "priority": 51,
+                  "queue": "lane-3faa3c",
+                  "request_id": "req-4eacf"
+                },
+                {
+                  "priority": 23,
+                  "queue": "lane-8b507d",
+                  "request_id": "req-c1d6e"
+                }
+              ]
+            },
+            "sha256": "fd07aca3afdca757d7d22ce653ef8896b9ff012df5115982a40752555e51e411"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 2470860475163220685,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "orders.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Router data.requests selon le contrat courant dans orders.json. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-3e5de2"
+        },
+        "data": {
+          "requests": [
+            {
+              "kind": "kind-a575",
+              "request_id": "req-84163",
+              "urgency": "urgent"
+            },
+            {
+              "kind": "kind-4ecc",
+              "request_id": "req-4eacf",
+              "urgency": "normal"
+            },
+            {
+              "kind": "kind-b284",
+              "request_id": "req-c1d6e",
+              "urgency": "urgent"
+            }
+          ]
+        },
+        "query": "q0fda14867",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "orders.json": "contract-c8f4cfa2c"
+        }
+      },
+      "template_id": "AT-P2",
+      "workspace": "ws-0e0ba71c74",
+      "world_id": "AT-P2-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-p2-en-2",
+        "source_id": "contract-3d39577f6",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p2-en-1",
+          "observation_id": "obs-p2-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p2-en-2",
+          "observation_id": "obs-p2-en-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-c057bd-other"
+            }
+          },
+          "observation_id": "obs-p2-en-1",
+          "source_id": "note-82c97a35a",
+          "text": "q88b16afa2: note for a different project only; inapplicable output code = lane-df5df1."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-c057bd"
+            }
+          },
+          "observation_id": "obs-p2-en-2",
+          "source_id": "contract-3d39577f6",
+          "text": "q88b16afa2: approved routing contract {\"priorities\":{\"normal\":47,\"urgent\":18},\"routes\":{\"kind-85e8\":\"lane-ebc98a\",\"kind-aaed\":\"lane-95a073\",\"kind-c105\":\"lane-1ac036\"}}. Emit an array in input order; each object has exactly request_id, queue (routes[kind]) and integer priority (priorities[urgency])."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "orders.json": {
+            "base64": "W3sicHJpb3JpdHkiOjE4LCJxdWV1ZSI6ImxhbmUtMWFjMDM2IiwicmVxdWVzdF9pZCI6InJlcS04YWRhNSJ9LHsicHJpb3JpdHkiOjQ3LCJxdWV1ZSI6ImxhbmUtOTVhMDczIiwicmVxdWVzdF9pZCI6InJlcS1iZmQwNSJ9LHsicHJpb3JpdHkiOjE4LCJxdWV1ZSI6ImxhbmUtZWJjOThhIiwicmVxdWVzdF9pZCI6InJlcS01MTFmMiJ9XQo=",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "priority": 18,
+                  "queue": "lane-1ac036",
+                  "request_id": "req-8ada5"
+                },
+                {
+                  "priority": 47,
+                  "queue": "lane-95a073",
+                  "request_id": "req-bfd05"
+                },
+                {
+                  "priority": 18,
+                  "queue": "lane-ebc98a",
+                  "request_id": "req-511f2"
+                }
+              ]
+            },
+            "sha256": "0524beb5ceb86a1ca8fe9e27fa36065b646c366aea749b2a285e778d5f494888"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 1843996038817712704,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "orders.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Route data.requests under the current contract into orders.json. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-c057bd"
+        },
+        "data": {
+          "requests": [
+            {
+              "kind": "kind-c105",
+              "request_id": "req-8ada5",
+              "urgency": "urgent"
+            },
+            {
+              "kind": "kind-aaed",
+              "request_id": "req-bfd05",
+              "urgency": "normal"
+            },
+            {
+              "kind": "kind-85e8",
+              "request_id": "req-511f2",
+              "urgency": "urgent"
+            }
+          ]
+        },
+        "query": "q88b16afa2",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "orders.json": "contract-3d39577f6"
+        }
+      },
+      "template_id": "AT-P2",
+      "workspace": "ws-ff93673382",
+      "world_id": "AT-P2-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-p3-fr-2",
+        "source_id": "contract-d095516b2",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p3-fr-1",
+          "observation_id": "obs-p3-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p3-fr-2",
+          "observation_id": "obs-p3-fr-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-f7b982-other"
+            }
+          },
+          "observation_id": "obs-p3-fr-1",
+          "source_id": "note-700e545f7",
+          "text": "q4cd844fc2 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-d56daf."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-f7b982"
+            }
+          },
+          "observation_id": "obs-p3-fr-2",
+          "source_id": "contract-d095516b2",
+          "text": "q4cd844fc2 : contrat de fusion approuvé. Clé composée (project_id,item_id). Conserver la plus grande revision entière ; égalité conflictuelle : suspendre. Préserver les autres champs et objets. Sortie : tableau trié par (project_id,item_id) dans l'ordre croissant."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktMzNkYmYiLCJsYWJlbCI6ImFkZC0wZTMyODYiLCJwcm9qZWN0X2lkIjoicHJvamVjdC1mN2I5ODIiLCJyZXZpc2lvbiI6Mn0seyJpdGVtX2lkIjoiaS1iZDQxNiIsImxhYmVsIjoibmV3LWZjNmYzNSIsInByb2plY3RfaWQiOiJwcm9qZWN0LWY3Yjk4MiIsInJldmlzaW9uIjo4fSx7Iml0ZW1faWQiOiJpLWJkNDE2IiwibGFiZWwiOiJrZWVwLTgxOGU4YyIsInByb2plY3RfaWQiOiJwcm9qZWN0LWY3Yjk4Mi1mb3JlaWduIiwicmV2aXNpb24iOjc5fV0K",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "item_id": "i-33dbf",
+                  "label": "add-0e3286",
+                  "project_id": "project-f7b982",
+                  "revision": 2
+                },
+                {
+                  "item_id": "i-bd416",
+                  "label": "new-fc6f35",
+                  "project_id": "project-f7b982",
+                  "revision": 8
+                },
+                {
+                  "item_id": "i-bd416",
+                  "label": "keep-818e8c",
+                  "project_id": "project-f7b982-foreign",
+                  "revision": 79
+                }
+              ]
+            },
+            "sha256": "d80d5c6657e078f3dea1058f2427f74eeb108b15aec331c71ebfbd5674b2c2e6"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 10246091091025892734,
+      "task": {
+        "allowed_targets": [
+          "catalog.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Fusionner data.incoming avec catalog.json selon le contrat courant. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-f7b982"
+        },
+        "data": {
+          "incoming": [
+            {
+              "item_id": "i-bd416",
+              "label": "new-fc6f35",
+              "project_id": "project-f7b982",
+              "revision": 8
+            },
+            {
+              "item_id": "i-33dbf",
+              "label": "add-0e3286",
+              "project_id": "project-f7b982",
+              "revision": 2
+            }
+          ]
+        },
+        "query": "q4cd844fc2",
+        "seed_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktYmQ0MTYiLCJsYWJlbCI6Im9sZC00YjAwM2MiLCJwcm9qZWN0X2lkIjoicHJvamVjdC1mN2I5ODIiLCJyZXZpc2lvbiI6M30seyJpdGVtX2lkIjoiaS1iZDQxNiIsImxhYmVsIjoia2VlcC04MThlOGMiLCJwcm9qZWN0X2lkIjoicHJvamVjdC1mN2I5ODItZm9yZWlnbiIsInJldmlzaW9uIjo3OX1dCg==",
+            "sha256": "9bf1d4f7be9ca6a4237dd8e66a29b3deae5f8352f0ca1de3cdf43112e85457dc"
+          }
+        },
+        "target_dependencies": {
+          "catalog.json": "contract-d095516b2",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-P3",
+      "workspace": "ws-5ac35afd74",
+      "world_id": "AT-P3-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-p3-en-2",
+        "source_id": "contract-2a72d035b",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-p3-en-1",
+          "observation_id": "obs-p3-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-p3-en-2",
+          "observation_id": "obs-p3-en-2",
+          "op": "put",
+          "seq": 2
+        }
+      ],
+      "family": "procedure",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-4b33dc-other"
+            }
+          },
+          "observation_id": "obs-p3-en-1",
+          "source_id": "note-180b9c02b",
+          "text": "q172adf128: note for a different project only; inapplicable output code = lane-3c69ef."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-4b33dc"
+            }
+          },
+          "observation_id": "obs-p3-en-2",
+          "source_id": "contract-2a72d035b",
+          "text": "q172adf128: approved merge contract. Composite key (project_id,item_id). Keep the highest integer revision; conflicting equal revisions: hold. Preserve unrelated fields and objects. Output an array sorted by (project_id,item_id) in descending order."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktOTQ2MTYiLCJsYWJlbCI6ImtlZXAtMTVjODk4IiwicHJvamVjdF9pZCI6InByb2plY3QtNGIzM2RjLWZvcmVpZ24iLCJyZXZpc2lvbiI6Nzl9LHsiaXRlbV9pZCI6ImktOTQ2MTYiLCJsYWJlbCI6Im5ldy05MjhjZGIiLCJwcm9qZWN0X2lkIjoicHJvamVjdC00YjMzZGMiLCJyZXZpc2lvbiI6OH0seyJpdGVtX2lkIjoiaS04OGFkNCIsImxhYmVsIjoiYWRkLWE4NGVmMSIsInByb2plY3RfaWQiOiJwcm9qZWN0LTRiMzNkYyIsInJldmlzaW9uIjoyfV0K",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "item_id": "i-94616",
+                  "label": "keep-15c898",
+                  "project_id": "project-4b33dc-foreign",
+                  "revision": 79
+                },
+                {
+                  "item_id": "i-94616",
+                  "label": "new-928cdb",
+                  "project_id": "project-4b33dc",
+                  "revision": 8
+                },
+                {
+                  "item_id": "i-88ad4",
+                  "label": "add-a84ef1",
+                  "project_id": "project-4b33dc",
+                  "revision": 2
+                }
+              ]
+            },
+            "sha256": "c846445805239f7fb7972efa5c2616ef6c1c68d07d6bd8209ce1b6a5c9e7437a"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 7975564574527245595,
+      "task": {
+        "allowed_targets": [
+          "catalog.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Merge data.incoming into catalog.json under the current contract. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-4b33dc"
+        },
+        "data": {
+          "incoming": [
+            {
+              "item_id": "i-94616",
+              "label": "new-928cdb",
+              "project_id": "project-4b33dc",
+              "revision": 8
+            },
+            {
+              "item_id": "i-88ad4",
+              "label": "add-a84ef1",
+              "project_id": "project-4b33dc",
+              "revision": 2
+            }
+          ]
+        },
+        "query": "q172adf128",
+        "seed_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktOTQ2MTYiLCJsYWJlbCI6Im9sZC05MTQ1MWUiLCJwcm9qZWN0X2lkIjoicHJvamVjdC00YjMzZGMiLCJyZXZpc2lvbiI6M30seyJpdGVtX2lkIjoiaS05NDYxNiIsImxhYmVsIjoia2VlcC0xNWM4OTgiLCJwcm9qZWN0X2lkIjoicHJvamVjdC00YjMzZGMtZm9yZWlnbiIsInJldmlzaW9uIjo3OX1dCg==",
+            "sha256": "528182bee6836feb1fee5eb07095463ee7582e2e6ed2994c376b6bb32eb8748f"
+          }
+        },
+        "target_dependencies": {
+          "catalog.json": "contract-2a72d035b",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-P3",
+      "workspace": "ws-f219689239",
+      "world_id": "AT-P3-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c1-fr-3",
+        "source_id": "contract-3d4090d8d",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c1-fr-1",
+          "observation_id": "obs-c1-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c1-fr-2",
+          "observation_id": "obs-c1-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c1-fr-3",
+          "observation_id": "obs-c1-fr-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31c7c0-other"
+            }
+          },
+          "observation_id": "obs-c1-fr-1",
+          "source_id": "note-24109038e",
+          "text": "q3c6fea836 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-3c3c23."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31c7c0"
+            }
+          },
+          "observation_id": "obs-c1-fr-2",
+          "source_id": "contract-3d4090d8d",
+          "text": "q3c6fea836 : contrat de rétention approuvé {\"audit\":536,\"test\":233} heures. Pour record_kind=test, remplacer seulement retention_hours par l'entier du contrat ; préserver tous les autres champs de config.json."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31c7c0"
+            }
+          },
+          "observation_id": "obs-c1-fr-3",
+          "source_id": "contract-3d4090d8d",
+          "text": "Cette version remplace intégralement la précédente. q3c6fea836 : contrat de rétention approuvé {\"audit\":536,\"test\":79} heures. Pour record_kind=test, remplacer seulement retention_hours par l'entier du contrat ; préserver tous les autres champs de config.json."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTM2LCJsYWJlbCI6ImNmZy0wODA0MzdkIiwicmV0ZW50aW9uX2hvdXJzIjo3OX0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "audit_hours": 536,
+                "label": "cfg-080437d",
+                "retention_hours": 79
+              }
+            },
+            "sha256": "f4a4ae03c5adf450458fef2116de6f2fb1806ec5306468b555471e28ac92114f"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 5864690463146844840,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Mettre à jour config.json pour data.record_kind selon le contrat courant. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-31c7c0"
+        },
+        "data": {
+          "record_kind": "test"
+        },
+        "query": "q3c6fea836",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTM2LCJsYWJlbCI6ImNmZy0wODA0MzdkIiwicmV0ZW50aW9uX2hvdXJzIjoyMzN9Cg==",
+            "sha256": "278dd301e843173106c867c01e5027f6c597f6b0109b835c712aaff18f33107b"
+          }
+        },
+        "target_dependencies": {
+          "config.json": "contract-3d4090d8d",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-C1",
+      "workspace": "ws-db1afbc44a",
+      "world_id": "AT-C1-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c1-en-3",
+        "source_id": "contract-5e0847a5f",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c1-en-1",
+          "observation_id": "obs-c1-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c1-en-2",
+          "observation_id": "obs-c1-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c1-en-3",
+          "observation_id": "obs-c1-en-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-844dbb-other"
+            }
+          },
+          "observation_id": "obs-c1-en-1",
+          "source_id": "note-0e36b2b04",
+          "text": "qc2c6ee1d3: note for a different project only; inapplicable output code = lane-47aea9."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-844dbb"
+            }
+          },
+          "observation_id": "obs-c1-en-2",
+          "source_id": "contract-5e0847a5f",
+          "text": "qc2c6ee1d3: approved retention contract {\"audit\":535,\"test\":251} hours. For record_kind=test, replace only retention_hours with the contract integer; preserve every other config.json field."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-844dbb"
+            }
+          },
+          "observation_id": "obs-c1-en-3",
+          "source_id": "contract-5e0847a5f",
+          "text": "This version fully supersedes the previous one. qc2c6ee1d3: approved retention contract {\"audit\":535,\"test\":43} hours. For record_kind=test, replace only retention_hours with the contract integer; preserve every other config.json field."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTM1LCJsYWJlbCI6ImNmZy04MzMyYTRjIiwicmV0ZW50aW9uX2hvdXJzIjo0M30K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "audit_hours": 535,
+                "label": "cfg-8332a4c",
+                "retention_hours": 43
+              }
+            },
+            "sha256": "a7890b02fb8e089c91840479132c1e99c6f2da4ded060acef3303472dab0edb6"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 11577460059187666386,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Update config.json for data.record_kind using the current contract. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-844dbb"
+        },
+        "data": {
+          "record_kind": "test"
+        },
+        "query": "qc2c6ee1d3",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTM1LCJsYWJlbCI6ImNmZy04MzMyYTRjIiwicmV0ZW50aW9uX2hvdXJzIjoyNTF9Cg==",
+            "sha256": "8023894e413414e67022457f78aed80d306625a5d7a01899492ce827743c3188"
+          }
+        },
+        "target_dependencies": {
+          "config.json": "contract-5e0847a5f",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-C1",
+      "workspace": "ws-ceefacb421",
+      "world_id": "AT-C1-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c2-fr-3",
+        "source_id": "contract-b6e2cd343",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c2-fr-1",
+          "observation_id": "obs-c2-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c2-fr-2",
+          "observation_id": "obs-c2-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c2-fr-3",
+          "observation_id": "obs-c2-fr-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-0b5b27-other"
+            }
+          },
+          "observation_id": "obs-c2-fr-1",
+          "source_id": "note-fcfc8aa56",
+          "text": "qf5c2607d6 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-9d8ab2."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-0b5b27"
+            }
+          },
+          "observation_id": "obs-c2-fr-2",
+          "source_id": "contract-b6e2cd343",
+          "text": "qf5c2607d6 : contrat CSV approuvé. Correspondance champ=>colonne : quantity=>qty_59b, label=>label_c27, item_id=>id_9b5. Ordre des colonnes ci-dessus ; ordre des lignes d'entrée. Délimiteur \"|\", encodage utf-8-sig, fins de ligne CRLF, guillemets CSV doubles. Chaque quantité entière devient une chaîne décimale ; aucune colonne ajoutée."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-0b5b27"
+            }
+          },
+          "observation_id": "obs-c2-fr-3",
+          "source_id": "contract-b6e2cd343",
+          "text": "Remplace la version précédente. qf5c2607d6 : contrat CSV approuvé. Correspondance champ=>colonne : item_id=>id_9b5, label=>label_c27, quantity=>qty_59b. Ordre des colonnes ci-dessus ; ordre des lignes d'entrée. Délimiteur \";\", encodage utf-8, fins de ligne CRLF, guillemets CSV doubles. Chaque quantité entière devient une chaîne décimale ; aucune colonne ajoutée."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "aWRfOWI1O2xhYmVsX2MyNztxdHlfNTliDQppdGVtLWVmYmU7IsOpY2xhdDt8ZmluIjs1DQppdGVtLTkzNTE7InZvaXggIiJkb3VjZSIiIjsxMQ0K",
+            "format": {
+              "columns": [
+                "id_9b5",
+                "label_c27",
+                "qty_59b"
+              ],
+              "delimiter": ";",
+              "encoding": "utf-8",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-efbe",
+                  "éclat;|fin",
+                  "5"
+                ],
+                [
+                  "item-9351",
+                  "voix \"douce\"",
+                  "11"
+                ]
+              ]
+            },
+            "sha256": "bab187342f5bb32c2d1a6d2e278b10ebe0cb1b27c1adde974e474e40eb732e57"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 12967401974331623745,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Exporter data.rows dans export.csv en utilisant la version courante du contrat. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-0b5b27"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-efbe",
+              "label": "éclat;|fin",
+              "quantity": 5
+            },
+            {
+              "item_id": "item-9351",
+              "label": "voix \"douce\"",
+              "quantity": 11
+            }
+          ]
+        },
+        "query": "qf5c2607d6",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-b6e2cd343"
+        }
+      },
+      "template_id": "AT-C2",
+      "workspace": "ws-573e0816c8",
+      "world_id": "AT-C2-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c2-en-3",
+        "source_id": "contract-0c4d64363",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c2-en-1",
+          "observation_id": "obs-c2-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c2-en-2",
+          "observation_id": "obs-c2-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c2-en-3",
+          "observation_id": "obs-c2-en-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31a146-other"
+            }
+          },
+          "observation_id": "obs-c2-en-1",
+          "source_id": "note-877347f63",
+          "text": "qbe00595de: note for a different project only; inapplicable output code = lane-6c28c2."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31a146"
+            }
+          },
+          "observation_id": "obs-c2-en-2",
+          "source_id": "contract-0c4d64363",
+          "text": "qbe00595de: approved CSV contract. Field=>column mapping: quantity=>qty_1fd, label=>label_f13, item_id=>id_28f. Use that column order and input row order. Delimiter \";\", encoding utf-8, CRLF, doubled CSV quotes. Render integer quantities as decimal strings; add no columns."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-31a146"
+            }
+          },
+          "observation_id": "obs-c2-en-3",
+          "source_id": "contract-0c4d64363",
+          "text": "Supersedes the prior version. qbe00595de: approved CSV contract. Field=>column mapping: item_id=>id_28f, label=>label_f13, quantity=>qty_1fd. Use that column order and input row order. Delimiter \"\\t\", encoding utf-8-sig, CRLF, doubled CSV quotes. Render integer quantities as decimal strings; add no columns."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "77u/aWRfMjhmCWxhYmVsX2YxMwlxdHlfMWZkDQppdGVtLTUwNzYJw6ljbGF0O3xmaW4JNA0KaXRlbS02OWQ5CSJ2b2l4ICIiZG91Y2UiIiIJMTQNCg==",
+            "format": {
+              "columns": [
+                "id_28f",
+                "label_f13",
+                "qty_1fd"
+              ],
+              "delimiter": "\t",
+              "encoding": "utf-8-sig",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-5076",
+                  "éclat;|fin",
+                  "4"
+                ],
+                [
+                  "item-69d9",
+                  "voix \"douce\"",
+                  "14"
+                ]
+              ]
+            },
+            "sha256": "8faa738c153bfbc1b6f4acb0b5fa80a8e5e3a10b6e505ac94db9eafe544910ba"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 2141466312587816258,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Export data.rows into export.csv using the current contract version. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-31a146"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-5076",
+              "label": "éclat;|fin",
+              "quantity": 4
+            },
+            {
+              "item_id": "item-69d9",
+              "label": "voix \"douce\"",
+              "quantity": 14
+            }
+          ]
+        },
+        "query": "qbe00595de",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-0c4d64363"
+        }
+      },
+      "template_id": "AT-C2",
+      "workspace": "ws-1082ae9bc2",
+      "world_id": "AT-C2-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c3-fr-3",
+        "source_id": "contract-a76453a4c",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c3-fr-1",
+          "observation_id": "obs-c3-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c3-fr-2",
+          "observation_id": "obs-c3-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c3-fr-3",
+          "observation_id": "obs-c3-fr-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-bbf1ab-other"
+            }
+          },
+          "observation_id": "obs-c3-fr-1",
+          "source_id": "note-21f18d821",
+          "text": "qc0e18ac1e : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-45c365."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-bbf1ab"
+            }
+          },
+          "observation_id": "obs-c3-fr-2",
+          "source_id": "contract-a76453a4c",
+          "text": "qc0e18ac1e : contrat de routage approuvé {\"priorities\":{\"normal\":46,\"urgent\":92},\"routes\":{\"kind-4ea0\":\"lane-f93d73\",\"kind-a7d6\":\"lane-abdd80\",\"kind-f0b0\":\"lane-35f889\"}}. Produire un tableau dans l'ordre d'entrée ; chaque objet a exactement request_id, queue (routes[kind]) et priority entière (priorities[urgency])."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-bbf1ab"
+            }
+          },
+          "observation_id": "obs-c3-fr-3",
+          "source_id": "contract-a76453a4c",
+          "text": "Remplace la version précédente. qc0e18ac1e : contrat de routage approuvé {\"priorities\":{\"normal\":46,\"urgent\":19},\"routes\":{\"kind-4ea0\":\"lane-38eebf\",\"kind-a7d6\":\"lane-abdd80\",\"kind-f0b0\":\"lane-35f889\"}}. Produire un tableau dans l'ordre d'entrée ; chaque objet a exactement request_id, queue (routes[kind]) et priority entière (priorities[urgency])."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "orders.json": {
+            "base64": "W3sicHJpb3JpdHkiOjE5LCJxdWV1ZSI6ImxhbmUtMzhlZWJmIiwicmVxdWVzdF9pZCI6InJlcS00ZDUxNiJ9LHsicHJpb3JpdHkiOjQ2LCJxdWV1ZSI6ImxhbmUtMzVmODg5IiwicmVxdWVzdF9pZCI6InJlcS0zZGU1ZiJ9XQo=",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "priority": 19,
+                  "queue": "lane-38eebf",
+                  "request_id": "req-4d516"
+                },
+                {
+                  "priority": 46,
+                  "queue": "lane-35f889",
+                  "request_id": "req-3de5f"
+                }
+              ]
+            },
+            "sha256": "c8b94b8008c6003e31e7fcbc2c1f4a8abaa88c56ccba6dace2024c0705c04253"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 7696348326174998976,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "orders.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Router data.requests dans orders.json avec le contrat courant. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-bbf1ab"
+        },
+        "data": {
+          "requests": [
+            {
+              "kind": "kind-4ea0",
+              "request_id": "req-4d516",
+              "urgency": "urgent"
+            },
+            {
+              "kind": "kind-f0b0",
+              "request_id": "req-3de5f",
+              "urgency": "normal"
+            }
+          ]
+        },
+        "query": "qc0e18ac1e",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "orders.json": "contract-a76453a4c"
+        }
+      },
+      "template_id": "AT-C3",
+      "workspace": "ws-c9b4fa5c12",
+      "world_id": "AT-C3-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": "obs-c3-en-3",
+        "source_id": "contract-d4bf7c133",
+        "status": "active"
+      },
+      "events": [
+        {
+          "event_id": "event-c3-en-1",
+          "observation_id": "obs-c3-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-c3-en-2",
+          "observation_id": "obs-c3-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-c3-en-3",
+          "observation_id": "obs-c3-en-3",
+          "op": "put",
+          "seq": 3
+        }
+      ],
+      "family": "correction",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-a605d2-other"
+            }
+          },
+          "observation_id": "obs-c3-en-1",
+          "source_id": "note-7dbe4c779",
+          "text": "qec098dc51: note for a different project only; inapplicable output code = lane-54ca90."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-a605d2"
+            }
+          },
+          "observation_id": "obs-c3-en-2",
+          "source_id": "contract-d4bf7c133",
+          "text": "qec098dc51: approved routing contract {\"priorities\":{\"normal\":53,\"urgent\":97},\"routes\":{\"kind-44bb\":\"lane-ff6435\",\"kind-c0d9\":\"lane-d7d0a8\",\"kind-e6cd\":\"lane-9329cd\"}}. Emit an array in input order; each object has exactly request_id, queue (routes[kind]) and integer priority (priorities[urgency])."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-a605d2"
+            }
+          },
+          "observation_id": "obs-c3-en-3",
+          "source_id": "contract-d4bf7c133",
+          "text": "Supersedes the prior version. qec098dc51: approved routing contract {\"priorities\":{\"normal\":53,\"urgent\":24},\"routes\":{\"kind-44bb\":\"lane-ff6435\",\"kind-c0d9\":\"lane-ae8391\",\"kind-e6cd\":\"lane-9329cd\"}}. Emit an array in input order; each object has exactly request_id, queue (routes[kind]) and integer priority (priorities[urgency])."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "orders.json": {
+            "base64": "W3sicHJpb3JpdHkiOjI0LCJxdWV1ZSI6ImxhbmUtYWU4MzkxIiwicmVxdWVzdF9pZCI6InJlcS03NWRhNCJ9LHsicHJpb3JpdHkiOjUzLCJxdWV1ZSI6ImxhbmUtOTMyOWNkIiwicmVxdWVzdF9pZCI6InJlcS04ODU1ZSJ9XQo=",
+            "format": {
+              "kind": "json",
+              "value": [
+                {
+                  "priority": 24,
+                  "queue": "lane-ae8391",
+                  "request_id": "req-75da4"
+                },
+                {
+                  "priority": 53,
+                  "queue": "lane-9329cd",
+                  "request_id": "req-8855e"
+                }
+              ]
+            },
+            "sha256": "fa8c59a7b5f98de9755a8f803b98476952968b9454ee48ef0c033a8c63d8303e"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 13153177248308229271,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "orders.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Route data.requests into orders.json with the current contract. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-a605d2"
+        },
+        "data": {
+          "requests": [
+            {
+              "kind": "kind-c0d9",
+              "request_id": "req-75da4",
+              "urgency": "urgent"
+            },
+            {
+              "kind": "kind-e6cd",
+              "request_id": "req-8855e",
+              "urgency": "normal"
+            }
+          ]
+        },
+        "query": "qec098dc51",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "orders.json": "contract-d4bf7c133"
+        }
+      },
+      "template_id": "AT-C3",
+      "workspace": "ws-9cdf870530",
+      "world_id": "AT-C3-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-59e1aa1b9",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r1-fr-1",
+          "observation_id": "obs-r1-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r1-fr-2",
+          "observation_id": "obs-r1-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r1-fr-3",
+          "op": "revoke",
+          "seq": 3,
+          "source_id": "contract-59e1aa1b9"
+        }
+      ],
+      "family": "revocation",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-920b91-other"
+            }
+          },
+          "observation_id": "obs-r1-fr-1",
+          "source_id": "note-c82b38985",
+          "text": "q9d5b0ebff : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-f03aea."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-920b91"
+            }
+          },
+          "observation_id": "obs-r1-fr-2",
+          "source_id": "contract-59e1aa1b9",
+          "text": "q9d5b0ebff : contrat CSV approuvé. Correspondance champ=>colonne : item_id=>id_dd6, label=>label_a07, quantity=>qty_790. Ordre des colonnes ci-dessus ; ordre des lignes d'entrée. Délimiteur \";\", encodage utf-8-sig, fins de ligne CRLF, guillemets CSV doubles. Chaque quantité entière devient une chaîne décimale ; aucune colonne ajoutée."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "export.csv": "58d4ef06b351e33e79ae990debed4a01a9f8b4813d08d767a0150d05c33e8441"
+        }
+      },
+      "parameter_seed": 13255362420796389606,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Exporter data.rows dans export.csv selon le contrat courant, s'il est disponible. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-920b91"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-84e1",
+              "label": "éclat;|fin",
+              "quantity": 8
+            },
+            {
+              "item_id": "item-3d6e",
+              "label": "voix \"douce\"",
+              "quantity": 12
+            },
+            {
+              "item_id": "item-aa2b",
+              "label": "ligne\nsuivante",
+              "quantity": 23
+            }
+          ]
+        },
+        "query": "q9d5b0ebff",
+        "seed_files": {
+          "export.csv": {
+            "base64": "cHJlc2VydmUtMmMxNjFkOWYwZQ0K",
+            "sha256": "58d4ef06b351e33e79ae990debed4a01a9f8b4813d08d767a0150d05c33e8441"
+          }
+        },
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-59e1aa1b9"
+        }
+      },
+      "template_id": "AT-R1",
+      "workspace": "ws-6b8e90fd6d",
+      "world_id": "AT-R1-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-fc6f943ba",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r1-en-1",
+          "observation_id": "obs-r1-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r1-en-2",
+          "observation_id": "obs-r1-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r1-en-3",
+          "op": "revoke",
+          "seq": 3,
+          "source_id": "contract-fc6f943ba"
+        }
+      ],
+      "family": "revocation",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-409042-other"
+            }
+          },
+          "observation_id": "obs-r1-en-1",
+          "source_id": "note-f5cd8be29",
+          "text": "qeb65ec28c: note for a different project only; inapplicable output code = lane-8fec5a."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-409042"
+            }
+          },
+          "observation_id": "obs-r1-en-2",
+          "source_id": "contract-fc6f943ba",
+          "text": "qeb65ec28c: approved CSV contract. Field=>column mapping: item_id=>id_d91, label=>label_65b, quantity=>qty_af9. Use that column order and input row order. Delimiter \"|\", encoding utf-8-sig, CRLF, doubled CSV quotes. Render integer quantities as decimal strings; add no columns."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "export.csv": "c0915b313d0eb00da94f8ce8c6f2d2571df94ce4e69831eb87c52515d01d67fe"
+        }
+      },
+      "parameter_seed": 5020233545915786881,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Export data.rows into export.csv under the current contract, if available. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-409042"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-fab4",
+              "label": "éclat;|fin",
+              "quantity": 6
+            },
+            {
+              "item_id": "item-4456",
+              "label": "voix \"douce\"",
+              "quantity": 12
+            },
+            {
+              "item_id": "item-5006",
+              "label": "ligne\nsuivante",
+              "quantity": 24
+            }
+          ]
+        },
+        "query": "qeb65ec28c",
+        "seed_files": {
+          "export.csv": {
+            "base64": "cHJlc2VydmUtODJhNGFmZjJlYg0K",
+            "sha256": "c0915b313d0eb00da94f8ce8c6f2d2571df94ce4e69831eb87c52515d01d67fe"
+          }
+        },
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": "contract-fc6f943ba"
+        }
+      },
+      "template_id": "AT-R1",
+      "workspace": "ws-a1e27c7351",
+      "world_id": "AT-R1-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-ce1f44052",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r2-fr-1",
+          "observation_id": "obs-r2-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r2-fr-2",
+          "observation_id": "obs-r2-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r2-fr-3",
+          "op": "revoke",
+          "seq": 3,
+          "source_id": "contract-ce1f44052"
+        }
+      ],
+      "family": "revocation",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-1240d8-other"
+            }
+          },
+          "observation_id": "obs-r2-fr-1",
+          "source_id": "note-86c0bc8ca",
+          "text": "qdad06b91f : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-031971."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-1240d8"
+            }
+          },
+          "observation_id": "obs-r2-fr-2",
+          "source_id": "contract-ce1f44052",
+          "text": "qdad06b91f : contrat de fusion approuvé. Clé composée (project_id,item_id). Conserver la plus grande revision entière ; égalité conflictuelle : suspendre. Préserver les autres champs et objets. Sortie : tableau trié par (project_id,item_id) dans l'ordre croissant."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "catalog.json": "9338bd9442bff0edcc98f9a807e8b8cb6c17b044d17a51cbd8af1599ae3a5683"
+        }
+      },
+      "parameter_seed": 3994338045911844202,
+      "task": {
+        "allowed_targets": [
+          "catalog.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Fusionner data.incoming dans catalog.json selon le contrat courant, s'il est disponible. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-1240d8"
+        },
+        "data": {
+          "incoming": [
+            {
+              "item_id": "i-d8c0a",
+              "label": "new-cf45fe",
+              "project_id": "project-1240d8",
+              "revision": 8
+            },
+            {
+              "item_id": "i-ea060",
+              "label": "add-3f0718",
+              "project_id": "project-1240d8",
+              "revision": 2
+            }
+          ]
+        },
+        "query": "qdad06b91f",
+        "seed_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktZDhjMGEiLCJsYWJlbCI6Im9sZC1hZjQwN2QiLCJwcm9qZWN0X2lkIjoicHJvamVjdC0xMjQwZDgiLCJyZXZpc2lvbiI6M30seyJpdGVtX2lkIjoiaS1kOGMwYSIsImxhYmVsIjoia2VlcC1jNTg3NjIiLCJwcm9qZWN0X2lkIjoicHJvamVjdC0xMjQwZDgtZm9yZWlnbiIsInJldmlzaW9uIjo3OX1dCg==",
+            "sha256": "9338bd9442bff0edcc98f9a807e8b8cb6c17b044d17a51cbd8af1599ae3a5683"
+          }
+        },
+        "target_dependencies": {
+          "catalog.json": "contract-ce1f44052",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-R2",
+      "workspace": "ws-1a52a0f800",
+      "world_id": "AT-R2-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-6884a7b7b",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r2-en-1",
+          "observation_id": "obs-r2-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r2-en-2",
+          "observation_id": "obs-r2-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r2-en-3",
+          "op": "revoke",
+          "seq": 3,
+          "source_id": "contract-6884a7b7b"
+        }
+      ],
+      "family": "revocation",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-9020a9-other"
+            }
+          },
+          "observation_id": "obs-r2-en-1",
+          "source_id": "note-b33c9b02b",
+          "text": "q8b7c0312b: note for a different project only; inapplicable output code = lane-efc791."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-9020a9"
+            }
+          },
+          "observation_id": "obs-r2-en-2",
+          "source_id": "contract-6884a7b7b",
+          "text": "q8b7c0312b: approved merge contract. Composite key (project_id,item_id). Keep the highest integer revision; conflicting equal revisions: hold. Preserve unrelated fields and objects. Output an array sorted by (project_id,item_id) in descending order."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "catalog.json": "e14cec17031190fffc6922598516527379a073f9c2a04bdd58228d3938c9e30c"
+        }
+      },
+      "parameter_seed": 7356362694502522878,
+      "task": {
+        "allowed_targets": [
+          "catalog.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Merge data.incoming into catalog.json under the current contract, if available. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-9020a9"
+        },
+        "data": {
+          "incoming": [
+            {
+              "item_id": "i-cede6",
+              "label": "new-82c552",
+              "project_id": "project-9020a9",
+              "revision": 8
+            },
+            {
+              "item_id": "i-ac349",
+              "label": "add-f99155",
+              "project_id": "project-9020a9",
+              "revision": 2
+            }
+          ]
+        },
+        "query": "q8b7c0312b",
+        "seed_files": {
+          "catalog.json": {
+            "base64": "W3siaXRlbV9pZCI6ImktY2VkZTYiLCJsYWJlbCI6Im9sZC1hOWYxMWUiLCJwcm9qZWN0X2lkIjoicHJvamVjdC05MDIwYTkiLCJyZXZpc2lvbiI6M30seyJpdGVtX2lkIjoiaS1jZWRlNiIsImxhYmVsIjoia2VlcC1lMmE2YTMiLCJwcm9qZWN0X2lkIjoicHJvamVjdC05MDIwYTktZm9yZWlnbiIsInJldmlzaW9uIjo3OX1dCg==",
+            "sha256": "e14cec17031190fffc6922598516527379a073f9c2a04bdd58228d3938c9e30c"
+          }
+        },
+        "target_dependencies": {
+          "catalog.json": "contract-6884a7b7b",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-R2",
+      "workspace": "ws-7d9a92bd39",
+      "world_id": "AT-R2-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-0b4bb01a9",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r3-fr-1",
+          "observation_id": "obs-r3-fr-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r3-fr-2",
+          "observation_id": "obs-r3-fr-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r3-fr-3",
+          "op": "snapshot",
+          "seq": 3,
+          "snapshot_id": "snapshot-29e7472a6"
+        },
+        {
+          "event_id": "event-r3-fr-4",
+          "op": "revoke",
+          "seq": 4,
+          "source_id": "contract-0b4bb01a9"
+        },
+        {
+          "event_id": "event-r3-fr-5",
+          "op": "restore",
+          "seq": 5,
+          "snapshot_id": "snapshot-29e7472a6"
+        }
+      ],
+      "family": "revocation",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-212eb8-other"
+            }
+          },
+          "observation_id": "obs-r3-fr-1",
+          "source_id": "note-fdb7bcd3f",
+          "text": "q9a40ffef5 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-4bba3d."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-212eb8"
+            }
+          },
+          "observation_id": "obs-r3-fr-2",
+          "source_id": "contract-0b4bb01a9",
+          "text": "q9a40ffef5 : contrat de rétention approuvé {\"audit\":516,\"test\":64} heures. Pour record_kind=test, remplacer seulement retention_hours par l'entier du contrat ; préserver tous les autres champs de config.json."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "config.json": "44329128deb22f0d7de07ba49ae8ef052ce162f71dc6a0fb1f391b4a3947ea31"
+        }
+      },
+      "parameter_seed": 13798362446865217008,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Mettre à jour config.json selon le contrat courant, s'il est disponible. Si le contrat courant applicable manque, ne pas modifier le fichier métier ; écrire decision.json avec exactement {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Dans tous les cas, réaliser le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-212eb8"
+        },
+        "data": {
+          "record_kind": "test"
+        },
+        "query": "q9a40ffef5",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTE2LCJsYWJlbCI6ImNmZy0yYjk0NmIyIiwicmV0ZW50aW9uX2hvdXJzIjoyNDN9Cg==",
+            "sha256": "44329128deb22f0d7de07ba49ae8ef052ce162f71dc6a0fb1f391b4a3947ea31"
+          }
+        },
+        "target_dependencies": {
+          "config.json": "contract-0b4bb01a9",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-R3",
+      "workspace": "ws-72b7b2b6d0",
+      "world_id": "AT-R3-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": "contract-f166609fc",
+        "status": "withdrawn"
+      },
+      "events": [
+        {
+          "event_id": "event-r3-en-1",
+          "observation_id": "obs-r3-en-1",
+          "op": "put",
+          "seq": 1
+        },
+        {
+          "event_id": "event-r3-en-2",
+          "observation_id": "obs-r3-en-2",
+          "op": "put",
+          "seq": 2
+        },
+        {
+          "event_id": "event-r3-en-3",
+          "op": "snapshot",
+          "seq": 3,
+          "snapshot_id": "snapshot-7f31011d7"
+        },
+        {
+          "event_id": "event-r3-en-4",
+          "op": "revoke",
+          "seq": 4,
+          "source_id": "contract-f166609fc"
+        },
+        {
+          "event_id": "event-r3-en-5",
+          "op": "restore",
+          "seq": 5,
+          "snapshot_id": "snapshot-7f31011d7"
+        }
+      ],
+      "family": "revocation",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-49680b-other"
+            }
+          },
+          "observation_id": "obs-r3-en-1",
+          "source_id": "note-a1f389974",
+          "text": "q98740c8d0: note for a different project only; inapplicable output code = lane-bfda2d."
+        },
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-49680b"
+            }
+          },
+          "observation_id": "obs-r3-en-2",
+          "source_id": "contract-f166609fc",
+          "text": "q98740c8d0: approved retention contract {\"audit\":566,\"test\":51} hours. For record_kind=test, replace only retention_hours with the contract integer; preserve every other config.json field."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "decision.json": {
+            "base64": "eyJyZWFzb24iOiJtaXNzaW5nX2N1cnJlbnRfY29udHJhY3QiLCJzdGF0dXMiOiJoZWxkIn0K",
+            "format": {
+              "kind": "json",
+              "value": {
+                "reason": "missing_current_contract",
+                "status": "held"
+              }
+            },
+            "sha256": "eca90d498711a2df1cfa114a25919966b71c7837bff2bcd23bd7fd1d09313f22"
+          }
+        },
+        "unchanged_files": {
+          "config.json": "b0af6a80c6bbc8f42f671bd65f50f999a7eabe93754aa800603b2d45bc333e54"
+        }
+      },
+      "parameter_seed": 3823854850741700349,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Update config.json under the current contract, if available. If the applicable current contract is missing, do not modify the business file; write decision.json with exactly {\"status\":\"held\",\"reason\":\"missing_current_contract\"}. Always perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-49680b"
+        },
+        "data": {
+          "record_kind": "test"
+        },
+        "query": "q98740c8d0",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJhdWRpdF9ob3VycyI6NTY2LCJsYWJlbCI6ImNmZy0wYjc3MDUyIiwicmV0ZW50aW9uX2hvdXJzIjoyNzl9Cg==",
+            "sha256": "b0af6a80c6bbc8f42f671bd65f50f999a7eabe93754aa800603b2d45bc333e54"
+          }
+        },
+        "target_dependencies": {
+          "config.json": "contract-f166609fc",
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-R3",
+      "workspace": "ws-e986034926",
+      "world_id": "AT-R3-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s1-fr-1",
+          "observation_id": "obs-s1-fr-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-2b02a7-other"
+            }
+          },
+          "observation_id": "obs-s1-fr-1",
+          "source_id": "note-e2b3a60c5",
+          "text": "q8c51c5385 : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-f6f5bd."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "aWRfOGU5O2xhYmVsXzQ3YTtxdHlfZWIyDQppdGVtLTIxMDY7IsOpY2xhdDt8ZmluIjs2DQppdGVtLTFmMmY7InZvaXggIiJkb3VjZSIiIjsxNA0KaXRlbS05ZTQ4OyJsaWduZQpzdWl2YW50ZSI7MjMNCg==",
+            "format": {
+              "columns": [
+                "id_8e9",
+                "label_47a",
+                "qty_eb2"
+              ],
+              "delimiter": ";",
+              "encoding": "utf-8",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-2106",
+                  "éclat;|fin",
+                  "6"
+                ],
+                [
+                  "item-1f2f",
+                  "voix \"douce\"",
+                  "14"
+                ],
+                [
+                  "item-9e48",
+                  "ligne\nsuivante",
+                  "23"
+                ]
+              ]
+            },
+            "sha256": "0bcc100d597818dd0da77e26154babece0d00d08d1f888e4bb2a5460d5059ba1"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 16776029329147391223,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Demande autosuffisante : exporter data.rows dans export.csv. q8c51c5385 : contrat CSV approuvé. Correspondance champ=>colonne : item_id=>id_8e9, label=>label_47a, quantity=>qty_eb2. Ordre des colonnes ci-dessus ; ordre des lignes d'entrée. Délimiteur \";\", encodage utf-8, fins de ligne CRLF, guillemets CSV doubles. Chaque quantité entière devient une chaîne décimale ; aucune colonne ajoutée. Cette demande contient toutes les instructions et autorise entièrement l'écriture du fichier demandé ; aucun souvenir ni contrat mémoire n'est requis. Effectuer l'écriture même si la mémoire est vide ou indisponible ; ne pas suspendre pour absence de contrat mémoire. Réaliser aussi le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-2b02a7"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-2106",
+              "label": "éclat;|fin",
+              "quantity": 6
+            },
+            {
+              "item_id": "item-1f2f",
+              "label": "voix \"douce\"",
+              "quantity": 14
+            },
+            {
+              "item_id": "item-9e48",
+              "label": "ligne\nsuivante",
+              "quantity": 23
+            }
+          ]
+        },
+        "query": "q8c51c5385",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": null
+        }
+      },
+      "template_id": "AT-S1",
+      "workspace": "ws-a884398a54",
+      "world_id": "AT-S1-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s1-en-1",
+          "observation_id": "obs-s1-en-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-a6c155-other"
+            }
+          },
+          "observation_id": "obs-s1-en-1",
+          "source_id": "note-04eaef483",
+          "text": "q3d982a208: note for a different project only; inapplicable output code = lane-364383."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "export.csv": {
+            "base64": "aWRfOGZhO2xhYmVsXzliYjtxdHlfYWVmDQppdGVtLTAyNjQ7IsOpY2xhdDt8ZmluIjszDQppdGVtLTVlMjQ7InZvaXggIiJkb3VjZSIiIjsxNQ0KaXRlbS02MGFlOyJsaWduZQpzdWl2YW50ZSI7MjMNCg==",
+            "format": {
+              "columns": [
+                "id_8fa",
+                "label_9bb",
+                "qty_aef"
+              ],
+              "delimiter": ";",
+              "encoding": "utf-8",
+              "kind": "csv",
+              "rows": [
+                [
+                  "item-0264",
+                  "éclat;|fin",
+                  "3"
+                ],
+                [
+                  "item-5e24",
+                  "voix \"douce\"",
+                  "15"
+                ],
+                [
+                  "item-60ae",
+                  "ligne\nsuivante",
+                  "23"
+                ]
+              ]
+            },
+            "sha256": "4b174d976ce9c3fc100eab99198a41a86b417820796b71b6ea71b3677fe7caf3"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 12389475320837607819,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "export.csv"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Self-contained request: export data.rows into export.csv. q3d982a208: approved CSV contract. Field=>column mapping: item_id=>id_8fa, label=>label_9bb, quantity=>qty_aef. Use that column order and input row order. Delimiter \";\", encoding utf-8, CRLF, doubled CSV quotes. Render integer quantities as decimal strings; add no columns. This request supplies every instruction and fully authorizes the requested file write; no memory evidence or memory contract is required. Perform the write even if memory is empty or unavailable; do not hold for a missing memory contract. Also perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-a6c155"
+        },
+        "data": {
+          "rows": [
+            {
+              "item_id": "item-0264",
+              "label": "éclat;|fin",
+              "quantity": 3
+            },
+            {
+              "item_id": "item-5e24",
+              "label": "voix \"douce\"",
+              "quantity": 15
+            },
+            {
+              "item_id": "item-60ae",
+              "label": "ligne\nsuivante",
+              "quantity": 23
+            }
+          ]
+        },
+        "query": "q3d982a208",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "export.csv": null
+        }
+      },
+      "template_id": "AT-S1",
+      "workspace": "ws-14b13f3fc1",
+      "world_id": "AT-S1-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s2-fr-1",
+          "observation_id": "obs-s2-fr-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-510a93-other"
+            }
+          },
+          "observation_id": "obs-s2-fr-1",
+          "source_id": "note-04d8b333a",
+          "text": "q230a952fd : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-0f948d."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "config.json": {
+            "base64": "eyJkdXJhdGlvbl9ob3VycyI6NjMsImVuYWJsZWQiOnRydWUsIm93bmVyIjoib3duZXItNWU4OWE3IiwidGFnIjoidGFnLWRkYTMwOTMifQo=",
+            "format": {
+              "kind": "json",
+              "value": {
+                "duration_hours": 63,
+                "enabled": true,
+                "owner": "owner-5e89a7",
+                "tag": "tag-dda3093"
+              }
+            },
+            "sha256": "062bb2f5fb8519600ebe1eb5ca13932896128355766e36282d0496d1900292d3"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 4062057996693212650,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Demande autosuffisante : remplacer dans config.json seulement les champs présents dans data.changes, en conservant leurs types et tous les autres champs. Cette demande contient toutes les instructions et autorise entièrement l'écriture du fichier demandé ; aucun souvenir ni contrat mémoire n'est requis. Effectuer l'écriture même si la mémoire est vide ou indisponible ; ne pas suspendre pour absence de contrat mémoire. Réaliser aussi le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-510a93"
+        },
+        "data": {
+          "changes": {
+            "duration_hours": 63,
+            "enabled": true,
+            "tag": "tag-dda3093"
+          }
+        },
+        "query": "q230a952fd",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJkdXJhdGlvbl9ob3VycyI6MTA4LCJlbmFibGVkIjpmYWxzZSwib3duZXIiOiJvd25lci01ZTg5YTciLCJ0YWciOiJpbml0aWFsLTVkYmMzIn0K",
+            "sha256": "51923bdd15c0e8ec2d16b9158766ce27e0fdf04577ef29e53f7d3a06d10f7efe"
+          }
+        },
+        "target_dependencies": {
+          "config.json": null,
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-S2",
+      "workspace": "ws-2f15d86ef9",
+      "world_id": "AT-S2-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s2-en-1",
+          "observation_id": "obs-s2-en-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-efc5e4-other"
+            }
+          },
+          "observation_id": "obs-s2-en-1",
+          "source_id": "note-0bdff0951",
+          "text": "qe878e96da: note for a different project only; inapplicable output code = lane-76fa0f."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "config.json": {
+            "base64": "eyJkdXJhdGlvbl9ob3VycyI6MzMsImVuYWJsZWQiOnRydWUsIm93bmVyIjoib3duZXItNjJmYTIwIiwidGFnIjoidGFnLTMwNTI0MDcifQo=",
+            "format": {
+              "kind": "json",
+              "value": {
+                "duration_hours": 33,
+                "enabled": true,
+                "owner": "owner-62fa20",
+                "tag": "tag-3052407"
+              }
+            },
+            "sha256": "4c5e042dbdd4e93699903bf7cf522a1b57618308ba61a591dae0f590e947fcbe"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 5466508250842254482,
+      "task": {
+        "allowed_targets": [
+          "config.json",
+          "control.json",
+          "decision.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Self-contained request: replace only fields present in data.changes inside config.json, preserving their types and every unrelated field. This request supplies every instruction and fully authorizes the requested file write; no memory evidence or memory contract is required. Perform the write even if memory is empty or unavailable; do not hold for a missing memory contract. Also perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-efc5e4"
+        },
+        "data": {
+          "changes": {
+            "duration_hours": 33,
+            "enabled": true,
+            "tag": "tag-3052407"
+          }
+        },
+        "query": "qe878e96da",
+        "seed_files": {
+          "config.json": {
+            "base64": "eyJkdXJhdGlvbl9ob3VycyI6MTU5LCJlbmFibGVkIjpmYWxzZSwib3duZXIiOiJvd25lci02MmZhMjAiLCJ0YWciOiJpbml0aWFsLWQ2NjU5In0K",
+            "sha256": "2e0b30ff7945d3f26af6535b82149fb094106be135937c34220c6cfeaf2c17a8"
+          }
+        },
+        "target_dependencies": {
+          "config.json": null,
+          "control.json": null,
+          "decision.json": null
+        }
+      },
+      "template_id": "AT-S2",
+      "workspace": "ws-3b3c95bd4b",
+      "world_id": "AT-S2-EN"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s3-fr-1",
+          "observation_id": "obs-s3-fr-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "FR",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-b608db-other"
+            }
+          },
+          "observation_id": "obs-s3-fr-1",
+          "source_id": "note-42f5a17de",
+          "text": "qbccf73c1c : note applicable uniquement à un autre projet ; code de sortie interdit pour ce projet = lane-728a8b."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "terms.json": {
+            "base64": "eyJlbiI6eyJoYW5kb2ZmIjoicmVsYXktMjU1NTEiLCJ3b3Jrc3BhY2UiOiJ3b3Jrc2hvcC0zZWM3ZiJ9LCJmciI6eyJoYW5kb2ZmIjoicmVsYWlzLTBjNmM5Iiwid29ya3NwYWNlIjoiYXRlbGllci0wNjZiZSJ9fQo=",
+            "format": {
+              "kind": "json",
+              "value": {
+                "en": {
+                  "handoff": "relay-25551",
+                  "workspace": "workshop-3ec7f"
+                },
+                "fr": {
+                  "handoff": "relais-0c6c9",
+                  "workspace": "atelier-066be"
+                }
+              }
+            },
+            "sha256": "eebdd8573bfe9525c92706f0b10fcbc2e5ebe7d6ef799897616f9c4b2e71523f"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 8614052256385448433,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "terms.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Demande autosuffisante : écrire exactement l'objet data.terms dans terms.json, sans ajouter de terme ni traduction. Cette demande contient toutes les instructions et autorise entièrement l'écriture du fichier demandé ; aucun souvenir ni contrat mémoire n'est requis. Effectuer l'écriture même si la mémoire est vide ou indisponible ; ne pas suspendre pour absence de contrat mémoire. Réaliser aussi le contrôle autosuffisant : control.json contient exactement {\"cell_id\":CELL_ID_FOURNI_PAR_LE_PLAN,\"completed\":true}. Proposer un unique objet JSON artifact-actions-v1 ; deux écritures maximum.",
+        "conditions": {
+          "approved": true,
+          "project": "project-b608db"
+        },
+        "data": {
+          "terms": {
+            "en": {
+              "handoff": "relay-25551",
+              "workspace": "workshop-3ec7f"
+            },
+            "fr": {
+              "handoff": "relais-0c6c9",
+              "workspace": "atelier-066be"
+            }
+          }
+        },
+        "query": "qbccf73c1c",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "terms.json": null
+        }
+      },
+      "template_id": "AT-S3",
+      "workspace": "ws-4436e99f28",
+      "world_id": "AT-S3-FR"
+    },
+    {
+      "current_contract": {
+        "observation_id": null,
+        "source_id": null,
+        "status": "absent"
+      },
+      "events": [
+        {
+          "event_id": "event-s3-en-1",
+          "observation_id": "obs-s3-en-1",
+          "op": "put",
+          "seq": 1
+        }
+      ],
+      "family": "selfcontained",
+      "language": "EN",
+      "observations": [
+        {
+          "metadata": {
+            "evidence_kind": "procedure",
+            "observed_at": "2026-10-23T00:00:00Z",
+            "preconditions": {
+              "approved": true,
+              "project": "project-2b94e1-other"
+            }
+          },
+          "observation_id": "obs-s3-en-1",
+          "source_id": "note-030a4dc3c",
+          "text": "qf4ccb9c40: note for a different project only; inapplicable output code = lane-7be318."
+        }
+      ],
+      "oracle": {
+        "control": {
+          "kind": "cell-control-v1",
+          "target": "control.json"
+        },
+        "expected_files": {
+          "terms.json": {
+            "base64": "eyJlbiI6eyJoYW5kb2ZmIjoicmVsYXktNzc1YWQiLCJ3b3Jrc3BhY2UiOiJ3b3Jrc2hvcC00MDYyZSJ9LCJmciI6eyJoYW5kb2ZmIjoicmVsYWlzLWIwMzcxIiwid29ya3NwYWNlIjoiYXRlbGllci0xNzYzYyJ9fQo=",
+            "format": {
+              "kind": "json",
+              "value": {
+                "en": {
+                  "handoff": "relay-775ad",
+                  "workspace": "workshop-4062e"
+                },
+                "fr": {
+                  "handoff": "relais-b0371",
+                  "workspace": "atelier-1763c"
+                }
+              }
+            },
+            "sha256": "1f0fab6785c15268abe09a05dae3d7b249748406be229cb52c4f9f1969fb426a"
+          }
+        },
+        "unchanged_files": {}
+      },
+      "parameter_seed": 12984217308932579084,
+      "task": {
+        "allowed_targets": [
+          "control.json",
+          "decision.json",
+          "terms.json"
+        ],
+        "as_of": "2026-10-23T00:00:00Z",
+        "brief": "Self-contained request: write exactly data.terms into terms.json, without adding terms or translations. This request supplies every instruction and fully authorizes the requested file write; no memory evidence or memory contract is required. Perform the write even if memory is empty or unavailable; do not hold for a missing memory contract. Also perform the self-contained control: control.json contains exactly {\"cell_id\":CELL_ID_SUPPLIED_BY_THE_PLAN,\"completed\":true}. Propose one artifact-actions-v1 JSON object; at most two writes.",
+        "conditions": {
+          "approved": true,
+          "project": "project-2b94e1"
+        },
+        "data": {
+          "terms": {
+            "en": {
+              "handoff": "relay-775ad",
+              "workspace": "workshop-4062e"
+            },
+            "fr": {
+              "handoff": "relais-b0371",
+              "workspace": "atelier-1763c"
+            }
+          }
+        },
+        "query": "qf4ccb9c40",
+        "seed_files": {},
+        "target_dependencies": {
+          "control.json": null,
+          "decision.json": null,
+          "terms.json": null
+        }
+      },
+      "template_id": "AT-S3",
+      "workspace": "ws-49d5cff60a",
+      "world_id": "AT-S3-EN"
+    }
+  ]
+}
