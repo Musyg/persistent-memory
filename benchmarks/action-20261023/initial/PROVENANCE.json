@@ -1,0 +1,27 @@
+{
+  "actual_calls": 576,
+  "analysis_cli_sha256": "174d39f618bbff21fb052fe3d2f2812d527364aecbdf964c6ff004c0de0a4003",
+  "analysis_source_commit": "b96bba9f043376ab313e8a91ed6ebc6f46e20bf8",
+  "cost_scope": "Generation usage estimate in RESULT, reservation is an upper bound, invoice and full operating costs unknown.",
+  "dataset_sha256": "0313a0c2e237d2220cecac6094fb68b9885810680fcea942af9f84dd20da6c88",
+  "historical_cli_sha256": "8159c7135c76848bb518680b42897eb993f0ad07fdf09af3d067dd7ca0776a82",
+  "historical_source_commit": "a67c611fbabc75f31a87bc2c834740dd51414080",
+  "historical_support_sha256": "d03206379d8cb491ac19a254712538e2a0fda9f6cc5429347c275274efe9c351",
+  "model_task_successes": 45,
+  "observations_sha256": "28d14498adce39ef47c67833e17e8444061b28af24e436632012ff85bd1a8808",
+  "offline_registry_attestation": {
+    "fresh_verifier_callbacks": 576,
+    "full_operating_cost_known": false,
+    "original_files_unchanged": 12802,
+    "partitions": 24,
+    "quality_labels_unchanged": true,
+    "runtime_activated": false
+  },
+  "plan_sha256": "3a4f2d213ad20596c0810009cf022e530ca71ee7392af9a1dec6655374998c31",
+  "report_sha256": "457ebcc7bdfd7d0fca3c566f3736297e9a89a49ff9d030f2370e183ba839fb6f",
+  "retrospective_interface_diagnosis_not_a_regrade": true,
+  "schema": "persistent-memory.action-study.provenance.v1",
+  "site_changed": false,
+  "synthetic_data_only": true,
+  "unknown_results": 0
+}

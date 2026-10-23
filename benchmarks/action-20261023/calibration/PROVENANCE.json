@@ -1,0 +1,22 @@
+{
+  "business_successes": 47,
+  "fixture_sha256": "0313a0c2e237d2220cecac6094fb68b9885810680fcea942af9f84dd20da6c88",
+  "known_data_not_independent_benefit_evidence": true,
+  "layout_rows": 576,
+  "not_selected_rows": 528,
+  "observations_sha256": "b46d5c9f48e12598aaf4195b6d8ffcf5fb1a9c05dfe93126683c89ea67ab8fea",
+  "original_and_calibration_results_excluded_from_fresh_performance_estimate": true,
+  "plan_sha256": "3a4f2d213ad20596c0810009cf022e530ca71ee7392af9a1dec6655374998c31",
+  "readiness_gate": 48,
+  "readiness_passed": false,
+  "schema": "persistent-memory.action-calibration.provenance.v1",
+  "selected_calls": 48,
+  "selected_rule": {
+    "all_worlds_and_models": true,
+    "arm": "memory_on",
+    "repetition": 1
+  },
+  "sole_failure": "AT-P3-EN-L6-R1-ON: ascending merge order instead of required descending order.",
+  "source_commit": "b96bba9f043376ab313e8a91ed6ebc6f46e20bf8",
+  "support_sha256": "74138918d82aa405261e60d1e7a258bbbc4e2dec6c629c7017ef8e381c35d9e4"
+}
