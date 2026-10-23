@@ -2,7 +2,7 @@
 
 Persistent Memory contains two independently installable Python packages: the memory core described here and an [optional policy registry](PACKAGES.md). The technical package names remain `hermes-memory-core` and `hermes-policy-registry`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](PACKAGES.md).
 
-[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md)
+[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md) · [Testing and reproducibility](docs/TESTING.md)
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
@@ -113,4 +113,4 @@ The [artifact action study](benchmarks/action-20261023/README.md) verifies CSV/J
 
 The [core optimization study](benchmarks/efficiency-20261023/core-optimization-20261023/README.md) measures the same 1,000-source workload before and after a small serialization change. Instrumented workload time fell by 28.01% and 27.68% on two Linux hosts, with identical checked outcomes and storage size. Eight real process-kill trajectories also passed. These are single observations per host, not a production latency or general scaling guarantee.
 
-The [learned-experience study](benchmarks/action-20261023/experience/README.md) executes A, extracts a lesson from its real outcome, then applies it to a different B task in a fresh process. Across 288 calls, Luna succeeded on 22/24 B tasks with the derived lesson, versus 13/24 with the complete trace and 7/24 without experience. Sol scored 24/24 with either the lesson or trace, versus 12/24 without experience. All 192 B effects were freshly reverified. The study reports construction overhead, failures and limits, with [offline reproduction](benchmarks/action-20261023/experience/REPRODUCE.md).
+The [learned-experience study](benchmarks/action-20261023/experience/README.md) executes A, extracts a lesson from its real outcome, then applies it to a different B task in a fresh process. Across 288 calls, Luna succeeded on 22/24 B tasks with the derived lesson, versus 13/24 with the complete trace and 7/24 without experience. Sol scored 24/24 with either the lesson or trace, versus 12/24 without experience. The files produced by all 192 B tasks were independently reopened and verified. The study reports construction overhead, failures and limits, with [offline reproduction](benchmarks/action-20261023/experience/REPRODUCE.md).

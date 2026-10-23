@@ -2,7 +2,7 @@
 
 [English](README.md) · [Fixture synthétique](FIXTURE.json) · [Plan des cellules](PLAN.json)
 
-L’étude à paramètres nouveaux est clôturée : **486 résultats conformes, 89 actions erronées et un inconnu sur 576 appels**. Les bras utilisant la mémoire dépassent le bras sans mémoire sur ces tâches synthétiques. La mémoire typée ne dépasse pas le lexical versionné fort.
+L’étude à paramètres nouveaux est clôturée : **486 résultats conformes, 89 actions erronées et un inconnu sur 576 appels**. Les bras utilisant la mémoire dépassent le bras sans mémoire sur ces tâches synthétiques. La mémoire typée ne dépasse pas la référence de recherche lexicale avec contrôle des versions.
 
 ## Résultats à paramètres nouveaux
 
@@ -11,11 +11,11 @@ L’étude à paramètres nouveaux est clôturée : **486 résultats conformes, 
 | Modèle | Bras | Conforme | Erroné | Inconnu |
 | --- | --- | ---: | ---: | ---: |
 | GPT-6 Luna | Mémoire typée | 66 | 6 | 0 |
-| GPT-6 Luna | Lexical versionné fort | 67 | 5 | 0 |
+| GPT-6 Luna | Recherche lexicale avec contrôle des versions | 67 | 5 | 0 |
 | GPT-6 Luna | Historique autorisé | 66 | 6 | 0 |
 | GPT-6 Luna | Sans mémoire | 35 | 36 | 1 |
 | GPT-6.1 Sol | Mémoire typée | 72 | 0 | 0 |
-| GPT-6.1 Sol | Lexical versionné fort | 72 | 0 | 0 |
+| GPT-6.1 Sol | Recherche lexicale avec contrôle des versions | 72 | 0 | 0 |
 | GPT-6.1 Sol | Historique autorisé | 72 | 0 | 0 |
 | GPT-6.1 Sol | Sans mémoire | 36 | 36 | 0 |
 | **Total** | | **486** | **89** | **1** |
@@ -33,11 +33,11 @@ Première étude clôturée : **45 résultats fichiers conformes sur 576 appels 
 | Modèle | Bras | Conforme | Refus de schéma | Suspension erronée |
 | --- | --- | ---: | ---: | ---: |
 | GPT-6 Luna | Mémoire typée | 1 | 69 | 2 |
-| GPT-6 Luna | Lexical versionné fort | 1 | 65 | 6 |
+| GPT-6 Luna | Recherche lexicale avec contrôle des versions | 1 | 65 | 6 |
 | GPT-6 Luna | Historique autorisé | 3 | 67 | 2 |
 | GPT-6 Luna | Sans mémoire | 2 | 64 | 6 |
 | GPT-6.1 Sol | Mémoire typée | 10 | 56 | 6 |
-| GPT-6.1 Sol | Lexical versionné fort | 9 | 59 | 4 |
+| GPT-6.1 Sol | Recherche lexicale avec contrôle des versions | 9 | 59 | 4 |
 | GPT-6.1 Sol | Historique autorisé | 12 | 60 | 0 |
 | GPT-6.1 Sol | Sans mémoire | 7 | 53 | 12 |
 | **Total** | | **45** | **493** | **38** |
@@ -50,9 +50,9 @@ Registry a relu hors ligne les 576 résultats sur 24 partitions : 45 réussites,
 
 24 mondes synthétiques : 12 français, 12 anglais, paramètres distincts dans 12 structures. Familles : procédures, corrections, retraits et demandes autosuffisantes. Deux modèles, quatre bras, trois répétitions : 576 appels, pas des capacités indépendantes.
 
-Mémoire typée, lexical versionné fort et historique autorisé partagent les contrôles de version, retrait, périmètre et admissibilité. L’historique masque les contenus remplacés, retirés ou inéligibles ; le quatrième bras reçoit la tâche seule. Plafond commun : cinq éléments, 2 000 caractères, historique intégral ; prompts et dépenses non égalisés.
+Mémoire typée, recherche lexicale avec contrôle des versions et historique autorisé partagent les contrôles de version, retrait, périmètre et admissibilité. L’historique masque les contenus remplacés, retirés ou inéligibles ; le quatrième bras reçoit la tâche seule. Plafond commun : cinq éléments, 2 000 caractères, historique intégral ; prompts et dépenses non égalisés.
 
-P1 persiste déterministement les observations puis se termine. P2, neuf, ouvre la mémoire et obtient une proposition JSON : deux écritures CSV/JSON maximum sur des cibles autorisées. L’autorité est revérifiée avant toute écriture dépendante. Après sa sortie, P3 relit les fichiers : attentes indépendantes cachées au modèle, octets exacts et sémantique JSON/CSV. Un contrôle positif obligatoire empêche de réussir en bloquant tout. Le test porte sur le transfert, pas l’apprentissage autonome.
+Le processus P1 enregistre les observations de manière déterministe, puis se termine. Un nouveau processus P2 ouvre ensuite la mémoire et obtient une proposition JSON : deux écritures CSV/JSON maximum sur des cibles autorisées. L’autorité est revérifiée avant toute écriture dépendante. Après sa sortie, P3 relit les fichiers : attentes indépendantes cachées au modèle, octets exacts et sémantique JSON/CSV. Un contrôle positif obligatoire empêche de réussir en bloquant tout. Le test porte sur le transfert, pas l’apprentissage autonome.
 
 ## Reproduction, coût et calibration
 

@@ -1,5 +1,7 @@
 # Recovery and trust contract
 
+[Français](RECOVERY.fr.md)
+
 Store source content separately from the retained authority and its freshness witness. A content snapshot may be restored only against the currently trusted authority. Opening an old store quarantines it until `restore_verify(authority.checkpoint())` reconciles it; withdrawn sources and their dependent records remain unreadable.
 
 The authority journal, compare-and-swap version checks and idempotent operation identities reject stale publication. Rebuild projections from admissible refs; never promote an index hit directly into an answer without authority validation. Derived records must name exact parent versions through the strong dependency relations `derives` or `indexes`. The `cites` relation records a documentary reference; it does not propagate invalidation or withdrawal. An application that omits a real strong dependency cannot expect transitive withdrawal of that hidden dependency.

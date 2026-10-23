@@ -1,8 +1,8 @@
 # Mémoire persistante pour agents IA
 
-Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.md).
+Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.fr.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
 
-[English](README.md) · [API et service](docs/API.md) · [Contrat de reprise](docs/RECOVERY.md) · [Contribuer](CONTRIBUTING.md)
+[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md)
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
@@ -63,9 +63,9 @@ Avec `render_source_references=True` dans `TypedMemory.search`, chaque texte com
 
 ## Interfaces et vérification
 
-`hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](docs/API.md) fonctionnent en local avec des chemins génériques.
+`hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](docs/API.fr.md) fonctionnent en local avec des chemins génériques.
 
-L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [API.md](docs/API.md).
+L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [guide de l’API](docs/API.fr.md).
 
 Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. Aucun adaptateur public Qdrant ou LanceDB n'est annoncé.
 
@@ -93,7 +93,7 @@ La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md)
 - Un retrait bloque les futures lectures par la bibliothèque, sans rappeler les copies déjà transmises.
 - L'application reste responsable du consentement, des droits, de la rétention et de la protection de ses fichiers.
 
-Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [PACKAGES.md](PACKAGES.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
+Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [guide des paquets](PACKAGES.fr.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
 
 ## Comparaison observée avec et sans mémoire
 
@@ -109,4 +109,4 @@ L’[étude de transfert vers des fichiers](benchmarks/action-20261023/README.fr
 
 L’[étude d’optimisation du noyau](benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) compare la même charge de 1 000 sources avant et après une correction de sérialisation. Le temps total instrumenté baisse de 28,01 % et 27,68 % sur deux hôtes Linux, avec les mêmes résultats vérifiés et le même stockage. Huit trajectoires de panne par arrêt réel du processus passent aussi. Il s’agit d’une observation par hôte, sans garantie de latence en production ni de passage à l’échelle général.
 
-L’[étude d’apprentissage entre missions](benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les 192 effets B ont été relus indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](benchmarks/action-20261023/experience/REPRODUCE.md).
+L’[étude d’apprentissage entre missions](benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les fichiers produits par les 192 missions B ont été rouverts et vérifiés indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](benchmarks/action-20261023/experience/REPRODUCE.md).

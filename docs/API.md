@@ -1,5 +1,7 @@
 # Library, CLI and optional service
 
+[Français](API.fr.md)
+
 The local files are separate: authority database, freshness witness, content database, disposable typed index. `Authority.create/open` and `Memory.create/open` are explicit; opening does not adopt a legacy corpus. Core operations are also exposed by `hermes-memory rpc` as JSON requests. Exact refs contain `workspace`, `artifact_id`, `version_id`.
 
 ## Local typed CLI

@@ -2,7 +2,7 @@
 
 23 October 2026 · [Français](README.fr.md) · [Results](RESULT.json) · [Compressed observations](OBSERVATIONS.json.gz) · [Episode plan](PLAN.json)
 
-In this synthetic study, a model performed task A, received feedback on its actual output, extracted a lesson and then attempted a different task B. A derived lesson improved the observed B success count over no experience for both models. Against the complete A trace and feedback, it added nine successful tasks for Luna and tied for Sol.
+In this synthetic study, a model performed task A, received feedback on its actual output, extracted a lesson and then attempted a different task B. A derived lesson improved the observed B success count over no experience for both models. Against the complete A trace and feedback, it added nine successful tasks for Luna and matched the complete trace for Sol.
 
 ## Verified B outcomes
 
@@ -33,7 +33,7 @@ The study contains **48 paired episodes**: six families × two languages × two 
 
 ## Did the receiver mistake recur?
 
-The existing Registry freshly verified all 192 B effects across 16 partitions, preserving **119 successes, 73 failures and no unknown quality outcomes**. The 7,424 original study files remained unchanged. The [Registry projection](REGISTRY.json) retains the verification counts and provenance.
+The existing Registry independently reopened and verified the files produced by all 192 B tasks across 16 partitions, preserving **119 successes, 73 failures and no unknown quality outcomes**. The 7,424 original study files remained unchanged. The [Registry projection](REGISTRY.json) retains the verification counts and provenance.
 
 Recurrence is a narrower diagnostic: after A used the wrong receiver convention, did the actual B artifact repeat that convention? There are **24 eligible episodes per arm**, comprising 11 Luna and 13 Sol episodes. The complete quality results above still cover all 48 B tasks per arm across both models.
 
@@ -44,11 +44,11 @@ Recurrence is a narrower diagnostic: after A used the wrong receiver convention,
 | No experience | 24 | 17 | 5 | 2 |
 | Lesson withdrawn | 24 | 13 | 6 | 5 |
 
-A B artifact matching neither legal convention has an unknown cause. A generic task failure is not automatically counted as recurrence, and a correct receiver convention does not by itself satisfy every file/control requirement. This diagnostic therefore remains separate from full B success.
+If a B artifact matches neither of the two conventions defined by the protocol, the cause of the error remains unknown. A generic task failure is not automatically counted as recurrence, and a correct receiver convention does not by itself satisfy every file/control requirement. This diagnostic therefore remains separate from full B success.
 
 ## Context and cost
 
-The experience path allows 8,000 characters and five items, under the unchanged 10,240-byte complete-request cap. The [prospective cap decision](CAP-DECISION.md) and [lossless prompt representation](PROMPT-REPRESENTATION.md) were fixed after mock qualification and before model calls. Earlier studies retain their original prompts and limits. Common caps do not imply equal realized tokens or spend.
+The experience path allows 8,000 characters and five items, under the unchanged 10,240-byte complete-request cap. The [prospective cap decision](CAP-DECISION.md) and [lossless prompt representation](PROMPT-REPRESENTATION.md) were fixed after checks using simulated responses and before model calls. Earlier studies retain their original prompts and limits. Common caps do not imply equal realized tokens or spend.
 
 Sol matched raw-trace quality with fewer B input tokens when using the derived lesson. Producing that lesson also required an extraction call. A raw-history deployment would not require this step, so B-only counts do not establish an end-to-end token saving. The construction work is retained separately:
 

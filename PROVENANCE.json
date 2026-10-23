@@ -15,12 +15,17 @@
       "path": "CONTRIBUTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "documentation-only correction: link the existing optional policy registry instead of reserving a future module; code and permissions unchanged",
-      "package_sha256": "567835fe3e266c90108aa3fdd6a674ef494a0b2bd86e1a59648d88f23a47b115",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "264a43be8563a5c40cc64ffd8db6015c5dac3149140031acfe8294d558e8c3a4",
       "assembly_history": [
         {
           "package_sha256": "93d11f6f2d2db69932a1441df3445412fd00a9b1c0f728f3af7563f7c00861d6",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "567835fe3e266c90108aa3fdd6a674ef494a0b2bd86e1a59648d88f23a47b115",
+          "transformation": "documentation-only correction: link the existing optional policy registry instead of reserving a future module; code and permissions unchanged",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ]
     },
@@ -35,8 +40,8 @@
       "path": "MANIFEST.in",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "f9903dbd16b1d11dcffefe03ffc4f4066868507dcc289e3fa7010a22d3fc23d2",
+      "transformation": "Source distribution includes new French companion documentation.",
+      "package_sha256": "1fa49b6001b5612022167db5dbe9deb9e13b7bc18fbaa7865eb69b342a068879",
       "previous_registry_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
       "previous_assembly_sha256": "79df4d136c2d51b486aaf75358365f827010e6990d7ca190f42e4d09109a12fa",
       "assembly_history": [
@@ -44,6 +49,11 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "f928f01ca11979ee0c1a6099ae251f9967f714b41cff0fd1e0a2f023a573a72a",
           "transformation": "bounded public admission extension; prior source provenance retained"
+        },
+        {
+          "package_sha256": "f9903dbd16b1d11dcffefe03ffc4f4066868507dcc289e3fa7010a22d3fc23d2",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ]
     },
@@ -52,8 +62,8 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "7f8c181e62daa17b4b50cf38c33fe2ec5fdcadb6431eedd2559e7c8b4250b897",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "791bbfaff359e4179573d11cc032752a99c6c9c0bfbe4ad379201c71b600e9cc",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
@@ -64,6 +74,11 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "af06c6ecd7b62c43ebcc35f287113f21aa4499d19ce2129ae38bcb6c0139b5a1",
           "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
+        },
+        {
+          "package_sha256": "7f8c181e62daa17b4b50cf38c33fe2ec5fdcadb6431eedd2559e7c8b4250b897",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ],
       "previous_public_worktree_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b"
@@ -72,8 +87,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "aad460a8b9b454595d6f69b453de79e92437fb625ce086e79b16ca37948fea11",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "9537f39f7aae395b8f2823bdd69b70935982cb60bee996528159d5f33c03da5b",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -85,6 +100,11 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "a2183add715b25cb2400682a5abd199790f352bb966ae22373527cf599cec036",
           "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
+        },
+        {
+          "package_sha256": "aad460a8b9b454595d6f69b453de79e92437fb625ce086e79b16ca37948fea11",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ],
       "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f"
@@ -93,8 +113,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "ffe2f86a6063bc1588eadfe926d27b6d1386d4880b36f521bf3ec1752f44bf10",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "50fa4f646c1089677e17137a5422f0ca7e5dc2724707b67e15539811cfcf61f6",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -106,6 +126,11 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "f1d0c5c77a8de17eb98caf1f59ebc9e65173852fd26d9d62e891f74be2c5cf84",
           "transformation": "Qualified public policy-registry workflow extension or factual version/link documentation; existing provenance preserved."
+        },
+        {
+          "package_sha256": "ffe2f86a6063bc1588eadfe926d27b6d1386d4880b36f521bf3ec1752f44bf10",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ],
       "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7"
@@ -169,12 +194,17 @@
       "path": "docs/API.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
-      "package_sha256": "f8819bca1fa070b07f4e32f62bf199dc11b86f80bd021638a6868b06f388f772",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "b774769e7d5720a43c4044a9f465208561626c362ae78767629f00c43839672d",
       "assembly_history": [
         {
           "package_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "f8819bca1fa070b07f4e32f62bf199dc11b86f80bd021638a6868b06f388f772",
+          "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ],
       "previous_public_worktree_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f"
@@ -183,13 +213,18 @@
       "path": "docs/RECOVERY.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "fefd0b56dcdd9105e974fbbee1bde7196861fb85bf078329086475ddfcc2b79b",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "0f0149b345ff4b3fda5d2d94adc131f6994c18b1fb8334eac42a60ca0fb71d58",
       "assembly_history": [
         {
           "release_candidate": "0.3.0a2",
           "package_sha256": "6b911572ee3ba74f135753babb5d0b602284adfd9c054772bf398aec19732ebd",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "fefd0b56dcdd9105e974fbbee1bde7196861fb85bf078329086475ddfcc2b79b",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ]
     },
@@ -213,8 +248,8 @@
       "path": "docs/TESTING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "4674ca68277f535cd2b037c146c27b1227a61d62b480e6b7b39af75268e597a3",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "package_sha256": "01a456a11bb5eba02ec67a1c6098cdf884b8b9e771b4ce32967b99da1a976b52",
       "previous_assembly_sha256": "5d63e6247532082b4bcff5548c8fa86e1772bf645d524d3d6e43121ec81152ef",
       "assembly_history": [
         {
@@ -225,6 +260,11 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "1e65cd8dc92790ce68385d10a61ed7a4b6c39c7250dc3a6c4a2e383d0324e946",
           "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        },
+        {
+          "package_sha256": "4674ca68277f535cd2b037c146c27b1227a61d62b480e6b7b39af75268e597a3",
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
         }
       ],
       "previous_public_worktree_sha256": "ebb490b7272a53748769840fcfd1b5251aeceaa5358d7bf5b67caef3c0d6aa3c"
@@ -254,8 +294,15 @@
       "path": "packages/policy-registry/MANIFEST.in",
       "origin": "public-generic-workflow-assessment-or-synthetic-test",
       "original_sha256": null,
-      "package_sha256": "2c8c2797e0cf0d3efb70a803408771857aa65f2053444abf6318b733461f9fcd",
-      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+      "package_sha256": "8a4d53c46a1b5b24d5a7a89de427f9a95bcd5b22aabdbc993f1ca1bbf3f7072c",
+      "transformation": "Source distribution includes new French companion documentation.",
+      "assembly_history": [
+        {
+          "package_sha256": "2c8c2797e0cf0d3efb70a803408771857aa65f2053444abf6318b733461f9fcd",
+          "transformation": "New generic reusable workflow provenance or independent synthetic test.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "packages/policy-registry/PROVENANCE-workflow-effects-v1.json",
@@ -275,15 +322,29 @@
       "path": "packages/policy-registry/README.fr.md",
       "origin": "public-generic-workflow-assessment-or-synthetic-test",
       "original_sha256": null,
-      "package_sha256": "dde2656af405f43254cb3a4eee075bfd084789706c5d6009319d0dddb26efe10",
-      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+      "package_sha256": "b1534be01220ace54a517db09c0e464f0cd52190557f041562bc4af0ae2d67db",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "dde2656af405f43254cb3a4eee075bfd084789706c5d6009319d0dddb26efe10",
+          "transformation": "New generic reusable workflow provenance or independent synthetic test.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "packages/policy-registry/README.md",
       "origin": "public-generic-workflow-assessment-or-synthetic-test",
       "original_sha256": null,
-      "package_sha256": "e95513f5cfdfa0591d2509815d2a7523cf2a3c373c0ccd355572c3b0cab997ca",
-      "transformation": "New generic reusable workflow provenance or independent synthetic test."
+      "package_sha256": "2ac142293bcd3ca583a0f7eee20adc0e88bd2155bef5c23c5a06fd9f2245da4e",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "e95513f5cfdfa0591d2509815d2a7523cf2a3c373c0ccd355572c3b0cab997ca",
+          "transformation": "New generic reusable workflow provenance or independent synthetic test.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "packages/policy-registry/pyproject.toml",
@@ -770,15 +831,29 @@
       "path": "benchmarks/action-20261023/experience/README.fr.md",
       "origin": "public-synthetic-proof-20261023",
       "original_sha256": null,
-      "package_sha256": "ba62eb5c02d96021779b52847ce0ae05f616934e476afcd5a0406e1f49bc9cef",
-      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+      "package_sha256": "960fd7b5f9f47e813ee52fb2e514ad49838796bad9f266cf14d2b7a82b175c56",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "ba62eb5c02d96021779b52847ce0ae05f616934e476afcd5a0406e1f49bc9cef",
+          "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "benchmarks/action-20261023/experience/README.md",
       "origin": "public-synthetic-proof-20261023",
       "original_sha256": null,
-      "package_sha256": "9604d8615fbb9c60be9ec12ec5acaf8de52b2839b5ff10c8cc553e9a972995d5",
-      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+      "package_sha256": "54e92ec251494371c947045f72934676012735a84f4586cddb99c8b3ca25a6ff",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "9604d8615fbb9c60be9ec12ec5acaf8de52b2839b5ff10c8cc553e9a972995d5",
+          "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "benchmarks/action-20261023/experience/REGISTRY.json",
@@ -861,15 +936,29 @@
       "path": "benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md",
       "origin": "public-synthetic-proof-20261023",
       "original_sha256": null,
-      "package_sha256": "765792aa8275091fb55146952c0553a4a3a2bc9579fe4197a7fa8b4785f6cc91",
-      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+      "package_sha256": "2410e76880012f23aae58d566871441f989564720a59fcc6a50af0d921e3da04",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "765792aa8275091fb55146952c0553a4a3a2bc9579fe4197a7fa8b4785f6cc91",
+          "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "benchmarks/efficiency-20261023/core-optimization-20261023/README.md",
       "origin": "public-synthetic-proof-20261023",
       "original_sha256": null,
-      "package_sha256": "e9474cff2bdcd96c9d01b9575a6ee73d834eea719af4c7132c449175e325b646",
-      "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+      "package_sha256": "638712f39bb03c37961b46e7e3917b03922b7f46b7e5e74bb6409ac15fae931c",
+      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+      "assembly_history": [
+        {
+          "package_sha256": "e9474cff2bdcd96c9d01b9575a6ee73d834eea719af4c7132c449175e325b646",
+          "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data.",
+          "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        }
+      ]
     },
     {
       "path": "benchmarks/efficiency-20261023/core-optimization-20261023/RESULT.json",
@@ -877,6 +966,94 @@
       "original_sha256": null,
       "package_sha256": "1b495e6bd742c6caac89ad341a7301d48061242b8a697c5ce60f137f98b9a769",
       "transformation": "New public synthetic fixture, evidence, reviewed documentation or exact qualified protocol source; no private memory data."
+    },
+    {
+      "path": "CONTRIBUTING.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "5f1fbd505129352e7b2c606f52aa1fd80f0d63f8e29e4a6a74405bebc5d45416",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "PACKAGES.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "3087e55557fdc206e25e8ca8f59767dca9b32f51ca00e3d9966808066e7e4783",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "benchmarks/action-20261023/README.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": "532462ece73b82fbfffd19107f46b177b3055d644c15bc8a5090ee9887d125c2",
+      "package_sha256": "2cd6531420c4c09291b5f3343c63cd80bb6f33c7c8ff3b524e812d8d22480f92",
+      "transformation": "Current documentation wording, navigation or archive inclusion corrected; prior source retained in public commit1554beda."
+    },
+    {
+      "path": "benchmarks/action-20261023/README.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": "a686b6438375c5b983942dd28c6bfa7a188329394e93879295bea968ae3e1b9b",
+      "package_sha256": "e446812db5f221be6ee6fd9a09e2cd150ff7777cb264fb4ba884cfc36f0fa5a3",
+      "transformation": "Current documentation wording, navigation or archive inclusion corrected; prior source retained in public commit1554beda."
+    },
+    {
+      "path": "docs/API.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "6e7dbf49d855f84307a403df41cf147a9024976c647939ff20a30d84d5e7b5ac",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "docs/PORTFOLIO-DEMO.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": "698e56da14d140c99ec4552caa3fa66b4ea44bf27754aa23c0120f907b89fe70",
+      "package_sha256": "b1818f60df3e298dd0eb316f99de5f252111d1796a02ab2e85d289a89739c711",
+      "transformation": "Current documentation wording, navigation or archive inclusion corrected; prior source retained in public commit1554beda."
+    },
+    {
+      "path": "docs/RECOVERY.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "fd8067bf1a86ea683e119030147115607a0d604ae4de9b1c737905ba3991c295",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "docs/TESTING.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "2794006d0825d84dcf43086ff23f2c3f2b31587224eb6e25632020ee4913a462",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "examples/portfolio_demo.py",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": "4343c6dc7c3ef1fc43db6d9cdddf289c0f81b186f4611bea291ac6ffb0371fa1",
+      "package_sha256": "d7342817e4e83a59879f068bedd2eb5b6adbdd5cb3c0aabf1f7b5ea7eeb545ab",
+      "transformation": "Three version-string replacements align the demonstration with the pinned 0.3.0a3 core; behavior and integrity guard unchanged."
+    },
+    {
+      "path": "packages/policy-registry/NOTICE.fr.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": null,
+      "package_sha256": "c78bfcaa2026ef9a1c13043e6922a3a317d9cfe174a07510f9c2546aef739319",
+      "transformation": "New natural French companion with unchanged technical contract."
+    },
+    {
+      "path": "packages/policy-registry/NOTICE.md",
+      "origin": "public-bilingual-documentation-update",
+      "original_sha256": null,
+      "previous_public_sha256": "9c4417e2adc3637e1650adaf38828749c75b4baa51c57b9bef30d53718e10953",
+      "package_sha256": "a97053be109e031c3a909ed8a190635f70fc560d8a87726fc46ac7d0d3272e9a",
+      "transformation": "Current documentation wording, navigation or archive inclusion corrected; prior source retained in public commit1554beda."
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
@@ -973,5 +1150,59 @@
     "private_history_included": false,
     "public_observations": "benchmarks/action-20261023/experience/RUN-PROVENANCE.json",
     "qualified_protocol_sources_are_not_standalone": true
+  },
+  "bilingual_documentation_update_20261023": {
+    "base_public_commit": "1554beda0ef3e57621eca8974c197514302f369e",
+    "previous_provenance_sha256": "775668fbcfd9e7f60db41096d334e682397c1d8378a74b30ecbdf3b129eed29a",
+    "changed_selected_paths": [
+      "CONTRIBUTING.md",
+      "MANIFEST.in",
+      "PACKAGES.md",
+      "README.fr.md",
+      "README.md",
+      "benchmarks/action-20261023/experience/README.fr.md",
+      "benchmarks/action-20261023/experience/README.md",
+      "benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md",
+      "benchmarks/efficiency-20261023/core-optimization-20261023/README.md",
+      "docs/API.md",
+      "docs/RECOVERY.md",
+      "docs/TESTING.md",
+      "packages/policy-registry/MANIFEST.in",
+      "packages/policy-registry/README.fr.md",
+      "packages/policy-registry/README.md"
+    ],
+    "added_selected_paths": [
+      "CONTRIBUTING.fr.md",
+      "PACKAGES.fr.md",
+      "benchmarks/action-20261023/README.fr.md",
+      "benchmarks/action-20261023/README.md",
+      "docs/API.fr.md",
+      "docs/PORTFOLIO-DEMO.md",
+      "docs/RECOVERY.fr.md",
+      "docs/TESTING.fr.md",
+      "examples/portfolio_demo.py",
+      "packages/policy-registry/NOTICE.fr.md",
+      "packages/policy-registry/NOTICE.md"
+    ],
+    "french_companions": [
+      "CONTRIBUTING.fr.md",
+      "PACKAGES.fr.md",
+      "docs/API.fr.md",
+      "docs/RECOVERY.fr.md",
+      "docs/TESTING.fr.md",
+      "packages/policy-registry/NOTICE.fr.md"
+    ],
+    "release_assets_unchanged": true,
+    "scope": "Current documentation and example version binding only; historical observations, normative contracts and package implementation unchanged.",
+    "example_qualification": {
+      "linux_host": "Phoenix5",
+      "installed_version": "0.3.0a3",
+      "core_sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+      "old_guard_defect_reproduced": true,
+      "core_invariants": 16,
+      "comparison_invariants": 11,
+      "existing_output_refused": true,
+      "provider_calls": 0
+    }
   }
 }

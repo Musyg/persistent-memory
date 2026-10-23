@@ -1,7 +1,7 @@
 """Capture a synthetic five-step demonstration using the installed public core.
 
 This is an application example, not a second memory engine or an AI benchmark.
-Run on Linux with hermes-memory-core 0.3.0a2 installed. All state is disposable.
+Run on Linux with hermes-memory-core 0.3.0a3 installed. All state is disposable.
 """
 
 import argparse
@@ -98,8 +98,8 @@ def run(directory, compare=False):
         raise RuntimeError("This example is qualified for Linux only.")
     package_version = version("hermes-memory-core")
     module_digest = sha256(Path(core.__file__).read_bytes())
-    if package_version != "0.3.0a2" or module_digest != CORE_SHA256:
-        raise RuntimeError("Expected the pinned public hermes-memory-core 0.3.0a2.")
+    if package_version != "0.3.0a3" or module_digest != CORE_SHA256:
+        raise RuntimeError("Expected the pinned public hermes-memory-core 0.3.0a3.")
 
     root = Path(directory)
     root.mkdir(parents=True, exist_ok=False)

@@ -1,4 +1,4 @@
-include README.md README.fr.md LICENSE CONTRIBUTING.md PROVENANCE.json .gitignore
+include README.md README.fr.md LICENSE CONTRIBUTING.md CONTRIBUTING.fr.md PROVENANCE.json .gitignore
 recursive-include src *.py
 recursive-include tests *.py
 recursive-include tests *.json
@@ -6,7 +6,7 @@ recursive-include docs *.md
 recursive-include examples *.json
 recursive-include benchmarks *.py
 
-include PACKAGES.md
+include PACKAGES.md PACKAGES.fr.md
 include src/hermes_memory/ADMISSION-PROVENANCE.json
 recursive-include benchmarks/validation-20261021 *.py *.json *.md SHA256SUMS SHA256SUMS-SUPPLEMENTAL *.sha256
 recursive-include benchmarks/validation-20261022 *.py *.json *.md SHA256SUMS SHA256SUMS-SUPPLEMENTAL *.sha256

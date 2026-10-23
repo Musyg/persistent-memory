@@ -1,16 +1,20 @@
 # Reproduce the portfolio demonstration / Reproduire la démonstration
 
-This five-step example calls the installed **public memory core 0.3.0a2**. It creates
+This five-step example calls the installed **public memory core 0.3.0a3**. It creates
 synthetic project evidence, derives a brief with exact parent versions, corrects
 a deadline with compare-and-swap, withdraws it, and restores an older content
 snapshot against the retained current authority. An unrelated language preference
 remains readable. There is no model, account, network request or private data.
 
-Cet exemple utilise le **noyau public 0.3.0a2 installé** : deux preuves fictives,
+Cet exemple utilise le **noyau public 0.3.0a3 installé** : deux preuves fictives,
 un brief avec ses dépendances exactes, une correction avec version attendue,
 un retrait, puis une ancienne sauvegarde confrontée à l'autorité courante.
 La préférence de langue indépendante reste lisible. Aucun modèle, compte,
 appel réseau ou contenu privé n'intervient.
+
+The portfolio's recorded trace was produced with core **0.3.0a2**. The current source example targets **0.3.0a3**; running it produces a new trace and does not relabel or overwrite the historical recording.
+
+La trace enregistrée du portfolio a été produite avec le noyau **0.3.0a2**. L'exemple source courant vise **0.3.0a3** ; son exécution produit une nouvelle trace, sans réétiqueter ni écraser l'enregistrement historique.
 
 ## Run on Linux / Exécuter sous Linux
 

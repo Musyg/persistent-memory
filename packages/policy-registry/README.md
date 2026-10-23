@@ -8,7 +8,7 @@ Five policy families can be represented: prompt, retrieval, routing, workflow an
 
 ## Install and try
 
-Python3.11 or later. Installation, file permissions and examples are qualified on Linux.
+Python 3.11 or later. Installation, file permissions and examples are qualified on Linux.
 
 ```sh
 python3 -m pip install ./packages/policy-registry
@@ -52,4 +52,4 @@ The adapter retains compare-and-swap, duplicate-case rejection, source withdrawa
 
 Hashes provide identity and consistency, not signatures or authenticated measurements. This version trusts local filesystem control, does not protect against rollback of the entire registry database, has no distributed transaction or per-user ACL, and offers no exactly-once transport retry guarantee. SQLite commit outcomes can be uncertain after a crash.
 
-Individual canonical reports are limited to8MiB and one evaluation to256 run links. Total history/DB size has no comprehensive quota; large-history performance is not qualified. Linux is the tested platform. See [NOTICE.md](NOTICE.md) for generic-contract provenance and [LICENSE](LICENSE) for MIT terms.
+Individual canonical reports are limited to 8 MiB and one evaluation to 256 run links. Total history/DB size has no comprehensive quota; large-history performance is not qualified. Linux is the tested platform. See [NOTICE.md](NOTICE.md) for generic-contract provenance and [LICENSE](LICENSE) for MIT terms.

@@ -2,7 +2,7 @@
 
 [Français](README.fr.md) · [Synthetic fixture](FIXTURE.json) · [Cell plan](PLAN.json)
 
-The fresh-parameter study closed with **486 correct outcomes, 89 wrong actions and one unknown out of 576 calls**. Memory-supported arms outperformed no memory on these synthetic tasks. Typed memory did not outperform strong versioned lexical retrieval.
+The fresh-parameter study closed with **486 correct outcomes, 89 wrong actions and one unknown out of 576 calls**. Memory-supported arms outperformed no memory on these synthetic tasks. Typed memory did not outperform the version-aware lexical baseline.
 
 ## Fresh-parameter results
 
@@ -11,16 +11,16 @@ Each row contains 72 calls. P2 completed 575 calls; one Luna no-memory call retu
 | Model | Arm | Correct | Wrong | Unknown |
 | --- | --- | ---: | ---: | ---: |
 | GPT-6 Luna | Typed memory | 66 | 6 | 0 |
-| GPT-6 Luna | Strong versioned lexical | 67 | 5 | 0 |
+| GPT-6 Luna | Version-aware lexical | 67 | 5 | 0 |
 | GPT-6 Luna | Authorized history | 66 | 6 | 0 |
 | GPT-6 Luna | No memory | 35 | 36 | 1 |
 | GPT-6.1 Sol | Typed memory | 72 | 0 | 0 |
-| GPT-6.1 Sol | Strong versioned lexical | 72 | 0 | 0 |
+| GPT-6.1 Sol | Version-aware lexical | 72 | 0 | 0 |
 | GPT-6.1 Sol | Authorized history | 72 | 0 | 0 |
 | GPT-6.1 Sol | No memory | 36 | 36 | 0 |
 | **Total** | | **486** | **89** | **1** |
 
-For Luna, typed memory exceeds no memory by 41.67–43.06 percentage points, retaining both possibilities for the unknown; the nominal 95% cluster-bootstrap interval is +25.00 to +52.78 points. Sol gains 50 points, with a degenerate [50, 50] interval in these synthetic strata—not universal certainty. Luna typed memory versus lexical retrieval is −1.39 points, interval [−4.17, 0]; Sol ties. These results support useful transfer on this set, not general dominance.
+For Luna, typed memory exceeds no memory by 41.67–43.06 percentage points, retaining both possibilities for the unknown; the nominal 95% cluster-bootstrap interval is +25.00 to +52.78 points. Sol gains 50 points, with a degenerate [50, 50] interval in these synthetic strata, not universal certainty. Luna typed memory versus lexical retrieval is −1.39 points, interval [−4.17, 0]; Sol ties. These results support useful transfer on this set, not general dominance.
 
 The native report passed. Registry independently checked 576 current-authority cases across 24 partitions and freshly verified 575 available file outcomes, preserving 486 successes, 89 failures and one unknown. All 13,672 historical files remained unchanged. [Confirmation observations](confirmation/OBSERVATIONS.json) · [Native result](confirmation/RESULT.json) · [Protocol](confirmation/PROTOCOL.md).
 
@@ -33,11 +33,11 @@ Each row contains 72 calls. Schema refusals are host envelope rejections. Reject
 | Model | Arm | Correct | Schema refusal | Wrong hold |
 | --- | --- | ---: | ---: | ---: |
 | GPT-6 Luna | Typed memory | 1 | 69 | 2 |
-| GPT-6 Luna | Strong versioned lexical | 1 | 65 | 6 |
+| GPT-6 Luna | Version-aware lexical | 1 | 65 | 6 |
 | GPT-6 Luna | Authorized history | 3 | 67 | 2 |
 | GPT-6 Luna | No memory | 2 | 64 | 6 |
 | GPT-6.1 Sol | Typed memory | 10 | 56 | 6 |
-| GPT-6.1 Sol | Strong versioned lexical | 9 | 59 | 4 |
+| GPT-6.1 Sol | Version-aware lexical | 9 | 59 | 4 |
 | GPT-6.1 Sol | Authorized history | 12 | 60 | 0 |
 | GPT-6.1 Sol | No memory | 7 | 53 | 12 |
 | **Total** | | **45** | **493** | **38** |
@@ -50,9 +50,9 @@ An offline Registry assessment freshly reopened all 576 file outcomes across 24 
 
 The 24 synthetic worlds comprise 12 French and 12 English cases, independently parameterized within 12 templates. Four families cover procedures, corrections, withdrawals and self-contained requests. Two models, four arms and three repetitions give 576 calls, not independent capabilities.
 
-Typed memory, strong versioned lexical retrieval and authorized chronological history share version, withdrawal, workspace and eligibility checks. History masks superseded, withdrawn and ineligible bodies. The fourth arm has task inputs only. All use a five-item, 2,000-character ceiling; history fits without truncation. This does not equalize prompts or realized spending.
+Typed memory, the version-aware lexical baseline and authorized chronological history share version, withdrawal, workspace and eligibility checks. History masks superseded, withdrawn and ineligible bodies. The fourth arm has task inputs only. All use a five-item, 2,000-character ceiling; history fits without truncation. This does not equalize prompts or realized spending.
 
-P1 deterministically persists observations and exits. Fresh P2 opens memory and obtains one JSON proposal, limited to two CSV/JSON writes to allowed targets. Authority is rechecked before dependent writes. After P2 exits, fresh P3 reopens files against independent exact-byte and typed JSON/CSV expectations hidden from the model. Every task includes a positive control; holding everything cannot pass. This evaluates transfer, not autonomous learning.
+Process P1 stores observations deterministically and exits. A fresh P2 process opens memory and obtains one JSON proposal, limited to two CSV/JSON writes to allowed targets. Authority is rechecked before dependent writes. After P2 exits, fresh P3 reopens files against independent exact-byte and typed JSON/CSV expectations hidden from the model. Every task includes a positive control; holding everything cannot pass. This evaluates transfer, not autonomous learning.
 
 ## Reproduction, accounting and calibration
 

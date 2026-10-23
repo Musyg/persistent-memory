@@ -1,5 +1,7 @@
 # Test selection and reproducibility
 
+[Français](TESTING.fr.md)
+
 Core: 50 synthetic tests, including three serialization regressions added on 23 October 2026. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Package assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
 
 The original application's private orchestrator AST test, builder and source are excluded. Its prior private execution is not counted as a test of this distribution. The original selection retained its assertion meanings. Its packaging adaptations were limited to package imports, installed-core path discovery, test-base naming to avoid duplicate discovery, and module CLI paths; see `PROVENANCE.json`.
@@ -20,8 +22,6 @@ Six existing `TypedRetrievalTests` methods and the existing independent `test_fo
 
 This receipt qualifies the focused source composition. It does not add a new business-case score, measure human/voice identity accuracy, or claim a new full installed-suite run. The established installed wheel/sdist CI checker remains the release packaging gate; historical full-suite and latency observations remain separate.
 
-## Artifact-producing tasks / Tâches produisant des fichiers
+## Artifact-producing tasks
 
 The [action study](../benchmarks/action-20261023/README.md) keeps application checks separate from model performance. Its 16 action methods and eight analysis methods run on Linux with installed packages; four separately qualified paid-client methods use mocked HTTP and synthetic credentials. Offline tests make no real provider requests. Three-process fixtures verify persisted effects, positive controls, stale-source refusal, source identity, bounded prompts and reporting. Known-data calibration failures remain recorded; the explicitly amended fresh-parameter study has its own frozen protocol.
-
-L’[étude d’actions](../benchmarks/action-20261023/README.fr.md) distingue les tests du logiciel des performances des modèles. Les 16 méthodes de test des actions et huit de l’analyse s’exécutent sur Linux avec les paquets installés ; quatre tests distincts du client payant utilisent HTTP simulé et des identifiants synthétiques. Aucun appel fournisseur réel dans ces tests hors ligne. Les cas à trois processus vérifient fichiers persistés, contrôles positifs, refus des sources périmées, références, plafonds du prompt et rapports. Les échecs de calibration sont conservés ; l’étude amendée à paramètres nouveaux possède son propre protocole figé.

@@ -1,5 +1,7 @@
 # Contributing
 
+[Français](CONTRIBUTING.fr.md)
+
 Start with a failing synthetic case and state the invariant: exact versions, dependency tracking, withdrawal, restore trust, availability, coverage or budget. Keep missing evidence distinct from an unavailable dependency. Never replace a failed dependency check with a successful empty result.
 
 Useful contributions include synthetic temporal or multilingual counterexamples, independent installation reports, storage adapters that preserve exact refs and embedding-space identities, clearer recovery guidance, and bounded performance improvements with an unchanged semantic oracle.

@@ -15,7 +15,7 @@ Le [banc de volume existant](../../run_benchmark.py) a été exécuté avant et 
 | A | 100,985 s | 72,699 s | 28,01 % | 76,892 → 55,498 s |
 | B | 94,704 s | 68,490 s | 27,68 % | 72,248 → 52,365 s |
 
-Ces durées couvrent la charge instrumentée, dont les validations et la télémétrie. Il n'y a qu'une observation par hôte, taille et version ; l'état froid du cache n'est pas contrôlé. Les écarts décrivent ces exécutions et ne démontrent pas une supériorité générale de vitesse. Le profilage a identifié les allocations à corriger ; ses temps sont exclus de cette comparaison.
+Ces durées couvrent la charge instrumentée, dont les validations et la télémétrie. Il n'y a qu'une observation par hôte, taille et version ; l'état du cache, vide ou déjà alimenté, n'a pas été contrôlé. Les écarts décrivent ces exécutions et ne démontrent pas une supériorité générale de vitesse. Le profilage a identifié les allocations à corriger ; ses temps sont exclus de cette comparaison.
 
 Après synchronisation et retrait, les tailles des fichiers restent identiques : 364 682 octets à 100 sources et 2 220 171 octets à 1 000. Il s'agit d'une comparaison des tailles, pas d'une identité des bases octet par octet. Le JSON conserve les temps CPU, le RSS courant et maximal du processus, les durées par phase et les nombres d'appels. À 1 000 sources, le RSS courant en fin d'exécution passe d'environ 38,0 à 38,7 Mo sur A et de 36,9 à 38,5 Mo sur B. L'énergie, le prix de l'infrastructure et le coût complet restent inconnus.
 
@@ -28,11 +28,11 @@ Le cœur corrigé passe également quatre trajectoires SIGKILL fixes sur chaque 
 | Interruption | Hôte A : arrêt jusqu'à B vérifié | Hôte B |
 | --- | ---: | ---: |
 | Recherche interrompue pendant un retrait | 0,348 s | 0,299 s |
-| Synchronisation, écriture retardée/CAS et restauration d'anciens contenu/index | 0,227 s | 0,267 s |
+| Synchronisation, écriture retardée/CAS et restauration d'une ancienne copie du contenu et de l'index | 0,227 s | 0,267 s |
 | Autorité validée avant publication de l'ancre | 0,350 s | 0,307 s |
 | Projection de l'outbox terminée avant acquittement | 0,383 s | 0,320 s |
 
-Le délai commence à l'envoi de SIGKILL et inclut la synchronisation explicite ou la réparation auditée de l'ancre, puis les vérifications HTTP dans un nouveau processus. L'écart avec l'ancre provoque d'abord un refus de service jusqu'à la réparation explicite ; le rejeu de l'outbox reste idempotent. Tous les processus appartenant au banc sont récoltés. Ces huit trajectoires sont des observations de laboratoire finies, pas des percentiles de reprise, un SLO de disponibilité ni un test de coupure électrique.
+Le délai commence à l'envoi de SIGKILL et inclut la synchronisation explicite ou la réparation auditée de l'ancre, puis les vérifications HTTP dans un nouveau processus. L'écart avec l'ancre provoque d'abord un refus de service jusqu'à la réparation explicite ; le rejeu de l'outbox reste idempotent. Le banc attend la fin de tous les processus qu'il a lancés et récupère leurs statuts de sortie. Ces huit trajectoires sont des observations de laboratoire finies, pas des percentiles de reprise, un SLO de disponibilité ni un test de coupure électrique.
 
 ## Portée et reproduction
 
