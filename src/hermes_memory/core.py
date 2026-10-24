@@ -323,8 +323,8 @@ CREATE TABLE projection(namespace TEXT, point_id TEXT, ref TEXT NOT NULL, epoch 
             require(any(d['relation'] in DEPENDENCIES for d in ds),'derivation_required')
         if alias is not None:name(alias)
         with self.authority.transaction(True) as c:
-            cp=self.authority._checkpoint(c)
             if expected_epoch is not None:
+                cp=self.authority._checkpoint(c)
                 require(type(expected_epoch) is int and expected_epoch==cp['epoch'],'stale_epoch')
             require(not c.execute('SELECT 1 FROM revoked WHERE workspace=? AND artifact_id=?',(workspace,artifact_id)).fetchone(),'source_revoked')
             head=c.execute('SELECT * FROM heads WHERE workspace=? AND artifact_id=?',(workspace,artifact_id)).fetchone()

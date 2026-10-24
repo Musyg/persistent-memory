@@ -1,7 +1,7 @@
 """Capture a synthetic five-step demonstration using the installed public core.
 
 This is an application example, not a second memory engine or an AI benchmark.
-Run on Linux with hermes-memory-core 0.3.0a3 installed. All state is disposable.
+Run on Linux with hermes-memory-core 0.3.0a4 installed. All state is disposable.
 """
 
 import argparse
@@ -17,8 +17,8 @@ import hermes_memory.core as core
 from hermes_memory import Authority, Memory
 
 
-BASE_COMMIT = "c2546be8abb05aadd518fb143d040cec0c4769a9"
-CORE_SHA256 = "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb"
+BASE_COMMIT = "88ed8d5bc02b947414f054be3746225da78d1222"
+CORE_SHA256 = "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce"
 WORKSPACE = "portfolio-atlas"
 FIXTURE = {
     "date_v1": "Projet Atlas : livraison vendredi.",
@@ -98,8 +98,8 @@ def run(directory, compare=False):
         raise RuntimeError("This example is qualified for Linux only.")
     package_version = version("hermes-memory-core")
     module_digest = sha256(Path(core.__file__).read_bytes())
-    if package_version != "0.3.0a3" or module_digest != CORE_SHA256:
-        raise RuntimeError("Expected the pinned public hermes-memory-core 0.3.0a3.")
+    if package_version != "0.3.0a4" or module_digest != CORE_SHA256:
+        raise RuntimeError("Expected the pinned public hermes-memory-core 0.3.0a4.")
 
     root = Path(directory)
     root.mkdir(parents=True, exist_ok=False)

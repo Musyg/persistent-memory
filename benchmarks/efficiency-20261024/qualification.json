@@ -1,0 +1,158 @@
+{
+  "schema": "hermes.core-checkpoint.qualification-summary.v1",
+  "passed": true,
+  "candidate_manifest": {
+    "sha256": "91a3c8e163acaa340b2f14a785144147227668a9fd40b7dfe0e965b665559608",
+    "bytes": 45389
+  },
+  "results": {
+    "px5": {
+      "schema": "hermes.action-transfer.native-qualification.v1",
+      "candidate_sha256": "91a3c8e163acaa340b2f14a785144147227668a9fd40b7dfe0e965b665559608",
+      "host": "px5",
+      "passed": true,
+      "provider_requests": 0,
+      "credential_reads": 0,
+      "production_changed": false,
+      "network_downloads": 0,
+      "qualification_scope": "actual_0.1_consumer_and_public_a4_wheel_sdist",
+      "only_core_changed": true,
+      "tests": 51,
+      "package_version": "0.1.0",
+      "comparison_sha256": "da5998dd1d5b688760c2128776ea023ba8e665e2c086abb6d922cae1a521710d",
+      "consumer_tests": 51,
+      "public_tests": 418,
+      "public_suites": [
+        {
+          "module": "hermes_memory",
+          "variant": "wheel",
+          "tests_run": 160,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_memory",
+          "variant": "sdist",
+          "tests_run": 160,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_policy_registry",
+          "variant": "wheel",
+          "tests_run": 49,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_policy_registry",
+          "variant": "sdist",
+          "tests_run": 49,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        }
+      ],
+      "example_all_assertions": true,
+      "example_cases": 3,
+      "public_version": "0.3.0a4",
+      "elapsed_seconds": 94.65612887591124,
+      "source_drift": false
+    },
+    "px3": {
+      "schema": "hermes.action-transfer.native-qualification.v1",
+      "candidate_sha256": "91a3c8e163acaa340b2f14a785144147227668a9fd40b7dfe0e965b665559608",
+      "host": "px3",
+      "passed": true,
+      "provider_requests": 0,
+      "credential_reads": 0,
+      "production_changed": false,
+      "network_downloads": 0,
+      "qualification_scope": "actual_0.1_consumer_and_public_a4_wheel_sdist",
+      "only_core_changed": true,
+      "tests": 51,
+      "package_version": "0.1.0",
+      "comparison_sha256": "da5998dd1d5b688760c2128776ea023ba8e665e2c086abb6d922cae1a521710d",
+      "consumer_tests": 51,
+      "public_tests": 418,
+      "public_suites": [
+        {
+          "module": "hermes_memory",
+          "variant": "wheel",
+          "tests_run": 160,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_memory",
+          "variant": "sdist",
+          "tests_run": 160,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_policy_registry",
+          "variant": "wheel",
+          "tests_run": 49,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        },
+        {
+          "module": "hermes_policy_registry",
+          "variant": "sdist",
+          "tests_run": 49,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "status": "passed"
+        }
+      ],
+      "example_all_assertions": true,
+      "example_cases": 3,
+      "public_version": "0.3.0a4",
+      "elapsed_seconds": 83.06395674217492,
+      "source_drift": false
+    }
+  },
+  "executions_total": 938,
+  "public_distinct_cases": 209,
+  "public_case_delta": [
+    {
+      "module": "hermes_memory",
+      "previous": 156,
+      "current": 160,
+      "added": [
+        "test_core.CoreScenarios.test_source_admission_keeps_integrity_without_redundant_epoch_scan",
+        "test_core_independent.CoreReview.test_ref_dataclass_subclass_keeps_legacy_serialization_and_validation",
+        "test_core_independent.CoreReview.test_ref_rejects_invalid_identifiers_and_shapes",
+        "test_core_independent.CoreReview.test_ref_serialization_is_independent_and_canonical"
+      ],
+      "removed": []
+    },
+    {
+      "module": "hermes_policy_registry",
+      "previous": 49,
+      "current": 49,
+      "added": [],
+      "removed": []
+    }
+  ],
+  "historical_201_origin": "not_reconciled_in_direct_known_receipts",
+  "example_cases_per_host": 3,
+  "performance_measured": false,
+  "production_changed": false,
+  "provider_calls": 0
+}

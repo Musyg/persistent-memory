@@ -1,0 +1,50 @@
+{
+  "schema": "persistent-memory.paired-source-pins.v1",
+  "common_runner": {
+    "bytes": 138226,
+    "sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33"
+  },
+  "baseline_public_commit": "1554beda0ef3e57621eca8974c197514302f369e",
+  "arms": {
+    "A": {
+      "core.py": {
+        "sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+        "public_source": "src/hermes_memory/core.py"
+      },
+      "typed_memory.py": {
+        "sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+        "public_source": "src/hermes_memory/typed_memory.py"
+      },
+      "typed_protocol.py": {
+        "sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+        "public_source": "src/hermes_memory/typed_protocol.py"
+      }
+    },
+    "B": {
+      "core.py": {
+        "sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+        "public_source": "src/hermes_memory/core.py"
+      },
+      "typed_memory.py": {
+        "sha256": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+        "public_source": "src/hermes_memory/typed_memory.py"
+      },
+      "typed_protocol.py": {
+        "sha256": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801",
+        "public_source": "src/hermes_memory/typed_protocol.py"
+      }
+    }
+  },
+  "observed_common_wheels": [
+    {
+      "filename": "hermes_memory_core-0.3.0a2-py3-none-any.whl",
+      "sha256": "aa818c95941335c8e2f9e04dc433e0e154dd2c60f95cee6ebc3a7742de3bf321"
+    },
+    {
+      "filename": "hermes_policy_registry-0.2.0a2-py3-none-any.whl",
+      "sha256": "199fc8084340be3432997d341b7744897102fb6be794be59c827d7537b123066"
+    }
+  ],
+  "observations_sha256": "1555d45fbf51a533237e92d2a136eccf21c0a8e2161b0fbbe0175e38f255fd12",
+  "source_copy_note": "The measured laboratory wheel metadata remained 0.3.0a2. Arm modules were explicitly initialized and checked before each run. This is a code comparison, not an a4 artifact performance measurement."
+}

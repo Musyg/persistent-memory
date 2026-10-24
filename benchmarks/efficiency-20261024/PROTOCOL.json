@@ -1,0 +1,106 @@
+{
+  "analysis": {
+    "RAM_support_shared_and_distinct_from_historical": true,
+    "all_six_planned_cells_retained": true,
+    "general_efficiency_claim": false,
+    "later_unstarted_cells_reported": true,
+    "p_value": null,
+    "paired_differences_median_and_range": true,
+    "production_latency_claim": false,
+    "robust_distribution_claim": false,
+    "timeouts_censored_not_replaced": true,
+    "unit_of_replication": "full fresh process, paired by planned pair id"
+  },
+  "cells": [
+    {
+      "arm": "A",
+      "id": "pair1_A",
+      "pair": 1
+    },
+    {
+      "arm": "B",
+      "id": "pair1_B",
+      "pair": 1
+    },
+    {
+      "arm": "B",
+      "id": "pair2_B",
+      "pair": 2
+    },
+    {
+      "arm": "A",
+      "id": "pair2_A",
+      "pair": 2
+    },
+    {
+      "arm": "A",
+      "id": "pair3_A",
+      "pair": 3
+    },
+    {
+      "arm": "B",
+      "id": "pair3_B",
+      "pair": 3
+    }
+  ],
+  "common_runner_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+  "comparison_A_core_sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+  "comparison_B_core_sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+  "documents": 1000,
+  "execution": {
+    "CPUQuota": "50%",
+    "MemoryMax_bytes": 1073741824,
+    "MemorySwapMax_bytes": 0,
+    "PrivateNetwork": true,
+    "TasksMax": 64,
+    "automatic_retry": false,
+    "child_wait_before_RAM_cleanup": true,
+    "child_wall_cap_seconds": 180,
+    "cleanup_receipt_required": true,
+    "concurrency": 1,
+    "fresh_process_and_database_each_cell": true,
+    "private_owned_RAM": true,
+    "profiled": false,
+    "replacements": 0,
+    "unit_total_wall_cap_seconds": 1200
+  },
+  "oracle": {
+    "candidate_truncated_queries": 0,
+    "expected_hits": 50,
+    "explicit_validation_reads": 50,
+    "max_context_chars": 200,
+    "omissions": 0,
+    "post_sync_revocation_status": "completed",
+    "post_sync_revoked_query_items": [],
+    "pre_sync_revocation_status": "index_stale",
+    "same_existing_CLI_main": true,
+    "status_counts": {
+      "completed": 50
+    },
+    "top_k": 5,
+    "unexpected_items": 0
+  },
+  "query_schedule_sha256": "178dddc4b99b919f7dd804ddf61a9259935d3713f67276bb5bbf1d35a9b7cb1e",
+  "retrievals_per_process": 50,
+  "seed": 20261021,
+  "schema": "persistent-memory.paired-source-admission-protocol.v1",
+  "projection_of_frozen_parameters": true,
+  "observations_sha256": "1555d45fbf51a533237e92d2a136eccf21c0a8e2161b0fbbe0175e38f255fd12",
+  "registered_performance_criterion": {
+    "schema_version": 1,
+    "prospective_before_launch": true,
+    "benchmark_script_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+    "technical_measurement_complete": "All six planned fresh-process cells complete and pass all existing correctness oracles; no correctness guard removed.",
+    "performance_promotion_requires": [
+      "Instrumented total duration B strictly lower than A in each of the three planned pairs.",
+      "Ingestion duration B strictly lower than A in each of the three planned pairs.",
+      "Publish all paired differences, median and range, plus CPU observations."
+    ],
+    "mixed_directions_or_timeout": "No consistent-gain claim and no automatic replacement or retry.",
+    "interpretation": "Three descriptive paired replications on common RAM support, with versions and pins disclosed; no robust population distribution, p-value, infrastructure cost or production gain inferred.",
+    "promotion_automatic": false,
+    "Root_review_required": true
+  },
+  "repetition_unit": "one full fresh process, paired by the registered pair id",
+  "historical_draft_labels": "Kept byte-exact in observations.json; the external execution admission is projected separately in ADMISSION.json."
+}

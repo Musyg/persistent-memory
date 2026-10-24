@@ -14,7 +14,7 @@ import re
 import sqlite3
 import sys
 
-CORE_SHA = "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb"
+CORE_SHA = "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce"
 SCHEMA = "hermes.typed-memory.v1"
 KINDS = {"document", "observation", "hypothesis", "procedure", "task", "feedback"}
 

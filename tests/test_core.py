@@ -18,6 +18,39 @@ class CoreScenarios(unittest.TestCase):
     def tearDown(self):self.temp.cleanup()
     def derived(self,id='F',parents=None):
         return self.m.derive('w',id,'alpha beta','fact',[{'ref':r,'relation':'derives'} for r in (parents or [self.A])],self.m.checkpoint()['epoch'])['ref']
+    def test_source_admission_keeps_integrity_without_redundant_epoch_scan(self):
+        before=self.authority.checkpoint()
+        with patch.object(self.authority,'_checkpoint',wraps=self.authority._checkpoint) as checkpoints:
+            source=self.m.register_source('w','scan-source','synthetic gamma')
+            self.assertEqual([c.kwargs.get('verify_state',True) for c in checkpoints.call_args_list],[True,False,True])
+        self.assertEqual(source['epoch'],before['epoch']+1)
+        self.assertEqual(self.m.read(source['ref'])['content'],'synthetic gamma')
+        dependencies=[{'ref':source['ref'],'relation':'derives'}]
+        # A None epoch is already an admitted derive contract; preserve it.
+        with patch.object(self.authority,'_checkpoint',wraps=self.authority._checkpoint) as checkpoints:
+            optional=self.m.derive('w','scan-optional','synthetic optional','lesson',dependencies,None)
+            self.assertEqual([c.kwargs.get('verify_state',True) for c in checkpoints.call_args_list],[True,False,True])
+        self.assertTrue(self.m.read(optional['ref'])['allowed'])
+        epoch=self.authority.checkpoint()['epoch']
+        with patch.object(self.authority,'_checkpoint',wraps=self.authority._checkpoint) as checkpoints:
+            derived=self.m.derive('w','scan-required','synthetic derived','lesson',dependencies,epoch)
+            self.assertEqual([c.kwargs.get('verify_state',True) for c in checkpoints.call_args_list],[True,True,False,True])
+        self.assertEqual(derived['epoch'],epoch+1)
+        self.assertEqual(self.m.read(derived['ref'])['content'],'synthetic derived')
+        with self.assertRaisesRegex(MemoryError,'stale_epoch'):
+            self.m.derive('w','scan-stale','must not publish','lesson',dependencies,epoch)
+        self.assertEqual(self.authority.checkpoint()['epoch'],derived['epoch'])
+        # A redundant inner scan is removed, not the transaction integrity gate.
+        with sqlite3.connect(self.m.path) as data:
+            content_count=data.execute('SELECT COUNT(*) FROM content').fetchone()[0]
+        with sqlite3.connect(self.authority.path) as authority:
+            authority.execute('UPDATE objects SET content_sha256=? WHERE artifact_id=?',('0'*64,'scan-source'))
+        with self.assertRaisesRegex(MemoryError,'authority_state_mismatch'):
+            self.m.register_source('w','scan-blocked','must not persist')
+        with sqlite3.connect(self.m.path) as data:
+            self.assertEqual(data.execute('SELECT COUNT(*) FROM content').fetchone()[0],content_count)
+        with sqlite3.connect(self.authority.path) as authority:
+            self.assertEqual(authority.execute('SELECT MAX(seq) FROM events').fetchone()[0],derived['epoch'])
     def test_mixed_and_independent_after_restore(self):
         f=self.derived(parents=[self.A,self.B]);self.m.backup(self.root/'old.db')
         self.m.revoke_source('w','A','r1');old=Memory.open(self.root/'old.db',self.authority)

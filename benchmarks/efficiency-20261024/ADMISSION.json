@@ -1,0 +1,19 @@
+{
+  "schema": "persistent-memory.execution-admission-projection.v1",
+  "projection_only": true,
+  "original_admission_sha256": "f9e711a183bde635217bc89ca41654b335bc07b6c3e17e4bc917d4aacb86ea36",
+  "verified_UTC": "2026-10-24T19:03:21.910618+00:00",
+  "execution_authorized": true,
+  "candidate_qualified": true,
+  "candidate_sha256": "321aa290a3f54c7e74267fafccf8eea981912a9fccceb8bd8a6551af520d5285",
+  "candidate_core_sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+  "qualification_receipt_sha256": "e9b2c753306c103a861bf2736e6ef415f1dcda467de7877886d840f32e234bb0",
+  "qualification_public_file": "qualification.json",
+  "performance_criteria_sha256": "b7343d3052b8d80146cf4670dd6851d9abf84e1c2d5cfe2adf81fea19495d3e2",
+  "native_launch_intent_sha256": "0411e516fc6a5a3479345f4f6a649e2e9bb2790849c18a344022264b2f4630a1",
+  "native_launch_intent_mtime_UTC": "2026-10-24T19:04:02.511717+00:00",
+  "one_launch": true,
+  "automatic_retry": false,
+  "embedded_draft_labels_unchanged": true,
+  "explanation": "The archived observations retain preparatory draft flags. A separate reviewed admission authorized the pinned candidate before the exclusive launch intent. This projection omits the private receipt path and does not replace or rewrite the original admission."
+}

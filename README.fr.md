@@ -73,14 +73,14 @@ Les routes HTTP typées et leur client sont en lecture seule. Le serveur combin�
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a3-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a4-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Ils conservent 50 tests du noyau, 35 de recherche typée et 36 d'intégration portable, auxquels s'ajoutent les tests d'assemblage du paquet. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Le paquet mémoire compte 160 tests publics, et le registre de politiques facultatif 49. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 
@@ -108,5 +108,7 @@ L’[analyse secondaire d’efficacité](benchmarks/efficiency-20261023/README.f
 L’[étude de transfert vers des fichiers](benchmarks/action-20261023/README.fr.md) vérifie des actions CSV/JSON entre trois processus distincts. Sur 24 mondes issus de 12 structures, Luna avec mémoire réussit 66/72 tâches contre 35/72 sans mémoire, avec une réponse indisponible dans ce dernier bras ; Sol atteint 72/72 contre 36/72. La référence lexicale versionnée obtient 67/72 et 72/72 : aucun avantage sur cette référence n’est établi. Données synthétiques, échecs initiaux, calibration et amendement du protocole sont conservés avec les commandes de reproduction.
 
 L’[étude d’optimisation du noyau](benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) compare la même charge de 1 000 sources avant et après une correction de sérialisation. Le temps total instrumenté baisse de 28,01 % et 27,68 % sur deux hôtes Linux, avec les mêmes résultats vérifiés et le même stockage. Huit trajectoires de panne par arrêt réel du processus passent aussi. Il s’agit d’une observation par hôte, sans garantie de latence en production ni de passage à l’échelle général.
+
+Le [benchmark apparié d’admission](benchmarks/efficiency-20261024/README.fr.md) compare la nouvelle correction du checkpoint au noyau précédent sur trois paires de processus neufs. À 1 000 sources synthétiques et 50 recherches par exécution, sur le même support RAM, les réductions médianes sont de 22,33 % pour la durée instrumentée, 28,72 % pour l’ingestion et 22,33 % pour le CPU. Les six exécutions passent les mêmes contrôles de justesse. Ces observations sur un hôte Linux ne constituent ni une mesure de production ni une garantie générale de passage à l’échelle.
 
 L’[étude d’apprentissage entre missions](benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les fichiers produits par les 192 missions B ont été rouverts et vérifiés indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](benchmarks/action-20261023/experience/REPRODUCE.md).

@@ -1,0 +1,363 @@
+{
+  "cells": [
+    {
+      "id": "pair1_A",
+      "pair": 1,
+      "arm": "A",
+      "PID": 2175793,
+      "child_elapsed_seconds": 72.23614901304245,
+      "instrumented_wall_seconds": 72.1068345438689,
+      "ingest_seconds": 55.04598272102885,
+      "cpu_user_process_seconds_at_final_boundary": 35.767975,
+      "cpu_system_process_seconds_at_final_boundary": 0.273416,
+      "instrumented_cpu_user_seconds": 35.722913,
+      "instrumented_cpu_system_seconds": 0.266559,
+      "instrumented_cpu_seconds": 35.989472,
+      "rss_current_bytes_at_final_boundary": 34942976,
+      "rss_peak_bytes": 34525184,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    },
+    {
+      "id": "pair1_B",
+      "pair": 1,
+      "arm": "B",
+      "PID": 2182885,
+      "child_elapsed_seconds": 56.5260212009307,
+      "instrumented_wall_seconds": 56.37863963400014,
+      "ingest_seconds": 39.29798578005284,
+      "cpu_user_process_seconds_at_final_boundary": 27.925389,
+      "cpu_system_process_seconds_at_final_boundary": 0.26051799999999997,
+      "instrumented_cpu_user_seconds": 27.881373999999997,
+      "instrumented_cpu_system_seconds": 0.24975899999999998,
+      "instrumented_cpu_seconds": 28.131133,
+      "rss_current_bytes_at_final_boundary": 34975744,
+      "rss_peak_bytes": 34099200,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    },
+    {
+      "id": "pair2_B",
+      "pair": 2,
+      "arm": "B",
+      "PID": 2187601,
+      "child_elapsed_seconds": 55.757661029929295,
+      "instrumented_wall_seconds": 55.62893297499977,
+      "ingest_seconds": 38.87781006703153,
+      "cpu_user_process_seconds_at_final_boundary": 27.581296,
+      "cpu_system_process_seconds_at_final_boundary": 0.252675,
+      "instrumented_cpu_user_seconds": 27.533475999999997,
+      "instrumented_cpu_system_seconds": 0.243892,
+      "instrumented_cpu_seconds": 27.777367999999996,
+      "rss_current_bytes_at_final_boundary": 34971648,
+      "rss_peak_bytes": 34078720,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    },
+    {
+      "id": "pair2_A",
+      "pair": 2,
+      "arm": "A",
+      "PID": 2190908,
+      "child_elapsed_seconds": 71.85371989291161,
+      "instrumented_wall_seconds": 71.77052194811404,
+      "ingest_seconds": 54.53992645209655,
+      "cpu_user_process_seconds_at_final_boundary": 35.554848,
+      "cpu_system_process_seconds_at_final_boundary": 0.31116299999999997,
+      "instrumented_cpu_user_seconds": 35.505729,
+      "instrumented_cpu_system_seconds": 0.30133999999999994,
+      "instrumented_cpu_seconds": 35.807069000000006,
+      "rss_current_bytes_at_final_boundary": 34979840,
+      "rss_peak_bytes": 33984512,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    },
+    {
+      "id": "pair3_A",
+      "pair": 3,
+      "arm": "A",
+      "PID": 2196497,
+      "child_elapsed_seconds": 72.58961176709272,
+      "instrumented_wall_seconds": 72.48168092407286,
+      "ingest_seconds": 55.11003852891736,
+      "cpu_user_process_seconds_at_final_boundary": 35.8911,
+      "cpu_system_process_seconds_at_final_boundary": 0.32789399999999996,
+      "instrumented_cpu_user_seconds": 35.84196,
+      "instrumented_cpu_system_seconds": 0.32101499999999994,
+      "instrumented_cpu_seconds": 36.162975,
+      "rss_current_bytes_at_final_boundary": 34967552,
+      "rss_peak_bytes": 34287616,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    },
+    {
+      "id": "pair3_B",
+      "pair": 3,
+      "arm": "B",
+      "PID": 2201677,
+      "child_elapsed_seconds": 56.42189874500036,
+      "instrumented_wall_seconds": 56.29328978294507,
+      "ingest_seconds": 39.07746492000297,
+      "cpu_user_process_seconds_at_final_boundary": 27.865873,
+      "cpu_system_process_seconds_at_final_boundary": 0.282364,
+      "instrumented_cpu_user_seconds": 27.817233,
+      "instrumented_cpu_system_seconds": 0.271445,
+      "instrumented_cpu_seconds": 28.088678,
+      "rss_current_bytes_at_final_boundary": 34971648,
+      "rss_peak_bytes": 34226176,
+      "storage_bytes": 2220171,
+      "physical_read_bytes_at_final_boundary": 0,
+      "physical_write_bytes_at_final_boundary": 147456,
+      "public_method_calls": {
+        "typed.put": 1000,
+        "typed.sync": 2,
+        "typed.search": 52,
+        "memory.read": 50,
+        "memory.revoke_source": 1
+      },
+      "oracle_passed": true,
+      "package_metadata_version": "0.3.0a2"
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 1,
+      "metrics": {
+        "instrumented_wall_seconds": {
+          "A": 72.1068345438689,
+          "B": 56.37863963400014,
+          "A_minus_B": 15.728194909868762,
+          "reduction_percent": 21.812349702163008,
+          "B_lower": true
+        },
+        "child_elapsed_seconds": {
+          "A": 72.23614901304245,
+          "B": 56.5260212009307,
+          "A_minus_B": 15.71012781211175,
+          "reduction_percent": 21.7482908858766,
+          "B_lower": true
+        },
+        "ingest_seconds": {
+          "A": 55.04598272102885,
+          "B": 39.29798578005284,
+          "A_minus_B": 15.747996940976009,
+          "reduction_percent": 28.608803335906117,
+          "B_lower": true
+        },
+        "instrumented_cpu_seconds": {
+          "A": 35.989472,
+          "B": 28.131133,
+          "A_minus_B": 7.858339000000001,
+          "reduction_percent": 21.83510499959544,
+          "B_lower": true
+        }
+      }
+    },
+    {
+      "pair": 2,
+      "metrics": {
+        "instrumented_wall_seconds": {
+          "A": 71.77052194811404,
+          "B": 55.62893297499977,
+          "A_minus_B": 16.141588973114267,
+          "reduction_percent": 22.49055536308306,
+          "B_lower": true
+        },
+        "child_elapsed_seconds": {
+          "A": 71.85371989291161,
+          "B": 55.757661029929295,
+          "A_minus_B": 16.096058862982318,
+          "reduction_percent": 22.401149010755944,
+          "B_lower": true
+        },
+        "ingest_seconds": {
+          "A": 54.53992645209655,
+          "B": 38.87781006703153,
+          "A_minus_B": 15.66211638506502,
+          "reduction_percent": 28.716790439424873,
+          "B_lower": true
+        },
+        "instrumented_cpu_seconds": {
+          "A": 35.807069000000006,
+          "B": 27.777367999999996,
+          "A_minus_B": 8.02970100000001,
+          "reduction_percent": 22.424904423202047,
+          "B_lower": true
+        }
+      }
+    },
+    {
+      "pair": 3,
+      "metrics": {
+        "instrumented_wall_seconds": {
+          "A": 72.48168092407286,
+          "B": 56.29328978294507,
+          "A_minus_B": 16.188391141127795,
+          "reduction_percent": 22.33445876908637,
+          "B_lower": true
+        },
+        "child_elapsed_seconds": {
+          "A": 72.58961176709272,
+          "B": 56.42189874500036,
+          "A_minus_B": 16.167713022092357,
+          "reduction_percent": 22.272764144223895,
+          "B_lower": true
+        },
+        "ingest_seconds": {
+          "A": 55.11003852891736,
+          "B": 39.07746492000297,
+          "A_minus_B": 16.03257360891439,
+          "reduction_percent": 29.091929595552312,
+          "B_lower": true
+        },
+        "instrumented_cpu_seconds": {
+          "A": 36.162975,
+          "B": 28.088678,
+          "A_minus_B": 8.074297000000001,
+          "reduction_percent": 22.327524215029324,
+          "B_lower": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "instrumented_wall_seconds": {
+      "median_reduction_percent": 22.33445876908637,
+      "reduction_percent_range": [
+        21.812349702163008,
+        22.49055536308306
+      ],
+      "median_A_minus_B_seconds": 16.141588973114267,
+      "A_minus_B_seconds_range": [
+        15.728194909868762,
+        16.188391141127795
+      ],
+      "B_lower_in_all_three_pairs": true
+    },
+    "child_elapsed_seconds": {
+      "median_reduction_percent": 22.272764144223895,
+      "reduction_percent_range": [
+        21.7482908858766,
+        22.401149010755944
+      ],
+      "median_A_minus_B_seconds": 16.096058862982318,
+      "A_minus_B_seconds_range": [
+        15.71012781211175,
+        16.167713022092357
+      ],
+      "B_lower_in_all_three_pairs": true
+    },
+    "ingest_seconds": {
+      "median_reduction_percent": 28.716790439424873,
+      "reduction_percent_range": [
+        28.608803335906117,
+        29.091929595552312
+      ],
+      "median_A_minus_B_seconds": 15.747996940976009,
+      "A_minus_B_seconds_range": [
+        15.66211638506502,
+        16.03257360891439
+      ],
+      "B_lower_in_all_three_pairs": true
+    },
+    "instrumented_cpu_seconds": {
+      "median_reduction_percent": 22.327524215029324,
+      "reduction_percent_range": [
+        21.83510499959544,
+        22.424904423202047
+      ],
+      "median_A_minus_B_seconds": 8.02970100000001,
+      "A_minus_B_seconds_range": [
+        7.858339000000001,
+        8.074297000000001
+      ],
+      "B_lower_in_all_three_pairs": true
+    }
+  },
+  "criteria": {
+    "all_six_complete_oracles": true,
+    "wall_B_lower_in_all_three_pairs": true,
+    "ingest_B_lower_in_all_three_pairs": true,
+    "CPU_reported": true,
+    "performance_promotion_criteria_met": true,
+    "Root_decision_required": true,
+    "promotion_automatic": false
+  },
+  "run_elapsed_seconds": 388.62382621411234,
+  "timeouts": 0,
+  "unstarted_cells": 0,
+  "replacements": 0,
+  "provider_requests": 0,
+  "source_drift": false,
+  "schema": "persistent-memory.paired-source-admission-summary.v1",
+  "date": "2026-10-24",
+  "observations_sha256": "1555d45fbf51a533237e92d2a136eccf21c0a8e2161b0fbbe0175e38f255fd12",
+  "source_analysis_sha256": "e43c9a1e29ad3a1af3e3451ad3844adb9a87b6cf104486039a03ab41dd4270b2",
+  "scope": {
+    "synthetic_sources_per_process": 1000,
+    "measured_searches_per_process": 50,
+    "fresh_processes": 6,
+    "paired_replications": 3,
+    "hosts": 1,
+    "support": "common laboratory 0.3.0a2 core wheel, with three pinned module files selected for each arm",
+    "qualified_a4_artifacts_used_for_performance_measurement": false,
+    "common_RAM_storage": true,
+    "cold_cache_controlled": false,
+    "general_efficiency_superiority_established": false,
+    "production_gain_measured": false,
+    "5000_sources_measured": false,
+    "energy_joules": null,
+    "infrastructure_cost_USD": null,
+    "p_value": null
+  }
+}
