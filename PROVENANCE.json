@@ -98,8 +98,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
-      "package_sha256": "89321e1344ffb5a6bd7370516e64a0a0721b7d2d765aa75c207434a9ef1d559e",
+      "transformation": "Clarify integration requirements, safe non-completion states and the scope of empirical evidence in natural French and English; measured results, technical constraints and historical failures unchanged.",
+      "package_sha256": "6f59099c15fc0d3294a86b10afcac6f4be1d5308742c548809a498d4d1a01139",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -135,6 +135,17 @@
           "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
           "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f",
           "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
+        },
+        {
+          "path": "README.fr.md",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
+          "package_sha256": "89321e1344ffb5a6bd7370516e64a0a0721b7d2d765aa75c207434a9ef1d559e",
+          "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
+          "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
+          "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f",
+          "public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376"
         }
       ],
       "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f"
@@ -143,8 +154,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
-      "package_sha256": "2f0ec53aaee7a7bfc4145a8de82ffa0eef05afde60b7d2dc354a9aa22bac251b",
+      "transformation": "Clarify integration requirements, safe non-completion states and the scope of empirical evidence in natural French and English; measured results, technical constraints and historical failures unchanged.",
+      "package_sha256": "4db3a9f82ae3c100b1db3197aa9ba28e41d7f2b6a8056f63b1b1909714a24f67",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -180,6 +191,17 @@
           "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
           "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7",
           "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
+        },
+        {
+          "path": "README.md",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
+          "package_sha256": "2f0ec53aaee7a7bfc4145a8de82ffa0eef05afde60b7d2dc354a9aa22bac251b",
+          "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
+          "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
+          "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7",
+          "public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376"
         }
       ],
       "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7"
@@ -252,8 +274,8 @@
       "path": "docs/API.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
-      "package_sha256": "b774769e7d5720a43c4044a9f465208561626c362ae78767629f00c43839672d",
+      "transformation": "Clarify integration requirements, safe non-completion states and the scope of empirical evidence in natural French and English; measured results, technical constraints and historical failures unchanged.",
+      "package_sha256": "37c6dae29b38a6868d0184e39d50fd823963c7c9bd8cd0873f4c25b9c3185084",
       "assembly_history": [
         {
           "package_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f",
@@ -263,6 +285,15 @@
           "package_sha256": "f8819bca1fa070b07f4e32f62bf199dc11b86f80bd021638a6868b06f388f772",
           "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained",
           "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        },
+        {
+          "path": "docs/API.md",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+          "package_sha256": "b774769e7d5720a43c4044a9f465208561626c362ae78767629f00c43839672d",
+          "previous_public_worktree_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f",
+          "public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376"
         }
       ],
       "previous_public_worktree_sha256": "37c9911f673f979f4a5549bc308c42622f759a4565d82583392a9fba374e721f"
@@ -1120,8 +1151,19 @@
       "origin": "public-bilingual-documentation-update",
       "original_sha256": null,
       "previous_public_sha256": null,
-      "package_sha256": "6e7dbf49d855f84307a403df41cf147a9024976c647939ff20a30d84d5e7b5ac",
-      "transformation": "New natural French companion with unchanged technical contract."
+      "package_sha256": "39e24242c3b267fb9228728e16c73984e8b13f4401d45716da71c99a533d8188",
+      "transformation": "Clarify integration requirements, safe non-completion states and the scope of empirical evidence in natural French and English; measured results, technical constraints and historical failures unchanged.",
+      "assembly_history": [
+        {
+          "path": "docs/API.fr.md",
+          "origin": "public-bilingual-documentation-update",
+          "original_sha256": null,
+          "previous_public_sha256": null,
+          "package_sha256": "6e7dbf49d855f84307a403df41cf147a9024976c647939ff20a30d84d5e7b5ac",
+          "transformation": "New natural French companion with unchanged technical contract.",
+          "public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376"
+        }
+      ]
     },
     {
       "path": "docs/PORTFOLIO-DEMO.md",
@@ -1539,6 +1581,33 @@
         }
       ],
       "scope": "Repository benchmark, synthetic tests and bilingual documentation only; no package runtime, version or release-asset change."
+    },
+    {
+      "base_public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376",
+      "previous_provenance_sha256": "1f55a9700a94c104a524f6b0cdbbaeac1ad731f32f4aa866b151b535b44b4045",
+      "changes": [
+        {
+          "path": "README.md",
+          "previous_package_sha256": "2f0ec53aaee7a7bfc4145a8de82ffa0eef05afde60b7d2dc354a9aa22bac251b",
+          "package_sha256": "4db3a9f82ae3c100b1db3197aa9ba28e41d7f2b6a8056f63b1b1909714a24f67"
+        },
+        {
+          "path": "README.fr.md",
+          "previous_package_sha256": "89321e1344ffb5a6bd7370516e64a0a0721b7d2d765aa75c207434a9ef1d559e",
+          "package_sha256": "6f59099c15fc0d3294a86b10afcac6f4be1d5308742c548809a498d4d1a01139"
+        },
+        {
+          "path": "docs/API.md",
+          "previous_package_sha256": "b774769e7d5720a43c4044a9f465208561626c362ae78767629f00c43839672d",
+          "package_sha256": "37c6dae29b38a6868d0184e39d50fd823963c7c9bd8cd0873f4c25b9c3185084"
+        },
+        {
+          "path": "docs/API.fr.md",
+          "previous_package_sha256": "6e7dbf49d855f84307a403df41cf147a9024976c647939ff20a30d84d5e7b5ac",
+          "package_sha256": "39e24242c3b267fb9228728e16c73984e8b13f4401d45716da71c99a533d8188"
+        }
+      ],
+      "scope": "Current documentation only. Existing evidence, code, tests, package archives, measured values and release history preserved."
     }
   ],
   "qualification_update_20261023": {
@@ -1774,5 +1843,20 @@
     "prospective_freeze_sha256": "3bc2d289f1710f6226099a26b5f7d9bf7cbd42911fdd741c499115b7b57de06c",
     "six_cell_observations_path": "benchmarks/efficiency-20261025/observations.json",
     "result_path": "benchmarks/efficiency-20261025/RESULT.json"
+  },
+  "evidence_scope_clarification_20261025": {
+    "base_public_commit": "8de34dcb4c284b889f20270ce7db26b8d1088376",
+    "previous_provenance_sha256": "1f55a9700a94c104a524f6b0cdbbaeac1ad731f32f4aa866b151b535b44b4045",
+    "changed_paths": [
+      "README.md",
+      "README.fr.md",
+      "docs/API.md",
+      "docs/API.fr.md"
+    ],
+    "scope": "Distinguish study scope, actual integration constraints and observed failures; no broader performance or correctness claim.",
+    "package_runtime_changed": false,
+    "release_assets_unchanged": true,
+    "frozen_evidence_unchanged": true,
+    "website_changed": false
   }
 }

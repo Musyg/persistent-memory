@@ -88,18 +88,20 @@ The benchmark uses 24 generated notes and reports observations, not a universal 
 
 The optional [synthetic LanceDB demonstration](docs/BENCHMARK-LANCE.md) exercises explicit vector/text retrieval and current-version/withdrawal checks with predefined vectors. It uses separate optional dependencies; the default benchmark remains unchanged.
 
-## Design boundaries
+## Integration requirements
 
 - A current external authority and retained freshness witness are required for safe recovery; keep them outside content-only snapshots.
-- Missing or stale dependencies produce explicit failure states. Empty results are not a substitute for unavailable authority.
+- Missing dependencies and stale indexes are reported explicitly, so the caller can avoid using unvalidated evidence. Empty results are not a substitute for unavailable authority.
 - Index rebuilding and admission are explicit and bounded. No automatic ingestion or historical corpus migration occurs.
-- Context budgets count Python characters, not tokens. R3 can replay authority history per operation; it is not optimized for unrestricted corpus growth.
+- Context budgets count Python characters, not tokens. R3 can replay authority history per operation; the cost of that work depends on the journal length.
 - Revocation controls future reads through this library. It cannot recall text already copied elsewhere.
 - The application decides consent, retention, user permissions, trusted storage and backup policy.
 
 MIT license. File selection and packaging transformations are recorded in `PROVENANCE.json`. The optional policy registry is a separate distribution; see [PACKAGES.md](PACKAGES.md). It does not activate policies or grant runtime permissions.
 
 ## Observed memory on/off comparison
+
+Each study defines its workload and the conclusions it supports. A condition outside that scope is untested by that study, rather than an observed failure. Answer-quality scores describe agent outcomes; software checks assess the memory contracts separately.
 
 The [confirmation study](benchmarks/validation-20261022/README.md) covers 100 distinct synthetic scenarios, with three repetitions for each model and condition: all 1,500 answers were delivered and all 3,000 AI judge responses completed. GPT-6 Luna succeeded on 298/300 answers with memory (99.33%), versus 29/300 without; GPT-6.1 Sol reached 300/300 versus 30/300. Luna’s primary gain was 89.67 percentage points, with a nominal 95% interval of 89–90 points and a one-sided 95% lower success bound of 98%. Lexical retrieval succeeded on 294/300: the 95% memory/lexical effect interval, −0.33 to +3.33 points, does not establish superiority.
 

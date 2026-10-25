@@ -24,7 +24,7 @@ Python API: `TypedMemory.put(workspace, source_id, text, attributes, expected_ve
 
 Metadata admits only `evidence_kind`, `valid_from`, `valid_until`, `observed_at`, `aliases`, `preconditions`, `confidence`. Times use UTC ISO strings ending in `Z`; validity is start-inclusive and end-exclusive. Preconditions require exact supplied values. Past timestamps filter current heads and do not retrieve superseded versions. Confidence is declared metadata, not calibrated probability.
 
-`status=completed` may contain no eligible evidence. Read `context_empty`, `coverage`, `exclusions` and `complete`; completeness is restricted to indexed managed candidates at the current epoch, not the entire historical corpus. `index_stale`, `epoch_changed` and `unavailable` are distinct failure states. A global authority epoch change can stale an otherwise unrelated workspace's index.
+`status=completed` may contain no eligible evidence. Read `context_empty`, `coverage`, `exclusions` and `complete`; completeness is restricted to indexed managed candidates at the current epoch, not the entire historical corpus. `index_stale`, `epoch_changed` and `unavailable` are distinct non-completion states that the caller must handle explicitly, rather than successful empty results. A global authority epoch change can stale an otherwise unrelated workspace's index.
 
 ## Optional HTTP
 

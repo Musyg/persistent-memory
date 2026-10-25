@@ -84,18 +84,20 @@ Les tests importent le paquet installé. Le paquet mémoire compte 160 tests pub
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 
-## Limites à prendre en compte
+## Conditions d’intégration
 
 - Conservez l'autorité actuelle et son témoin hors des sauvegardes de contenu restaurables seules.
-- Une dépendance indisponible ou un index périmé doit rester visible ; une réponse vide ne signifie pas un système sain.
+- Une dépendance indisponible ou un index périmé est signalé explicitement, afin d’éviter l’usage de preuves non validées. Une réponse vide ne remplace pas une autorité indisponible.
 - Admission et synchronisation sont explicites et bornées, sans ingestion ou migration globale automatique.
-- Le budget est exprimé en caractères Python, pas en tokens. R3 peut reparcourir le journal d'autorité à chaque opération ; sa montée en charge n'est pas illimitée.
+- Le budget est exprimé en caractères Python, pas en tokens. R3 peut reparcourir le journal d'autorité à chaque opération ; le coût de ce travail dépend de la longueur du journal.
 - Un retrait bloque les futures lectures par la bibliothèque, sans rappeler les copies déjà transmises.
 - L'application reste responsable du consentement, des droits, de la rétention et de la protection de ses fichiers.
 
 Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [guide des paquets](PACKAGES.fr.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
 
 ## Comparaison observée avec et sans mémoire
+
+Chaque étude précise la charge évaluée et les conclusions qu’elle permet de tirer. Ce qui sort de ce périmètre n’a pas été testé dans cette étude ; cela ne constitue pas un échec observé. Les scores de qualité portent sur les réponses des agents ; les tests logiciels vérifient séparément les contrats de la mémoire.
 
 L’[étude de confirmation](benchmarks/validation-20261022/README.fr.md) porte sur 100 scénarios synthétiques distincts, répétés trois fois dans chaque configuration : les 1 500 réponses ont été remises et les 3 000 jugements IA sont complets. GPT-6 Luna réussit 298 réponses sur 300 avec mémoire (99,33 %), contre 29 sur 300 sans mémoire ; GPT-6.1 Sol atteint 300 sur 300, contre 30 sur 300. Le gain principal de Luna est de 89,67 points de pourcentage, avec un intervalle nominal à 95 % de 89 à 90 points ; la borne inférieure unilatérale à 95 % de sa réussite est de 98 %. La recherche lexicale réussit 294 réponses sur 300 : l’intervalle d’effet mémoire/recherche lexicale à 95 %, de −0,33 à +3,33 points, n’établit pas de supériorité de la mémoire.
 
