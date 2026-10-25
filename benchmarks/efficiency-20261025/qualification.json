@@ -1,0 +1,33 @@
+{
+  "schema": "persistent-memory.incremental-cycle.qualification.v1",
+  "scope": "targeted_existing_product_incremental_tests",
+  "native_receipt_sha256": "46b1fc754d431e76291a247238d0c310392c522c1e23ac26b1612322108e0494",
+  "test_counts": {
+    "tests_run": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": true
+  },
+  "new_situations": {
+    "CLI_invalid": 14,
+    "main_invalid_before_initialization": 12,
+    "real_same_memory_cycle": 1,
+    "real_API_output_corruption": 7,
+    "withdrawal_and_control_faults": 2
+  },
+  "runner_sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02",
+  "test_product_sha256": "6acaafd053e137424a714c34cd7a66433b035293eb187af34ff874c9c061e5d8",
+  "runtime_B_source_bindings_verified": true,
+  "active_resource_caps_verified": true,
+  "cleanup_verified": true,
+  "initial_failed_attempt": {
+    "native_receipt_sha256": "78f4e6f80e2e8441cb8f42627c7753a5637e15cf101cc8a817c8a59ad6656957",
+    "passed": false,
+    "error_type": "AssertionError",
+    "native_test_stderr_sha256": "8b91e40fa9376f48e8ba9a65a04880d7437e6053668aa8dca8814d2dea694fff",
+    "reason": "unsupported_core_version during adapter construction, before ingestion or mutation oracles",
+    "disposition": "First failure retained. Timestamp bytecode from A was found in the initial environment, but the exact runtime bindings at the failure were not captured. A separate fresh qualification used no-compile installation, absence-of-cache checks and actual imported source/binding verification. No memory source, hash guard or oracle was relaxed."
+  },
+  "qualification_is_not_installed_a4_distribution_qualification": true
+}

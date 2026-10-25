@@ -1,0 +1,30 @@
+{
+  "schema": "persistent-memory.incremental-cycle.environment.v1",
+  "observed_while_unit_active": true,
+  "effective_cgroup_limits": {
+    "cpu.max": "50000 100000",
+    "memory.max": "1073741824",
+    "memory.swap.max": "0",
+    "pids.max": "64"
+  },
+  "effective_unit_properties": {
+    "RuntimeMaxUSec": "20min",
+    "CPUQuotaPerSecUSec": "500ms",
+    "MemoryMax": "1073741824",
+    "MemorySwapMax": "0",
+    "TasksMax": "64",
+    "PrivateNetwork": "yes",
+    "NoNewPrivileges": "yes",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "cleanup": {
+    "owned_RAM_removed": true,
+    "children_waited": true,
+    "unit_inactive": true,
+    "unit_MainPID_zero": true,
+    "cgroup_empty_or_absent": true
+  },
+  "native_active_caps_sha256": "eb05b65adbe54791830583f91cfc0ca7378bcc4bafc080cf5976a56d18c1ad40",
+  "native_cleanup_sha256": "f1d3ff50830186fe4bea433cf0b3fac6a7f1af0f9a25b521c181d2645221546d"
+}

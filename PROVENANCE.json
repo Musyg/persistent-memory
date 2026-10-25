@@ -62,8 +62,8 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
-      "package_sha256": "791bbfaff359e4179573d11cc032752a99c6c9c0bfbe4ad379201c71b600e9cc",
+      "transformation": "Only the current package-version sentence changes from a3 to a4. Repository-only update after a4; historical assembly retained.",
+      "package_sha256": "b95963bbbc1690bdea0026fd67b35eb028feca8a2fb665f6b2025b440ee59f31",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
@@ -79,6 +79,17 @@
           "package_sha256": "7f8c181e62daa17b4b50cf38c33fe2ec5fdcadb6431eedd2559e7c8b4250b897",
           "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
           "public_commit": "1554beda0ef3e57621eca8974c197514302f369e"
+        },
+        {
+          "path": "PACKAGES.md",
+          "origin": "public-distribution-guide",
+          "original_sha256": null,
+          "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
+          "transformation": "Bilingual editorial correction or companion navigation; identifiers, measured results and frozen evidence preserved.",
+          "package_sha256": "791bbfaff359e4179573d11cc032752a99c6c9c0bfbe4ad379201c71b600e9cc",
+          "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
+          "previous_public_worktree_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
         }
       ],
       "previous_public_worktree_sha256": "dea8ee0c6e7bb65b1f4e8ff11780087c818bf39110531ca57634ebbfb1a1c54b"
@@ -87,8 +98,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Natural bilingual documentation or public projection of the descriptive synthetic 1000-source, 50-query, three-pair RAM study; historical evidence unchanged.",
-      "package_sha256": "c2658a8e11d157fa714e2357886303fb680f9a364fc576ae7c5918569c3ae26a",
+      "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
+      "package_sha256": "89321e1344ffb5a6bd7370516e64a0a0721b7d2d765aa75c207434a9ef1d559e",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -113,6 +124,17 @@
           "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
           "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f",
           "release_candidate": "0.3.0a3"
+        },
+        {
+          "path": "README.fr.md",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Natural bilingual documentation or public projection of the descriptive synthetic 1000-source, 50-query, three-pair RAM study; historical evidence unchanged.",
+          "package_sha256": "c2658a8e11d157fa714e2357886303fb680f9a364fc576ae7c5918569c3ae26a",
+          "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
+          "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
+          "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
         }
       ],
       "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f"
@@ -121,8 +143,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Natural bilingual documentation or public projection of the descriptive synthetic 1000-source, 50-query, three-pair RAM study; historical evidence unchanged.",
-      "package_sha256": "0121dd4b1e06dbe9e4da6861909572b5ede97411ef030f381b9eeab502442031",
+      "transformation": "Natural bilingual introduction without unmeasured numerical outcomes. Repository-only update after a4; historical assembly retained.",
+      "package_sha256": "2f0ec53aaee7a7bfc4145a8de82ffa0eef05afde60b7d2dc354a9aa22bac251b",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -147,6 +169,17 @@
           "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
           "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7",
           "release_candidate": "0.3.0a3"
+        },
+        {
+          "path": "README.md",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Natural bilingual documentation or public projection of the descriptive synthetic 1000-source, 50-query, three-pair RAM study; historical evidence unchanged.",
+          "package_sha256": "0121dd4b1e06dbe9e4da6861909572b5ede97411ef030f381b9eeab502442031",
+          "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
+          "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
+          "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
         }
       ],
       "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7"
@@ -163,8 +196,8 @@
       "path": "benchmarks/run_benchmark.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+      "transformation": "Byte-identical Linux-qualified generic synthetic benchmark or tests. Repository-only update after a4; historical assembly retained.",
+      "package_sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02",
       "assembly_history": [
         {
           "package_sha256": "764b3f21cd2e9d099b123f737d88e3b077766b0d2dddb87727d921832786ae2c",
@@ -174,6 +207,15 @@
           "release_candidate": "0.3.0a2",
           "package_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6",
           "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        },
+        {
+          "path": "benchmarks/run_benchmark.py",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "package_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+          "previous_public_worktree_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
         }
       ],
       "previous_public_worktree_sha256": "5e8ee06a56c2def63f882ac8cd00d7701cf0b2ecb30215769bd33f0b2e4b3fd6"
@@ -766,13 +808,21 @@
       "path": "tests/test_product.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
-      "package_sha256": "baad2766058c1987952e35a1efcbb65dbf8ced8ca0e4549e8f7a89ca12f16c97",
+      "transformation": "Byte-identical Linux-qualified generic synthetic benchmark or tests. Repository-only update after a4; historical assembly retained.",
+      "package_sha256": "6acaafd053e137424a714c34cd7a66433b035293eb187af34ff874c9c061e5d8",
       "assembly_history": [
         {
           "release_candidate": "0.3.0a2",
           "package_sha256": "2a84cead8ff5555b84339a0ba672aafb0ba3cff5f5997264391dc2c5e18597b4",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "path": "tests/test_product.py",
+          "origin": "new-public-assembly",
+          "original_sha256": null,
+          "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above.",
+          "package_sha256": "baad2766058c1987952e35a1efcbb65dbf8ced8ca0e4549e8f7a89ca12f16c97",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
         }
       ]
     },
@@ -1035,8 +1085,19 @@
       "origin": "public-bilingual-documentation-update",
       "original_sha256": null,
       "previous_public_sha256": null,
-      "package_sha256": "3087e55557fdc206e25e8ca8f59767dca9b32f51ca00e3d9966808066e7e4783",
-      "transformation": "New natural French companion with unchanged technical contract."
+      "package_sha256": "a036531926fae0b98cd98b5d75e1260d94d3037e3fd236ca0f5d0bfb2ab94f21",
+      "transformation": "Only the current package-version sentence changes from a3 to a4. Repository-only update after a4; historical assembly retained.",
+      "assembly_history": [
+        {
+          "path": "PACKAGES.fr.md",
+          "origin": "public-bilingual-documentation-update",
+          "original_sha256": null,
+          "previous_public_sha256": null,
+          "package_sha256": "3087e55557fdc206e25e8ca8f59767dca9b32f51ca00e3d9966808066e7e4783",
+          "transformation": "New natural French companion with unchanged technical contract.",
+          "public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9"
+        }
+      ]
     },
     {
       "path": "benchmarks/action-20261023/README.fr.md",
@@ -1173,6 +1234,83 @@
       "original_sha256": null,
       "package_sha256": "49bf0e77a147a6be95624854c6899d87eb58a80cbd8ade2f7188af280d33bb0a",
       "transformation": "Natural bilingual documentation or public projection of the descriptive synthetic 1000-source, 50-query, three-pair RAM study; historical evidence unchanged."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/REPRODUCE.md",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "593ec2270a82f8dfe3ae76f92ed0d89e314bbd62d7c5e9082dffb5c24ab0a8d5",
+      "transformation": "Public Linux reproduction instructions; no executable runner added."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/REPRODUCE.fr.md",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "69ef81c8d3da096aadc0a3f53626abc2af0bab3ec6484619cb892532a41b7459",
+      "transformation": "Public Linux reproduction instructions; no executable runner added."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/environment.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "1f2a4fa9481ac49cd4c3def0c63b366194f4a665f1c5bd5623eb47b65e4a1248",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/EXPECTED.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "1cbaec693c51085066f526cb0ea83e3d414b56717def9fb775a041d2ed0bb516",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/observations.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "9d226bdec54fec0aad27afd73cbf15ee19b2c798361db5b8bef8d11a1040b2e8",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/PROTOCOL.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "39cd6d839c45952046aac77c12461606272af6a82716add5157fe24c65446a39",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/qualification.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "8b63de2c1277d920861c0947ab85950ac6620684eec291c7e8bea64274b4721c",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/README.fr.md",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "21c457e08ad0495180c74880ff4feb8e3e5ce9fa5dc9b84438064ff1c325e4aa",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/README.md",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "19bbb03710062455b1d572bb27d62ac81990da7284620e4211e5e0c0146aa35f",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/RESULT.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "75104dcb4554191b69ef4e0edd617180ca3b929eb31fff4ecc91733e46a53bcf",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
+    },
+    {
+      "path": "benchmarks/efficiency-20261025/SOURCE-PINS.json",
+      "origin": "public-incremental-cycle-20261025",
+      "original_sha256": null,
+      "package_sha256": "a7da14558029a88f6cbbbf3e05a711183c9b2bd577740f9c0f9824c2d4f3476d",
+      "transformation": "Synthetic prospective incremental-cycle observation, descriptive computation, natural bilingual report or selected public protocol/qualification projection. Private paths and runtime identifiers excluded; original private receipts retained by hash."
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
@@ -1309,6 +1447,98 @@
         }
       ],
       "scope": "Current repository inventory: seven source/version files and ten subsequent documentation/evidence files. Qualified archives unchanged; full repository/archive identity is not asserted."
+    },
+    {
+      "base_public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9",
+      "previous_provenance_sha256": "b7d994bdfa484f23d919b6be124bd3768273cccab3e3c1ad258af75759319c58",
+      "changes": [
+        {
+          "path": "benchmarks/run_benchmark.py",
+          "previous_package_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+          "package_sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02"
+        },
+        {
+          "path": "tests/test_product.py",
+          "previous_package_sha256": "baad2766058c1987952e35a1efcbb65dbf8ced8ca0e4549e8f7a89ca12f16c97",
+          "package_sha256": "6acaafd053e137424a714c34cd7a66433b035293eb187af34ff874c9c061e5d8"
+        },
+        {
+          "path": "PACKAGES.md",
+          "previous_package_sha256": "791bbfaff359e4179573d11cc032752a99c6c9c0bfbe4ad379201c71b600e9cc",
+          "package_sha256": "b95963bbbc1690bdea0026fd67b35eb028feca8a2fb665f6b2025b440ee59f31"
+        },
+        {
+          "path": "PACKAGES.fr.md",
+          "previous_package_sha256": "3087e55557fdc206e25e8ca8f59767dca9b32f51ca00e3d9966808066e7e4783",
+          "package_sha256": "a036531926fae0b98cd98b5d75e1260d94d3037e3fd236ca0f5d0bfb2ab94f21"
+        },
+        {
+          "path": "README.md",
+          "previous_package_sha256": "0121dd4b1e06dbe9e4da6861909572b5ede97411ef030f381b9eeab502442031",
+          "package_sha256": "2f0ec53aaee7a7bfc4145a8de82ffa0eef05afde60b7d2dc354a9aa22bac251b"
+        },
+        {
+          "path": "README.fr.md",
+          "previous_package_sha256": "c2658a8e11d157fa714e2357886303fb680f9a364fc576ae7c5918569c3ae26a",
+          "package_sha256": "89321e1344ffb5a6bd7370516e64a0a0721b7d2d765aa75c207434a9ef1d559e"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/REPRODUCE.md",
+          "previous_package_sha256": null,
+          "package_sha256": "593ec2270a82f8dfe3ae76f92ed0d89e314bbd62d7c5e9082dffb5c24ab0a8d5"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/REPRODUCE.fr.md",
+          "previous_package_sha256": null,
+          "package_sha256": "69ef81c8d3da096aadc0a3f53626abc2af0bab3ec6484619cb892532a41b7459"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/environment.json",
+          "previous_package_sha256": null,
+          "package_sha256": "1f2a4fa9481ac49cd4c3def0c63b366194f4a665f1c5bd5623eb47b65e4a1248"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/EXPECTED.json",
+          "previous_package_sha256": null,
+          "package_sha256": "1cbaec693c51085066f526cb0ea83e3d414b56717def9fb775a041d2ed0bb516"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/observations.json",
+          "previous_package_sha256": null,
+          "package_sha256": "9d226bdec54fec0aad27afd73cbf15ee19b2c798361db5b8bef8d11a1040b2e8"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/PROTOCOL.json",
+          "previous_package_sha256": null,
+          "package_sha256": "39cd6d839c45952046aac77c12461606272af6a82716add5157fe24c65446a39"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/qualification.json",
+          "previous_package_sha256": null,
+          "package_sha256": "8b63de2c1277d920861c0947ab85950ac6620684eec291c7e8bea64274b4721c"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/README.fr.md",
+          "previous_package_sha256": null,
+          "package_sha256": "21c457e08ad0495180c74880ff4feb8e3e5ce9fa5dc9b84438064ff1c325e4aa"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/README.md",
+          "previous_package_sha256": null,
+          "package_sha256": "19bbb03710062455b1d572bb27d62ac81990da7284620e4211e5e0c0146aa35f"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/RESULT.json",
+          "previous_package_sha256": null,
+          "package_sha256": "75104dcb4554191b69ef4e0edd617180ca3b929eb31fff4ecc91733e46a53bcf"
+        },
+        {
+          "path": "benchmarks/efficiency-20261025/SOURCE-PINS.json",
+          "previous_package_sha256": null,
+          "package_sha256": "a7da14558029a88f6cbbbf3e05a711183c9b2bd577740f9c0f9824c2d4f3476d"
+        }
+      ],
+      "scope": "Repository benchmark, synthetic tests and bilingual documentation only; no package runtime, version or release-asset change."
     }
   ],
   "qualification_update_20261023": {
@@ -1490,5 +1720,59 @@
     "full_repository_archive_identity_claimed": false,
     "historical_release_provenance_unchanged": true,
     "admission_provenance_unchanged": true
+  },
+  "incremental_cycle_update_20261025": {
+    "scope": "Current repository inventory, not replacement provenance for previously built archives.",
+    "base_public_commit": "14ec99ca3eb12f801b352101d2e67508cb187de9",
+    "previous_provenance_sha256": "b7d994bdfa484f23d919b6be124bd3768273cccab3e3c1ad258af75759319c58",
+    "publication_commit": null,
+    "qualification_scope": "Seven targeted existing product-test methods; synthetic subcases only.",
+    "qualified_runner_sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02",
+    "qualified_tests_sha256": "6acaafd053e137424a714c34cd7a66433b035293eb187af34ff874c9c061e5d8",
+    "new_report_inventory_pending": false,
+    "new_report_paths": [
+      "benchmarks/efficiency-20261025/environment.json",
+      "benchmarks/efficiency-20261025/EXPECTED.json",
+      "benchmarks/efficiency-20261025/observations.json",
+      "benchmarks/efficiency-20261025/PROTOCOL.json",
+      "benchmarks/efficiency-20261025/qualification.json",
+      "benchmarks/efficiency-20261025/README.fr.md",
+      "benchmarks/efficiency-20261025/README.md",
+      "benchmarks/efficiency-20261025/REPRODUCE.fr.md",
+      "benchmarks/efficiency-20261025/REPRODUCE.md",
+      "benchmarks/efficiency-20261025/RESULT.json",
+      "benchmarks/efficiency-20261025/SOURCE-PINS.json"
+    ],
+    "repository_updates_not_in_a4_archives": [
+      "PACKAGES.fr.md",
+      "PACKAGES.md",
+      "README.fr.md",
+      "README.md",
+      "benchmarks/efficiency-20261025/EXPECTED.json",
+      "benchmarks/efficiency-20261025/PROTOCOL.json",
+      "benchmarks/efficiency-20261025/README.fr.md",
+      "benchmarks/efficiency-20261025/README.md",
+      "benchmarks/efficiency-20261025/REPRODUCE.fr.md",
+      "benchmarks/efficiency-20261025/REPRODUCE.md",
+      "benchmarks/efficiency-20261025/RESULT.json",
+      "benchmarks/efficiency-20261025/SOURCE-PINS.json",
+      "benchmarks/efficiency-20261025/environment.json",
+      "benchmarks/efficiency-20261025/observations.json",
+      "benchmarks/efficiency-20261025/qualification.json",
+      "benchmarks/run_benchmark.py",
+      "tests/test_product.py"
+    ],
+    "a4_source_archive_runner_sha256": "ab92430cd614e9297d0eb18797d30bd0da012a6315705eea58620f4e911caf33",
+    "benchmark_in_a4_wheel": false,
+    "archives_rebuilt": false,
+    "release_assets_unchanged": true,
+    "package_runtime_changed": false,
+    "production_changed": false,
+    "full_repository_archive_identity_claimed": false,
+    "historical_release_provenance_unchanged": true,
+    "native_qualification_receipt_sha256": "46b1fc754d431e76291a247238d0c310392c522c1e23ac26b1612322108e0494",
+    "prospective_freeze_sha256": "3bc2d289f1710f6226099a26b5f7d9bf7cbd42911fdd741c499115b7b57de06c",
+    "six_cell_observations_path": "benchmarks/efficiency-20261025/observations.json",
+    "result_path": "benchmarks/efficiency-20261025/RESULT.json"
   }
 }

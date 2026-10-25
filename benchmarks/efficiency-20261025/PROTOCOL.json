@@ -1,0 +1,157 @@
+{
+  "schema": "persistent-memory.incremental-cycle.public-protocol.v1",
+  "original_bound_protocol_sha256": "158ecea040bb221c3610946d598a17390d701836046a2aa6d4aa244c5131431c",
+  "prospective_freeze_sha256": "3bc2d289f1710f6226099a26b5f7d9bf7cbd42911fdd741c499115b7b57de06c",
+  "projection": "Public workload and controls selected from the prospective protocol; separate runtime admission followed successful qualification. Original draft admission booleans were not rewritten.",
+  "workload": {
+    "documents": 1000,
+    "cycle_new_documents": 10,
+    "retrievals_per_process": 50,
+    "cycle_retrievals_initial": 40,
+    "cycle_retrievals_new": 10,
+    "seed": 20261021,
+    "cells": [
+      {
+        "arm": "A",
+        "id": "pair1_A",
+        "pair": 1
+      },
+      {
+        "arm": "B",
+        "id": "pair1_B",
+        "pair": 1
+      },
+      {
+        "arm": "B",
+        "id": "pair2_B",
+        "pair": 2
+      },
+      {
+        "arm": "A",
+        "id": "pair2_A",
+        "pair": 2
+      },
+      {
+        "arm": "A",
+        "id": "pair3_A",
+        "pair": 3
+      },
+      {
+        "arm": "B",
+        "id": "pair3_B",
+        "pair": 3
+      }
+    ],
+    "oracle": {
+      "candidate_truncated_queries": 0,
+      "expected_hits": 50,
+      "explicit_total_reads_including_admission_and_lifecycle": 63,
+      "explicit_validation_reads": 50,
+      "lifecycle_searches_separate_from_50_trials": 3,
+      "max_context_chars": 200,
+      "new_exact_content_and_ref_reads": 10,
+      "omissions": 0,
+      "post_sync_revocation_status": "completed",
+      "post_sync_revoked_query_items": [],
+      "post_sync_revoked_read_refused": true,
+      "post_sync_surviving_new_readable": true,
+      "pre_sync_revocation_status": "index_stale",
+      "pre_sync_revoked_read_refused": true,
+      "revoked_new_source_index": 1000,
+      "same_existing_CLI_main": true,
+      "status_counts": {
+        "completed": 50
+      },
+      "surviving_new_source_index": 1001,
+      "top_k": 5,
+      "unexpected_items": 0
+    },
+    "planned_marginal_public_calls": {
+      "memory.read": 63,
+      "memory.revoke_source": 1,
+      "typed.put": 10,
+      "typed.search": 53,
+      "typed.sync": 2
+    },
+    "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+    "setup_excluded_from_marginal_cycle": true,
+    "setup_in_same_memory_instance": true,
+    "analysis": {
+      "RAM_support_shared_and_distinct_from_historical": true,
+      "actual_bill_USD": null,
+      "actual_energy_kWh": null,
+      "all_six_planned_cells_retained": true,
+      "general_efficiency_claim": false,
+      "interpretation": "Three descriptive process pairs on private RAM. Fifty searches are workload operations, not fifty independent replications. No population, production or infrastructure-cost claim.",
+      "later_unstarted_cells_reported": true,
+      "no_performance_promotion_threshold": true,
+      "p_value": null,
+      "paired_differences_median_and_range": true,
+      "phase_metrics": [
+        "wall_seconds",
+        "cpu_user_seconds",
+        "cpu_system_seconds",
+        "process_io",
+        "storage_bytes"
+      ],
+      "production_latency_claim": false,
+      "robust_distribution_claim": false,
+      "setup_metrics_reported_separately": true,
+      "telemetry_cost_disclosed": true,
+      "timeouts_censored_not_replaced": true,
+      "unit_of_replication": "full fresh process, paired by planned pair id"
+    },
+    "execution": {
+      "CPUQuota": "50%",
+      "MemoryMax_bytes": 1073741824,
+      "MemorySwapMax_bytes": 0,
+      "PrivateNetwork": true,
+      "TasksMax": 64,
+      "automatic_retry": false,
+      "child_wait_before_RAM_cleanup": true,
+      "child_wall_cap_seconds": 180,
+      "cleanup_budget_seconds": 20,
+      "cleanup_receipt_required": true,
+      "concurrency": 1,
+      "errors_retained": true,
+      "fresh_process_and_database_each_cell": true,
+      "launch_cutoff_elapsed_seconds": 1000,
+      "maximum_child_seconds_total": 1080,
+      "private_owned_RAM": true,
+      "profiled": false,
+      "qualification_before_campaign": true,
+      "read_only_fresh_preflight_before_Root_admission": true,
+      "replacements": 0,
+      "six_cells_maximum": true,
+      "timeouts_retained_censored": true,
+      "unit_total_wall_cap_seconds": 1200
+    }
+  },
+  "runtime_admission": {
+    "qualification_passed": true,
+    "independent_qualification_review_sha256": "d75fabd3374c03db02d023a811382bc4b7e23fbc0244dc1e6ca4c036f38bed02",
+    "campaign_admitted_before_launch": true,
+    "exclusive_launch_intent": true,
+    "replacements": 0,
+    "retries": 0
+  },
+  "environment": {
+    "system": "Linux",
+    "storage": "private owned RAM tmpfs for memory stores",
+    "common_support_wheels": {
+      "hermes_memory_core-0.3.0a2-py3-none-any.whl": "aa818c95941335c8e2f9e04dc433e0e154dd2c60f95cee6ebc3a7742de3bf321",
+      "hermes_policy_registry-0.2.0a2-py3-none-any.whl": "199fc8084340be3432997d341b7744897102fb6be794be59c827d7537b123066"
+    },
+    "fresh_virtual_environments_per_campaign": 1,
+    "fresh_processes_and_databases": 6,
+    "venv_creation_and_offline_install_in_total_unit_budget": true,
+    "source_overlay_per_cell": [
+      "core.py",
+      "typed_memory.py",
+      "typed_protocol.py"
+    ],
+    "pip_no_compile": true,
+    "python_isolated_and_no_bytecode_writes": true,
+    "cold_cache_controlled": false
+  }
+}

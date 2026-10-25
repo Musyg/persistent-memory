@@ -74,6 +74,264 @@ class ProductTests(unittest.TestCase):
         self.assertEqual(reports[0]['query_schedule_sha256'], reports[1]['query_schedule_sha256'])
         self.assertLessEqual(reports[0]['distinct_queries'], 3)
 
+
+    @staticmethod
+    def _incremental_real_run(mutation=None, faults=None):
+        """Observe real APIs; inject a single defect after their actual result."""
+        from contextlib import ExitStack, redirect_stdout
+        import io
+
+        module, _ = ProductTests._lifecycle_benchmark()
+        events = []
+        refs = {}
+        faults = {} if faults is None else faults
+        originals = {(kind, method): getattr(kind, method)
+                     for kind, method in ((module.TypedMemory, 'put'),
+                                          (module.TypedMemory, 'sync'),
+                                          (module.TypedMemory, 'search'),
+                                          (module.Memory, 'read'),
+                                          (module.Memory, 'revoke_source'))}
+
+        def injected(label):
+            faults[label] = faults.get(label, 0) + 1
+
+        def put(typed, workspace, source_id, body, *args, **kwargs):
+            result = originals[(module.TypedMemory, 'put')](typed, workspace, source_id, body, *args, **kwargs)
+            refs[source_id] = copy.deepcopy(result['ref'])
+            events.append(('put', id(typed), source_id, body, copy.deepcopy(result), id(typed.memory)))
+            return result
+
+        def sync(typed, *args, **kwargs):
+            result = originals[(module.TypedMemory, 'sync')](typed, *args, **kwargs)
+            events.append(('sync', id(typed), copy.deepcopy(result)))
+            return result
+
+        def search(typed, workspace, query, *args, **kwargs):
+            result = originals[(module.TypedMemory, 'search')](typed, workspace, query, *args, **kwargs)
+            events.append(('search', id(typed), query, copy.deepcopy(result), dict(kwargs)))
+            if query == 'token000003' and result['items'] and mutation in {
+                    'search_ref', 'search_text', 'search_context', 'search_truncated', 'search_status'}:
+                result = copy.deepcopy(result)
+                if mutation == 'search_ref':
+                    result['items'][0]['ref'] = copy.deepcopy(refs['note-4'])
+                elif mutation == 'search_text':
+                    result['items'][0]['text'] += ' incorrect'
+                elif mutation == 'search_context':
+                    result['context'] = 'incorrect context'
+                elif mutation == 'search_truncated':
+                    result['coverage']['candidate_truncated'] = True
+                else:
+                    result['status'] = 'unavailable'
+                injected(mutation)
+            return result
+
+        def read(memory, ref):
+            result = originals[(module.Memory, 'read')](memory, ref)
+            events.append(('read', id(memory), copy.deepcopy(ref), copy.deepcopy(result)))
+            if (ref == refs.get('note-3') and result['allowed']
+                    and mutation in {'read_content', 'read_ref'}):
+                result = copy.deepcopy(result)
+                if mutation == 'read_content':
+                    body = json.loads(result['content'])
+                    body['text'] += ' incorrect'
+                    result['content'] = json.dumps(body, sort_keys=True, separators=(',', ':'))
+                    result['content_sha256'] = hashlib.sha256(result['content'].encode()).hexdigest()
+                else:
+                    result['ref'] = copy.deepcopy(refs['note-4'])
+                injected(mutation)
+            return result
+
+        def revoke(memory, workspace, source_id, event_id):
+            if mutation == 'withdraw_noop' and source_id == 'note-3':
+                injected(mutation)
+                events.append(('revoke', id(memory), source_id, None))
+                return None
+            result = originals[(module.Memory, 'revoke_source')](memory, workspace, source_id, event_id)
+            events.append(('revoke', id(memory), source_id, copy.deepcopy(result)))
+            if mutation == 'control_lost' and source_id == 'note-3':
+                originals[(module.Memory, 'revoke_source')](memory, workspace, 'note-4', 'test-control-loss')
+                injected(mutation)
+            return result
+
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+            for kind, method, wrapper in ((module.TypedMemory, 'put', put),
+                                          (module.TypedMemory, 'sync', sync),
+                                          (module.TypedMemory, 'search', search),
+                                          (module.Memory, 'read', read),
+                                          (module.Memory, 'revoke_source', revoke)):
+                stack.enter_context(patch.object(kind, method, wrapper))
+            output = io.StringIO()
+            with redirect_stdout(output):
+                report = module.main(documents=3, repetitions=5, seed=5, volume=True,
+                                     progress_path=Path(directory) / 'progress.json', incremental_batch=2)
+            progress = json.loads((Path(directory) / 'progress.json').read_text(encoding='utf-8'))
+        return report, events, refs, json.loads(output.getvalue()), progress
+
+    def test_incremental_cli_rejects_invalid_and_ambiguous_modes(self):
+        benchmark = Path(__file__).resolve().parents[1] / 'benchmarks/run_benchmark.py'
+        base = ['--documents', '3', '--repetitions', '5', '--volume-progress', 'unused-progress.json']
+        arguments_list = [base + ['--volume-incremental-batch', str(value)] for value in (1, -1, 101, '2.0')]
+        arguments_list += [
+            ['--volume-incremental-batch', '2'],
+            ['--documents', '3', '--volume-incremental-batch', '2'],
+            base + ['--volume-incremental-batch', '2', '--volume-profile-tail'],
+            ['--documents', '4999', '--repetitions', '5', '--volume-progress', 'unused-progress.json',
+             '--volume-incremental-batch', '2'],
+            ['--documents', '3', '--repetitions', '1', '--volume-progress', 'unused-progress.json',
+             '--volume-incremental-batch', '2'],
+            base + ['--volume-incremental-batch', '2', '--lance-hybrid'],
+            base + ['--volume-incremental-batch', '2', '--compare-transitions'],
+            base + ['--volume-incremental-batch', '2', '--trajectories', '1'],
+            base + ['--volume-incremental-batch', '2', '--efficiency'],
+            base + ['--volume-incremental-batch', '2', '--action-transfer'],
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            for arguments in arguments_list:
+                with self.subTest(arguments=arguments):
+                    result = subprocess.run([sys.executable, str(benchmark), *arguments], cwd=directory,
+                                            text=True, capture_output=True, timeout=10)
+                    self.assertEqual(result.returncode, 2, result.stderr)
+                    self.assertEqual(result.stdout, '')
+                    self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_incremental_main_rejects_invalid_contract_before_initialization(self):
+        module, _ = self._lifecycle_benchmark()
+        options = [dict(incremental_batch=value) for value in (True, 1, -1, 101, 2.0, '2', None)]
+        options += [dict(volume=False), dict(progress_path=None), dict(profile_tail=True),
+                    dict(documents=4999), dict(repetitions=1)]
+        with tempfile.TemporaryDirectory() as directory:
+            for changed in options:
+                arguments = dict(documents=3, repetitions=5, seed=5, volume=True,
+                                 progress_path=Path(directory) / 'progress.json', incremental_batch=2)
+                arguments.update(changed)
+                with self.subTest(changed=changed), patch.object(module.Authority, 'create') as create:
+                    with self.assertRaises(ValueError):
+                        module.main(**arguments)
+                    create.assert_not_called()
+                    self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_incremental_real_cycle_oracle_and_same_memory(self):
+        import random
+
+        report, events, refs, printed, progress = self._incremental_real_run()
+        self.assertEqual(printed, report)
+        self.assertEqual(report['mode'], 'synthetic_typed_volume_incremental')
+        self.assertTrue(report['oracle_passed'])
+        self.assertEqual(report['synthetic_documents'], 3)
+        self.assertEqual(report['repetitions'], 5)
+        self.assertEqual(set(refs), {'note-' + str(index) for index in range(5)})
+        puts = [event for event in events if event[0] == 'put']
+        self.assertEqual([event[2] for event in puts], ['note-' + str(index) for index in range(5)])
+        for index, event in enumerate(puts):
+            self.assertEqual(event[3], 'Synthetic copper item number ' + str(index) + ' token' + format(index, '06d'))
+        typed_ids = {event[1] for event in events if event[0] in {'put', 'sync', 'search'}}
+        memory_ids = {event[1] for event in events if event[0] in {'read', 'revoke'}}
+        self.assertEqual(len(typed_ids), 1)
+        self.assertEqual(len(memory_ids), 1)
+        self.assertEqual({event[5] for event in puts}, memory_ids)
+        self.assertEqual([event[0] for event in events[:4]], ['put', 'put', 'put', 'sync'])
+        self.assertEqual([event[0] for event in events[4:9]], ['put', 'put', 'read', 'read', 'sync'])
+        self.assertEqual([event[2] for event in events[6:8]], [refs['note-3'], refs['note-4']])
+        syncs = [event for event in events if event[0] == 'sync']
+        self.assertEqual([event[2]['indexed'] for event in syncs], [3, 5, 4])
+        searches = [event for event in events if event[0] == 'search']
+        generator = random.Random(5)
+        indices = [3, 4] + [generator.randrange(3) for _ in range(3)]
+        schedule = ['token' + format(index, '06d') for index in indices]
+        self.assertEqual([event[2] for event in searches], schedule + ['token000003', 'token000003', 'token000004'])
+        for index, event in zip(indices, searches):
+            expected_text = 'Synthetic copper item number ' + str(index) + ' token' + format(index, '06d')
+            result = event[3]
+            self.assertEqual(result['status'], 'completed')
+            self.assertTrue(result['complete'])
+            self.assertFalse(result['coverage']['candidate_truncated'])
+            self.assertEqual([(item['ref'], item['text']) for item in result['items']],
+                             [(refs['note-' + str(index)], expected_text)])
+            self.assertEqual(result['context'], expected_text)
+            self.assertEqual(event[4]['top_k'], 5)
+            self.assertEqual(event[4]['max_context_chars'], 200)
+        self.assertEqual(searches[-3][3]['status'], 'index_stale')
+        self.assertEqual(searches[-2][3]['status'], 'completed')
+        self.assertEqual(searches[-2][3]['items'], [])
+        self.assertEqual(searches[-1][3]['items'][0]['ref'], refs['note-4'])
+        reads = [event for event in events if event[0] == 'read']
+        for event in reads:
+            result = event[3]
+            if result['allowed']:
+                self.assertEqual(result['ref'], event[2])
+                index = int(event[2]['artifact_id'].split('-')[1])
+                self.assertEqual(json.loads(result['content'])['text'],
+                                 'Synthetic copper item number ' + str(index) + ' token' + format(index, '06d'))
+        denied = [event for event in reads if not event[3]['allowed']]
+        self.assertEqual([event[2] for event in denied], [refs['note-3'], refs['note-3']])
+        self.assertEqual(reads[-1][2], refs['note-4'])
+        self.assertTrue(reads[-1][3]['allowed'])
+        expected_calls = {'typed.put': 5, 'typed.sync': 3, 'typed.search': 8,
+                          'memory.read': 10, 'memory.revoke_source': 1}
+        self.assertEqual(report['public_method_calls'], expected_calls)
+        observed_calls = {'typed.put': len(puts), 'typed.sync': len(syncs), 'typed.search': len(searches),
+                          'memory.read': len(reads),
+                          'memory.revoke_source': sum(event[0] == 'revoke' for event in events)}
+        self.assertEqual(report['public_method_calls'], observed_calls)
+        self.assertTrue(all(type(value) is int for value in report['public_method_calls'].values()))
+        self.assertEqual(report['public_method_calls_total'], sum(expected_calls.values()))
+        self.assertEqual(report['operation_scope'],
+                         'explicit benchmark calls only; initialization and internal calls excluded')
+        self.assertEqual(report['provider_requests'], 0)
+        self.assertEqual(report['API_calls_requested_by_benchmark'], 0)
+        self.assertFalse(report['general_speed_superiority_claimed'])
+        self.assertEqual(report['query_schedule_sha256'], hashlib.sha256(('\n'.join(schedule) + '\n').encode('ascii')).hexdigest())
+        cycle = report['incremental_cycle']
+        self.assertTrue(cycle['oracle_passed'])
+        self.assertEqual(cycle['batch'], 2)
+        self.assertEqual(cycle['initial_documents'], 3)
+        self.assertEqual(cycle['admitted_documents'], 5)
+        self.assertEqual(cycle['active_documents_after_revocation'], 4)
+        self.assertEqual(cycle['new_retrieval_trials'], 2)
+        self.assertEqual(cycle['initial_retrieval_trials'], 3)
+        self.assertEqual(cycle['explicit_admission_reads'], 2)
+        self.assertEqual(cycle['revoked_reads_refused'], 2)
+        self.assertEqual(cycle['revoked_source'], 'note-3')
+        self.assertEqual(cycle['valid_control_source'], 'note-4')
+        self.assertEqual(cycle['marginal_public_method_calls'], dict(expected_calls, **{'typed.put': 2, 'typed.sync': 2}))
+        self.assertTrue(cycle['same_memory_instance'])
+        self.assertTrue(cycle['setup_excluded_from_marginal'])
+        phases = report['end_to_end_telemetry']['phases']
+        self.assertEqual(set(phases), {'ingest', 'initial_sync', 'incremental_admit', 'incremental_read',
+                                      'incremental_sync', 'search_and_read', 'revoke_and_stale_check',
+                                      'maintenance_sync', 'after_revoke_check'})
+        previous = -1
+        for phase in ('ingest', 'initial_sync', 'incremental_admit', 'incremental_read',
+                      'incremental_sync', 'search_and_read', 'revoke_and_stale_check',
+                      'maintenance_sync', 'after_revoke_check'):
+            self.assertLessEqual(previous, phases[phase]['start']['elapsed_seconds'])
+            self.assertLessEqual(phases[phase]['start']['elapsed_seconds'], phases[phase]['end']['elapsed_seconds'])
+            previous = phases[phase]['end']['elapsed_seconds']
+        self.assertGreaterEqual(cycle['marginal_elapsed_seconds'],
+                                phases['after_revoke_check']['end']['elapsed_seconds']
+                                - phases['incremental_admit']['start']['elapsed_seconds'])
+        self.assertLessEqual(cycle['marginal_elapsed_seconds'],
+                             report['end_to_end_telemetry']['elapsed_seconds']
+                             - phases['initial_sync']['end']['elapsed_seconds'])
+        self.assertEqual(progress['phase'], 'completed')
+
+    def test_incremental_oracle_rejects_corrupt_real_api_outputs(self):
+        for mutation in ('search_ref', 'search_text', 'search_context', 'search_truncated',
+                         'search_status', 'read_content', 'read_ref'):
+            faults = {}
+            with self.subTest(mutation=mutation):
+                with self.assertRaises(AssertionError):
+                    self._incremental_real_run(mutation, faults)
+                self.assertEqual(faults, {mutation: 1})
+
+    def test_incremental_oracle_rejects_failed_withdrawal_and_lost_control(self):
+        for mutation in ('withdraw_noop', 'control_lost'):
+            faults = {}
+            with self.subTest(mutation=mutation):
+                with self.assertRaises(AssertionError):
+                    self._incremental_real_run(mutation, faults)
+                self.assertEqual(faults, {mutation: 1})
+
     @staticmethod
     def _efficiency_inputs():
         module, folder = ProductTests._lifecycle_benchmark()

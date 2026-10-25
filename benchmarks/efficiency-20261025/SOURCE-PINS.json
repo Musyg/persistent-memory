@@ -1,0 +1,58 @@
+{
+  "schema": "persistent-memory.incremental-cycle.sources.v1",
+  "arms": {
+    "A": {
+      "commit": "1554beda0ef3e57621eca8974c197514302f369e",
+      "files": {
+        "src/hermes_memory/core.py": {
+          "bytes": 37703,
+          "sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/1554beda0ef3e57621eca8974c197514302f369e/src/hermes_memory/core.py"
+        },
+        "src/hermes_memory/typed_memory.py": {
+          "bytes": 17393,
+          "sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/1554beda0ef3e57621eca8974c197514302f369e/src/hermes_memory/typed_memory.py"
+        },
+        "src/hermes_memory/typed_protocol.py": {
+          "bytes": 1093,
+          "sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/1554beda0ef3e57621eca8974c197514302f369e/src/hermes_memory/typed_protocol.py"
+        }
+      }
+    },
+    "B": {
+      "commit": "14ec99ca3eb12f801b352101d2e67508cb187de9",
+      "files": {
+        "src/hermes_memory/core.py": {
+          "bytes": 37707,
+          "sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/14ec99ca3eb12f801b352101d2e67508cb187de9/src/hermes_memory/core.py"
+        },
+        "src/hermes_memory/typed_memory.py": {
+          "bytes": 17393,
+          "sha256": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/14ec99ca3eb12f801b352101d2e67508cb187de9/src/hermes_memory/typed_memory.py"
+        },
+        "src/hermes_memory/typed_protocol.py": {
+          "bytes": 1093,
+          "sha256": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801",
+          "public_url": "https://github.com/Musyg/persistent-memory/blob/14ec99ca3eb12f801b352101d2e67508cb187de9/src/hermes_memory/typed_protocol.py"
+        }
+      }
+    }
+  },
+  "runner": {
+    "path": "benchmarks/run_benchmark.py",
+    "sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02"
+  },
+  "tests": {
+    "path": "tests/test_product.py",
+    "sha256": "6acaafd053e137424a714c34cd7a66433b035293eb187af34ff874c9c061e5d8"
+  },
+  "support_wheels_observed": {
+    "hermes_memory_core-0.3.0a2-py3-none-any.whl": "aa818c95941335c8e2f9e04dc433e0e154dd2c60f95cee6ebc3a7742de3bf321",
+    "hermes_policy_registry-0.2.0a2-py3-none-any.whl": "199fc8084340be3432997d341b7744897102fb6be794be59c827d7537b123066"
+  },
+  "support_scope": "Common offline a2 support wheels with the exact selected A/B source trios. Not a performance comparison of installed a4 distributions."
+}

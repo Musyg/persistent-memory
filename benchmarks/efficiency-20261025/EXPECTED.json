@@ -1,0 +1,1270 @@
+{
+  "schema": "hermes.incremental-cycle.expected-from-synthetic-fixture.v1",
+  "status": "prospective_expectations_not_observations",
+  "application_imports": 0,
+  "measurement_results_read": 0,
+  "recipe": {
+    "initial_documents": 1000,
+    "new_indices_in_admission_order": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009
+    ],
+    "old_source_draws": 40,
+    "random_generator": "Python standard library random.Random(seed).randrange(1000)",
+    "seed": 20261021,
+    "text_recipe": "'Synthetic copper item number ' + str(index) + ' token' + format(index, '06d')",
+    "envelope_schema": "hermes.typed-memory.v1",
+    "metadata": {
+      "evidence_kind": "observation",
+      "valid_from": null,
+      "valid_until": null,
+      "observed_at": null,
+      "aliases": [],
+      "preconditions": {},
+      "confidence": null
+    },
+    "canonical_envelope": "json.dumps({schema,text,metadata}, ensure_ascii=False, sort_keys=True, separators=(comma,colon), allow_nan=False)",
+    "query_digest_recipe": "SHA256 of ASCII query strings in trial order, one LF after every query including final query"
+  },
+  "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+  "query_indices": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    559,
+    987,
+    394,
+    594,
+    872,
+    994,
+    11,
+    390,
+    414,
+    321,
+    653,
+    658,
+    238,
+    493,
+    408,
+    415,
+    0,
+    930,
+    224,
+    18,
+    55,
+    697,
+    639,
+    600,
+    644,
+    63,
+    123,
+    472,
+    418,
+    92,
+    111,
+    315,
+    770,
+    868,
+    689,
+    265,
+    816,
+    183,
+    144,
+    156
+  ],
+  "query_strings": [
+    "token001000",
+    "token001001",
+    "token001002",
+    "token001003",
+    "token001004",
+    "token001005",
+    "token001006",
+    "token001007",
+    "token001008",
+    "token001009",
+    "token000559",
+    "token000987",
+    "token000394",
+    "token000594",
+    "token000872",
+    "token000994",
+    "token000011",
+    "token000390",
+    "token000414",
+    "token000321",
+    "token000653",
+    "token000658",
+    "token000238",
+    "token000493",
+    "token000408",
+    "token000415",
+    "token000000",
+    "token000930",
+    "token000224",
+    "token000018",
+    "token000055",
+    "token000697",
+    "token000639",
+    "token000600",
+    "token000644",
+    "token000063",
+    "token000123",
+    "token000472",
+    "token000418",
+    "token000092",
+    "token000111",
+    "token000315",
+    "token000770",
+    "token000868",
+    "token000689",
+    "token000265",
+    "token000816",
+    "token000183",
+    "token000144",
+    "token000156"
+  ],
+  "expected_sources_queried": {
+    "0": {
+      "workspace": "example",
+      "source_id": "note-0",
+      "text": "Synthetic copper item number 0 token000000",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-0",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "11": {
+      "workspace": "example",
+      "source_id": "note-11",
+      "text": "Synthetic copper item number 11 token000011",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-11",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "18": {
+      "workspace": "example",
+      "source_id": "note-18",
+      "text": "Synthetic copper item number 18 token000018",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-18",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "55": {
+      "workspace": "example",
+      "source_id": "note-55",
+      "text": "Synthetic copper item number 55 token000055",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-55",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "63": {
+      "workspace": "example",
+      "source_id": "note-63",
+      "text": "Synthetic copper item number 63 token000063",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-63",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "92": {
+      "workspace": "example",
+      "source_id": "note-92",
+      "text": "Synthetic copper item number 92 token000092",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-92",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "111": {
+      "workspace": "example",
+      "source_id": "note-111",
+      "text": "Synthetic copper item number 111 token000111",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-111",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "123": {
+      "workspace": "example",
+      "source_id": "note-123",
+      "text": "Synthetic copper item number 123 token000123",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-123",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "144": {
+      "workspace": "example",
+      "source_id": "note-144",
+      "text": "Synthetic copper item number 144 token000144",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-144",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "156": {
+      "workspace": "example",
+      "source_id": "note-156",
+      "text": "Synthetic copper item number 156 token000156",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-156",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "183": {
+      "workspace": "example",
+      "source_id": "note-183",
+      "text": "Synthetic copper item number 183 token000183",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-183",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "224": {
+      "workspace": "example",
+      "source_id": "note-224",
+      "text": "Synthetic copper item number 224 token000224",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-224",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "238": {
+      "workspace": "example",
+      "source_id": "note-238",
+      "text": "Synthetic copper item number 238 token000238",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-238",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "265": {
+      "workspace": "example",
+      "source_id": "note-265",
+      "text": "Synthetic copper item number 265 token000265",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-265",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "315": {
+      "workspace": "example",
+      "source_id": "note-315",
+      "text": "Synthetic copper item number 315 token000315",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-315",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "321": {
+      "workspace": "example",
+      "source_id": "note-321",
+      "text": "Synthetic copper item number 321 token000321",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-321",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "390": {
+      "workspace": "example",
+      "source_id": "note-390",
+      "text": "Synthetic copper item number 390 token000390",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-390",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "394": {
+      "workspace": "example",
+      "source_id": "note-394",
+      "text": "Synthetic copper item number 394 token000394",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-394",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "408": {
+      "workspace": "example",
+      "source_id": "note-408",
+      "text": "Synthetic copper item number 408 token000408",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-408",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "414": {
+      "workspace": "example",
+      "source_id": "note-414",
+      "text": "Synthetic copper item number 414 token000414",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-414",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "415": {
+      "workspace": "example",
+      "source_id": "note-415",
+      "text": "Synthetic copper item number 415 token000415",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-415",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "418": {
+      "workspace": "example",
+      "source_id": "note-418",
+      "text": "Synthetic copper item number 418 token000418",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-418",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "472": {
+      "workspace": "example",
+      "source_id": "note-472",
+      "text": "Synthetic copper item number 472 token000472",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-472",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "493": {
+      "workspace": "example",
+      "source_id": "note-493",
+      "text": "Synthetic copper item number 493 token000493",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-493",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "559": {
+      "workspace": "example",
+      "source_id": "note-559",
+      "text": "Synthetic copper item number 559 token000559",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-559",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "594": {
+      "workspace": "example",
+      "source_id": "note-594",
+      "text": "Synthetic copper item number 594 token000594",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-594",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "600": {
+      "workspace": "example",
+      "source_id": "note-600",
+      "text": "Synthetic copper item number 600 token000600",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-600",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "639": {
+      "workspace": "example",
+      "source_id": "note-639",
+      "text": "Synthetic copper item number 639 token000639",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-639",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "644": {
+      "workspace": "example",
+      "source_id": "note-644",
+      "text": "Synthetic copper item number 644 token000644",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-644",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "653": {
+      "workspace": "example",
+      "source_id": "note-653",
+      "text": "Synthetic copper item number 653 token000653",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-653",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "658": {
+      "workspace": "example",
+      "source_id": "note-658",
+      "text": "Synthetic copper item number 658 token000658",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-658",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "689": {
+      "workspace": "example",
+      "source_id": "note-689",
+      "text": "Synthetic copper item number 689 token000689",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-689",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "697": {
+      "workspace": "example",
+      "source_id": "note-697",
+      "text": "Synthetic copper item number 697 token000697",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-697",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "770": {
+      "workspace": "example",
+      "source_id": "note-770",
+      "text": "Synthetic copper item number 770 token000770",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-770",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "816": {
+      "workspace": "example",
+      "source_id": "note-816",
+      "text": "Synthetic copper item number 816 token000816",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-816",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "868": {
+      "workspace": "example",
+      "source_id": "note-868",
+      "text": "Synthetic copper item number 868 token000868",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-868",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "872": {
+      "workspace": "example",
+      "source_id": "note-872",
+      "text": "Synthetic copper item number 872 token000872",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-872",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "930": {
+      "workspace": "example",
+      "source_id": "note-930",
+      "text": "Synthetic copper item number 930 token000930",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-930",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "987": {
+      "workspace": "example",
+      "source_id": "note-987",
+      "text": "Synthetic copper item number 987 token000987",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-987",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "994": {
+      "workspace": "example",
+      "source_id": "note-994",
+      "text": "Synthetic copper item number 994 token000994",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-994",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1000": {
+      "workspace": "example",
+      "source_id": "note-1000",
+      "text": "Synthetic copper item number 1000 token001000",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1000",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1001": {
+      "workspace": "example",
+      "source_id": "note-1001",
+      "text": "Synthetic copper item number 1001 token001001",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1001",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1002": {
+      "workspace": "example",
+      "source_id": "note-1002",
+      "text": "Synthetic copper item number 1002 token001002",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1002",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1003": {
+      "workspace": "example",
+      "source_id": "note-1003",
+      "text": "Synthetic copper item number 1003 token001003",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1003",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1004": {
+      "workspace": "example",
+      "source_id": "note-1004",
+      "text": "Synthetic copper item number 1004 token001004",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1004",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1005": {
+      "workspace": "example",
+      "source_id": "note-1005",
+      "text": "Synthetic copper item number 1005 token001005",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1005",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1006": {
+      "workspace": "example",
+      "source_id": "note-1006",
+      "text": "Synthetic copper item number 1006 token001006",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1006",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1007": {
+      "workspace": "example",
+      "source_id": "note-1007",
+      "text": "Synthetic copper item number 1007 token001007",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1007",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1008": {
+      "workspace": "example",
+      "source_id": "note-1008",
+      "text": "Synthetic copper item number 1008 token001008",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1008",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    "1009": {
+      "workspace": "example",
+      "source_id": "note-1009",
+      "text": "Synthetic copper item number 1009 token001009",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1009",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    }
+  },
+  "new_sources": [
+    {
+      "workspace": "example",
+      "source_id": "note-1000",
+      "text": "Synthetic copper item number 1000 token001000",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1000",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1001",
+      "text": "Synthetic copper item number 1001 token001001",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1001",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1002",
+      "text": "Synthetic copper item number 1002 token001002",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1002",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1003",
+      "text": "Synthetic copper item number 1003 token001003",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1003",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1004",
+      "text": "Synthetic copper item number 1004 token001004",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1004",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1005",
+      "text": "Synthetic copper item number 1005 token001005",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1005",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1006",
+      "text": "Synthetic copper item number 1006 token001006",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1006",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1007",
+      "text": "Synthetic copper item number 1007 token001007",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1007",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1008",
+      "text": "Synthetic copper item number 1008 token001008",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1008",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    },
+    {
+      "workspace": "example",
+      "source_id": "note-1009",
+      "text": "Synthetic copper item number 1009 token001009",
+      "metadata": {
+        "evidence_kind": "observation",
+        "valid_from": null,
+        "valid_until": null,
+        "observed_at": null,
+        "aliases": [],
+        "preconditions": {},
+        "confidence": null
+      },
+      "ref_workspace": "example",
+      "ref_artifact_id": "note-1009",
+      "ref_version_id_rule": "Exact version returned by that source admission, reused unchanged; no version inferred from search output."
+    }
+  ],
+  "expected_search_result": {
+    "status": "completed",
+    "complete": true,
+    "items_count": 1,
+    "item_ref": "same exact admitted ref for selected index",
+    "item_text": "full selected source text",
+    "item_metadata": {
+      "evidence_kind": "observation",
+      "valid_from": null,
+      "valid_until": null,
+      "observed_at": null,
+      "aliases": [],
+      "preconditions": {},
+      "confidence": null
+    },
+    "context": "full selected source text",
+    "exclusions": [],
+    "candidate_truncated": false,
+    "top_k": 5,
+    "max_context_chars": 200
+  },
+  "expected_phase_public_calls": {
+    "ingest": {
+      "typed.put": 1000
+    },
+    "initial_sync": {
+      "typed.sync": 1
+    },
+    "incremental_admit": {
+      "typed.put": 10
+    },
+    "incremental_read": {
+      "memory.read": 10
+    },
+    "incremental_sync": {
+      "typed.sync": 1
+    },
+    "search_and_read": {
+      "typed.search": 50,
+      "memory.read": 50
+    },
+    "revoke_and_stale_check": {
+      "memory.revoke_source": 1,
+      "memory.read": 1,
+      "typed.search": 1
+    },
+    "maintenance_sync": {
+      "typed.sync": 1
+    },
+    "after_revoke_check": {
+      "typed.search": 2,
+      "memory.read": 2
+    }
+  },
+  "expected_setup_public_calls": {
+    "typed.put": 1000,
+    "typed.sync": 1
+  },
+  "expected_marginal_public_calls": {
+    "typed.put": 10,
+    "memory.read": 63,
+    "typed.sync": 2,
+    "typed.search": 53,
+    "memory.revoke_source": 1
+  },
+  "expected_setup_calls_total": 1001,
+  "expected_marginal_calls_total": 129,
+  "expected_all_calls_total": 1130,
+  "expected_retrieval_trials": 50,
+  "expected_new_trials": 10,
+  "expected_initial_trials": 40,
+  "expected_trial_status_counts": {
+    "completed": 50
+  },
+  "expected_hits": 50,
+  "expected_omissions": 0,
+  "expected_unexpected_items": 0,
+  "expected_candidate_truncated_queries": 0,
+  "expected_reads": {
+    "admission_allowed": 10,
+    "trial_allowed": 50,
+    "revoked_denied": 2,
+    "control_allowed": 1,
+    "total": 63
+  },
+  "expected_lifecycle": {
+    "withdrawn_source": "note-1000",
+    "control_source": "note-1001",
+    "pre_sync_search_status": "index_stale",
+    "pre_sync_items": [],
+    "pre_sync_context": "",
+    "post_sync_search_status": "completed",
+    "post_sync_items": [],
+    "post_sync_context": "",
+    "withdrawn_reads_denied_before_and_after_sync": true,
+    "control_exact_search_and_read": true,
+    "admitted_documents": 1010,
+    "active_after_withdrawal": 1009
+  },
+  "scope": "Explicit benchmark public calls only. Initialization and internal SQLite calls excluded.",
+  "inputs": {
+    "protocol_sha256": "158ecea040bb221c3610946d598a17390d701836046a2aa6d4aa244c5131431c",
+    "method_sources_sha256": "ed8fa6167bcd223fc2976a19ea76f62c093c04934a63c381bd40d3b828afb2eb"
+  }
+}

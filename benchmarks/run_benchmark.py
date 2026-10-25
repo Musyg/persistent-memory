@@ -12,7 +12,7 @@ from hermes_memory import Authority, Memory
 from hermes_memory.typed_memory import TypedMemory
 
 
-def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=None, profile_tail=False):
+def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=None, profile_tail=False, incremental_batch=0):
     if not (type(documents) is int and 1 <= documents <= 5000
             and type(repetitions) is int and 1 <= repetitions <= 100000
             and type(seed) is int and 0 <= seed < 2 ** 64):
@@ -21,6 +21,16 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
         raise ValueError('Volume progress requires typed volume mode')
     if profile_tail and (not volume or progress_path is None):
         raise ValueError('Tail profiling requires instrumented typed volume mode')
+    if type(incremental_batch) is not int or not 0 <= incremental_batch <= 100:
+        raise ValueError('Expected incremental_batch 0 (disabled) or 2..100')
+    if incremental_batch:
+        import sys
+        if (incremental_batch < 2 or not volume or progress_path is None
+                or sys.platform != 'linux' or profile_tail
+                or documents + incremental_batch > 5000 or repetitions < incremental_batch):
+            raise ValueError('Incremental cycle requires Linux instrumented volume mode, batch 2..100, '
+                             'total documents <=5000, repetitions >=batch and no tail profile')
+    incremental_cycle = None
     profiler = None
     if profile_tail:
         import cProfile
@@ -104,60 +114,196 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
         operations['typed.sync'] += 1
         initial_sync_seconds = time.perf_counter() - sync_started
         boundary(root, 'initial_sync', 'end')
-        boundary(root, 'search_and_read', 'start')
-        timings = []
-        read_timings = []
-        for _ in range(repetitions):
-            selected = generator.randrange(documents) if volume else None
-            query = 'token' + format(selected, '06d') if volume else 'copper'
-            if volume:
-                query_digest.update((query + '\n').encode('ascii'))
-                queried.add(selected)
-            start = time.perf_counter()
-            result = typed.search('example', query, top_k=5, max_context_chars=200)
-            timings.append(time.perf_counter() - start)
-            operations['typed.search'] += 1
-            assert len(result['context']) <= 200
-            if volume:
-                statuses[result['status']] = statuses.get(result['status'], 0) + 1
-                found = any(item['ref'] == refs[selected] for item in result['items'])
-                hits += int(found)
-                omissions += int(not found)
-                unexpected_items += sum(item['ref'] != refs[selected] for item in result['items'])
-                truncated_queries += int(result.get('coverage', {}).get('candidate_truncated', False))
-            else:
-                assert result['status'] == 'completed'
-            for item in result['items']:
+        if incremental_batch:
+            # This oracle is built from the fixed synthetic sources, never search output.
+            expected_metadata = {'evidence_kind': 'observation', 'valid_from': None,
+                                 'valid_until': None, 'observed_at': None, 'aliases': [],
+                                 'preconditions': {}, 'confidence': None}
+            expected_texts = ['Synthetic copper item number ' + str(index) + ' token' + format(index, '06d')
+                              for index in range(documents + incremental_batch)]
+            def check(condition, reason):
+                if not condition:
+                    raise AssertionError('incremental_oracle:' + reason)
+            def exact_read(index, allowed=True):
                 read_started = time.perf_counter()
-                assert memory.read(item['ref'])['allowed']
+                decision = memory.read(refs[index])
                 read_timings.append(time.perf_counter() - read_started)
                 operations['memory.read'] += 1
-            if (_ + 1) % 10 == 0 or _ + 1 == repetitions:
-                progress(root, 'search_and_read', _ + 1, repetitions)
-        boundary(root, 'search_and_read', 'end')
-        boundary(root, 'revoke_and_stale_check', 'start')
-        memory.revoke_source('example', 'note-0', 'example-revoke-0')
-        operations['memory.revoke_source'] += 1
-        revocation_query = 'token000000' if volume else 'copper'
-        stale = typed.search('example', revocation_query)
-        operations['typed.search'] += 1
-        assert stale['status'] != 'completed'
-        boundary(root, 'revoke_and_stale_check', 'end')
-        boundary(root, 'maintenance_sync', 'start')
-        resync_started = time.perf_counter()
-        typed.sync('example')
-        operations['typed.sync'] += 1
-        revocation_sync_seconds = time.perf_counter() - resync_started
-        boundary(root, 'maintenance_sync', 'end')
-        boundary(root, 'after_revoke_check', 'start')
-        after = typed.search('example', revocation_query)
-        operations['typed.search'] += 1
-        assert all(item['ref'] != refs[0] for item in after['items'])
-        if volume:
-            assert stale['status'] == 'index_stale'
-            assert after['status'] == 'completed' and after['items'] == []
+                check(decision.get('ref') == refs[index], 'read_ref')
+                check(decision.get('allowed') is allowed, 'read_allowed')
+                if allowed:
+                    expected_content = json.dumps({'schema': 'hermes.typed-memory.v1',
+                                                   'text': expected_texts[index],
+                                                   'metadata': expected_metadata},
+                                                  ensure_ascii=False, sort_keys=True,
+                                                  separators=(',', ':'), allow_nan=False)
+                    check(decision.get('content') == expected_content, 'read_content')
+                else:
+                    check('content' not in decision, 'revoked_content_exposed')
+            def exact_search(result, index):
+                check(result.get('status') == 'completed', 'search_status')
+                check(result.get('complete') is True, 'search_incomplete')
+                check(result.get('coverage', {}).get('candidate_truncated') is False,
+                      'search_truncated')
+                check(result.get('exclusions') == [], 'search_exclusions')
+                items = result.get('items')
+                check(type(items) is list and len(items) == 1, 'search_cardinality')
+                check(items[0].get('ref') == refs[index], 'search_ref')
+                check(items[0].get('text') == expected_texts[index], 'search_content')
+                check(items[0].get('metadata') == expected_metadata, 'search_metadata')
+                check(result.get('context') == expected_texts[index], 'search_context')
+                check(len(result['context']) <= 200, 'search_context_budget')
+            timings, read_timings = [], []
+            setup_operations = dict(operations)
+            cycle_started = time.perf_counter()
+            boundary(root, 'incremental_admit', 'start')
+            for index in range(documents, documents + incremental_batch):
+                reference = typed.put('example', 'note-' + str(index), expected_texts[index],
+                                      {'evidence_kind': 'observation'})['ref']
+                operations['typed.put'] += 1
+                check(set(reference) == {'workspace', 'artifact_id', 'version_id'}
+                      and reference['workspace'] == 'example'
+                      and reference['artifact_id'] == 'note-' + str(index)
+                      and type(reference['version_id']) is str and bool(reference['version_id']),
+                      'admission_ref')
+                refs.append(dict(reference))
+            boundary(root, 'incremental_admit', 'end')
+            boundary(root, 'incremental_read', 'start')
+            for index in range(documents, documents + incremental_batch):
+                exact_read(index)
+            boundary(root, 'incremental_read', 'end')
+            boundary(root, 'incremental_sync', 'start')
+            typed.sync('example')
+            operations['typed.sync'] += 1
+            boundary(root, 'incremental_sync', 'end')
+            boundary(root, 'search_and_read', 'start')
+            schedule = list(range(documents, documents + incremental_batch))
+            schedule.extend(generator.randrange(documents) for _ in range(repetitions - incremental_batch))
+            for position, selected in enumerate(schedule, 1):
+                query = 'token' + format(selected, '06d')
+                query_digest.update((query + '\n').encode('ascii'))
+                queried.add(selected)
+                search_started = time.perf_counter()
+                result = typed.search('example', query, top_k=5, max_context_chars=200)
+                timings.append(time.perf_counter() - search_started)
+                operations['typed.search'] += 1
+                exact_search(result, selected)
+                exact_read(selected)
+                hits += 1
+                statuses['completed'] = statuses.get('completed', 0) + 1
+                if position % 10 == 0 or position == repetitions:
+                    progress(root, 'search_and_read', position, repetitions)
+            boundary(root, 'search_and_read', 'end')
+            boundary(root, 'revoke_and_stale_check', 'start')
+            memory.revoke_source('example', 'note-' + str(documents), 'example-incremental-revoke')
+            operations['memory.revoke_source'] += 1
+            exact_read(documents, allowed=False)
+            revocation_query = 'token' + format(documents, '06d')
+            stale = typed.search('example', revocation_query, top_k=5, max_context_chars=200)
+            operations['typed.search'] += 1
+            check(stale.get('status') == 'index_stale' and stale.get('items') == []
+                  and stale.get('context') == '', 'revoked_index_not_stale')
+            boundary(root, 'revoke_and_stale_check', 'end')
+            boundary(root, 'maintenance_sync', 'start')
+            resync_started = time.perf_counter()
+            typed.sync('example')
+            operations['typed.sync'] += 1
+            revocation_sync_seconds = time.perf_counter() - resync_started
+            boundary(root, 'maintenance_sync', 'end')
+            boundary(root, 'after_revoke_check', 'start')
+            after = typed.search('example', revocation_query, top_k=5, max_context_chars=200)
+            operations['typed.search'] += 1
+            check(after.get('status') == 'completed' and after.get('complete') is True
+                  and after.get('items') == [] and after.get('context') == ''
+                  and after.get('coverage', {}).get('candidate_truncated') is False,
+                  'revoked_search_not_empty')
+            exact_read(documents, allowed=False)
+            witness_index = documents + 1
+            witness = typed.search('example', 'token' + format(witness_index, '06d'),
+                                   top_k=5, max_context_chars=200)
+            operations['typed.search'] += 1
+            exact_search(witness, witness_index)
+            exact_read(witness_index)
             disk_bytes = sum(path.stat().st_size for path in root.rglob('*') if path.is_file())
-        boundary(root, 'after_revoke_check', 'end')
+            boundary(root, 'after_revoke_check', 'end')
+            incremental_cycle = {
+                'schema': 'persistent-memory.incremental-cycle.v1',
+                'batch': incremental_batch, 'initial_documents': documents,
+                'admitted_documents': documents + incremental_batch,
+                'active_documents_after_revocation': documents + incremental_batch - 1,
+                'new_retrieval_trials': incremental_batch,
+                'initial_retrieval_trials': repetitions - incremental_batch,
+                'explicit_admission_reads': incremental_batch,
+                'query_schedule_sha256': query_digest.hexdigest(),
+                'query_order': 'each new source in admission order, then seeded initial-source draws',
+                'setup_phases': ['ingest', 'initial_sync'],
+                'marginal_phases': ['incremental_admit', 'incremental_read', 'incremental_sync',
+                                    'search_and_read', 'revoke_and_stale_check',
+                                    'maintenance_sync', 'after_revoke_check'],
+                'marginal_elapsed_seconds': time.perf_counter() - cycle_started,
+                'marginal_public_method_calls': {key: operations[key] - setup_operations[key]
+                                               for key in operations},
+                'oracle_passed': True, 'revoked_reads_refused': 2,
+                'revoked_source': 'note-' + str(documents),
+                'valid_control_source': 'note-' + str(witness_index),
+                'same_memory_instance': True, 'setup_excluded_from_marginal': True,
+                'telemetry_cost_included': True, 'telemetry_overhead_seconds': None,
+                'infrastructure_price_usd': None, 'energy_joules': None}
+        else:
+            boundary(root, 'search_and_read', 'start')
+            timings = []
+            read_timings = []
+            for _ in range(repetitions):
+                selected = generator.randrange(documents) if volume else None
+                query = 'token' + format(selected, '06d') if volume else 'copper'
+                if volume:
+                    query_digest.update((query + '\n').encode('ascii'))
+                    queried.add(selected)
+                start = time.perf_counter()
+                result = typed.search('example', query, top_k=5, max_context_chars=200)
+                timings.append(time.perf_counter() - start)
+                operations['typed.search'] += 1
+                assert len(result['context']) <= 200
+                if volume:
+                    statuses[result['status']] = statuses.get(result['status'], 0) + 1
+                    found = any(item['ref'] == refs[selected] for item in result['items'])
+                    hits += int(found)
+                    omissions += int(not found)
+                    unexpected_items += sum(item['ref'] != refs[selected] for item in result['items'])
+                    truncated_queries += int(result.get('coverage', {}).get('candidate_truncated', False))
+                else:
+                    assert result['status'] == 'completed'
+                for item in result['items']:
+                    read_started = time.perf_counter()
+                    assert memory.read(item['ref'])['allowed']
+                    read_timings.append(time.perf_counter() - read_started)
+                    operations['memory.read'] += 1
+                if (_ + 1) % 10 == 0 or _ + 1 == repetitions:
+                    progress(root, 'search_and_read', _ + 1, repetitions)
+            boundary(root, 'search_and_read', 'end')
+            boundary(root, 'revoke_and_stale_check', 'start')
+            memory.revoke_source('example', 'note-0', 'example-revoke-0')
+            operations['memory.revoke_source'] += 1
+            revocation_query = 'token000000' if volume else 'copper'
+            stale = typed.search('example', revocation_query)
+            operations['typed.search'] += 1
+            assert stale['status'] != 'completed'
+            boundary(root, 'revoke_and_stale_check', 'end')
+            boundary(root, 'maintenance_sync', 'start')
+            resync_started = time.perf_counter()
+            typed.sync('example')
+            operations['typed.sync'] += 1
+            revocation_sync_seconds = time.perf_counter() - resync_started
+            boundary(root, 'maintenance_sync', 'end')
+            boundary(root, 'after_revoke_check', 'start')
+            after = typed.search('example', revocation_query)
+            operations['typed.search'] += 1
+            assert all(item['ref'] != refs[0] for item in after['items'])
+            if volume:
+                assert stale['status'] == 'index_stale'
+                assert after['status'] == 'completed' and after['items'] == []
+                disk_bytes = sum(path.stat().st_size for path in root.rglob('*') if path.is_file())
+            boundary(root, 'after_revoke_check', 'end')
         progress(root, 'completed', repetitions, repetitions)
     report = {'synthetic_documents': documents, 'repetitions': repetitions,
               'median_seconds': statistics.median(timings), 'max_seconds': max(timings),
@@ -201,6 +347,9 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
             'provider_requests': 0,
             'ranking_quality_evaluated': False, 'independent_business_tasks': 0,
         })
+        if incremental_cycle is not None:
+            report['mode'] = 'synthetic_typed_volume_incremental'
+            report['incremental_cycle'] = incremental_cycle
         if progress_path is not None:
             report['end_to_end_telemetry'] = {
                 'schema': 'persistent-memory.volume-costs.v1',
@@ -1967,7 +2116,16 @@ if __name__ == '__main__':
                         help='Write bounded phase progress and measure full typed-volume costs; Linux only.')
     parser.add_argument('--volume-profile-tail', action='store_true',
                         help='Profile only the final ten admissions of an instrumented volume run.')
+    parser.add_argument('--volume-incremental-batch', type=int, default=0,
+                        help='Measure a same-instance incremental cycle: 2..100 new sources; 0 disables it.')
     args = parser.parse_args()
+    if args.volume_incremental_batch:
+        if (args.volume_progress is None or args.documents is None or args.volume_profile_tail
+                or not 2 <= args.volume_incremental_batch <= 100):
+            parser.error('--volume-incremental-batch requires --volume-progress, explicit --documents, '
+                         'batch 2..100 and no --volume-profile-tail')
+    elif args.volume_incremental_batch != 0:
+        parser.error('Expected --volume-incremental-batch 0 or 2..100')
     if args.volume_profile_tail and args.volume_progress is None:
         parser.error('--volume-profile-tail requires --volume-progress')
     if args.volume_progress is not None:
@@ -2054,12 +2212,15 @@ if __name__ == '__main__':
     seed = 0 if args.seed is None else args.seed
     if not 1 <= documents <= 5000 or not 1 <= repetitions <= 100000 or not 0 <= seed < 2 ** 64:
         parser.error('Expected documents 1..5000, repetitions 1..100000 and seed 0..2^64-1')
+    if args.volume_incremental_batch and (documents + args.volume_incremental_batch > 5000
+                                         or repetitions < args.volume_incremental_batch):
+        parser.error('Incremental cycle requires total documents <=5000 and repetitions >=batch')
     if args.trajectories is not None:
         transition_trajectories(args.trajectories, seed)
     elif args.lance_hybrid:
         lance_hybrid_demo()
     else:
         report = main(documents, repetitions, seed, volume=volume, progress_path=args.volume_progress,
-                      profile_tail=args.volume_profile_tail)
+                      profile_tail=args.volume_profile_tail, incremental_batch=args.volume_incremental_batch)
         if volume and not report['oracle_passed']:
             raise SystemExit(1)

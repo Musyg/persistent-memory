@@ -2,7 +2,7 @@
 
 [Français](PACKAGES.fr.md)
 
-The memory core is `hermes-memory-core==0.3.0a3`. The optional policy registry is `hermes-policy-registry==0.2.0a2`. They install independently and have no runtime dependency on each other.
+The memory core is `hermes-memory-core==0.3.0a4`. The optional policy registry is `hermes-policy-registry==0.2.0a2`. They install independently and have no runtime dependency on each other.
 
 The [registry guide](https://github.com/Musyg/persistent-memory/tree/main/packages/policy-registry) and its French counterpart describe the contract and synthetic example. The registry 0.2.0a2 [release](https://github.com/Musyg/persistent-memory/releases/tag/policy-registry-v0.2.0a2) contains its own wheel, source archive and checksums. Registry wheels and source archives are separate release assets; a standalone core source archive does not contain the registry package.
 

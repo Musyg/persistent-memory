@@ -1,0 +1,3477 @@
+{
+  "schema": "persistent-memory.incremental-cycle.public-observations.v1",
+  "projection": "All six synthetic benchmark reports and measured scalar outcomes retained. Private runtime paths and process identifiers omitted from import evidence. No production data.",
+  "native_RESULT_sha256": "55ec850bfae4fbfa2ba5cf12d3b9736e084f0081867214c2051df1a20a0f2144",
+  "native_comparison_sha256": "fceb54efd48e8bd9e47cd9482b025f6a59cc03ebbb2c11b6aa348c1eb6961b9b",
+  "elapsed_seconds": 402.3226423759479,
+  "completed_processes": 6,
+  "planned_processes": 6,
+  "automatic_retry": false,
+  "source_drift": false,
+  "provider_requests": 0,
+  "production_changed": false,
+  "measurements": [
+    {
+      "id": "pair1_A",
+      "pair": 1,
+      "arm": "A",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 74.86973659391515,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.28051407146267593,
+        "max_seconds": 0.28643124201335013,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.28051407146267593,
+        "p95_seconds": 0.2843222168739885,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.2605853055324405,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 54.98981608496979,
+        "initial_sync_seconds": 0.1303066851105541,
+        "revocation_sync_seconds": 0.18672049418091774,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 35926016,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 19.496537795988843,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.0023434669710695744,
+                "cpu_user_seconds": 0.054245999999999996,
+                "cpu_system_seconds": 0.010045,
+                "io": {
+                  "rchar": 2535362,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32600064,
+                "rss_peak_native_units": 31612
+              },
+              "end": {
+                "elapsed_seconds": 55.002116444986314,
+                "cpu_user_seconds": 27.255782,
+                "cpu_system_seconds": 0.245134,
+                "io": {
+                  "rchar": 439725967,
+                  "wchar": 101372841,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34844672,
+                "rss_peak_native_units": 33532
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 55.00338341994211,
+                "cpu_user_seconds": 27.256023,
+                "cpu_system_seconds": 0.245136,
+                "io": {
+                  "rchar": 439726263,
+                  "wchar": 101373461,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34844672,
+                "rss_peak_native_units": 33532
+              },
+              "end": {
+                "elapsed_seconds": 55.134881482925266,
+                "cpu_user_seconds": 27.345305,
+                "cpu_system_seconds": 0.24712599999999998,
+                "io": {
+                  "rchar": 441099206,
+                  "wchar": 101903093,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36106240,
+                "rss_peak_native_units": 34684
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 55.14547138195485,
+                "cpu_user_seconds": 27.345863,
+                "cpu_system_seconds": 0.247131,
+                "io": {
+                  "rchar": 441099502,
+                  "wchar": 101903731,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36106240,
+                "rss_peak_native_units": 34684
+              },
+              "end": {
+                "elapsed_seconds": 56.289238946978,
+                "cpu_user_seconds": 27.89736,
+                "cpu_system_seconds": 0.249128,
+                "io": {
+                  "rchar": 448873782,
+                  "wchar": 103035516,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34684
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 56.299140251008794,
+                "cpu_user_seconds": 27.897819,
+                "cpu_system_seconds": 0.249132,
+                "io": {
+                  "rchar": 448874080,
+                  "wchar": 103036149,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34684
+              },
+              "end": {
+                "elapsed_seconds": 56.921314503997564,
+                "cpu_user_seconds": 28.225826,
+                "cpu_system_seconds": 0.252123,
+                "io": {
+                  "rchar": 456496968,
+                  "wchar": 103036783,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34684
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 56.93085682205856,
+                "cpu_user_seconds": 28.225942,
+                "cpu_system_seconds": 0.252434,
+                "io": {
+                  "rchar": 456497266,
+                  "wchar": 103037415,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34684
+              },
+              "end": {
+                "elapsed_seconds": 57.12010834598914,
+                "cpu_user_seconds": 28.321812,
+                "cpu_system_seconds": 0.255106,
+                "io": {
+                  "rchar": 458288003,
+                  "wchar": 103993820,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36241408,
+                "rss_peak_native_units": 34768
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 57.13104401808232,
+                "cpu_user_seconds": 28.322134,
+                "cpu_system_seconds": 0.255109,
+                "io": {
+                  "rchar": 458288301,
+                  "wchar": 103994453,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36241408,
+                "rss_peak_native_units": 34768
+              },
+              "end": {
+                "elapsed_seconds": 73.54486015904695,
+                "cpu_user_seconds": 36.474674,
+                "cpu_system_seconds": 0.29895299999999997,
+                "io": {
+                  "rchar": 609093744,
+                  "wchar": 103998239,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35401728,
+                "rss_peak_native_units": 34960
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 73.54626084608026,
+                "cpu_user_seconds": 36.47501,
+                "cpu_system_seconds": 0.29895299999999997,
+                "io": {
+                  "rchar": 609094042,
+                  "wchar": 103998881,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35401728,
+                "rss_peak_native_units": 34960
+              },
+              "end": {
+                "elapsed_seconds": 73.8081035129726,
+                "cpu_user_seconds": 36.596841,
+                "cpu_system_seconds": 0.29895299999999997,
+                "io": {
+                  "rchar": 611290809,
+                  "wchar": 104065794,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35409920,
+                "rss_peak_native_units": 34960
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 73.81831419910304,
+                "cpu_user_seconds": 36.59718,
+                "cpu_system_seconds": 0.29895499999999997,
+                "io": {
+                  "rchar": 611291107,
+                  "wchar": 104066432,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35409920,
+                "rss_peak_native_units": 34960
+              },
+              "end": {
+                "elapsed_seconds": 74.00675956299528,
+                "cpu_user_seconds": 36.694774,
+                "cpu_system_seconds": 0.29995099999999997,
+                "io": {
+                  "rchar": 613081844,
+                  "wchar": 105022838,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 34960
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 74.01631959201768,
+                "cpu_user_seconds": 36.695094,
+                "cpu_system_seconds": 0.299954,
+                "io": {
+                  "rchar": 613082142,
+                  "wchar": 105023470,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 34960
+              },
+              "end": {
+                "elapsed_seconds": 74.63132689497434,
+                "cpu_user_seconds": 37.016637,
+                "cpu_system_seconds": 0.301952,
+                "io": {
+                  "rchar": 619044920,
+                  "wchar": 105024117,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36483072,
+                "rss_peak_native_units": 35084
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 74.69569726707414,
+          "explicit_read_seconds": 4.165007979143411,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "e47449ba65072d8ef73addf8aab96b70aaabc543b2e27f6f94c9c006b19874f4",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+        "R3_SHA": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+        "dont_write_bytecode": true
+      }
+    },
+    {
+      "id": "pair1_B",
+      "pair": 1,
+      "arm": "B",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 58.18488490697928,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.2790876266080886,
+        "max_seconds": 0.28615974681451917,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.2790876266080886,
+        "p95_seconds": 0.28240746492519975,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.2619617523206398,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 38.90765832690522,
+        "initial_sync_seconds": 0.18354418990202248,
+        "revocation_sync_seconds": 0.19658450805582106,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 35680256,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 18.972786975093186,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.0023046061396598816,
+                "cpu_user_seconds": 0.04784,
+                "cpu_system_seconds": 0.010962999999999999,
+                "io": {
+                  "rchar": 2535382,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32657408,
+                "rss_peak_native_units": 31660
+              },
+              "end": {
+                "elapsed_seconds": 38.9116594940424,
+                "cpu_user_seconds": 19.248785,
+                "cpu_system_seconds": 0.22719399999999998,
+                "io": {
+                  "rchar": 439725987,
+                  "wchar": 101372885,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34902016,
+                "rss_peak_native_units": 33388
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 38.91339583718218,
+                "cpu_user_seconds": 19.249015,
+                "cpu_system_seconds": 0.22719699999999998,
+                "io": {
+                  "rchar": 439726283,
+                  "wchar": 101373516,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34902016,
+                "rss_peak_native_units": 33388
+              },
+              "end": {
+                "elapsed_seconds": 39.09805939299986,
+                "cpu_user_seconds": 19.343331,
+                "cpu_system_seconds": 0.228189,
+                "io": {
+                  "rchar": 441099226,
+                  "wchar": 101903146,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36159488,
+                "rss_peak_native_units": 34540
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 39.10730384499766,
+                "cpu_user_seconds": 19.34379,
+                "cpu_system_seconds": 0.22819499999999998,
+                "io": {
+                  "rchar": 441099522,
+                  "wchar": 101903783,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36159488,
+                "rss_peak_native_units": 34540
+              },
+              "end": {
+                "elapsed_seconds": 39.88106024218723,
+                "cpu_user_seconds": 19.72306,
+                "cpu_system_seconds": 0.230183,
+                "io": {
+                  "rchar": 448873802,
+                  "wchar": 103035579,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36179968,
+                "rss_peak_native_units": 34540
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 39.89134440012276,
+                "cpu_user_seconds": 19.723419,
+                "cpu_system_seconds": 0.230187,
+                "io": {
+                  "rchar": 448874100,
+                  "wchar": 103036212,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36179968,
+                "rss_peak_native_units": 34540
+              },
+              "end": {
+                "elapsed_seconds": 40.508341724053025,
+                "cpu_user_seconds": 20.048112,
+                "cpu_system_seconds": 0.231182,
+                "io": {
+                  "rchar": 456496988,
+                  "wchar": 103036857,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35147776,
+                "rss_peak_native_units": 34540
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 40.51738477218896,
+                "cpu_user_seconds": 20.048428,
+                "cpu_system_seconds": 0.231182,
+                "io": {
+                  "rchar": 456497286,
+                  "wchar": 103037489,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35147776,
+                "rss_peak_native_units": 34540
+              },
+              "end": {
+                "elapsed_seconds": 40.70848650112748,
+                "cpu_user_seconds": 20.146225,
+                "cpu_system_seconds": 0.233157,
+                "io": {
+                  "rchar": 458288023,
+                  "wchar": 103993895,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36298752,
+                "rss_peak_native_units": 34652
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 40.717905135126784,
+                "cpu_user_seconds": 20.146542,
+                "cpu_system_seconds": 0.23316099999999998,
+                "io": {
+                  "rchar": 458288321,
+                  "wchar": 103994547,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36298752,
+                "rss_peak_native_units": 34652
+              },
+              "end": {
+                "elapsed_seconds": 56.98913664300926,
+                "cpu_user_seconds": 28.195661,
+                "cpu_system_seconds": 0.291971,
+                "io": {
+                  "rchar": 609093764,
+                  "wchar": 103998360,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 34844
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 56.99069799808785,
+                "cpu_user_seconds": 28.195966,
+                "cpu_system_seconds": 0.291974,
+                "io": {
+                  "rchar": 609094062,
+                  "wchar": 103998991,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 34844
+              },
+              "end": {
+                "elapsed_seconds": 57.19771477300674,
+                "cpu_user_seconds": 28.313627,
+                "cpu_system_seconds": 0.291975,
+                "io": {
+                  "rchar": 611290829,
+                  "wchar": 104065894,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 34844
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 57.199030817020684,
+                "cpu_user_seconds": 28.31389,
+                "cpu_system_seconds": 0.291977,
+                "io": {
+                  "rchar": 611291127,
+                  "wchar": 104066531,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 34844
+              },
+              "end": {
+                "elapsed_seconds": 57.396735444199294,
+                "cpu_user_seconds": 28.41323,
+                "cpu_system_seconds": 0.29197799999999996,
+                "io": {
+                  "rchar": 613081864,
+                  "wchar": 105022949,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36470784,
+                "rss_peak_native_units": 34844
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 57.398175853071734,
+                "cpu_user_seconds": 28.413539,
+                "cpu_system_seconds": 0.29197799999999996,
+                "io": {
+                  "rchar": 613082162,
+                  "wchar": 105023592,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36470784,
+                "rss_peak_native_units": 34844
+              },
+              "end": {
+                "elapsed_seconds": 58.078244699165225,
+                "cpu_user_seconds": 28.742919,
+                "cpu_system_seconds": 0.29397599999999996,
+                "io": {
+                  "rchar": 619044940,
+                  "wchar": 105024238,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36524032,
+                "rss_peak_native_units": 34844
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 58.09071886516176,
+          "explicit_read_seconds": 3.9296248252503574,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "40f1c0fdd82251b41cb429815ac667400a53648e8f9716be808dfc9f70dc29bb",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+        "R3_SHA": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+        "dont_write_bytecode": true
+      }
+    },
+    {
+      "id": "pair2_B",
+      "pair": 2,
+      "arm": "B",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 58.39470992400311,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.28009163041133434,
+        "max_seconds": 0.28657766291871667,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.28009163041133434,
+        "p95_seconds": 0.28543036710470915,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.2633385090669617,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 38.97347377007827,
+        "initial_sync_seconds": 0.19579787692055106,
+        "revocation_sync_seconds": 0.19701619702391326,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 36290560,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 19.038151343120262,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.002272609854117036,
+                "cpu_user_seconds": 0.051307,
+                "cpu_system_seconds": 0.012072,
+                "io": {
+                  "rchar": 2535382,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32657408,
+                "rss_peak_native_units": 31668
+              },
+              "end": {
+                "elapsed_seconds": 38.97682990296744,
+                "cpu_user_seconds": 19.299613,
+                "cpu_system_seconds": 0.20835599999999999,
+                "io": {
+                  "rchar": 439725987,
+                  "wchar": 101372880,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34902016,
+                "rss_peak_native_units": 33780
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 38.97781225387007,
+                "cpu_user_seconds": 19.299844,
+                "cpu_system_seconds": 0.20835599999999999,
+                "io": {
+                  "rchar": 439726283,
+                  "wchar": 101373511,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34902016,
+                "rss_peak_native_units": 33780
+              },
+              "end": {
+                "elapsed_seconds": 39.174514022888616,
+                "cpu_user_seconds": 19.39756,
+                "cpu_system_seconds": 0.20835599999999999,
+                "io": {
+                  "rchar": 441099226,
+                  "wchar": 101903152,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36159488,
+                "rss_peak_native_units": 34932
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 39.176363753853366,
+                "cpu_user_seconds": 19.398055,
+                "cpu_system_seconds": 0.20835599999999999,
+                "io": {
+                  "rchar": 441099522,
+                  "wchar": 101903791,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36159488,
+                "rss_peak_native_units": 34932
+              },
+              "end": {
+                "elapsed_seconds": 39.911991675850004,
+                "cpu_user_seconds": 19.777637,
+                "cpu_system_seconds": 0.215331,
+                "io": {
+                  "rchar": 448873802,
+                  "wchar": 103035576,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36179968,
+                "rss_peak_native_units": 34932
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 39.91354770492762,
+                "cpu_user_seconds": 19.777888,
+                "cpu_system_seconds": 0.215334,
+                "io": {
+                  "rchar": 448874100,
+                  "wchar": 103036209,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36179968,
+                "rss_peak_native_units": 34932
+              },
+              "end": {
+                "elapsed_seconds": 40.59361199196428,
+                "cpu_user_seconds": 20.107953,
+                "cpu_system_seconds": 0.216332,
+                "io": {
+                  "rchar": 456496988,
+                  "wchar": 103036843,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35147776,
+                "rss_peak_native_units": 34932
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 40.5950137199834,
+                "cpu_user_seconds": 20.108062,
+                "cpu_system_seconds": 0.216552,
+                "io": {
+                  "rchar": 456497286,
+                  "wchar": 103037476,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35147776,
+                "rss_peak_native_units": 34932
+              },
+              "end": {
+                "elapsed_seconds": 40.7938198200427,
+                "cpu_user_seconds": 20.20655,
+                "cpu_system_seconds": 0.21831399999999998,
+                "io": {
+                  "rchar": 458288023,
+                  "wchar": 103993882,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36298752,
+                "rss_peak_native_units": 35056
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 40.79574373993091,
+                "cpu_user_seconds": 20.20684,
+                "cpu_system_seconds": 0.21831699999999998,
+                "io": {
+                  "rchar": 458288321,
+                  "wchar": 103994525,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36298752,
+                "rss_peak_native_units": 35056
+              },
+              "end": {
+                "elapsed_seconds": 57.111760147847235,
+                "cpu_user_seconds": 28.321043,
+                "cpu_system_seconds": 0.25739999999999996,
+                "io": {
+                  "rchar": 609093764,
+                  "wchar": 103998325,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 35248
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 57.11257562902756,
+                "cpu_user_seconds": 28.321043,
+                "cpu_system_seconds": 0.25762199999999996,
+                "io": {
+                  "rchar": 609094062,
+                  "wchar": 103998956,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 35248
+              },
+              "end": {
+                "elapsed_seconds": 57.386515768943354,
+                "cpu_user_seconds": 28.443308,
+                "cpu_system_seconds": 0.260143,
+                "io": {
+                  "rchar": 611290829,
+                  "wchar": 104065860,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 35248
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 57.38796101300977,
+                "cpu_user_seconds": 28.443654,
+                "cpu_system_seconds": 0.260146,
+                "io": {
+                  "rchar": 611291127,
+                  "wchar": 104066498,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 35248
+              },
+              "end": {
+                "elapsed_seconds": 57.58574343496002,
+                "cpu_user_seconds": 28.54254,
+                "cpu_system_seconds": 0.260148,
+                "io": {
+                  "rchar": 613081864,
+                  "wchar": 105022915,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36470784,
+                "rss_peak_native_units": 35248
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 57.58710364997387,
+                "cpu_user_seconds": 28.542847,
+                "cpu_system_seconds": 0.260148,
+                "io": {
+                  "rchar": 613082162,
+                  "wchar": 105023546,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36470784,
+                "rss_peak_native_units": 35248
+              },
+              "end": {
+                "elapsed_seconds": 58.21204994991422,
+                "cpu_user_seconds": 28.86634,
+                "cpu_system_seconds": 0.262131,
+                "io": {
+                  "rchar": 619044940,
+                  "wchar": 105024183,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36524032,
+                "rss_peak_native_units": 35440
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 58.275611464865506,
+          "explicit_read_seconds": 3.965496285818517,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "4b3157aad259417ed10fce3765ed55d3cc816b9a20a2ebdaed8caa014ba8d587",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+        "R3_SHA": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+        "dont_write_bytecode": true
+      }
+    },
+    {
+      "id": "pair2_A",
+      "pair": 2,
+      "arm": "A",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 74.92983805108815,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.27860335842706263,
+        "max_seconds": 0.28526701498776674,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.27860335842706263,
+        "p95_seconds": 0.2846528619993478,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.25899602946825323,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 55.09244431601837,
+        "initial_sync_seconds": 0.1845016370061785,
+        "revocation_sync_seconds": 0.18907530489377677,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 36077568,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 19.49640547693707,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.0023221150040626526,
+                "cpu_user_seconds": 0.056535999999999996,
+                "cpu_system_seconds": 0.012114999999999999,
+                "io": {
+                  "rchar": 2535362,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32604160,
+                "rss_peak_native_units": 31628
+              },
+              "end": {
+                "elapsed_seconds": 55.09616810805164,
+                "cpu_user_seconds": 27.294857,
+                "cpu_system_seconds": 0.26004499999999997,
+                "io": {
+                  "rchar": 439725967,
+                  "wchar": 101372939,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34848768,
+                "rss_peak_native_units": 33548
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 55.09710880392231,
+                "cpu_user_seconds": 27.295091,
+                "cpu_system_seconds": 0.260048,
+                "io": {
+                  "rchar": 439726263,
+                  "wchar": 101373558,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34848768,
+                "rss_peak_native_units": 33548
+              },
+              "end": {
+                "elapsed_seconds": 55.282440674025565,
+                "cpu_user_seconds": 27.389616,
+                "cpu_system_seconds": 0.261052,
+                "io": {
+                  "rchar": 441099206,
+                  "wchar": 101903190,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36110336,
+                "rss_peak_native_units": 34892
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 55.29252152191475,
+                "cpu_user_seconds": 27.390156,
+                "cpu_system_seconds": 0.261054,
+                "io": {
+                  "rchar": 441099502,
+                  "wchar": 101903817,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36110336,
+                "rss_peak_native_units": 34892
+              },
+              "end": {
+                "elapsed_seconds": 56.38635011296719,
+                "cpu_user_seconds": 27.937788,
+                "cpu_system_seconds": 0.26503,
+                "io": {
+                  "rchar": 448873782,
+                  "wchar": 103035602,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35110912,
+                "rss_peak_native_units": 34892
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 56.39582518604584,
+                "cpu_user_seconds": 27.937895,
+                "cpu_system_seconds": 0.26531,
+                "io": {
+                  "rchar": 448874080,
+                  "wchar": 103036246,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35110912,
+                "rss_peak_native_units": 34892
+              },
+              "end": {
+                "elapsed_seconds": 57.07510989997536,
+                "cpu_user_seconds": 28.273412,
+                "cpu_system_seconds": 0.268018,
+                "io": {
+                  "rchar": 456496968,
+                  "wchar": 103036880,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35110912,
+                "rss_peak_native_units": 34892
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 57.084336643107235,
+                "cpu_user_seconds": 28.273779,
+                "cpu_system_seconds": 0.268021,
+                "io": {
+                  "rchar": 456497266,
+                  "wchar": 103037513,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35110912,
+                "rss_peak_native_units": 34892
+              },
+              "end": {
+                "elapsed_seconds": 57.273093085037544,
+                "cpu_user_seconds": 28.371349,
+                "cpu_system_seconds": 0.268022,
+                "io": {
+                  "rchar": 458288003,
+                  "wchar": 103993919,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36245504,
+                "rss_peak_native_units": 34892
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 57.28277501789853,
+                "cpu_user_seconds": 28.371766,
+                "cpu_system_seconds": 0.268024,
+                "io": {
+                  "rchar": 458288301,
+                  "wchar": 103994551,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36245504,
+                "rss_peak_native_units": 34892
+              },
+              "end": {
+                "elapsed_seconds": 73.68927148496732,
+                "cpu_user_seconds": 36.516702,
+                "cpu_system_seconds": 0.311853,
+                "io": {
+                  "rchar": 609093744,
+                  "wchar": 103998361,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35409920,
+                "rss_peak_native_units": 35232
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 73.69014462898485,
+                "cpu_user_seconds": 36.516934,
+                "cpu_system_seconds": 0.311855,
+                "io": {
+                  "rchar": 609094042,
+                  "wchar": 103998992,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35409920,
+                "rss_peak_native_units": 35232
+              },
+              "end": {
+                "elapsed_seconds": 73.89811650803313,
+                "cpu_user_seconds": 36.633829,
+                "cpu_system_seconds": 0.31285399999999997,
+                "io": {
+                  "rchar": 611290809,
+                  "wchar": 104065895,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35418112,
+                "rss_peak_native_units": 35232
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 73.90755867911503,
+                "cpu_user_seconds": 36.634145,
+                "cpu_system_seconds": 0.31285599999999997,
+                "io": {
+                  "rchar": 611291107,
+                  "wchar": 104066533,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35418112,
+                "rss_peak_native_units": 35232
+              },
+              "end": {
+                "elapsed_seconds": 74.09766845591366,
+                "cpu_user_seconds": 36.733004,
+                "cpu_system_seconds": 0.313838,
+                "io": {
+                  "rchar": 613081844,
+                  "wchar": 105022939,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 35232
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 74.1076608679723,
+                "cpu_user_seconds": 36.73314,
+                "cpu_system_seconds": 0.3141,
+                "io": {
+                  "rchar": 613082142,
+                  "wchar": 105023570,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 35232
+              },
+              "end": {
+                "elapsed_seconds": 74.77809500996955,
+                "cpu_user_seconds": 37.058964,
+                "cpu_system_seconds": 0.31681899999999996,
+                "io": {
+                  "rchar": 619044920,
+                  "wchar": 105024216,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36483072,
+                "rss_peak_native_units": 35232
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 74.79936327692121,
+          "explicit_read_seconds": 4.228768062079325,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "30af5d589119ef2ccbe7c1c30c50db9c0de699266d3350e01a509d6710dfc407",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+        "R3_SHA": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+        "dont_write_bytecode": true
+      }
+    },
+    {
+      "id": "pair3_A",
+      "pair": 3,
+      "arm": "A",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 74.58558692294173,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.2795107290148735,
+        "max_seconds": 0.28543987893499434,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.2795107290148735,
+        "p95_seconds": 0.28310103295370936,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.2629347237991169,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 54.979682942153886,
+        "initial_sync_seconds": 0.1834689830429852,
+        "revocation_sync_seconds": 0.18739393400028348,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 36036608,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 19.299704566132277,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.002237008884549141,
+                "cpu_user_seconds": 0.047386,
+                "cpu_system_seconds": 0.008884,
+                "io": {
+                  "rchar": 2535362,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32600064,
+                "rss_peak_native_units": 31608
+              },
+              "end": {
+                "elapsed_seconds": 54.983769363956526,
+                "cpu_user_seconds": 27.235957,
+                "cpu_system_seconds": 0.237513,
+                "io": {
+                  "rchar": 439725967,
+                  "wchar": 101372879,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34832384,
+                "rss_peak_native_units": 33528
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 54.98476830893196,
+                "cpu_user_seconds": 27.235957,
+                "cpu_system_seconds": 0.23776599999999998,
+                "io": {
+                  "rchar": 439726263,
+                  "wchar": 101373498,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34832384,
+                "rss_peak_native_units": 33528
+              },
+              "end": {
+                "elapsed_seconds": 55.16921080299653,
+                "cpu_user_seconds": 27.329071,
+                "cpu_system_seconds": 0.238198,
+                "io": {
+                  "rchar": 441099206,
+                  "wchar": 101903130,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36106240,
+                "rss_peak_native_units": 34872
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 55.17846398195252,
+                "cpu_user_seconds": 27.32953,
+                "cpu_system_seconds": 0.238202,
+                "io": {
+                  "rchar": 441099502,
+                  "wchar": 101903758,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36106240,
+                "rss_peak_native_units": 34872
+              },
+              "end": {
+                "elapsed_seconds": 56.26230318378657,
+                "cpu_user_seconds": 27.869788,
+                "cpu_system_seconds": 0.240196,
+                "io": {
+                  "rchar": 448873782,
+                  "wchar": 103035542,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34872
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 56.26408212981187,
+                "cpu_user_seconds": 27.869918,
+                "cpu_system_seconds": 0.24040199999999998,
+                "io": {
+                  "rchar": 448874080,
+                  "wchar": 103036176,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34872
+              },
+              "end": {
+                "elapsed_seconds": 56.89102263585664,
+                "cpu_user_seconds": 28.192704,
+                "cpu_system_seconds": 0.24517899999999998,
+                "io": {
+                  "rchar": 456496968,
+                  "wchar": 103036821,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34872
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 56.90150562277995,
+                "cpu_user_seconds": 28.193138,
+                "cpu_system_seconds": 0.24517899999999998,
+                "io": {
+                  "rchar": 456497266,
+                  "wchar": 103037463,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35106816,
+                "rss_peak_native_units": 34872
+              },
+              "end": {
+                "elapsed_seconds": 57.09028214495629,
+                "cpu_user_seconds": 28.288165,
+                "cpu_system_seconds": 0.248168,
+                "io": {
+                  "rchar": 458288003,
+                  "wchar": 103993880,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36241408,
+                "rss_peak_native_units": 34888
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 57.10040266485885,
+                "cpu_user_seconds": 28.288574,
+                "cpu_system_seconds": 0.24817099999999997,
+                "io": {
+                  "rchar": 458288301,
+                  "wchar": 103994513,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36241408,
+                "rss_peak_native_units": 34888
+              },
+              "end": {
+                "elapsed_seconds": 73.38190015684813,
+                "cpu_user_seconds": 36.355242,
+                "cpu_system_seconds": 0.298042,
+                "io": {
+                  "rchar": 609093744,
+                  "wchar": 103998312,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35389440,
+                "rss_peak_native_units": 35080
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 73.38277514395304,
+                "cpu_user_seconds": 36.355338,
+                "cpu_system_seconds": 0.29820599999999997,
+                "io": {
+                  "rchar": 609094042,
+                  "wchar": 103998943,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35389440,
+                "rss_peak_native_units": 35080
+              },
+              "end": {
+                "elapsed_seconds": 73.58974870690145,
+                "cpu_user_seconds": 36.469336,
+                "cpu_system_seconds": 0.30102799999999996,
+                "io": {
+                  "rchar": 611290809,
+                  "wchar": 104065846,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35397632,
+                "rss_peak_native_units": 35080
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 73.60002912092023,
+                "cpu_user_seconds": 36.4697,
+                "cpu_system_seconds": 0.301031,
+                "io": {
+                  "rchar": 611291107,
+                  "wchar": 104066483,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 35397632,
+                "rss_peak_native_units": 35080
+              },
+              "end": {
+                "elapsed_seconds": 73.78835910884663,
+                "cpu_user_seconds": 36.56607,
+                "cpu_system_seconds": 0.303014,
+                "io": {
+                  "rchar": 613081844,
+                  "wchar": 105022887,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 35080
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 73.79876967892051,
+                "cpu_user_seconds": 36.566451,
+                "cpu_system_seconds": 0.303017,
+                "io": {
+                  "rchar": 613082142,
+                  "wchar": 105023519,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36265984,
+                "rss_peak_native_units": 35080
+              },
+              "end": {
+                "elapsed_seconds": 74.46758137480356,
+                "cpu_user_seconds": 36.89327,
+                "cpu_system_seconds": 0.304013,
+                "io": {
+                  "rchar": 619044920,
+                  "wchar": 105024155,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36466688,
+                "rss_peak_native_units": 35192
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 74.48851733189076,
+          "explicit_read_seconds": 3.856563958339393,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "e81711de56a5997485750ced6f2bc79dc12220009766ad71ff69b74ab887d7db",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "201795feebd7a508cbea7dcc7638341f0da946c0288017c80d55f50a34826dee",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "35dd711acb3dd16e97237721b7332a73b4d4822a88c227fc445722256cd5cecb",
+        "R3_SHA": "f6f5284dcdcd9f6530ff34973c2b453f7dc5f0d5b877a134f709ad3e03454729",
+        "dont_write_bytecode": true
+      }
+    },
+    {
+      "id": "pair3_B",
+      "pair": 3,
+      "arm": "B",
+      "documents": 1000,
+      "status": "completed",
+      "elapsed_seconds": 58.222533501917496,
+      "child_returncode": 0,
+      "child_waited": true,
+      "cap_seconds": 180,
+      "report": {
+        "synthetic_documents": 1000,
+        "repetitions": 50,
+        "median_seconds": 0.27546448016073555,
+        "max_seconds": 0.28547310014255345,
+        "revocation_checked": true,
+        "cold_cache_controlled": false,
+        "general_speed_superiority_claimed": false,
+        "mode": "synthetic_typed_volume_incremental",
+        "seed": 20261021,
+        "query_kind": "unique_synthetic_lexical_token",
+        "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+        "distinct_queries": 50,
+        "retrieval_trials": 50,
+        "expected_hits": 50,
+        "omissions": 0,
+        "unexpected_items": 0,
+        "status_counts": {
+          "completed": 50
+        },
+        "candidate_truncated_queries": 0,
+        "oracle_passed": true,
+        "p50_seconds": 0.27546448016073555,
+        "p95_seconds": 0.28415325400419533,
+        "p95_method": "nearest_rank",
+        "mean_seconds": 0.25660665465518834,
+        "latency_scope": "typed.search only; explicit benchmark memory.read checks excluded",
+        "ingest_seconds": 38.89684935496189,
+        "initial_sync_seconds": 0.19383845501579344,
+        "revocation_sync_seconds": 0.1837555340025574,
+        "public_method_calls": {
+          "typed.put": 1010,
+          "typed.sync": 3,
+          "typed.search": 53,
+          "memory.read": 63,
+          "memory.revoke_source": 1
+        },
+        "public_method_calls_total": 1130,
+        "operation_scope": "explicit benchmark calls only; initialization and internal calls excluded",
+        "initialization_calls": {
+          "Authority.create": 1,
+          "Memory.create": 1,
+          "TypedMemory": 1
+        },
+        "disk_bytes_after_revocation_sync": 2293899,
+        "rss_peak_bytes": 36147200,
+        "rss_scope": "process lifetime high-water mark; not incremental memory usage",
+        "python_version": "3.12.3",
+        "sqlite_version": "3.45.1",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+        "package_version": "0.3.0a2",
+        "API_calls_requested_by_benchmark": 0,
+        "provider_requests": 0,
+        "ranking_quality_evaluated": false,
+        "independent_business_tasks": 0,
+        "incremental_cycle": {
+          "schema": "persistent-memory.incremental-cycle.v1",
+          "batch": 10,
+          "initial_documents": 1000,
+          "admitted_documents": 1010,
+          "active_documents_after_revocation": 1009,
+          "new_retrieval_trials": 10,
+          "initial_retrieval_trials": 40,
+          "explicit_admission_reads": 10,
+          "query_schedule_sha256": "43246effb8574adaeb53eb0dff4984a1b2845f7bd2acbe8b1c204bb678c57bfe",
+          "query_order": "each new source in admission order, then seeded initial-source draws",
+          "setup_phases": [
+            "ingest",
+            "initial_sync"
+          ],
+          "marginal_phases": [
+            "incremental_admit",
+            "incremental_read",
+            "incremental_sync",
+            "search_and_read",
+            "revoke_and_stale_check",
+            "maintenance_sync",
+            "after_revoke_check"
+          ],
+          "marginal_elapsed_seconds": 18.97702332190238,
+          "marginal_public_method_calls": {
+            "typed.put": 10,
+            "typed.sync": 2,
+            "typed.search": 53,
+            "memory.read": 63,
+            "memory.revoke_source": 1
+          },
+          "oracle_passed": true,
+          "revoked_reads_refused": 2,
+          "revoked_source": "note-1000",
+          "valid_control_source": "note-1001",
+          "same_memory_instance": true,
+          "setup_excluded_from_marginal": true,
+          "telemetry_cost_included": true,
+          "telemetry_overhead_seconds": null,
+          "infrastructure_price_usd": null,
+          "energy_joules": null
+        },
+        "end_to_end_telemetry": {
+          "schema": "persistent-memory.volume-costs.v1",
+          "phases": {
+            "ingest": {
+              "start": {
+                "elapsed_seconds": 0.002291940851137042,
+                "cpu_user_seconds": 0.047188999999999995,
+                "cpu_system_seconds": 0.01004,
+                "io": {
+                  "rchar": 2535382,
+                  "wchar": 356896,
+                  "syscr": 293,
+                  "syscw": 175,
+                  "read_bytes": 0,
+                  "write_bytes": 4096,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "index.db": 57344,
+                  "memory.db": 28672,
+                  "anchor.json": 136,
+                  "authority.db": 69632
+                },
+                "storage_total_bytes": 155784,
+                "rss_current_bytes": 32595968,
+                "rss_peak_native_units": 31604
+              },
+              "end": {
+                "elapsed_seconds": 38.90062893205322,
+                "cpu_user_seconds": 19.263842,
+                "cpu_system_seconds": 0.20527299999999998,
+                "io": {
+                  "rchar": 439725987,
+                  "wchar": 101372874,
+                  "syscr": 116022,
+                  "syscw": 53502,
+                  "read_bytes": 0,
+                  "write_bytes": 90112,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34840576,
+                "rss_peak_native_units": 33716
+              }
+            },
+            "initial_sync": {
+              "start": {
+                "elapsed_seconds": 38.90188752301037,
+                "cpu_user_seconds": 19.264071,
+                "cpu_system_seconds": 0.205276,
+                "io": {
+                  "rchar": 439726283,
+                  "wchar": 101373505,
+                  "syscr": 116030,
+                  "syscw": 53503,
+                  "read_bytes": 0,
+                  "write_bytes": 94208,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 57344,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 1736843,
+                "rss_current_bytes": 34840576,
+                "rss_peak_native_units": 33716
+              },
+              "end": {
+                "elapsed_seconds": 39.09655569703318,
+                "cpu_user_seconds": 19.359787,
+                "cpu_system_seconds": 0.20726899999999998,
+                "io": {
+                  "rchar": 441099226,
+                  "wchar": 101903137,
+                  "syscr": 116382,
+                  "syscw": 53659,
+                  "read_bytes": 0,
+                  "write_bytes": 98304,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36098048,
+                "rss_peak_native_units": 34868
+              }
+            },
+            "incremental_admit": {
+              "start": {
+                "elapsed_seconds": 39.106816306943074,
+                "cpu_user_seconds": 19.36029,
+                "cpu_system_seconds": 0.207275,
+                "io": {
+                  "rchar": 441099522,
+                  "wchar": 101903775,
+                  "syscr": 116390,
+                  "syscw": 53660,
+                  "read_bytes": 0,
+                  "write_bytes": 102400,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 516096,
+                  "authority.db": 1163264
+                },
+                "storage_total_bytes": 2166923,
+                "rss_current_bytes": 36098048,
+                "rss_peak_native_units": 34868
+              },
+              "end": {
+                "elapsed_seconds": 39.881343479966745,
+                "cpu_user_seconds": 19.739371,
+                "cpu_system_seconds": 0.21126499999999998,
+                "io": {
+                  "rchar": 448873802,
+                  "wchar": 103035560,
+                  "syscr": 118385,
+                  "syscw": 54252,
+                  "read_bytes": 0,
+                  "write_bytes": 106496,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36118528,
+                "rss_peak_native_units": 34868
+              }
+            },
+            "incremental_read": {
+              "start": {
+                "elapsed_seconds": 39.89144277293235,
+                "cpu_user_seconds": 19.739478,
+                "cpu_system_seconds": 0.211527,
+                "io": {
+                  "rchar": 448874100,
+                  "wchar": 103036204,
+                  "syscr": 118393,
+                  "syscw": 54253,
+                  "read_bytes": 0,
+                  "write_bytes": 110592,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 36118528,
+                "rss_peak_native_units": 34868
+              },
+              "end": {
+                "elapsed_seconds": 40.56373000703752,
+                "cpu_user_seconds": 20.067635,
+                "cpu_system_seconds": 0.21523399999999998,
+                "io": {
+                  "rchar": 456496988,
+                  "wchar": 103036849,
+                  "syscr": 120341,
+                  "syscw": 54254,
+                  "read_bytes": 0,
+                  "write_bytes": 114688,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35086336,
+                "rss_peak_native_units": 34868
+              }
+            },
+            "incremental_sync": {
+              "start": {
+                "elapsed_seconds": 40.57269922690466,
+                "cpu_user_seconds": 20.068315,
+                "cpu_system_seconds": 0.21523799999999998,
+                "io": {
+                  "rchar": 456497286,
+                  "wchar": 103037492,
+                  "syscr": 120349,
+                  "syscw": 54255,
+                  "read_bytes": 0,
+                  "write_bytes": 118784,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 487424,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2187403,
+                "rss_current_bytes": 35086336,
+                "rss_peak_native_units": 34868
+              },
+              "end": {
+                "elapsed_seconds": 40.76792985899374,
+                "cpu_user_seconds": 20.167781,
+                "cpu_system_seconds": 0.219225,
+                "io": {
+                  "rchar": 458288023,
+                  "wchar": 103993909,
+                  "syscr": 120803,
+                  "syscw": 54711,
+                  "read_bytes": 0,
+                  "write_bytes": 122880,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36237312,
+                "rss_peak_native_units": 34916
+              }
+            },
+            "search_and_read": {
+              "start": {
+                "elapsed_seconds": 40.777213621884584,
+                "cpu_user_seconds": 20.168241,
+                "cpu_system_seconds": 0.21922999999999998,
+                "io": {
+                  "rchar": 458288321,
+                  "wchar": 103994553,
+                  "syscr": 120811,
+                  "syscw": 54712,
+                  "read_bytes": 0,
+                  "write_bytes": 126976,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36237312,
+                "rss_peak_native_units": 34916
+              },
+              "end": {
+                "elapsed_seconds": 56.9917303759139,
+                "cpu_user_seconds": 28.214766,
+                "cpu_system_seconds": 0.272043,
+                "io": {
+                  "rchar": 609093764,
+                  "wchar": 103998364,
+                  "syscr": 158939,
+                  "syscw": 54718,
+                  "read_bytes": 0,
+                  "write_bytes": 151552,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36401152,
+                "rss_peak_native_units": 35108
+              }
+            },
+            "revoke_and_stale_check": {
+              "start": {
+                "elapsed_seconds": 56.993051091907546,
+                "cpu_user_seconds": 28.215013,
+                "cpu_system_seconds": 0.272045,
+                "io": {
+                  "rchar": 609094062,
+                  "wchar": 103998995,
+                  "syscr": 158947,
+                  "syscw": 54719,
+                  "read_bytes": 0,
+                  "write_bytes": 155648,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36401152,
+                "rss_peak_native_units": 35108
+              },
+              "end": {
+                "elapsed_seconds": 57.20140231586993,
+                "cpu_user_seconds": 28.331906,
+                "cpu_system_seconds": 0.273044,
+                "io": {
+                  "rchar": 611290829,
+                  "wchar": 104065899,
+                  "syscr": 159509,
+                  "syscw": 54755,
+                  "read_bytes": 0,
+                  "write_bytes": 159744,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36401152,
+                "rss_peak_native_units": 35108
+              }
+            },
+            "maintenance_sync": {
+              "start": {
+                "elapsed_seconds": 57.21167870890349,
+                "cpu_user_seconds": 28.331906,
+                "cpu_system_seconds": 0.273422,
+                "io": {
+                  "rchar": 611291127,
+                  "wchar": 104066549,
+                  "syscr": 159517,
+                  "syscw": 54756,
+                  "read_bytes": 0,
+                  "write_bytes": 163840,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 540672,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2240651,
+                "rss_current_bytes": 36401152,
+                "rss_peak_native_units": 35108
+              },
+              "end": {
+                "elapsed_seconds": 57.39695144700818,
+                "cpu_user_seconds": 28.425927,
+                "cpu_system_seconds": 0.27503099999999997,
+                "io": {
+                  "rchar": 613081864,
+                  "wchar": 105022955,
+                  "syscr": 159971,
+                  "syscw": 55212,
+                  "read_bytes": 0,
+                  "write_bytes": 167936,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36409344,
+                "rss_peak_native_units": 35108
+              }
+            },
+            "after_revoke_check": {
+              "start": {
+                "elapsed_seconds": 57.40616624685936,
+                "cpu_user_seconds": 28.426241,
+                "cpu_system_seconds": 0.275034,
+                "io": {
+                  "rchar": 613082162,
+                  "wchar": 105023588,
+                  "syscr": 159979,
+                  "syscw": 55213,
+                  "read_bytes": 0,
+                  "write_bytes": 172032,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36409344,
+                "rss_peak_native_units": 35108
+              },
+              "end": {
+                "elapsed_seconds": 58.07415708806366,
+                "cpu_user_seconds": 28.752013,
+                "cpu_system_seconds": 0.27603,
+                "io": {
+                  "rchar": 619044940,
+                  "wchar": 105024224,
+                  "syscr": 161490,
+                  "syscw": 55214,
+                  "read_bytes": 0,
+                  "write_bytes": 176128,
+                  "cancelled_write_bytes": 0
+                },
+                "storage_bytes": {
+                  "anchor.json": 139,
+                  "index.db": 593920,
+                  "memory.db": 520192,
+                  "authority.db": 1179648
+                },
+                "storage_total_bytes": 2293899,
+                "rss_current_bytes": 36462592,
+                "rss_peak_native_units": 35300
+              }
+            }
+          },
+          "progress_writes": 44,
+          "elapsed_seconds": 58.093722614925355,
+          "explicit_read_seconds": 4.101213447051123,
+          "explicit_read_trials": 63,
+          "scope": "same process; includes revalidation and telemetry; no cold-cache control",
+          "provider_requests": 0,
+          "infrastructure_price_usd": null,
+          "energy_joules": null,
+          "efficiency_superiority_demonstrated": false
+        }
+      },
+      "benchmark_stdout_sha256": "3c3fe2c79861bd18f8c02796fd2d4c8e879be8a091046c56af35a100049c2b48",
+      "runtime_imports": {
+        "core.py": {
+          "sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_memory.py": {
+          "sha256": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "typed_protocol.py": {
+          "sha256": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801",
+          "cache_exists": false,
+          "inside_venv": true
+        },
+        "CORE_SHA": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+        "R3_SHA": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+        "dont_write_bytecode": true
+      }
+    }
+  ]
+}
