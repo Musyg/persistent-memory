@@ -2,7 +2,7 @@
 
 [Français](TESTING.fr.md)
 
-Core: 50 synthetic tests, including three serialization regressions added on 23 October 2026. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Package assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
+Core: 52 synthetic test methods, including three serialization regressions added on 23 October 2026 and one exhaustive identifier-equivalence check added for 0.3.0a5. The latter covers Unicode code points and UTF-8 boundaries within one test method; these cases are not independent business samples. Typed retrieval R3: 16 author, 14 independent inherited R3, 5 edge regressions. Integration R3: 20 portable author tests and 16 independent HTTP/client tests. Package assembly: separate tests for installed CLI, generic tool registration, the two-actor demo and refusing an existing example directory.
 
 The original application's private orchestrator AST test, builder and source are excluded. Its prior private execution is not counted as a test of this distribution. The original selection retained its assertion meanings. Its packaging adaptations were limited to package imports, installed-core path discovery, test-base naming to avoid duplicate discovery, and module CLI paths; see `PROVENANCE.json`.
 

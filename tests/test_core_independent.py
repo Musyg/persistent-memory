@@ -40,6 +40,43 @@ class CoreReview(unittest.TestCase):
         for r in (a,b,f,w,v):self.memory.project(r)
         return a,b,f,w,v
 
+
+    def test_name_matches_legacy_unicode_and_utf8_boundaries(self):
+        # Preserve the complete old acceptance and exception contract, not a new policy.
+        def legacy(value):
+            core.require(type(value) is str and 0 < len(value.encode('utf-8')) <= 512 and all(ord(char) >= 32 for char in value), 'invalid_identifier')
+            return value
+        def outcome(function, value):
+            try:
+                result = function(value)
+                return ('accepted', result, result is value)
+            except (MemoryError, UnicodeEncodeError) as error:
+                return (type(error), error.args)
+        for codepoint in range(0x110000):
+            value = chr(codepoint)
+            expected, actual = outcome(legacy, value), outcome(core.name, value)
+            if actual != expected:
+                self.fail('name contract differs at U+%06X: %r != %r' % (codepoint, actual, expected))
+        class StringSubclass(str):
+            pass
+        # Mixed surrogates preserve encoding errors before control/length rejection.
+        surrogate = chr(0xd800)
+        cases = [None, False, 0, 1.5, [], {}, b'x', '', StringSubclass('x'),
+                 StringSubclass(surrogate), 'mémoire é漢😀مذكرة', surrogate + 'x',
+                 'x' + chr(0xdfff), chr(0) + surrogate, 'x' * 513 + surrogate]
+        for glyph in ('x', 'é', '漢', '😀'):
+            for size in (511, 512, 513):
+                count, remainder = divmod(size, len(glyph.encode('utf-8')))
+                value = glyph * count + 'x' * remainder
+                self.assertEqual(len(value.encode('utf-8')), size)
+                cases.append(value)
+                self.assertEqual(outcome(core.name, value)[0], 'accepted' if size <= 512 else MemoryError)
+        cases.extend('prefix' + chr(codepoint) + 'suffix' for codepoint in range(32))
+        cases.extend('prefix' + chr(codepoint) + 'suffix' for codepoint in range(127, 160))
+        for value in cases:
+            with self.subTest(value=repr(value)):
+                self.assertEqual(outcome(core.name, value), outcome(legacy, value))
+
     def test_ref_rejects_invalid_identifiers_and_shapes(self):
         class StringSubclass(str):
             pass

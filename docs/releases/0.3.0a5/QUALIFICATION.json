@@ -1,0 +1,41 @@
+{
+  "schema": "persistent-memory.distribution-qualification.v1",
+  "version": "0.3.0a5",
+  "registry_version": "0.2.0a2",
+  "date": "2026-10-26",
+  "native_environments": 2,
+  "core_distinct_methods": 166,
+  "registry_distinct_methods": 49,
+  "distinct_methods": 215,
+  "executions_per_environment": 430,
+  "total_executions": 860,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_source_parity": true,
+  "installed_imports_before_after_verified": true,
+  "example_assertions_passed": true,
+  "coinstallation_smoke_passed": true,
+  "source_files_rehashed_per_environment": 268,
+  "source_drift": false,
+  "postconditions_readonly_verified": true,
+  "historical_lab_wrapper_status": "failed_during_posttest_source_check_finalization",
+  "recovery_rebuilt_archives": false,
+  "recovery_reran_tests": false,
+  "original_results_preserved": true,
+  "archive_selection": "One qualified Linux build; released bytes unchanged. Cross-environment differences are metadata, license paths and timestamps; source payloads match.",
+  "artifacts": [
+    {
+      "name": "hermes_memory_core-0.3.0a5-py3-none-any.whl",
+      "sha256": "268d3aa23336337e1805160b8db95ba58bc86411573b55cae78e7de444a2ec50",
+      "bytes": 58187
+    },
+    {
+      "name": "hermes_memory_core-0.3.0a5.tar.gz",
+      "sha256": "fc6e3033e5e35049ed369e2009134f384a74703e63fea7c92c360a1b9d87f36a",
+      "bytes": 5362394
+    }
+  ],
+  "GitHub_Actions_used": 0,
+  "private_memory_data_included": false
+}

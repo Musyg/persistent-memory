@@ -1,0 +1,218 @@
+{
+  "schema": "persistent-memory.identifier-efficiency.v1",
+  "date": "2026-10-26",
+  "scope": "Three descriptive engineering pairs on a fixed synthetic workload; pilot excluded. Not a production latency or full-cost claim.",
+  "pairs": [
+    {
+      "cpu_window_reduction": 0.0759201410712974,
+      "pair": 1,
+      "wall_reduction": 0.07635161010960455,
+      "A": {
+        "arm": "A",
+        "fixed_cpu_window_seconds": 58.047811,
+        "instrumented_wall_seconds": 116.38439645594917,
+        "pair": 1,
+        "secondary": {
+          "child_wall_seconds": 116.49528115103021,
+          "incremental_cycle.marginal_elapsed_seconds": 28.48581951810047,
+          "ingest_seconds": 87.59841002919711,
+          "initial_sync_seconds": 0.2793580738361925,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      },
+      "B": {
+        "arm": "B",
+        "fixed_cpu_window_seconds": 53.640812999999994,
+        "instrumented_wall_seconds": 107.4982603949029,
+        "pair": 1,
+        "secondary": {
+          "child_wall_seconds": 107.57832316192798,
+          "incremental_cycle.marginal_elapsed_seconds": 26.18816589610651,
+          "ingest_seconds": 81.0126675190404,
+          "initial_sync_seconds": 0.23085873015224934,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      }
+    },
+    {
+      "cpu_window_reduction": 0.06766186371761457,
+      "pair": 2,
+      "wall_reduction": 0.06787955553088414,
+      "A": {
+        "arm": "A",
+        "fixed_cpu_window_seconds": 57.768257999999996,
+        "instrumented_wall_seconds": 115.7964918690268,
+        "pair": 2,
+        "secondary": {
+          "child_wall_seconds": 115.92912085400894,
+          "incremental_cycle.marginal_elapsed_seconds": 28.80009522801265,
+          "ingest_seconds": 86.6848100789357,
+          "initial_sync_seconds": 0.22593402909114957,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      },
+      "B": {
+        "arm": "B",
+        "fixed_cpu_window_seconds": 53.85955,
+        "instrumented_wall_seconds": 107.93627746892162,
+        "pair": 2,
+        "secondary": {
+          "child_wall_seconds": 108.06107569206506,
+          "incremental_cycle.marginal_elapsed_seconds": 26.30561969289556,
+          "ingest_seconds": 81.32154335500672,
+          "initial_sync_seconds": 0.27333416300825775,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      }
+    },
+    {
+      "cpu_window_reduction": 0.062313356670899565,
+      "pair": 3,
+      "wall_reduction": 0.06214850583292181,
+      "A": {
+        "arm": "A",
+        "fixed_cpu_window_seconds": 57.720386,
+        "instrumented_wall_seconds": 115.68628296884708,
+        "pair": 3,
+        "secondary": {
+          "child_wall_seconds": 115.78601583605632,
+          "incremental_cycle.marginal_elapsed_seconds": 28.68608405883424,
+          "ingest_seconds": 86.69393589999527,
+          "initial_sync_seconds": 0.2786545769777149,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      },
+      "B": {
+        "arm": "B",
+        "fixed_cpu_window_seconds": 54.123635,
+        "instrumented_wall_seconds": 108.49655333696865,
+        "pair": 3,
+        "secondary": {
+          "child_wall_seconds": 108.61739614303224,
+          "incremental_cycle.marginal_elapsed_seconds": 26.274094129912555,
+          "ingest_seconds": 81.9809055798687,
+          "initial_sync_seconds": 0.21577369421720505,
+          "storage_bytes": {
+            "anchor.json": 139,
+            "authority.db": 1720320,
+            "index.db": 864256,
+            "memory.db": 774144
+          },
+          "storage_total_bytes": 3358859
+        }
+      }
+    }
+  ],
+  "median_wall_reduction": 0.06787955553088414,
+  "median_cpu_window_reduction": 0.06766186371761457,
+  "criteria_decisions": {
+    "all_oracles_sources_imports_caps_cleanup_pass": true,
+    "all_six_cells_complete": true,
+    "every_paired_fixed_cpu_window_reduction_positive": true,
+    "median_wall_reduction_at_least_3percent": true,
+    "no_individual_wall_regression_over_2percent": true
+  },
+  "pilot_included": false,
+  "core_A_sha256": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+  "core_B_sha256": "80c557923836e828b220ed9410510bbd0dd33efe80abfc68ccd9c2f8a96397a7",
+  "runner_sha256": "a2cfda65d6df85f76670af5efb413fc3f0d3d776cd8324e5251cf3b05bfa1b02",
+  "query_schedule_sha256": "24540fe4b2288b4bbdd9ec080d9baae46e92f92579effaa930d22e66513a64a0",
+  "criteria_sha256": "0ed9f977b31f64206ab2cb6629032926ba80d78dfbfb331fbc290e85459f5454",
+  "orders": [
+    "AB",
+    "BA",
+    "BA"
+  ],
+  "cpu_fields": [
+    "cpu_user_seconds",
+    "cpu_system_seconds"
+  ],
+  "cpu_start_phase": "ingest.start",
+  "cpu_end_phase": "after_revoke_check.end",
+  "documents": 1500,
+  "incremental_batch": 10,
+  "retrieval_trials_per_cell": 50,
+  "explicit_reads_per_cell": 63,
+  "searches_per_cell": 53,
+  "no_retries_or_replacements": true,
+  "provider_calls": 0,
+  "all_six_cells_complete": true,
+  "all_oracles_pass": true,
+  "all_cleanup_pass": true,
+  "reproduction": {
+    "seed": 20261021,
+    "baseline_module_commit": "3c5251ef4b187410fe65b71a0e5b32184199d96a",
+    "candidate_module_commit": "publication commit containing this study; verify module hashes below",
+    "module_sha256": {
+      "A": {
+        "core.py": "76dba2b15a4d33005d07abcd08306199fffa2bc2ff7b3cbe268590c7776878ce",
+        "typed_memory.py": "4a5d16812a68d89e47b0274d432da9816876ae2ed73409131a09495b006c103d",
+        "typed_protocol.py": "2af69d57e66184388e0736702ead3d55575ce69c4924ea7548eeb957f4388801"
+      },
+      "B": {
+        "core.py": "80c557923836e828b220ed9410510bbd0dd33efe80abfc68ccd9c2f8a96397a7",
+        "typed_memory.py": "9f641121a7af0dd032a07d9112915908504b677571a096a973712d1f326a715d",
+        "typed_protocol.py": "16abc19128426767c6f1bdb526b9e2514874023888012692529d4ae3d562c7f7"
+      }
+    },
+    "common_support_wheel": "hermes_memory_core-0.3.0a4-py3-none-any.whl",
+    "common_support_wheel_sha256": "b68dab5623f59cac4502d9b266193533ef552b52ae8aaa04eb8dd806d71bbbb2",
+    "child_wall_cap_seconds": 170,
+    "unit_total_wall_cap_seconds": 1050,
+    "last_child_launch_cutoff_elapsed_seconds": 870,
+    "reserve_seconds": 30,
+    "CPUQuota": "50%",
+    "MemoryMax_bytes": 1073741824,
+    "MemorySwapMax_bytes": 0,
+    "PrivateNetwork": true,
+    "NoNewPrivileges": true,
+    "TasksMax": 64,
+    "fresh_process_database_and_owned_RAM_per_cell": true,
+    "fresh_common_venv_per_six_cell_sequence": true,
+    "bytecode_absent_verified_for_selected_package": true,
+    "order_seed": 20261026,
+    "order_seed_label": "20261026:IDREPL01",
+    "order_method": "rng=Random('20261026:IDREPL01'); orders=[AB,BA,rng.choice([AB,BA])]; rng.shuffle(orders)",
+    "actual_six_cell_order": [
+      "A",
+      "B",
+      "B",
+      "A",
+      "B",
+      "A"
+    ],
+    "old_recipe_requires_module_table_workload_order_and_limits_adaptation": true,
+    "cold_cache_controlled": false,
+    "new_timings_are_not_expected_to_match_archive": true
+  }
+}

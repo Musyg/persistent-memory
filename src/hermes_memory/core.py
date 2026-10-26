@@ -29,7 +29,7 @@ def digest(x):
     return hashlib.sha256(x.encode('utf-8')).hexdigest()
 
 def name(x):
-    require(type(x) is str and 0 < len(x.encode('utf-8')) <= 512 and all(ord(c) >= 32 for c in x), 'invalid_identifier')
+    require(type(x) is str and 0 < len(x.encode('utf-8')) <= 512 and not re.search(r'[\x00-\x1f]', x), 'invalid_identifier')
     return x
 
 @dataclass(frozen=True)
