@@ -1858,5 +1858,62 @@
     "release_assets_unchanged": true,
     "frozen_evidence_unchanged": true,
     "website_changed": false
+  },
+  "real_agent_integration_observations_20261026": {
+    "scope": "Documentation-only aggregate projection of two distinct real-agent integration observations. Private application data and code are excluded.",
+    "base_public_commit": "2e72eced1f256300a1e0f244cfb5598ce48485cc",
+    "previous_provenance_sha256": "19035671124885648a4932f6b32cc2a3664ccda32a4bf869bcf1765f49b22f9f",
+    "changed_paths": [
+      "README.md",
+      "README.fr.md",
+      "docs/evidence/experience-transfer-20261026/README.md",
+      "docs/evidence/experience-transfer-20261026/README.fr.md"
+    ],
+    "report_files": {
+      "docs/evidence/experience-transfer-20261026/README.fr.md": {
+        "sha256": "69a5b5ffe26c21fd547b1fc1933048230f98e32b5a15a455c5054f1165912fd8",
+        "bytes": 3452
+      },
+      "docs/evidence/experience-transfer-20261026/README.md": {
+        "sha256": "4d385f41566633c08264a05c25257bb028a3371b828fb7b11dc12e12d43f1efb",
+        "bytes": 3125
+      }
+    },
+    "same_agent_pair": {
+      "business_methods_passed_each": 7,
+      "scenarios_each": 13,
+      "provider_requests_observed_each": 2,
+      "context_characters_without_experience": 0,
+      "context_characters_with_experience": 873,
+      "request_seconds_without_experience": 5.57,
+      "request_seconds_with_experience": 6.74,
+      "quality_comparison": "tie",
+      "independent_review_checks_passed": 29
+    },
+    "second_agent_observation": {
+      "tasks": 1,
+      "user_requests": 1,
+      "request_seconds": 21.54,
+      "artifact_bytes": 1905,
+      "business_methods_passed": 7,
+      "scenarios": 13,
+      "subtests": 10,
+      "failures": 0,
+      "skips": 0,
+      "independent_review_checks_passed": 44,
+      "generation_route": "local_model_cloud_fallback_disabled",
+      "exact_retrieved_memory_verified": true,
+      "outbound_serialized_prompt_captured": false,
+      "causal_gain_comparison": false,
+      "candidate_promoted": false,
+      "secondary_missing_value_defaults_issue_documented": true
+    },
+    "package_runtime_changed": false,
+    "release_assets_unchanged": true,
+    "frozen_evidence_unchanged": true,
+    "website_changed": false,
+    "private_memories_prompts_traces_or_code_included": false,
+    "same_thirteen_scenario_oracle_used_for_both_observations": true,
+    "scenario_counts_not_pooled": true
   }
 }
