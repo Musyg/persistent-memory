@@ -8,9 +8,9 @@ Sur huit historiques synthétiques de développement, la mémoire obtient **77 r
 | Échec | 10 | 58 |
 | Inconnu | 9 | 9 |
 
-Les 96 comparaisons appariées donnent 45 gains, aucune perte observée, 26 réussites communes, 10 échecs communs et 15 paires inconnues. Chaque tentative reste au dénominateur. Deux lecteurs Codex aveugles produisent 382 jugements sur les 191 artefacts disponibles ; leurs décisions de réussite concordent. La génération utilise un seul modèle, gpt-6-luna.
+Les 96 comparaisons appariées donnent 45 gains, aucune perte observée, 26 réussites communes, 10 échecs communs et 15 paires inconnues. Chaque tentative reste au dénominateur. Deux lecteurs Codex ont évalué les réponses à l'aveugle : ils ont produit 382 jugements sur les 191 artefacts disponibles, avec des décisions de réussite concordantes. La génération utilise un seul modèle, gpt-6-luna.
 
-La collecte compte 192 appels HTTP réels, sans nouvelle tentative, et 191 artefacts relus. Dix-sept identifiants de contrôle incorrects et une réponse JSON invalide ne reçoivent aucun crédit de réussite primaire. Le diagnostic de contenu après expérience atteint séparément 85/96 et 31/96 ; l'artefact absent reste inconnu.
+La collecte compte 192 appels HTTP réels, sans nouvelle tentative, et 191 artefacts relus. Dix-sept identifiants de contrôle incorrects et une réponse JSON invalide ne reçoivent aucun crédit de réussite primaire. L'analyse complémentaire du contenu, réalisée a posteriori, donne séparément 85/96 et 31/96 ; l'artefact absent reste inconnu.
 
 La mémoire fournit tous les faits requis pour 79 des 88 questions comportant de tels faits, contre 22/88 pour la référence, soit 111/120 faits contre 39/120. Les versions fournies sont valides. Cette meilleure couverture décrit un mécanisme plausible du résultat, sans établir la cause de chaque réponse. Un rejeu isolé des neuf omissions d'horaire reproduit les paquets : les faits éligibles occupent les rangs 10 à 52, après la limite de cinq éléments retenus.
 
