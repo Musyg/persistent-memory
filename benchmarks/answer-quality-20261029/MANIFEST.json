@@ -1,0 +1,25 @@
+{
+  "inventory_only": true,
+  "files": {
+    "EVIDENCE192.json": {
+      "sha256": "cbe1fd8d4f45887121c8e55beca4e283e65cd7ed10f0d56041998b4121d2078d",
+      "bytes": 1436244
+    },
+    "README.fr.md": {
+      "sha256": "755e5d1502b2140a8931f29b9a520f2c9996b21d77cabae6131df22f4272a97d",
+      "bytes": 2403
+    },
+    "README.md": {
+      "sha256": "096098ad1d68e999604b34268fc20e978c541d28914b7b726f4fdf6029f2ef05",
+      "bytes": 2268
+    },
+    "RESULTS.json": {
+      "sha256": "5640d12b4f7b63d3725547329eb796fb5ad9ba17759ec74274b88f4ac3c4157f",
+      "bytes": 5201
+    },
+    "verify_pilot.py": {
+      "sha256": "9ee56ba3d8afb86954e2207f79efefe0a1837c9b9debc5d58f38ae066ddade5e",
+      "bytes": 18247
+    }
+  }
+}

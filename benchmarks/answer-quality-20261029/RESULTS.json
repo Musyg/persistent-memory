@@ -1,0 +1,155 @@
+{
+  "schema": "persistent-memory.synthetic-pilot-results.v1",
+  "date": "2026-10-29",
+  "synthetic_only": true,
+  "evidence_sha256": "cbe1fd8d4f45887121c8e55beca4e283e65cd7ed10f0d56041998b4121d2078d",
+  "study_scope": {
+    "component": "portable Persistent Memory core",
+    "histories": 8,
+    "languages": {
+      "fr": 4,
+      "en": 4
+    },
+    "scenario_families": 1,
+    "partition": "synthetic development",
+    "generation_model": "gpt-6-luna",
+    "reader_method": "two blinded Codex readers; agreement on Boolean success and critical violation",
+    "API_judge_models": 0,
+    "held_out_replication": false,
+    "whole_Hermes_evaluated": false,
+    "Qdrant_evaluated": false,
+    "invoice_verified": false,
+    "agency_end_to_end_cost_measured": false,
+    "profile": "short; source head cap 64"
+  },
+  "call_accounting": {
+    "actual_generation_HTTP_calls": 192,
+    "retries": 0,
+    "artifact_readbacks": 191,
+    "basis": "Original collection and result review, source hashes listed in the evidence bundle."
+  },
+  "pricing": {
+    "as_of": "2026-10-29",
+    "currency": "USD",
+    "tier": "default",
+    "USD_per_million_tokens": {
+      "uncached_input": "0.10",
+      "cached_input": "0.01",
+      "cache_write_30m_input": "0.125",
+      "output": "0.50"
+    },
+    "formula": "(prompt_tokens - cached_tokens - cache_write_tokens) * uncached_input + cached_tokens * cached_input + cache_write_tokens * cache_write_30m_input + completion_tokens * output, divided by 1000000",
+    "cache_write_replaces_input_rate": true,
+    "official_sources": [
+      {
+        "title": "OpenAI API pricing",
+        "url": "https://developers.openai.com/api/docs/pricing"
+      },
+      {
+        "title": "gpt-6-luna model",
+        "url": "https://developers.openai.com/api/docs/models/gpt-6-luna"
+      },
+      {
+        "title": "Prompt caching",
+        "url": "https://developers.openai.com/api/docs/guides/prompt-caching"
+      }
+    ],
+    "estimate_not_invoice": true
+  },
+  "expected_recomputation": {
+    "cases": 192,
+    "paired_questions": 96,
+    "primary": {
+      "M": {
+        "success": 77,
+        "failure": 10,
+        "unknown": 9
+      },
+      "L": {
+        "success": 29,
+        "failure": 58,
+        "unknown": 9
+      }
+    },
+    "secondary_posthoc": {
+      "M": {
+        "success": 85,
+        "failure": 11,
+        "unknown": 0
+      },
+      "L": {
+        "success": 31,
+        "failure": 64,
+        "unknown": 1
+      }
+    },
+    "pairs": {
+      "gain": 45,
+      "loss": 0,
+      "tie_success": 26,
+      "tie_failure": 10,
+      "unknown": 15
+    },
+    "artifacts": 191,
+    "control_identity_failures": 17,
+    "invalid_JSON_without_artifact": 1,
+    "reader_judgments": 382,
+    "reader_agreements": 191,
+    "required_fact_coverage": {
+      "M": {
+        "questions_with_required_facts": 88,
+        "all_required_facts_supplied": 79,
+        "required_facts": 120,
+        "facts_supplied": 111
+      },
+      "L": {
+        "questions_with_required_facts": 88,
+        "all_required_facts_supplied": 22,
+        "required_facts": 120,
+        "facts_supplied": 39
+      }
+    },
+    "usage_by_arm": {
+      "M": {
+        "prompt_tokens": 112394,
+        "completion_tokens": 10495,
+        "cached_tokens": 0,
+        "cache_write_tokens": 112106,
+        "reasoning_tokens": 0,
+        "total_tokens": 122889
+      },
+      "L": {
+        "prompt_tokens": 116529,
+        "completion_tokens": 9180,
+        "cached_tokens": 0,
+        "cache_write_tokens": 116241,
+        "reasoning_tokens": 0,
+        "total_tokens": 125709
+      }
+    },
+    "generation_estimated_USD_by_arm": {
+      "M": "0.019289550",
+      "L": "0.019148925"
+    },
+    "generation_estimated_USD": "0.038438475",
+    "generation_estimated_USD_per_primary_success": {
+      "M": "0.000250514",
+      "L": "0.000660308"
+    },
+    "retrieval_followup": {
+      "cases": 9,
+      "candidate_rank_min": 10,
+      "candidate_rank_max": 52,
+      "top_k": 5,
+      "all_selected_packets_match": true
+    }
+  },
+  "interpretation": {
+    "primary_admission": "Actual artifact with bound readback and functional evidence, including the required synthetic cell identifier; both readers must agree. Inadmissible or missing judgments remain unknown.",
+    "secondary_posthoc": "Agreed content judgments on available artifacts, separate from primary control compliance.",
+    "coverage": "Required nonempty source facts with matching ID, text and source metadata. Empty required-fact sets are excluded.",
+    "causality": "The isolated follow-up reproduced all nine affected packets and located the omission at the five-item selection cutoff: eligible schedule facts ranked 10 to 52. This isolates the retained ranking/selection projection, rather than the deployed agency stack or every cause of answer quality.",
+    "source_semantics": "Verdicts are actual stored reader decisions; the verifier checks their binding and arithmetic rather than rejudging language.",
+    "operational_assurance": "Private runtime and transport verification remain represented by source pins; this public projection exposes synthetic artifacts and portable Boolean admission evidence."
+  }
+}
