@@ -1,0 +1,482 @@
+{
+  "registered_reduction": {
+    "descriptive_ITT_successes_per_16": {
+      "negative": {
+        "E": 14,
+        "H": 11,
+        "N": 12,
+        "T": 14
+      },
+      "positive": {
+        "E": 7,
+        "H": 10,
+        "N": 6,
+        "T": 9
+      }
+    },
+    "negative_relative_harm_unknown_sensitivity_bounds": [
+      0.1875,
+      0.1875
+    ],
+    "positive_unknown_sensitivity_bounds": [
+      0.1875,
+      0.1875
+    ],
+    "statistics": {
+      "analysis_complete": true,
+      "caller_four_arm_grid_complete": true,
+      "critical_harm_count": 0,
+      "effect_identification_bounds": [
+        0.18749999999999997,
+        0.18750000000000003
+      ],
+      "effect_interval_95": [
+        -0.44405106169898606,
+        0.6457057137070874
+      ],
+      "equivalence_confirmed": false,
+      "five_point_negative_margin_confirmed": false,
+      "method": "two_stratum_IUT_exact_direction_and_simultaneous_CP_effect",
+      "minimum_twenty_point_gain_confirmed": false,
+      "negative": [
+        {
+          "ECC_absolute_failure_count": 2,
+          "H_absolute_failure_count": 3,
+          "both_failure": 2,
+          "both_success": 5,
+          "ecc_only": 1,
+          "h_only": 0,
+          "missing_worlds": 0,
+          "observed_worlds": 8,
+          "planned_worlds": 8,
+          "relative_harm_count": 1,
+          "relative_harm_upper_97_5": 0.5265096708752066,
+          "stratum": "admission"
+        },
+        {
+          "ECC_absolute_failure_count": 0,
+          "H_absolute_failure_count": 2,
+          "both_failure": 0,
+          "both_success": 6,
+          "ecc_only": 2,
+          "h_only": 0,
+          "missing_worlds": 0,
+          "observed_worlds": 8,
+          "planned_worlds": 8,
+          "relative_harm_count": 2,
+          "relative_harm_upper_97_5": 0.6508557944128244,
+          "stratum": "stock"
+        }
+      ],
+      "negative_relative_harm_upper_95": 0.5886827326440155,
+      "numerics": {
+        "binomial_polynomials": "exact_rational",
+        "bisection_steps": 80,
+        "final_float_rounding": "outward"
+      },
+      "observed_effect": 0.1875,
+      "planned_negative_worlds": 16,
+      "planned_positive_worlds": 16,
+      "positive": [
+        {
+          "both_failure": 5,
+          "both_success": 3,
+          "directional_p": 1.0,
+          "discordants": 0,
+          "ecc_only": 0,
+          "ecc_only_probability_interval_98_75": [
+            0.0,
+            0.46974471940849616
+          ],
+          "h_only": 0,
+          "h_only_probability_interval_98_75": [
+            0.0,
+            0.46974471940849616
+          ],
+          "missing_worlds": 0,
+          "observed_worlds": 8,
+          "planned_worlds": 8,
+          "stratum": "admission"
+        },
+        {
+          "both_failure": 1,
+          "both_success": 4,
+          "directional_p": 0.125,
+          "discordants": 3,
+          "ecc_only": 0,
+          "ecc_only_probability_interval_98_75": [
+            0.0,
+            0.46974471940849616
+          ],
+          "h_only": 3,
+          "h_only_probability_interval_98_75": [
+            0.0513873154190202,
+            0.8216667080056786
+          ],
+          "missing_worlds": 0,
+          "observed_worlds": 8,
+          "planned_worlds": 8,
+          "stratum": "stock"
+        }
+      ],
+      "primary_directional_p": 1.0,
+      "progression_signal": false,
+      "schema": "hermes.comparative.paired-statistics.v1",
+      "target": "conditional_on_two_fixed_world_generators_not_general_domains",
+      "verdict": "inconclusive_no_useful_consistent_signal"
+    },
+    "stop_for_rights_or_integrity": false,
+    "unresolved_world_arms": []
+  },
+  "schema": "persistent-memory.conf-public-summary.v1",
+  "secondary": {
+    "E": {
+      "coder_attempt_counts": {
+        "0": 0,
+        "1": 10,
+        "2": 19,
+        "3": 3
+      },
+      "coder_attempts_unknown": 0,
+      "experience": {
+        "KNOWN_EMPTY": 30,
+        "NOT_APPLICABLE": 0,
+        "NOT_RUN": 0,
+        "OBSERVED_CONTEXT": 2,
+        "UNKNOWN": 0
+      },
+      "first_attempt_known": 32,
+      "first_attempt_success": 5,
+      "pipeline_complete": 32,
+      "resources": {
+        "charged_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 278289
+        },
+        "charged_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 15291
+        },
+        "external_provider_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 0
+        },
+        "model_tool_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 552
+        },
+        "observed_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 278289
+        },
+        "observed_model_wall_ms": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 93205
+        },
+        "observed_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 15291
+        },
+        "phase_operations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 64
+        },
+        "reserved_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 146
+        },
+        "wire_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 146
+        }
+      },
+      "terminal_ITT_success": 21,
+      "terminal_business_success": 21,
+      "terminal_known": 32
+    },
+    "H": {
+      "coder_attempt_counts": {
+        "0": 0,
+        "1": 11,
+        "2": 16,
+        "3": 5
+      },
+      "coder_attempts_unknown": 0,
+      "experience": {
+        "KNOWN_EMPTY": 0,
+        "NOT_APPLICABLE": 0,
+        "NOT_RUN": 0,
+        "OBSERVED_CONTEXT": 19,
+        "UNKNOWN": 13
+      },
+      "first_attempt_known": 32,
+      "first_attempt_success": 6,
+      "pipeline_complete": 19,
+      "resources": {
+        "charged_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 221411
+        },
+        "charged_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 38444
+        },
+        "external_provider_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 0
+        },
+        "model_tool_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 820
+        },
+        "observed_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 221411
+        },
+        "observed_model_wall_ms": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 178979
+        },
+        "observed_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 38444
+        },
+        "phase_operations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 224
+        },
+        "reserved_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 234
+        },
+        "wire_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 234
+        }
+      },
+      "terminal_ITT_success": 21,
+      "terminal_business_success": 21,
+      "terminal_known": 32
+    },
+    "N": {
+      "coder_attempt_counts": {
+        "0": 0,
+        "1": 10,
+        "2": 16,
+        "3": 6
+      },
+      "coder_attempts_unknown": 0,
+      "experience": {
+        "KNOWN_EMPTY": 0,
+        "NOT_APPLICABLE": 32,
+        "NOT_RUN": 0,
+        "OBSERVED_CONTEXT": 0,
+        "UNKNOWN": 0
+      },
+      "first_attempt_known": 32,
+      "first_attempt_success": 5,
+      "pipeline_complete": 32,
+      "resources": {
+        "charged_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 74377
+        },
+        "charged_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 15528
+        },
+        "external_provider_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 0
+        },
+        "model_tool_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 484
+        },
+        "observed_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 74377
+        },
+        "observed_model_wall_ms": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 72011
+        },
+        "observed_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 15528
+        },
+        "phase_operations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 32
+        },
+        "reserved_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 121
+        },
+        "wire_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 121
+        }
+      },
+      "terminal_ITT_success": 18,
+      "terminal_business_success": 18,
+      "terminal_known": 32
+    },
+    "T": {
+      "coder_attempt_counts": {
+        "0": 0,
+        "1": 7,
+        "2": 18,
+        "3": 7
+      },
+      "coder_attempts_unknown": 0,
+      "experience": {
+        "KNOWN_EMPTY": 0,
+        "NOT_APPLICABLE": 0,
+        "NOT_RUN": 0,
+        "OBSERVED_CONTEXT": 32,
+        "UNKNOWN": 0
+      },
+      "first_attempt_known": 32,
+      "first_attempt_success": 4,
+      "pipeline_complete": 32,
+      "resources": {
+        "charged_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 273344
+        },
+        "charged_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 19539
+        },
+        "external_provider_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 0
+        },
+        "model_tool_calls": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 524
+        },
+        "observed_input_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 273344
+        },
+        "observed_model_wall_ms": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 115853
+        },
+        "observed_output_tokens": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 19539
+        },
+        "phase_operations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 32
+        },
+        "reserved_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 131
+        },
+        "wire_generations": {
+          "known_rows": 32,
+          "planned_rows": 32,
+          "sum_known": 131
+        }
+      },
+      "terminal_ITT_success": 23,
+      "terminal_business_success": 23,
+      "terminal_known": 32
+    }
+  },
+  "shared_A_resources": {
+    "charged_input_tokens": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 155049
+    },
+    "charged_output_tokens": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 37063
+    },
+    "external_provider_calls": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 0
+    },
+    "model_tool_calls": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 1536
+    },
+    "observed_input_tokens": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 155049
+    },
+    "observed_model_wall_ms": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 171579
+    },
+    "observed_output_tokens": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 37063
+    },
+    "phase_operations": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 192
+    },
+    "reserved_generations": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 384
+    },
+    "wire_generations": {
+      "known_rows": 32,
+      "planned_rows": 32,
+      "sum_known": 384
+    }
+  }
+}

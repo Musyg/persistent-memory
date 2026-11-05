@@ -1,0 +1,26 @@
+{
+  "distribution_license": "MIT",
+  "schema": "persistent-memory.conf-oracle-sources.v1",
+  "sources": {
+    "fixture_contract.py": {
+      "definitions_sha256": {
+        "RULES": "a73ba703a6033d6f4f5e88b5abd72c9dc504031bda35c79c2640404173b9e610",
+        "_typed_equal": "e8788b71fc859ed473a0c576c1a27e690bb58fea95d77dfbb5d53331c2e79172",
+        "business_b_oracle": "6f0bbf0298839851bfd4bd3af3e5d409702d58e2d2e68ca7a84751fa0b2052de",
+        "expected_eligible": "d3f7cc56a2dcd48d576409e8ab1d3e5fd1b32c37b07da3be60c74c7715580fdd",
+        "literal_result": "b7e1af11d1eefab654fbd727cb0656845096b32ab407e3c3d74503377c6a2934"
+      },
+      "source_sha256": "9a817a9ac19b996aab017cbb20c900a19a9e50919eec6167908a2e2c8f7a522b"
+    },
+    "grade_B.py": {
+      "definitions_sha256": {
+        "artifact_verdict": "5ff84eb8ddae8c4c57a77ccbf86f31de2720a4bea99c68938ff928bb6b21ad00",
+        "coder_record": "68035f6eccaeed38f4625ae55592e698268c0c25ffba7aa83e618bd495beb3fc",
+        "invalid_response": "7f91803df1db52fbe2309ea7603628432f2f45b6c3fff6db64d622064d67a200",
+        "sha": "2f1541faf4c4ebe2f74c17d4b666982327a0f1e144708a531c92f08669705d57"
+      },
+      "source_sha256": "6df16830bc65acdda2b268d4c74f25094cf906036f610a74d9e03fdb646d4d26"
+    }
+  },
+  "typed_b_oracle_sha256": "1226a8864371441d766833c65e0bec53839dc5653b70f71ecb6a0ff539a32c46"
+}

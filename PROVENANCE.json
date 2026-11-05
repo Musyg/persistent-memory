@@ -109,8 +109,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Current documentation reflects completed a5 qualification; historical artifact bytes preserved.",
-      "package_sha256": "20e7167774bc8997cdf2d2034f0026d9c406e9b86c67ab42004ade5176afd728",
+      "transformation": "Navigation to the completed synthetic agentic comparison; previous studies and product behavior preserved.",
+      "package_sha256": "cff46986b85f22fc83619ab5b692e0a7762f9750648f282d6f1fea57077c18f9",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -168,6 +168,11 @@
           "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
           "previous_public_worktree_sha256": "5e607fd0da1c67992b70d6c2db897c1d6cb652bd4a22a1711956410e315ec35f",
           "release_candidate": "0.3.0a4"
+        },
+        {
+          "package_sha256": "20e7167774bc8997cdf2d2034f0026d9c406e9b86c67ab42004ade5176afd728",
+          "transformation": "Current documentation reflects completed a5 qualification; historical artifact bytes preserved.",
+          "public_commit": "f8234a74dcaa24f4488514f82360d7ddab2969c8"
         }
       ],
       "previous_public_worktree_sha256": "1f67a2b1e8a30ee4449385b54f0ce4e0f070a70fbfe323e765a66b2280a21f72"
@@ -176,8 +181,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Current documentation reflects completed a5 qualification; historical artifact bytes preserved.",
-      "package_sha256": "a7e81ee314215d0af06caac4a8aca276d8b3ecd5a7c4a14621b8a6d9ea210f97",
+      "transformation": "Navigation to the completed synthetic agentic comparison; previous studies and product behavior preserved.",
+      "package_sha256": "46b51018afeffbb9940eff028feb5d79c5d5940a35f36c08fdaa2ba30a0098fe",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -235,6 +240,11 @@
           "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
           "previous_public_worktree_sha256": "2b36f6c5f96498698716e628d932fb7994a2f20bbbbfe521bd953b4f2e9ce0b7",
           "release_candidate": "0.3.0a4"
+        },
+        {
+          "package_sha256": "a7e81ee314215d0af06caac4a8aca276d8b3ecd5a7c4a14621b8a6d9ea210f97",
+          "transformation": "Current documentation reflects completed a5 qualification; historical artifact bytes preserved.",
+          "public_commit": "f8234a74dcaa24f4488514f82360d7ddab2969c8"
         }
       ],
       "previous_public_worktree_sha256": "48fcb01fa92283fc3b3785a3a38baae08b716b5f547added08e3c399da2800e1"
@@ -1534,6 +1544,167 @@
       "original_sha256": "2da40ef5d1eb2a096fb6100bd2a538fa111098e1bc5ac101073488821209ae6d",
       "package_sha256": "2da40ef5d1eb2a096fb6100bd2a538fa111098e1bc5ac101073488821209ae6d",
       "transformation": "New public synthetic study or distribution receipt; no private memory data."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/ARMS.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "75b14e59b3cc026dcbaac1faaa692c372981373a52854c4ca323c4a5eb9531d8",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/comparative_statistics.py",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "b20b853d2b1b330d59db3186a3b47a2b5391457a78a21192cefea159b439f059",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/FORMAT.fr.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "d5ddeb8bf69fec7d8a5640d955c58b42466cec2ba0330419903038dd58b84ca8",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/FORMAT.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "ca68f47e8d554cb952a0963e1e91fd8c455c8aab22edd023e6ddc86a048709e2",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/MANIFEST.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "e58bf886d8455524f7d951241aeb8c66458d1bd1ce685642bcb7402a5ff7b116",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/METHOD.fr.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "57f35fcb26995d6ce0575753061132238af9cce712f3f2fa2ed35d5a841b4b53",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/METHOD.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "e1746e952b3d5842095b4be8949ee5f3f4e2bd68d51910dfbd10ea1e83b3220f",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/MODEL-PROFILES.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "49d10ca4181a376756ab2666f44854626db422a6a43ef2cddd7e5994ebe0417c",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/README.fr.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "5ee751535b6ab03bd9a620b812331d0052167cb78b2e3ba233fdf401ce7405ee",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/README.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "4d3cd0bc94c576f7f6271defa53e074fa8caf1925554cd5c2e4b631458dfd416",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/reduce_conf_grades.py",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "49068c54fc124e1b8548468d70780ef7b7109640e7acd4e33e9dd724e91d7e8f",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/B-EVIDENCE.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "7d88a7c60c7c77534ea59067269fa90d196f0f40a8cb9eb5b48bc2b1f06ec922",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/ORACLE-SOURCES.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "12b05f89a7587f4d2118d4041255f81ab43019b02a95111f67c46b4b211b3a5a",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/README.fr.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "aca23f89fb37233ce93bd2edadc7249015e2e3c6b2f81e8e675729c615ac2ca6",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/README.md",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "bad5b187181a402bcf967c48f407f32cd1b80fec932155d0afbc0102c5ba9f6e",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/REGRADING-MANIFEST.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "360181a6944e57b1a7714a23947d01097a0dfe1599c69270e6ace70e0fad6e43",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/typed_b_oracle.py",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "1226a8864371441d766833c65e0bec53839dc5653b70f71ecb6a0ff539a32c46",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/REGRADING/verify_regrading.py",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "91db11271e4d7577dbca483635e04a74a061d7d009f05f2415bc8e2831b01a83",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/RESULT.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "541591d58506667ffbb3590b932e3f0c1258a3b016bbaab66baee443d3d83f4f",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/ROSTER.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "a1dd56cd1d677c4435c4529a88508d4c1035fc430e6f632a0e6d15d6a4acaaec",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/SHA256SUMS",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "37481e0e99b64603a740c730ba5c30ef443528f85553cd2c9a95bc377944135c",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/verify.py",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "c45f6a62f571d09ccf028ad963dc2f35b710bfc01cd5b98defe8d5c76924d68b",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
+    },
+    {
+      "path": "docs/evidence/agentic-transfer-20261104/witness-summary.json",
+      "origin": "reviewed-public-synthetic-agentic-transfer-study",
+      "original_sha256": null,
+      "package_sha256": "4b8e95ddd20aa7149ade003a6bdd4cd6a1148dbca07019cbee3811ccba37dc9d",
+      "transformation": "Public synthetic fixtures, reviewed exact outputs, original inert oracle and statistical reducers, or bilingual report; private operational material excluded."
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
@@ -1816,6 +1987,115 @@
         }
       ],
       "scope": "Current qualification status and public synthetic study. Exact a5 archives qualified before publication are retained; all historical evidence unchanged."
+    },
+    {
+      "base_public_commit": "f8234a74dcaa24f4488514f82360d7ddab2969c8",
+      "previous_provenance_sha256": "3b226f9e4075fca0752f3a0d7c1dbe20e26f7c0e46bd192285d7b92045df267b",
+      "changes": [
+        {
+          "path": "README.md",
+          "previous_package_sha256": "a7e81ee314215d0af06caac4a8aca276d8b3ecd5a7c4a14621b8a6d9ea210f97",
+          "package_sha256": "46b51018afeffbb9940eff028feb5d79c5d5940a35f36c08fdaa2ba30a0098fe"
+        },
+        {
+          "path": "README.fr.md",
+          "previous_package_sha256": "20e7167774bc8997cdf2d2034f0026d9c406e9b86c67ab42004ade5176afd728",
+          "package_sha256": "cff46986b85f22fc83619ab5b692e0a7762f9750648f282d6f1fea57077c18f9"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/ARMS.json",
+          "package_sha256": "75b14e59b3cc026dcbaac1faaa692c372981373a52854c4ca323c4a5eb9531d8"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/comparative_statistics.py",
+          "package_sha256": "b20b853d2b1b330d59db3186a3b47a2b5391457a78a21192cefea159b439f059"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/FORMAT.fr.md",
+          "package_sha256": "d5ddeb8bf69fec7d8a5640d955c58b42466cec2ba0330419903038dd58b84ca8"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/FORMAT.md",
+          "package_sha256": "ca68f47e8d554cb952a0963e1e91fd8c455c8aab22edd023e6ddc86a048709e2"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/MANIFEST.json",
+          "package_sha256": "e58bf886d8455524f7d951241aeb8c66458d1bd1ce685642bcb7402a5ff7b116"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/METHOD.fr.md",
+          "package_sha256": "57f35fcb26995d6ce0575753061132238af9cce712f3f2fa2ed35d5a841b4b53"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/METHOD.md",
+          "package_sha256": "e1746e952b3d5842095b4be8949ee5f3f4e2bd68d51910dfbd10ea1e83b3220f"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/MODEL-PROFILES.json",
+          "package_sha256": "49d10ca4181a376756ab2666f44854626db422a6a43ef2cddd7e5994ebe0417c"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/README.fr.md",
+          "package_sha256": "5ee751535b6ab03bd9a620b812331d0052167cb78b2e3ba233fdf401ce7405ee"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/README.md",
+          "package_sha256": "4d3cd0bc94c576f7f6271defa53e074fa8caf1925554cd5c2e4b631458dfd416"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/reduce_conf_grades.py",
+          "package_sha256": "49068c54fc124e1b8548468d70780ef7b7109640e7acd4e33e9dd724e91d7e8f"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/B-EVIDENCE.json",
+          "package_sha256": "7d88a7c60c7c77534ea59067269fa90d196f0f40a8cb9eb5b48bc2b1f06ec922"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/ORACLE-SOURCES.json",
+          "package_sha256": "12b05f89a7587f4d2118d4041255f81ab43019b02a95111f67c46b4b211b3a5a"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/README.fr.md",
+          "package_sha256": "aca23f89fb37233ce93bd2edadc7249015e2e3c6b2f81e8e675729c615ac2ca6"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/README.md",
+          "package_sha256": "bad5b187181a402bcf967c48f407f32cd1b80fec932155d0afbc0102c5ba9f6e"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/REGRADING-MANIFEST.json",
+          "package_sha256": "360181a6944e57b1a7714a23947d01097a0dfe1599c69270e6ace70e0fad6e43"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/typed_b_oracle.py",
+          "package_sha256": "1226a8864371441d766833c65e0bec53839dc5653b70f71ecb6a0ff539a32c46"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/REGRADING/verify_regrading.py",
+          "package_sha256": "91db11271e4d7577dbca483635e04a74a061d7d009f05f2415bc8e2831b01a83"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/RESULT.json",
+          "package_sha256": "541591d58506667ffbb3590b932e3f0c1258a3b016bbaab66baee443d3d83f4f"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/ROSTER.json",
+          "package_sha256": "a1dd56cd1d677c4435c4529a88508d4c1035fc430e6f632a0e6d15d6a4acaaec"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/SHA256SUMS",
+          "package_sha256": "37481e0e99b64603a740c730ba5c30ef443528f85553cd2c9a95bc377944135c"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/verify.py",
+          "package_sha256": "c45f6a62f571d09ccf028ad963dc2f35b710bfc01cd5b98defe8d5c76924d68b"
+        },
+        {
+          "path": "docs/evidence/agentic-transfer-20261104/witness-summary.json",
+          "package_sha256": "4b8e95ddd20aa7149ade003a6bdd4cd6a1148dbca07019cbee3811ccba37dc9d"
+        }
+      ],
+      "scope": "Additive evidence publication for a completed 32-case four-condition local-model study. Existing package versions, code and historical evidence unchanged."
     }
   ],
   "qualification_update_20261023": {
@@ -2279,5 +2559,17 @@
     "original_wrapper_failure_preserved": true,
     "postconditions_verified_without_rebuild": true,
     "private_memory_data_included": false
+  },
+  "agentic_transfer_comparison_20261105": {
+    "worlds": 32,
+    "condition_rows": 128,
+    "exact_first_and_final_slots": 256,
+    "external_generation_API_calls": 0,
+    "qualification": "Linux aggregate recalculation, exact inert regrading, corruption rejection and independent editorial/privacy review",
+    "qualification_receipt_sha256": "7bf32b9d695136c4ecea9338a363c1427dc03dc1625a0a97cddd082786829782",
+    "result_sha256": "541591d58506667ffbb3590b932e3f0c1258a3b016bbaab66baee443d3d83f4f",
+    "regrading_manifest_sha256": "360181a6944e57b1a7714a23947d01097a0dfe1599c69270e6ace70e0fad6e43",
+    "private_history_included": false,
+    "product_release_unchanged": true
   }
 }

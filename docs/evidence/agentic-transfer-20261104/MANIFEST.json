@@ -1,0 +1,11 @@
+{
+  "files": {
+    "ARMS.json": "75b14e59b3cc026dcbaac1faaa692c372981373a52854c4ca323c4a5eb9531d8",
+    "RESULT.json": "541591d58506667ffbb3590b932e3f0c1258a3b016bbaab66baee443d3d83f4f",
+    "ROSTER.json": "a1dd56cd1d677c4435c4529a88508d4c1035fc430e6f632a0e6d15d6a4acaaec",
+    "comparative_statistics.py": "b20b853d2b1b330d59db3186a3b47a2b5391457a78a21192cefea159b439f059",
+    "reduce_conf_grades.py": "49068c54fc124e1b8548468d70780ef7b7109640e7acd4e33e9dd724e91d7e8f",
+    "verify.py": "c45f6a62f571d09ccf028ad963dc2f35b710bfc01cd5b98defe8d5c76924d68b"
+  },
+  "schema": "persistent-memory.conf-public-manifest.v1"
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "persistent-memory.agentic-transfer.witness-summary.v1",
+  "observed_date_utc": "2026-11-04",
+  "status": "interim_preconfirmation",
+  "scope": {
+    "synthetic_cases": 1,
+    "case_previously_used": true,
+    "included_in_comparative_score": false,
+    "source_tasks": 6,
+    "max_coder_attempts": 3
+  },
+  "resources": {
+    "local_model": "Qwen3-Coder-30B-A3B-Instruct",
+    "local_generations": 39,
+    "observed_prompt_tokens": 35503,
+    "observed_completion_tokens": 5182,
+    "instrumented_tool_operations": 151,
+    "operation_breakdown": {
+      "prompt_formatting": 39,
+      "tokenization": 39,
+      "server_properties": 39,
+      "health_checks": 34
+    }
+  },
+  "hermes_memory": {
+    "validated_lessons_stored": 4,
+    "lessons_retrieved": 3,
+    "lessons_delivered_to_planner": 3,
+    "lessons_delivered_to_coder": 3
+  },
+  "ecc_analysis": {
+    "upstream_project": "affaan-m/ECC",
+    "upstream_commit": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+    "upstream_package_version": "2.2.3",
+    "skill": "continuous-learning-v2",
+    "skill_version": "2.1.0",
+    "license": "MIT",
+    "status": "analysis_complete",
+    "source_observation_events": 24,
+    "response_time_seconds_rounded": 0.806,
+    "prompt_tokens": 6295,
+    "completion_tokens": 25,
+    "instincts_produced": 0,
+    "instincts_delivered": 0
+  },
+  "arms": {
+    "H": {
+      "first_attempt_public_passed": false,
+      "terminal_passed": true,
+      "coder_attempts": 2
+    },
+    "E": {
+      "first_attempt_public_passed": false,
+      "terminal_passed": false,
+      "coder_attempts": 3
+    },
+    "T": {
+      "first_attempt_public_passed": false,
+      "terminal_passed": true,
+      "coder_attempts": 2
+    },
+    "N": {
+      "first_attempt_public_passed": false,
+      "terminal_passed": false,
+      "coder_attempts": 3
+    }
+  },
+  "confirmation": {
+    "status": "pending",
+    "planned_matched_worlds": 32,
+    "results": null
+  }
+}
