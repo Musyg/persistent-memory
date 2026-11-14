@@ -2,7 +2,7 @@
 
 Persistent Memory contains two independently installable Python packages: the memory core described here and an [optional policy registry](PACKAGES.md). The technical package names remain `hermes-memory-core` and `hermes-policy-registry`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](PACKAGES.md).
 
-[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md) · [Testing and reproducibility](docs/TESTING.md) · [Operations surface](docs/OPERATIONS.md)
+[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md) · [Testing and reproducibility](docs/TESTING.md) · [Operations surface](docs/OPERATIONS.md) · [MCP server](docs/MCP.md)
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
@@ -78,6 +78,8 @@ memory.withdraw("port", "port changed")      # the derived procedure is blocked 
 memory.notices("chat-1")                     # chat-1 is told, once
 ```
 
+`persistent-memory-mcp --store DIR --create` serves the same operations to any MCP client over stdio (Claude Code, Hermes Agent, the official SDKs). See [MCP.md](docs/MCP.md).
+
 ## CLI, optional HTTP and MCP
 
 `hermes-memory` provides initialization, core RPC, a synthetic demo, HTTP and MCP stdio. `hermes-memory-typed` provides explicit typed admission, synchronization, context and optional serving. See [API.md](docs/API.md) for copyable local commands.
@@ -99,7 +101,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 199 public test methods; the optional policy registry has 49. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 214 public test methods; the optional policy registry has 49. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 
