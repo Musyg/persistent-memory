@@ -18,3 +18,13 @@ Le registre consigne les propositions, les preuves, les admissions et les rollba
 Le registre 0.2.0a2 a été qualifié depuis son wheel installé et depuis un wheel reconstruit à partir de son archive source : chaque exécution a passé 49 tests synthétiques sans échec, erreur ni test ignoré. Ces contrôles vérifient le contrat et l'installation ; ils ne constituent pas un score général de qualité mémoire. Les fichiers de release existants du noyau restent inchangés.
 
 Le noyau 0.3.0a3 conserve les vérifications intégrales d'intégrité et réduit les opérations redondantes de sérialisation et d'analyse des données. Les [mesures de performance et contrôles de panne sur deux hôtes](benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) et l'[étude de réutilisation d'expérience](benchmarks/action-20261023/experience/README.fr.md) présentent les nouvelles preuves. Les fichiers des releases antérieures restent inchangés.
+
+## Provider pour Hermes Agent
+
+`hermes-agent-provenance==0.1.0a1`, dans [packages/hermes-agent-provider](packages/hermes-agent-provider/README.fr.md), branche le noyau mémoire sur [Hermes Agent](https://github.com/NousResearch/hermes-agent) comme fournisseur de mémoire externe nommé `provenance`. Contrairement au registre, il dépend du noyau à l'exécution. Il ne rappelle que les éléments que l'autorité courante autorise encore, n'enregistre rien sans un appel d'outil explicite, et avertit une session Hermes quand une source qu'elle a déjà vue est retirée. C'est une intégration indépendante, sans lien avec Nous Research, pas encore publiée en release.
+
+```sh
+python3 -m pip install . ./packages/hermes-agent-provider
+```
+
+À lancer dans l'environnement qui exécute Hermes Agent, puis indiquer `memory.provider: provenance` dans le `config.yaml` du profil. Ses tests synthétiques tournent sans Hermes Agent et font partie de `scripts/check_distributions.py`, qui installe le wheel du noyau à côté ; une suite séparée le fait passer par le gestionnaire de mémoire de Hermes Agent.

@@ -39,7 +39,7 @@ def fresh_absolute(value):
     return path
 
 
-def check_install(wheel, source, module, variant, destination, env, report, report_path):
+def check_install(wheel, source, module, variant, destination, env, report, report_path, extra_wheels=()):
     record = dict(module=module, variant=variant, status='preparing', test_ids=[],
                   tests_run=0, failures=0, errors=0, skipped=0, returncode=None,
                   stdout_log=str(destination / 'tests.stdout.log'),
@@ -48,7 +48,8 @@ def check_install(wheel, source, module, variant, destination, env, report, repo
     save_report(report, report_path)
     venv.EnvBuilder(with_pip=True).create(destination / 'venv')
     python = destination / 'venv/bin/python'
-    run([python, '-m', 'pip', 'install', '--no-index', '--no-deps', wheel], destination, env)
+    # Extra wheels are locally built dependencies (the memory core for the Hermes Agent provider).
+    run([python, '-m', 'pip', 'install', '--no-index', '--no-deps', *extra_wheels, wheel], destination, env)
     origin = subprocess.run([str(python), '-c',
         'import importlib,pathlib,sys; m=importlib.import_module(sys.argv[1]); '
         'p=pathlib.Path(m.__file__).resolve(); '
@@ -93,9 +94,15 @@ def check_install(wheel, source, module, variant, destination, env, report, repo
         run([destination / 'venv/bin/hermes-memory-demo', '--directory', destination / 'demo'], destination, env)
         run([python, '-m', 'hermes_memory.admission_demo'], destination, env)
         run([python, source / 'benchmarks/run_benchmark.py'], destination, env)
-    else:
+    elif module == 'hermes_policy_registry':
         run([destination / 'venv/bin/hermes-policy', '--help'], destination, env)
         run([destination / 'venv/bin/hermes-policy-demo', '--directory', destination / 'demo'], destination, env)
+    else:
+        run([destination / 'venv/bin/hermes-provenance-exposure', '--help'], destination, env)
+        run([python, '-c', 'import importlib.metadata as m; '
+             'eps = m.entry_points(group="hermes_agent.memory_providers"); '
+             'assert [e.value for e in eps if e.name == "provenance"] == ["hermes_agent_provenance:register"], eps'],
+            destination, env)
     record['status'] = 'passed'
     save_report(report, report_path)
     return test_ids
@@ -121,7 +128,9 @@ def extract_sources(archive, destination):
 def check_all(temporary, options, report, report_path):
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
     env.pop('PYTHONPATH', None)
-    packages = [(ROOT, 'hermes_memory'), (ROOT / 'packages/policy-registry', 'hermes_policy_registry')]
+    packages = [(ROOT, 'hermes_memory'), (ROOT / 'packages/policy-registry', 'hermes_policy_registry'),
+                (ROOT / 'packages/hermes-agent-provider', 'hermes_agent_provenance')]
+    built = {}
     for source, module in packages:
         output = DIST / module
         if output.exists():
@@ -131,6 +140,8 @@ def check_all(temporary, options, report, report_path):
         wheels, sdists = list(output.glob('*.whl')), list(output.glob('*.tar.gz'))
         if len(wheels) != 1 or len(sdists) != 1:
             raise RuntimeError('Expected one wheel and one sdist per distribution')
+        built[module] = wheels[0]
+        extra = [built['hermes_memory']] if module == 'hermes_agent_provenance' else []
         rebuilt_source = extract_sources(sdists[0], temporary / (module + '-source'))
         def test_files(root):
             return {p.relative_to(root / 'tests').as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -145,7 +156,7 @@ def check_all(temporary, options, report, report_path):
             raise RuntimeError('Source distribution changed test files or bytes')
         direct = temporary / (module + '-wheel')
         direct.mkdir()
-        direct_ids = check_install(wheels[0], rebuilt_source, module, 'wheel', direct, env, report, report_path)
+        direct_ids = check_install(wheels[0], rebuilt_source, module, 'wheel', direct, env, report, report_path, extra)
         rebuilt = temporary / (module + '-rebuilt')
         rebuilt.mkdir()
         run([sys.executable, '-m', 'pip', 'wheel', '--no-deps', '--no-build-isolation',
@@ -153,7 +164,8 @@ def check_all(temporary, options, report, report_path):
         rebuilt_wheels = list(rebuilt.glob('*.whl'))
         if len(rebuilt_wheels) != 1:
             raise RuntimeError('Expected one rebuilt wheel')
-        rebuilt_ids = check_install(rebuilt_wheels[0], rebuilt_source, module, 'sdist', rebuilt, env, report, report_path)
+        rebuilt_ids = check_install(rebuilt_wheels[0], rebuilt_source, module, 'sdist', rebuilt, env, report, report_path,
+                                    extra)
         if rebuilt_ids != direct_ids:
             raise RuntimeError('Source distribution changed the test inventory')
     checksums = {p.relative_to(DIST).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -186,7 +198,7 @@ def main():
         report['work_dir'] = str(temporary)
         save_report(report, report_path)
         check_all(temporary, options, report, report_path)
-        if len(report['suites']) != 4 or any(item['status'] != 'passed' for item in report['suites']):
+        if len(report['suites']) != 6 or any(item['status'] != 'passed' for item in report['suites']):
             raise RuntimeError('Incomplete installed qualification')
         report['overall_status'] = 'passed'
         report['exit_code'] = 0

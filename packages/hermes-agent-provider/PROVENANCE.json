@@ -1,0 +1,86 @@
+{
+  "license": "MIT",
+  "version": "0.1.0",
+  "package_version": "0.1.0a1",
+  "private_history_included": false,
+  "private_measurement_reports_included": false,
+  "files": [
+    {
+      "path": "LICENSE",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "transformation": "Copied unchanged from the repository root."
+    },
+    {
+      "path": "MANIFEST.in",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "54ad5a8bace96d9b826df1f345c449ac2ef69928beb1a0d9ecd532843c3af496",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "README.fr.md",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "d79c3dbe45016023edd0197af505374b95e2ac2d5a95725c0f2fdffe7a44076d",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "README.md",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "7adff8444b5a31d71ff4e6849eac187c38b5e01a4ba4fa6b437d6c0536ba8ccc",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "pyproject.toml",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "81d0b40f7411a22cace92319b13cdc531add30f93ac8644be9c83379e739a44c",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_agent_provenance/__init__.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "860384b10746036881d32fc606168bea2e10f42c01007632a176c0d3a1349248",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_agent_provenance/_compat.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "4408bfec758fdfb1d57014bb7e891021d0cf906e77486ad6b201c5275c1bfaab",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_agent_provenance/report.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "7976120e1cd27d014fca7b12f27aae1833f32c7b6534c2be084ae88f2eadd232",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_agent_provenance/store.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "19c762e4dca7df71e4fc474d6e650e5bb422e56269a6f7de7ccfb9a288c485ef",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "tests/test_provider.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "7cb7c494e1dc237a13aedeee922c373d33c3306a5cf9076e275a352396cdda2c",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    },
+    {
+      "path": "tests_hermes_agent/test_memory_manager.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "db0d17e683af7f4fb963222cb183cc84a72dd675392a4cac9257e2570931d6d1",
+      "transformation": "New Hermes Agent integration code, synthetic tests or public documentation."
+    }
+  ]
+}

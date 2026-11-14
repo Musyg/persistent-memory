@@ -18,3 +18,13 @@ The registry records proposals, evidence, admissions and rollbacks. It does not 
 Registry 0.2.0a2 was qualified from its installed wheel and a wheel rebuilt from its source archive: each ran 49 synthetic tests without failures, errors or skips. These are contract and installation checks, not a general memory-quality score. The existing core release assets remain unchanged.
 
 Core 0.3.0a3 preserves full integrity verification while reducing redundant serialization and parsing. The [two-host performance and failure checks](benchmarks/efficiency-20261023/core-optimization-20261023/README.md) and [learned-experience study](benchmarks/action-20261023/experience/README.md) describe the new evidence. Earlier release assets remain unchanged.
+
+## Hermes Agent provider
+
+`hermes-agent-provenance==0.1.0a1`, in [packages/hermes-agent-provider](packages/hermes-agent-provider/README.md), connects the memory core to [Hermes Agent](https://github.com/NousResearch/hermes-agent) as an external memory provider named `provenance`. Unlike the registry, it depends on the core at runtime. It recalls only items the current authority still allows, stores nothing without an explicit tool call, and warns a Hermes session when a source it was already shown is withdrawn. It is an independent integration, not affiliated with Nous Research, and is not yet published as a release.
+
+```sh
+python3 -m pip install . ./packages/hermes-agent-provider
+```
+
+Run this in the environment that runs Hermes Agent, then set `memory.provider: provenance` in the profile's `config.yaml`. Its synthetic tests run without Hermes Agent and are part of `scripts/check_distributions.py`, which installs the core wheel next to it; a separate suite drives it through Hermes Agent's own memory manager.

@@ -1,0 +1,4 @@
+include LICENSE README.md README.fr.md PROVENANCE.json
+recursive-include src *.py
+recursive-include tests *.py
+recursive-include tests_hermes_agent *.py

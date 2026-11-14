@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-agent-provenance"
+version = "0.1.0a1"
+description = "Memory provider for Nous Research's Hermes Agent: revalidated recall, explicit admission, withdrawal notices per session"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["hermes-memory-core>=0.3.0a5"]
+license = {file = "LICENSE"}
+
+[project.entry-points."hermes_agent.memory_providers"]
+provenance = "hermes_agent_provenance:register"
+
+[project.scripts]
+hermes-provenance-exposure = "hermes_agent_provenance.report:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+license-files = ["LICENSE"]
