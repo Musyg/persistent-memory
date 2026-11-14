@@ -97,6 +97,8 @@ def check_install(wheel, source, module, variant, destination, env, report, repo
     elif module == 'hermes_policy_registry':
         run([destination / 'venv/bin/hermes-policy', '--help'], destination, env)
         run([destination / 'venv/bin/hermes-policy-demo', '--directory', destination / 'demo'], destination, env)
+    elif module == 'hermes_memory_mcp':
+        run([destination / 'venv/bin/hermes-memory-mcp', '--help'], destination, env)
     else:
         run([destination / 'venv/bin/hermes-provenance-exposure', '--help'], destination, env)
         run([python, '-c', 'import importlib.metadata as m; '
@@ -129,7 +131,11 @@ def check_all(temporary, options, report, report_path):
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
     env.pop('PYTHONPATH', None)
     packages = [(ROOT, 'hermes_memory'), (ROOT / 'packages/policy-registry', 'hermes_policy_registry'),
-                (ROOT / 'packages/hermes-agent-provider', 'hermes_agent_provenance')]
+                (ROOT / 'packages/hermes-agent-provider', 'hermes_agent_provenance'),
+                (ROOT / 'packages/remote-mcp', 'hermes_memory_mcp')]
+    # Locally built wheels each distribution needs next to it (dependencies are never fetched).
+    needs = {'hermes_agent_provenance': ['hermes_memory'],
+             'hermes_memory_mcp': ['hermes_memory', 'hermes_agent_provenance']}
     built = {}
     for source, module in packages:
         output = DIST / module
@@ -141,7 +147,7 @@ def check_all(temporary, options, report, report_path):
         if len(wheels) != 1 or len(sdists) != 1:
             raise RuntimeError('Expected one wheel and one sdist per distribution')
         built[module] = wheels[0]
-        extra = [built['hermes_memory']] if module == 'hermes_agent_provenance' else []
+        extra = [built[name] for name in needs.get(module, [])]
         rebuilt_source = extract_sources(sdists[0], temporary / (module + '-source'))
         def test_files(root):
             return {p.relative_to(root / 'tests').as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -198,7 +204,7 @@ def main():
         report['work_dir'] = str(temporary)
         save_report(report, report_path)
         check_all(temporary, options, report, report_path)
-        if len(report['suites']) != 6 or any(item['status'] != 'passed' for item in report['suites']):
+        if len(report['suites']) != 8 or any(item['status'] != 'passed' for item in report['suites']):
             raise RuntimeError('Incomplete installed qualification')
         report['overall_status'] = 'passed'
         report['exit_code'] = 0

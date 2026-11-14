@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-memory-mcp"
+version = "0.1.0a1"
+description = "Remote MCP endpoint (Streamable HTTP, standard library only) for the provenance memory store"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["hermes-memory-core>=0.3.0a5", "hermes-agent-provenance>=0.1.0a1"]
+license = {file = "LICENSE"}
+
+[project.scripts]
+hermes-memory-mcp = "hermes_memory_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+license-files = ["LICENSE"]

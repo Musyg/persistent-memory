@@ -1,0 +1,72 @@
+{
+  "license": "MIT",
+  "version": "0.1.0",
+  "package_version": "0.1.0a1",
+  "private_history_included": false,
+  "private_measurement_reports_included": false,
+  "files": [
+    {
+      "path": "LICENSE",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "c71df8d4977563f8917c739a7caeb9c739d3a3488df8e8986ab2a06e806011af",
+      "transformation": "Copied unchanged from the repository root."
+    },
+    {
+      "path": "MANIFEST.in",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "ace59ec2d4bb239ec4104d48d51b4832af805b96dfb25f087a565d21984df0aa",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "README.fr.md",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "2fa65aa79e177849271830b8b1a0db9a6565e84853ba6bb30173fc190e31d054",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "README.md",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "e5d92cd93da1057ad7a79ca78507fe1bfffb48af94577d7e3c9df4e9c42183ab",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "pyproject.toml",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "3d689a547f85fcef750b188ec4bbbf91ab3a9425ded9237761b47f562c18bb78",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_memory_mcp/__init__.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "085a4e777c574c397fa66d00ab7d64a03e690a06f14ed45c988d00e66cf1f829",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_memory_mcp/server.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "430821e8efe347f357eed4f765f002f7fbddbfb56c9cdda81c2af293345c2df3",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "src/hermes_memory_mcp/tools.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "e3aaa0bb97fe0030ea17779cbb7838af997315feac67f715c5fc629b23204ae8",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    },
+    {
+      "path": "tests/test_http_mcp.py",
+      "origin": "new-public-integration-code-test-or-doc",
+      "original_sha256": null,
+      "package_sha256": "f4904d81f1d2befe0b25fdb003ff9b2d9c648c66506fb428f34664def28b8130",
+      "transformation": "New remote MCP endpoint code, synthetic tests or public documentation."
+    }
+  ]
+}

@@ -28,3 +28,7 @@ python3 -m pip install . ./packages/hermes-agent-provider
 ```
 
 À lancer dans l'environnement qui exécute Hermes Agent, puis indiquer `memory.provider: provenance` dans le `config.yaml` du profil. Ses tests synthétiques tournent sans Hermes Agent et font partie de `scripts/check_distributions.py`, qui installe le wheel du noyau à côté ; une suite séparée le fait passer par le gestionnaire de mémoire de Hermes Agent.
+
+## Point d'accès MCP distant
+
+`hermes-memory-mcp==0.1.0a1`, dans [packages/remote-mcp](packages/remote-mcp/README.fr.md), sert la même mémoire par le transport Streamable HTTP de MCP avec un jeton Bearer, uniquement avec la bibliothèque standard. Les clients MCP qui acceptent une URL et un en-tête, comme Claude Code ou Hermes Agent, peuvent chercher, ajouter et retirer ; un retrait avertit chaque session MCP ou Hermes Agent qui a vu la source. Il dépend du noyau et du provider pour Hermes Agent, dont il partage la mémoire et le registre d'exposition. OAuth n'est pas encore pris en charge, et il n'est pas encore publié en release.
