@@ -1,12 +1,14 @@
-"""MCP server over stdio for the operations surface, Python standard library only.
+"""MCP server for the operations surface, Python standard library only.
 
     persistent-memory-mcp --store ~/.persistent-memory --create
+    persistent-memory-mcp --store ~/.persistent-memory --transport http --port 8766
 
-One process serves one client over newline-delimited JSON-RPC on stdin and stdout; logs go
-to stderr. Every tool goes through PersistentMemory, so an MCP client gets the same memory
-as any other integration: exact versions, derived artifacts, corrections, withdrawal with
-cascade, lessons and withdrawal notices. The process is one ledger session: when a version
-it was shown stops being valid, the next tool result carries a notice, once.
+Over stdio, one process serves one client with newline-delimited JSON-RPC; logs go to
+stderr, and the process is one ledger session. Over HTTP (mcp_http), each MCP session is
+one ledger session. Every tool goes through PersistentMemory, so an MCP client gets the
+same memory as any other integration: exact versions, derived artifacts, corrections,
+withdrawal with cascade, lessons and withdrawal notices. When a version a session was
+shown stops being valid, its next tool result carries a notice, once.
 """
 from __future__ import annotations
 
@@ -202,10 +204,13 @@ class Toolbox:
             reasons = {}
             for item in out["exclusions"]:
                 reasons[item["reason"]] = reasons.get(item["reason"], 0) + 1
-            return {"status": out["status"], "complete": out["complete"], "items": [
+            result = {"status": out["status"], "complete": out["complete"], "items": [
                 {"artifact_id": i["artifact_id"], "ref": i["ref"], "kind": i["metadata"]["evidence_kind"],
                  "text": i["text"], "metadata": i["metadata"]} for i in out["items"]],
                 "excluded": reasons}
+            if "semantic" in out:
+                result["semantic"] = out["semantic"]
+            return result
         if name == "memory_read":
             return m.read(args["ref"], session=session)
         if name == "memory_remember":
@@ -321,6 +326,38 @@ def serve(session, stdin, stdout):
             stdout.flush()
 
 
+def add_projection_options(parser):
+    group = parser.add_argument_group("vector projection (optional)")
+    group.add_argument("--qdrant-url", default=os.environ.get("PERSISTENT_MEMORY_QDRANT_URL"),
+                       help="Qdrant URL, e.g. http://127.0.0.1:6333")
+    group.add_argument("--qdrant-collection", help="Collection name; default derived from workspace and model")
+    group.add_argument("--qdrant-api-key-env", help="Environment variable holding the Qdrant API key")
+    group.add_argument("--embed-url", default=os.environ.get("PERSISTENT_MEMORY_EMBED_URL"),
+                       help="OpenAI-compatible base URL serving /embeddings, e.g. http://127.0.0.1:8000/v1")
+    group.add_argument("--embed-model", default=os.environ.get("PERSISTENT_MEMORY_EMBED_MODEL"))
+    group.add_argument("--embed-api-key-env", help="Environment variable holding the embeddings API key")
+    group.add_argument("--embed-query-prefix", default="", help='Text put before queries, e.g. "search_query: "')
+    group.add_argument("--embed-document-prefix", default="", help='Text put before entries, e.g. "search_document: "')
+    group.add_argument("--qdrant-min-score", type=float, default=0.5,
+                       help="Cosine score below which a vector candidate is ignored; tune per model")
+
+
+def attach_projection(memory, options):
+    """Attach a Qdrant projection when the options ask for one; return its status or None."""
+    if not options.qdrant_url:
+        return None
+    from .qdrant_projection import OpenAIEmbeddings, QdrantProjection
+    if not (options.embed_url and options.embed_model):
+        raise MemoryError("qdrant_needs_embed_url_and_embed_model")
+    embed = OpenAIEmbeddings(options.embed_url, options.embed_model, api_key_env=options.embed_api_key_env)
+    return memory.attach_projection(QdrantProjection(memory, options.qdrant_url, embed,
+                                                     collection=options.qdrant_collection,
+                                                     api_key_env=options.qdrant_api_key_env,
+                                                     min_score=options.qdrant_min_score,
+                                                     query_prefix=options.embed_query_prefix,
+                                                     document_prefix=options.embed_document_prefix))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="persistent-memory-mcp", description=__doc__.splitlines()[0])
     parser.add_argument("--store", default=os.environ.get("PERSISTENT_MEMORY_DIR"),
@@ -330,18 +367,45 @@ def main(argv=None):
     parser.add_argument("--read-only", action="store_true",
                         help="Expose search, read, explain, plan_withdrawal and notices only")
     parser.add_argument("--no-withdraw", action="store_true", help="Do not expose memory_withdraw")
-    parser.add_argument("--session", help="Ledger session id; default one new id per process")
+    parser.add_argument("--session", help="Ledger session id for stdio; default one new id per process")
+    parser.add_argument("--transport", choices=("stdio", "http"), default="stdio")
+    parser.add_argument("--host", default="127.0.0.1", help="HTTP only")
+    parser.add_argument("--port", type=int, default=8766, help="HTTP only")
+    parser.add_argument("--token-file", help="HTTP only: bearer token file (owner-only); required off loopback")
+    parser.add_argument("--allow-origin", action="append", default=[],
+                        help="HTTP only: browser Origin allowed to call the endpoint; repeatable")
+    add_projection_options(parser)
     args = parser.parse_args(argv)
     logging.basicConfig(stream=sys.stderr, level=logging.WARNING, format="persistent-memory-mcp: %(message)s")
     if not args.store:
         parser.error("--store or PERSISTENT_MEMORY_DIR is required")
     try:
         memory = PersistentMemory(os.path.expanduser(args.store), args.workspace, create=args.create)
+        status = attach_projection(memory, args)
     except MemoryError as exc:
-        print("persistent-memory-mcp: cannot open store: " + str(exc)
+        print("persistent-memory-mcp: cannot start: " + str(exc)
               + (" (add --create to make a new one)" if str(exc) == "store_missing" else ""), file=sys.stderr)
         return 2
+    if status not in (None, "ok"):
+        print("persistent-memory-mcp: vector projection " + status + "; lexical search still works",
+              file=sys.stderr)
     toolbox = Toolbox(memory, read_only=args.read_only, allow_withdraw=not args.no_withdraw)
+    if args.transport == "http":
+        from .mcp_http import load_token, make_server
+        try:
+            token = load_token(args.token_file) if args.token_file else None
+            server = make_server(toolbox, args.host, args.port, token, tuple(args.allow_origin))
+        except (OSError, ValueError) as exc:
+            print("persistent-memory-mcp: cannot start HTTP: " + str(exc), file=sys.stderr)
+            return 2
+        print("persistent-memory-mcp: serving http://%s:%d/mcp" % server.server_address[:2], file=sys.stderr)
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            pass
+        finally:
+            server.server_close()
+        return 0
     session = Session(toolbox, args.session or "mcp-" + uuid.uuid4().hex)
     try:
         return serve(session, sys.stdin.buffer, sys.stdout.buffer)

@@ -74,6 +74,6 @@ memory.withdraw(out["feedback"]["artifact_id"], "feedback was wrong")   # the le
 
 - One process at a time per store is the tested case; several processes are serialized by SQLite but are not part of this surface's tests.
 - The search index holds up to 5,000 current artifacts per workspace and 32 MiB of content per rebuild.
-- `search` is lexical (SQLite FTS5 plus exact aliases). Vector projections arrive separately and stay revalidated against authority.
+- `search` is lexical (SQLite FTS5 plus exact aliases). `attach_projection` adds a vector projection such as [Qdrant](QDRANT.md); its candidates are revalidated against authority and fused with the lexical ones.
 - Completeness (`complete`) is reported for the indexed candidates at the current epoch. Trace and feedback sources are left out of the index on purpose and do not make a result incomplete.
 - Linux is the qualified platform for this release.

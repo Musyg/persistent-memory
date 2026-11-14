@@ -2,7 +2,7 @@
 
 Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.fr.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
 
-[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md) · [Serveur MCP](docs/MCP.fr.md)
+[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md) · [Serveur MCP](docs/MCP.fr.md) · [Hermes Agent](docs/HERMES-AGENT.fr.md) · [Qdrant](docs/QDRANT.fr.md)
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
@@ -78,7 +78,7 @@ memory.withdraw("port", "port changed")      # la procédure dérivée est bloqu
 memory.notices("chat-1")                     # chat-1 est prévenu, une fois
 ```
 
-`persistent-memory-mcp --store DIR --create` sert les mêmes opérations à tout client MCP en stdio (Claude Code, Hermes Agent, les SDK officiels). Voir [MCP.fr.md](docs/MCP.fr.md).
+`persistent-memory-mcp --store DIR --create` sert les mêmes opérations à tout client MCP en stdio ou en HTTP (Claude Code, Hermes Agent, les SDK officiels). Voir [MCP.fr.md](docs/MCP.fr.md). Hermes Agent peut aussi utiliser la mémoire comme [fournisseur de mémoire](docs/HERMES-AGENT.fr.md), et une [projection Qdrant](docs/QDRANT.fr.md) facultative ajoute le rappel sémantique sans jamais contenir le contenu.
 
 ## Interfaces et vérification
 
@@ -99,7 +99,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 214 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 298 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 
