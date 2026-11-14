@@ -2,7 +2,7 @@
 
 Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.fr.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
 
-[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md)
+[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md)
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
@@ -63,6 +63,21 @@ La politique livrée conserve le contrat de recherche R3 avec un rendu facultati
 
 Avec `render_source_references=True` dans `TypedMemory.search`, chaque texte complet porte sa référence immuable validée. Texte, référence JSON et séparateurs partagent le budget de caractères ; un élément trop long est exclu entier. Le texte seul reste le mode par défaut.
 
+## Une seule surface pour toutes les intégrations
+
+`hermes_memory.persistent.PersistentMemory` réunit ces opérations derrière une classe : lire avec la raison d'un refus, chercher, mémoriser, dériver de parents exacts, corriger en comparant la version, expliquer, planifier puis retirer en cascade, tirer une leçon de la trace d'une tâche et de son retour, et prévenir une session des versions qu'elle a vues et qui ne sont plus valides. Les intégrations passent par cette classe, donc chacune expose la même mémoire. Voir [OPERATIONS.fr.md](docs/OPERATIONS.fr.md).
+
+```python
+from hermes_memory.persistent import PersistentMemory
+
+memory = PersistentMemory("state/memory", "team-notes", create=True)
+source = memory.remember("The test server listens on port 9300.", source_id="port")
+memory.derive("Open 9300 on the test firewall.", parents=[source["ref"]])
+memory.search("firewall 9300", session="chat-1")
+memory.withdraw("port", "port changed")      # la procédure dérivée est bloquée aussi
+memory.notices("chat-1")                     # chat-1 est prévenu, une fois
+```
+
 ## Interfaces et vérification
 
 `hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](docs/API.fr.md) fonctionnent en local avec des chemins génériques.
@@ -82,7 +97,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 166 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 199 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 
