@@ -2,7 +2,7 @@
 
 [English](PACKAGES.md)
 
-Le noyau mémoire est `hermes-memory-core==0.3.0a5`. Les [reçus et empreintes de ses archives](docs/releases/0.3.0a5/README.fr.md) accompagnent la release. Le registre de politiques facultatif est `hermes-policy-registry==0.2.0a2`. Les deux paquets s'installent indépendamment et n'ont aucune dépendance d'exécution l'un envers l'autre.
+La mémoire est distribuée sous le nom `persistent-memory` ; la version de ce dépôt est 0.4.0a1, pas encore publiée. Elle ajoute la [surface d'opérations](docs/OPERATIONS.fr.md), le [serveur MCP](docs/MCP.fr.md), le [fournisseur Hermes Agent](docs/HERMES-AGENT.fr.md), la [projection Qdrant](docs/QDRANT.fr.md) et la [commande `setup`](docs/SETUP.fr.md). La dernière release, `hermes-memory-core==0.3.0a5`, a été publiée sous l'ancien nom ; les [reçus et empreintes de ses archives](docs/releases/0.3.0a5/README.fr.md) l'accompagnent. Désinstallez `hermes-memory-core` avant d'installer `persistent-memory` : les deux contiennent le module `hermes_memory`. Le registre de politiques facultatif est `hermes-policy-registry==0.2.0a2`. Les deux paquets s'installent indépendamment et n'ont aucune dépendance d'exécution l'un envers l'autre.
 
 Le [guide du registre en français](packages/policy-registry/README.fr.md) et sa [version anglaise](packages/policy-registry/README.md) présentent le contrat et l'exemple synthétique. La [release 0.2.0a2 du registre](https://github.com/Musyg/persistent-memory/releases/tag/policy-registry-v0.2.0a2) contient son propre wheel, son archive source et ses sommes de contrôle. Les wheels et archives sources du registre sont des fichiers de release distincts ; une archive source du noyau seul ne contient pas le paquet du registre.
 

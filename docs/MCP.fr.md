@@ -1,6 +1,6 @@
 # Serveur MCP
 
-[English](MCP.md) · [Surface d'opérations](OPERATIONS.fr.md) · [README](../README.fr.md)
+[English](MCP.md) · [Surface d'opérations](OPERATIONS.fr.md) · [Brancher vos outils](SETUP.fr.md) · [README](../README.fr.md)
 
 `persistent-memory-mcp` sert la [surface d'opérations](OPERATIONS.fr.md) à tout client MCP, en stdio ou en HTTP (Streamable HTTP). Il n'utilise que la bibliothèque standard de Python. Chaque outil passe par `PersistentMemory` : un client voit donc toute la mémoire, avec versions exactes, artefacts dérivés, corrections, retrait en cascade, leçons et avis de retrait.
 
@@ -12,11 +12,11 @@ python3 -m venv .venv
 .venv/bin/persistent-memory-mcp --store ~/.persistent-memory --create
 ```
 
-C'est le client qui lance cette commande ; il suffit de la mettre dans sa configuration.
+C'est le client qui lance cette commande ; il suffit de la mettre dans sa configuration. `persistent-memory setup <client>` écrit cette configuration pour vous ; voir [SETUP.fr.md](SETUP.fr.md).
 
 | Option | Sens |
 | --- | --- |
-| `--store DIR` | Dossier de la mémoire. Par défaut : `$PERSISTENT_MEMORY_DIR`. |
+| `--store DIR` | Dossier de la mémoire. Par défaut : `$PERSISTENT_MEMORY_DIR`, sinon le dossier de données du système ([SETUP.fr.md](SETUP.fr.md)). |
 | `--workspace NAME` | Espace de travail dans la mémoire. Par défaut : `$PERSISTENT_MEMORY_WORKSPACE` ou `default`. |
 | `--create` | Crée la mémoire si elle n'existe pas. Sans cette option, une mémoire absente arrête le serveur avec un message sur stderr. |
 | `--read-only` | Seulement `memory_search`, `memory_read`, `memory_explain`, `memory_plan_withdrawal` et `memory_notices`. |
@@ -27,7 +27,7 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `--allow-origin URL` | Origine de navigateur autorisée à appeler le point HTTP ; répétable. Par défaut : aucune. |
 | `--qdrant-url`, `--embed-url`, `--embed-model` | [Projection Qdrant](QDRANT.fr.md) facultative, fusionnée dans `memory_search`. |
 
-`python -m hermes_memory.mcp_server` lance le même programme.
+`python -m hermes_memory.mcp_server` et `persistent-memory mcp` lancent le même programme.
 
 ## Outils
 
@@ -93,7 +93,7 @@ mcp_servers:
     timeout: 60
 ```
 
-Tout autre client MCP : un serveur stdio avec cette commande et ces arguments.
+Tout autre client MCP : un serveur stdio avec cette commande et ces arguments. Pour les clients listés dans [SETUP.fr.md](SETUP.fr.md), `persistent-memory setup` l'écrit pour vous.
 
 ## Protocole
 
