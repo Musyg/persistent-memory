@@ -6,7 +6,7 @@ Persistent Memory contains two independently installable Python packages: the me
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
-Python 3.11+, SQLite with FTS5, standard library only. Linux is the qualified platform. No model, weights, account, external database, or persistent server is required. This is an alpha library; the repository contains synthetic examples and reusable code, not a private memory system or its data.
+Python 3.11+, SQLite with FTS5, standard library only. Linux, macOS and Windows are qualified: the installed-package tests run on the three systems in CI, Python 3.11 to 3.14. No model, weights, account, external database, or persistent server is required. This is an alpha library; the repository contains synthetic examples and reusable code, not a private memory system or its data.
 
 A focused identifier-validation change reduces instrumented runtime by a median 6.79% and CPU time by 6.77% across three new paired comparisons. The six cells retain the expected reads and revocation behavior. [Workload, measurements and reproduction](benchmarks/efficiency-20261026/README.md).
 
@@ -111,7 +111,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 324 public test methods; the optional policy registry has 49. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 353 public test methods; the optional policy registry has 51. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 

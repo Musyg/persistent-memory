@@ -76,4 +76,4 @@ memory.withdraw(out["feedback"]["artifact_id"], "feedback was wrong")   # la le�
 - L'index de recherche tient jusqu'à 5 000 artefacts courants par espace de travail et 32 Mio de contenu par reconstruction.
 - `search` est lexicale (SQLite FTS5 plus alias exacts). `attach_projection` ajoute une projection vectorielle comme [Qdrant](QDRANT.fr.md) ; ses candidats sont revalidés contre l'autorité et fusionnés avec les candidats lexicaux.
 - La complétude (`complete`) porte sur les candidats indexés à l'époque courante. Les sources de trace et de retour sont exclues de l'index exprès et ne rendent pas un résultat incomplet.
-- Linux est la plateforme qualifiée pour cette version.
+- Qualifié sous Linux, macOS et Windows. Sous Windows, gardez la mémoire sur un disque local ; un chemin réseau n'est pas pris en charge.

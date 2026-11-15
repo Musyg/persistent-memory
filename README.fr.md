@@ -6,7 +6,7 @@ Persistent Memory propose deux paquets Python installables séparément : la mé
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
-Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux est la plateforme qualifiée. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
+Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux, macOS et Windows sont qualifiés : les tests du paquet installé tournent sur les trois systèmes dans la CI, de Python 3.11 à 3.14. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
 
 Une correction ciblée de la validation des identifiants réduit le temps instrumenté de 6,79 % et le CPU de 6,77 % en médiane sur trois nouvelles comparaisons appariées. Les six exécutions conservent les lectures et les retraits attendus. [Protocole, mesures et reproduction](benchmarks/efficiency-20261026/README.fr.md).
 
@@ -109,7 +109,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 324 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 353 méthodes de test publiques ; le registre de politiques facultatif en compte 51. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 

@@ -76,4 +76,4 @@ memory.withdraw(out["feedback"]["artifact_id"], "feedback was wrong")   # the le
 - The search index holds up to 5,000 current artifacts per workspace and 32 MiB of content per rebuild.
 - `search` is lexical (SQLite FTS5 plus exact aliases). `attach_projection` adds a vector projection such as [Qdrant](QDRANT.md); its candidates are revalidated against authority and fused with the lexical ones.
 - Completeness (`complete`) is reported for the indexed candidates at the current epoch. Trace and feedback sources are left out of the index on purpose and do not make a result incomplete.
-- Linux is the qualified platform for this release.
+- Qualified on Linux, macOS and Windows. On Windows, keep the store on a local disk; a network path is not supported.
