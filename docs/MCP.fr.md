@@ -2,7 +2,7 @@
 
 [English](MCP.md) · [Surface d'opérations](OPERATIONS.fr.md) · [README](../README.fr.md)
 
-`persistent-memory-mcp` sert la [surface d'opérations](OPERATIONS.fr.md) à tout client MCP en stdio. Il n'utilise que la bibliothèque standard de Python. Chaque outil passe par `PersistentMemory` : un client voit donc toute la mémoire, avec versions exactes, artefacts dérivés, corrections, retrait en cascade, leçons et avis de retrait.
+`persistent-memory-mcp` sert la [surface d'opérations](OPERATIONS.fr.md) à tout client MCP, en stdio ou en HTTP (Streamable HTTP). Il n'utilise que la bibliothèque standard de Python. Chaque outil passe par `PersistentMemory` : un client voit donc toute la mémoire, avec versions exactes, artefacts dérivés, corrections, retrait en cascade, leçons et avis de retrait.
 
 ## Le lancer
 
@@ -21,7 +21,11 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `--create` | Crée la mémoire si elle n'existe pas. Sans cette option, une mémoire absente arrête le serveur avec un message sur stderr. |
 | `--read-only` | Seulement `memory_search`, `memory_read`, `memory_explain`, `memory_plan_withdrawal` et `memory_notices`. |
 | `--no-withdraw` | Tout sauf `memory_withdraw`. |
-| `--session ID` | Nom de la session dans le registre. Par défaut : un nouveau à chaque processus. |
+| `--session ID` | Nom de la session dans le registre, en stdio. Par défaut : un nouveau à chaque processus. |
+| `--transport http`, `--host`, `--port` | Sert le HTTP sur `/mcp` au lieu de stdio. Par défaut `127.0.0.1:8766`. |
+| `--token-file FILE` | Jeton porteur, lu dans un fichier que seul son propriétaire peut lire. Obligatoire hors boucle locale. |
+| `--allow-origin URL` | Origine de navigateur autorisée à appeler le point HTTP ; répétable. Par défaut : aucune. |
+| `--qdrant-url`, `--embed-url`, `--embed-model` | [Projection Qdrant](QDRANT.fr.md) facultative, fusionnée dans `memory_search`. |
 
 `python -m hermes_memory.mcp_server` lance le même programme.
 
@@ -49,6 +53,20 @@ Les résultats sont du texte JSON ; à partir du protocole 2025-06-18, ils sont 
 Un processus serveur est une session du registre. `memory_search` et `memory_read` notent ce que la session a vu. Quand l'une de ces versions est ensuite retirée, invalidée ou remplacée, par ce client ou par tout autre processus qui utilise la mémoire, le résultat d'outil suivant porte `memory_notices`, une fois par version. Les `instructions` du serveur demandent au modèle de ne plus s'appuyer dessus.
 
 Un client qui garde le serveur actif d'une conversation à l'autre (c'est le cas de la passerelle d'Hermes Agent) partage une seule session entre elles. `--session` permet de choisir le nom soi-même.
+
+## Transport HTTP
+
+`--transport http` sert un seul point, `/mcp`. Un POST porte un message JSON-RPC et reçoit une réponse JSON ; `initialize` renvoie un en-tête `Mcp-Session-Id` que les requêtes suivantes répètent ; DELETE termine la session ; GET répond 405, car le serveur n'ouvre jamais de flux. Chaque session MCP est sa propre session du registre : les avis vont au client qui a vu une version.
+
+En boucle locale, aucun jeton n'est nécessaire. Hors boucle locale, le serveur refuse de démarrer sans `--token-file`, et chaque requête doit porter `Authorization: Bearer <jeton>`. Les requêtes avec un en-tête `Origin` de navigateur sont refusées, sauf origine autorisée. Les corps sont limités à 4 Mio et le serveur garde au plus 256 sessions ; une session inactive expire après un jour.
+
+Hermes Agent, avec le serveur déjà lancé :
+
+```yaml
+mcp_servers:
+  memory:
+    url: http://127.0.0.1:8766/mcp
+```
 
 ## Configuration des clients
 
@@ -91,5 +109,7 @@ Le 14 novembre 2026, sous Linux :
 - SDK MCP officiel pour Python 2.3.0 (client stdio) : protocole 2025-11-25 négocié, dix outils listés ; mémorisation, dérivation, recherche, retrait en cascade, avis, refus d'un argument inconnu et leçon vérifiés de bout en bout.
 - Claude Code 2.1.289 : le serveur s'est connecté et ses dix outils ont été listés. Le tour du modèle n'a pas tourné, la connexion Claude de cette machine avait expiré.
 - Hermes Agent avec un modèle local de 9 milliards de paramètres : les outils ont été enregistrés dans `mcp-memory` ; un fait a été mémorisé, retrouvé avec son `artifact_id` dans une conversation suivante, puis retiré à la demande. Un petit modèle appelle parfois un outil sans son argument obligatoire ; Hermes Agent refuse l'appel et le modèle recommence.
+
+En HTTP (`--transport http`), avec le SDK MCP officiel pour Python 2.3.0 : 2025-11-25 négocié, dix outils listés, une recherche sémantique par la [projection Qdrant](QDRANT.fr.md), un retrait avec son avis. Le fournisseur Hermes Agent et ce serveur partageaient la même mémoire ; voir [HERMES-AGENT.fr.md](HERMES-AGENT.fr.md).
 
 Ce sont des contrôles d'interopérabilité, pas des mesures de qualité.

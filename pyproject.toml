@@ -19,6 +19,9 @@ hermes-memory-typed = "hermes_memory.typed_admin:main"
 hermes-memory-demo = "hermes_memory.demo:main"
 persistent-memory-mcp = "hermes_memory.mcp_server:main"
 
+[project.entry-points."hermes_agent.memory_providers"]
+persistent-memory = "hermes_memory.hermes_agent:register"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["hermes_memory._admission_sources*"]

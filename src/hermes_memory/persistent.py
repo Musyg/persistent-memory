@@ -19,6 +19,7 @@ Authority stays in hermes_memory.core. The search index (index.db) and the ledge
 from __future__ import annotations
 
 import json
+import logging
 import re
 import sqlite3
 import threading
@@ -31,7 +32,8 @@ from pathlib import Path
 from . import core
 from .core import Authority, Memory, MemoryError, canonical, name, require
 from .typed_memory import KINDS, SCHEMA as TYPED_SCHEMA, RetrievalError, TypedMemory, decode
-from .typed_memory import canonical as envelope_json, metadata as typed_metadata
+from .typed_memory import canonical as envelope_json, conditions as typed_conditions, metadata as typed_metadata
+from .typed_memory import timestamp
 
 __all__ = ["PersistentMemory", "OPERATIONS", "KINDS", "RELATIONS", "STATES", "utc_now"]
 
@@ -52,6 +54,8 @@ _BATCH = 256
 _SHORT_QUERY_TOKENS = 8
 _LONG_QUERY_TOKENS = 32
 _MAX_REASON = 500
+_RRF_K = 60
+logger = logging.getLogger("persistent_memory")
 
 
 def utc_now():
@@ -91,6 +95,7 @@ class PersistentMemory:
         # TypedMemory pins the exact core bytes; the private reads below rely on that pin.
         self.typed = TypedMemory(memory, self.root / "index.db")
         self._lock = threading.RLock()
+        self._projections = []
         self._ledger = self.root / "ledger.db"
         with closing(self._connect()) as c, c:
             c.executescript("""
@@ -141,6 +146,32 @@ CREATE TABLE IF NOT EXISTS experience(lesson_ref TEXT PRIMARY KEY, workspace TEX
         """Purge stale projections, then rebuild the search index at the new epoch."""
         self.memory.drain_outbox()
         self.typed.sync(self.workspace)
+        for projection in self._projections:
+            self._sync_projection(projection)
+
+    def _sync_projection(self, projection):
+        # The authority already holds the write: a projection that cannot follow is marked
+        # stale, and every candidate it returns is revalidated before use anyway.
+        try:
+            projection.sync()
+            projection.status = "ok"
+        except (OSError, ValueError) as exc:
+            projection.status = "unavailable"
+            logger.warning("projection %s not synchronized: %s", projection.name, exc)
+
+    def attach_projection(self, projection):
+        """Add a disposable index (e.g. Qdrant) that search() fuses with lexical candidates.
+
+        A projection only proposes refs; each one is read again through the authority.
+        """
+        with self._lock:
+            self._projections.append(projection)
+            self._sync_projection(projection)
+        return projection.status
+
+    @property
+    def projections(self):
+        return [{"name": p.name, "status": p.status} for p in self._projections]
 
     @staticmethod
     def _attributes(kind, aliases, valid_from, valid_until, observed_at, preconditions, confidence):
@@ -226,7 +257,9 @@ CREATE TABLE IF NOT EXISTS experience(lesson_ref TEXT PRIMARY KEY, workspace TEX
                session=None):
         """Admissible current versions only. Validity windows are checked at as_of (default now).
 
-        A long natural-language query keeps its words of three characters or more.
+        A long natural-language query keeps its words of three characters or more. With an
+        attached projection, its candidates are revalidated, filtered the same way and fused
+        with the lexical ones (reciprocal rank fusion).
         """
         require(type(query) is str and 0 < len(query) <= 4096, "invalid_query")
         terms = self._terms(query)
@@ -235,15 +268,25 @@ CREATE TABLE IF NOT EXISTS experience(lesson_ref TEXT PRIMARY KEY, workspace TEX
             return {"status": "completed", "reason": None, "epoch": self.memory.checkpoint()["epoch"],
                     "items": [], "exclusions": [], "coverage": None, "complete": True, "query_terms": ""}
         with self._lock:
+            hybrid = bool(self._projections)
+            pool = min(64, max(top_k * 4, 20)) if hybrid else top_k
             for _ in range(3):
                 result = self.typed.search(self.workspace, terms, as_of=as_of, conditions=conditions,
-                                           evidence_kinds=kinds, top_k=top_k, max_context_chars=max_chars)
+                                           evidence_kinds=kinds, top_k=pool,
+                                           max_context_chars=64000 if hybrid else max_chars)
                 if result["status"] == "index_stale":
                     self.typed.sync(self.workspace)
                 elif result["status"] != "epoch_changed":
                     break
             items = [{"ref": i["ref"], "artifact_id": i["ref"]["artifact_id"], "text": i["text"],
                       "metadata": i["metadata"]} for i in result["items"]]
+            exclusions = list(result.get("exclusions", []))
+            semantic = None
+            if hybrid and result["status"] == "completed":
+                items, extra, semantic = self._fuse(query, items, kinds, as_of, conditions, pool)
+                exclusions += extra
+                items, over = self._budget(items, top_k, max_chars)
+                exclusions += over
             if items and session is not None:
                 self.record_exposure(session, [i["ref"] for i in items], "search")
             coverage = result.get("coverage")
@@ -254,9 +297,78 @@ CREATE TABLE IF NOT EXISTS experience(lesson_ref TEXT PRIMARY KEY, workspace TEX
                     and coverage["unmanaged"] == self._readable_experience_parents()):
                 # Trace and feedback sources are left out of the index on purpose.
                 complete = True
-        return {"status": result["status"], "reason": result["reason"], "epoch": result.get("epoch"),
-                "items": items, "exclusions": result.get("exclusions", []), "coverage": coverage,
-                "complete": complete, "query_terms": terms}
+        out = {"status": result["status"], "reason": result["reason"], "epoch": result.get("epoch"),
+               "items": items, "exclusions": exclusions, "coverage": coverage, "complete": complete,
+               "query_terms": terms}
+        if semantic is not None:
+            out["semantic"] = semantic
+        return out
+
+    @staticmethod
+    def _admit(attributes, kinds, now, inputs):
+        """The typed retrieval rules, applied to a candidate that did not come from its index."""
+        if kinds is not None and attributes["evidence_kind"] not in kinds:
+            return "evidence_kind_filtered"
+        start, end = timestamp(attributes["valid_from"]), timestamp(attributes["valid_until"])
+        if (start is not None and now < start) or (end is not None and now >= end):
+            return "outside_declared_valid_time"
+        if any(key not in inputs or type(inputs[key]) is not type(value) or inputs[key] != value
+               for key, value in attributes["preconditions"].items()):
+            return "precondition_unknown_or_false"
+        return None
+
+    def _fuse(self, query, lexical, kinds, as_of, conditions, pool):
+        now = timestamp(as_of)
+        inputs = typed_conditions({} if conditions is None else conditions)
+        ranked = [lexical]
+        exclusions, states = [], []
+        for projection in self._projections:
+            try:
+                refs = projection.query(query, pool)
+                state = {"projection": projection.name, "status": projection.status, "candidates": len(refs)}
+            except (OSError, ValueError) as exc:
+                logger.warning("projection %s query failed: %s", projection.name, exc)
+                refs, state = [], {"projection": projection.name, "status": "unavailable", "candidates": 0}
+            states.append(state)
+            refs = [r for r in refs if r.get("workspace") == self.workspace]
+            found = []
+            for start in range(0, len(refs), _BATCH):
+                for decision in self.memory.validate(refs[start:start + _BATCH])["decisions"]:
+                    if not decision["allowed"]:
+                        exclusions.append({"ref": decision["ref"], "reason": decision["reason"]})
+                        continue
+                    envelope = self._present(decision)
+                    if not envelope["managed"]:
+                        continue
+                    reason = self._admit(envelope["metadata"], kinds, now, inputs)
+                    if reason is not None:
+                        exclusions.append({"ref": decision["ref"], "reason": reason})
+                        continue
+                    found.append({"ref": decision["ref"], "artifact_id": decision["ref"]["artifact_id"],
+                                  "text": envelope["text"], "metadata": envelope["metadata"]})
+            ranked.append(found)
+        scores, items = {}, {}
+        for listing in ranked:
+            for rank, item in enumerate(listing):
+                k = canonical(item["ref"])
+                scores[k] = scores.get(k, 0.0) + 1.0 / (_RRF_K + rank + 1)
+                items.setdefault(k, item)
+        order = sorted(scores, key=lambda k: (-scores[k], k))
+        return [items[k] for k in order], exclusions, states[0] if len(states) == 1 else states
+
+    @staticmethod
+    def _budget(items, top_k, max_chars):
+        kept, over, size = [], [], 0
+        for item in items:
+            extra = len(item["text"]) + (2 if kept else 0)
+            if len(kept) >= top_k:
+                break
+            if size + extra > max_chars:
+                over.append({"ref": item["ref"], "reason": "context_budget"})
+                continue
+            kept.append(item)
+            size += extra
+        return kept, over
 
     def _readable_experience_parents(self):
         with closing(self._connect()) as c:
