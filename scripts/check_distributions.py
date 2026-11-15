@@ -130,7 +130,9 @@ def extract_sources(archive, destination):
     destination.mkdir()
     with tarfile.open(archive, 'r:gz') as tar:
         members = tar.getmembers()
-        if len(members) > 500 or sum(m.size for m in members) > 64 * 1024 * 1024:
+        # Guard against an unexpected or hostile archive. The published evidence data in
+        # benchmarks/ alone is about 64 MiB uncompressed, hence the margin.
+        if len(members) > 1000 or sum(m.size for m in members) > 256 * 1024 * 1024:
             raise RuntimeError('Unexpected source archive size')
         for member in members:
             target = (destination / member.name).resolve()
