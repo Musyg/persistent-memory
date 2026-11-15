@@ -1,6 +1,6 @@
 # Hermes Agent provider
 
-[Français](HERMES-AGENT.fr.md) · [Operations surface](OPERATIONS.md) · [MCP server](MCP.md)
+[Français](HERMES-AGENT.fr.md) · [Operations surface](OPERATIONS.md) · [MCP server](MCP.md) · [Connect your tools](SETUP.md)
 
 Nous Research's Hermes Agent accepts one external memory provider. Installing this package in Hermes Agent's environment registers `persistent-memory` through the `hermes_agent.memory_providers` entry point. Hermes Agent then gets the same memory as an MCP client, with two extras: validated memory is recalled before each turn, and a turn opens with a notice when something the conversation was shown is no longer valid.
 
@@ -12,14 +12,20 @@ In Hermes Agent's environment:
 pip install /path/to/persistent-memory
 ```
 
-In the profile's `config.yaml`:
+Then, from that environment:
+
+```sh
+persistent-memory setup hermes-agent
+```
+
+This selects the provider and points it at the store your other tools use, workspace `default` ([SETUP.md](SETUP.md)). To do it by hand, put this in the profile's `config.yaml`:
 
 ```yaml
 memory:
   provider: persistent-memory
 ```
 
-The store is created in `$HERMES_HOME/persistent-memory/store` unless `store_dir` says otherwise.
+Configured by hand, the store is created in `$HERMES_HOME/persistent-memory/store` unless `store_dir` says otherwise.
 
 ## Configuration
 

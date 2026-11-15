@@ -1,6 +1,6 @@
 # MCP server
 
-[Français](MCP.fr.md) · [Operations surface](OPERATIONS.md) · [README](../README.md)
+[Français](MCP.fr.md) · [Operations surface](OPERATIONS.md) · [Connect your tools](SETUP.md) · [README](../README.md)
 
 `persistent-memory-mcp` serves the [operations surface](OPERATIONS.md) to any MCP client, over stdio or Streamable HTTP. It uses the Python standard library only. Every tool goes through `PersistentMemory`, so a client sees the whole memory: exact versions, derived artifacts, corrections, withdrawal with cascade, lessons and withdrawal notices.
 
@@ -12,11 +12,11 @@ python3 -m venv .venv
 .venv/bin/persistent-memory-mcp --store ~/.persistent-memory --create
 ```
 
-The client starts this command itself; you only put it in the client's configuration.
+The client starts this command itself; you only put it in the client's configuration. `persistent-memory setup <client>` writes that configuration for you; see [SETUP.md](SETUP.md).
 
 | Option | Meaning |
 | --- | --- |
-| `--store DIR` | Store directory. Default: `$PERSISTENT_MEMORY_DIR`. |
+| `--store DIR` | Store directory. Default: `$PERSISTENT_MEMORY_DIR`, else the platform data folder ([SETUP.md](SETUP.md)). |
 | `--workspace NAME` | Workspace inside the store. Default: `$PERSISTENT_MEMORY_WORKSPACE` or `default`. |
 | `--create` | Create the store if it does not exist. Without it, a missing store stops the server with a message on stderr. |
 | `--read-only` | Only `memory_search`, `memory_read`, `memory_explain`, `memory_plan_withdrawal` and `memory_notices`. |
@@ -27,7 +27,7 @@ The client starts this command itself; you only put it in the client's configura
 | `--allow-origin URL` | Browser origin allowed to call the HTTP endpoint; repeatable. Default: none. |
 | `--qdrant-url`, `--embed-url`, `--embed-model` | Optional [Qdrant projection](QDRANT.md) fused into `memory_search`. |
 
-`python -m hermes_memory.mcp_server` is the same program.
+`python -m hermes_memory.mcp_server` and `persistent-memory mcp` are the same program.
 
 ## Tools
 
@@ -93,7 +93,7 @@ mcp_servers:
     timeout: 60
 ```
 
-Any other MCP client: a stdio server with that command and those arguments.
+Any other MCP client: a stdio server with that command and those arguments. For the clients listed in [SETUP.md](SETUP.md), `persistent-memory setup` writes this for you.
 
 ## Protocol
 

@@ -360,8 +360,9 @@ def attach_projection(memory, options):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="persistent-memory-mcp", description=__doc__.splitlines()[0])
-    parser.add_argument("--store", default=os.environ.get("PERSISTENT_MEMORY_DIR"),
-                        help="Store directory; default $PERSISTENT_MEMORY_DIR")
+    parser.add_argument("--store", default=None,
+                        help="Store directory; default $PERSISTENT_MEMORY_DIR, else the platform data folder "
+                             "(see persistent-memory status)")
     parser.add_argument("--workspace", default=os.environ.get("PERSISTENT_MEMORY_WORKSPACE", "default"))
     parser.add_argument("--create", action="store_true", help="Create the store if it does not exist")
     parser.add_argument("--read-only", action="store_true",
@@ -378,7 +379,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     logging.basicConfig(stream=sys.stderr, level=logging.WARNING, format="persistent-memory-mcp: %(message)s")
     if not args.store:
-        parser.error("--store or PERSISTENT_MEMORY_DIR is required")
+        from .client_setup import default_store
+        args.store = str(default_store())
     try:
         memory = PersistentMemory(os.path.expanduser(args.store), args.workspace, create=args.create)
         status = attach_projection(memory, args)

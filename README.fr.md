@@ -1,14 +1,24 @@
 # Mémoire persistante pour agents IA
 
-Persistent Memory propose deux paquets Python installables séparément : le noyau mémoire présenté ici et un [registre de politiques facultatif](PACKAGES.fr.md). Leurs identifiants techniques restent `hermes-memory-core` et `hermes-policy-registry`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
+Persistent Memory propose deux paquets Python installables séparément : la mémoire présentée ici, distribuée sous le nom `persistent-memory` (module Python `hermes_memory`), et un [registre de politiques facultatif](PACKAGES.fr.md), `hermes-policy-registry`. Les versions jusqu'à 0.3.0a5 ont été publiées sous le nom `hermes-memory-core`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
 
-[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md) · [Serveur MCP](docs/MCP.fr.md) · [Hermes Agent](docs/HERMES-AGENT.fr.md) · [Qdrant](docs/QDRANT.fr.md)
+[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md) · [Serveur MCP](docs/MCP.fr.md) · [Hermes Agent](docs/HERMES-AGENT.fr.md) · [Qdrant](docs/QDRANT.fr.md) · [Brancher vos outils](docs/SETUP.fr.md)
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
 Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux est la plateforme qualifiée. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
 
 Une correction ciblée de la validation des identifiants réduit le temps instrumenté de 6,79 % et le CPU de 6,77 % en médiane sur trois nouvelles comparaisons appariées. Les six exécutions conservent les lectures et les retraits attendus. [Protocole, mesures et reproduction](benchmarks/efficiency-20261026/README.fr.md).
+
+## La brancher à vos outils
+
+```sh
+python3 -m venv ~/.persistent-memory
+~/.persistent-memory/bin/python -m pip install /chemin/vers/persistent-memory
+~/.persistent-memory/bin/persistent-memory setup claude-code
+```
+
+`setup` accepte aussi `claude-desktop`, `cursor`, `vscode`, `windsurf`, `codex` et `hermes-agent`. Tous les outils branchés utilisent la même mémoire, dans le dossier de données du système, par le [serveur MCP](docs/MCP.fr.md) ou, pour Hermes Agent, par son [fournisseur de mémoire](docs/HERMES-AGENT.fr.md). [SETUP.fr.md](docs/SETUP.fr.md) indique où la configuration de chaque outil est écrite et ce que `setup` refuse d'écraser.
 
 ## Essayer un parcours complet
 
@@ -86,20 +96,20 @@ memory.notices("chat-1")                     # chat-1 est prévenu, une fois
 
 L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [guide de l’API](docs/API.fr.md).
 
-Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. Aucun adaptateur public Qdrant ou LanceDB n'est annoncé.
+Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. La [projection Qdrant](docs/QDRANT.fr.md) est l'adaptateur vectoriel public ; aucun adaptateur LanceDB n'est annoncé.
 
 ```sh
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a5-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory-0.4.0a1-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 298 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 324 méthodes de test publiques ; le registre de politiques facultatif en compte 49. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
 
 La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
 

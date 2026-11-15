@@ -1,14 +1,24 @@
 # Persistent Memory for AI Agents
 
-Persistent Memory contains two independently installable Python packages: the memory core described here and an [optional policy registry](PACKAGES.md). The technical package names remain `hermes-memory-core` and `hermes-policy-registry`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](PACKAGES.md).
+Persistent Memory contains two independently installable Python packages: the memory described here, distributed as `persistent-memory` (Python module `hermes_memory`), and an [optional policy registry](PACKAGES.md), `hermes-policy-registry`. Releases up to 0.3.0a5 were published as `hermes-memory-core`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](PACKAGES.md).
 
-[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md) · [Testing and reproducibility](docs/TESTING.md) · [Operations surface](docs/OPERATIONS.md) · [MCP server](docs/MCP.md) · [Hermes Agent](docs/HERMES-AGENT.md) · [Qdrant](docs/QDRANT.md)
+[Français](README.fr.md) · [API and service](docs/API.md) · [Recovery contract](docs/RECOVERY.md) · [Contributing](CONTRIBUTING.md) · [Testing and reproducibility](docs/TESTING.md) · [Operations surface](docs/OPERATIONS.md) · [MCP server](docs/MCP.md) · [Hermes Agent](docs/HERMES-AGENT.md) · [Qdrant](docs/QDRANT.md) · [Connect your tools](docs/SETUP.md)
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
 Python 3.11+, SQLite with FTS5, standard library only. Linux is the qualified platform. No model, weights, account, external database, or persistent server is required. This is an alpha library; the repository contains synthetic examples and reusable code, not a private memory system or its data.
 
 A focused identifier-validation change reduces instrumented runtime by a median 6.79% and CPU time by 6.77% across three new paired comparisons. The six cells retain the expected reads and revocation behavior. [Workload, measurements and reproduction](benchmarks/efficiency-20261026/README.md).
+
+## Connect it to your tools
+
+```sh
+python3 -m venv ~/.persistent-memory
+~/.persistent-memory/bin/python -m pip install /path/to/persistent-memory
+~/.persistent-memory/bin/persistent-memory setup claude-code
+```
+
+`setup` also accepts `claude-desktop`, `cursor`, `vscode`, `windsurf`, `codex` and `hermes-agent`. Every connected tool uses the same store, in the platform's data folder, through the [MCP server](docs/MCP.md) or, for Hermes Agent, its [memory provider](docs/HERMES-AGENT.md). [SETUP.md](docs/SETUP.md) lists where each tool's configuration is written and what `setup` refuses to overwrite.
 
 ## Try the complete example
 
@@ -86,7 +96,7 @@ memory.notices("chat-1")                     # chat-1 is told, once
 
 The Python server API adds `make_server(..., typed_only=True)` to expose only the authenticated typed POST routes; core `/rpc`, `/validate` and GET routes are refused. Configure `Policy(render_source_references=True)` and `Client(..., render_source_references=True)` together when using referenced contexts. These options bind a configured workspace and bearer token; they do not authenticate a person or voice. See [API.md](docs/API.md).
 
-The typed HTTP routes and client are read-only; the optional combined server also exposes the **privileged core `/rpc` API** under the same token. It is intended for a trusted application boundary, not an untrusted multi-tenant deployment. Workspace names are logical partitions, not user ACLs. No public vector backend adapter is advertised; generic core projections retain exact refs but are not Qdrant or LanceDB integrations.
+The typed HTTP routes and client are read-only; the optional combined server also exposes the **privileged core `/rpc` API** under the same token. It is intended for a trusted application boundary, not an untrusted multi-tenant deployment. Workspace names are logical partitions, not user ACLs. The [Qdrant projection](docs/QDRANT.md) is the public vector backend adapter; other generic core projections retain exact refs but are not Qdrant or LanceDB integrations.
 
 ## Verify from an installed wheel
 
@@ -94,14 +104,14 @@ The typed HTTP routes and client are read-only; the optional combined server als
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/hermes_memory_core-0.3.0a5-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory-0.4.0a1-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 298 public test methods; the optional policy registry has 49. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 324 public test methods; the optional policy registry has 49. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](docs/releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](docs/TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 
