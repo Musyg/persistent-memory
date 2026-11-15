@@ -10,10 +10,10 @@ Le paquet n'utilise que la bibliothèque standard de Python (3.11 ou plus récen
 
 ```sh
 python3 -m venv ~/.persistent-memory
-~/.persistent-memory/bin/python -m pip install persistent-memory
+~/.persistent-memory/bin/python -m pip install persistent-memory-mcp
 ```
 
-Sous Windows, les commandes sont dans `.persistent-memory\Scripts\`. `pip install persistent-memory` installe depuis PyPI ; une copie du dépôt ou le wheel d'une release conviennent aussi.
+Sous Windows, les commandes sont dans `.persistent-memory\Scripts\`. `pip install persistent-memory-mcp` installe depuis PyPI ; une copie du dépôt ou le wheel d'une release conviennent aussi.
 
 Si une version précédente est installée sous son ancien nom, désinstallez-la d'abord : `pip uninstall hermes-memory-core`. Les deux noms contiennent le même module `hermes_memory`.
 

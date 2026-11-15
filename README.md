@@ -10,11 +10,11 @@ Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, ma
 
 ```sh
 python3 -m venv ~/.persistent-memory
-~/.persistent-memory/bin/pip install persistent-memory
+~/.persistent-memory/bin/pip install persistent-memory-mcp
 ~/.persistent-memory/bin/persistent-memory setup claude-code
 ```
 
-While 0.4.0a2 is the only release, pip selects it without `--pre`. On Windows the commands are in `.persistent-memory\Scripts\`.
+The package on PyPI is named `persistent-memory-mcp`; the commands and the import name stay `persistent-memory` and `persistent_memory`. While 0.4.0a2 is the only release, pip selects it without `--pre`. On Windows the commands are in `.persistent-memory\Scripts\`.
 
 `setup` accepts `claude-code`, `claude-desktop`, `cursor`, `vscode` (GitHub Copilot), `windsurf`, `codex` and `hermes-agent` (Nous Research's Hermes Agent). Every tool you connect opens the same store in the platform's data folder: something remembered in one is found in the others, and a withdrawal made in one is reported to every tool that was shown the entry.
 

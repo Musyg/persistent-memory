@@ -3390,5 +3390,11 @@
     "public_test_methods": 356,
     "third_party_dependencies": 0,
     "private_history_included": false
+  },
+  "pypi_name_update_20261115": {
+    "distribution": "persistent-memory-mcp",
+    "reason": "PyPI and TestPyPI refuse persistent-memory as too similar to the existing project PersistentMemory",
+    "unchanged": ["repository name", "console scripts", "import names persistent_memory and hermes_memory", "MCP server name", "store folder name"],
+    "core_sha256": "d7ffe470814a7d2e289217c712b042dccf1b397d2529b118bcfde2dd0957e4f6"
   }
 }
