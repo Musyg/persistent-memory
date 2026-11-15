@@ -281,7 +281,6 @@ def probe(group,variant):
             return {'category':'integrity_refusal','mutation':variant,'recovered_after_restore':True}
         return business(group,variant,load())
 def child_main():
-    require('linux_only',sys.platform.startswith('linux'))
     group,variant=sys.argv[1:3];require('registered_variant',group in GROUPS and variant in GROUPS[group])
     network_calls=[]
     def blocked(*a,**k):network_calls.append('blocked');raise AssertionError('network_forbidden')
@@ -305,7 +304,7 @@ def run_group(group):
     rows=[]
     for variant in GROUPS[group]:
         env=dict(os.environ);env.pop('PYTHONPATH',None);env['PYTHONDONTWRITEBYTECODE']='1'
-        p=subprocess.run([sys.executable,'-I','-B',str(Path(__file__).resolve()),group,variant],cwd=tempfile.gettempdir(),env=env,capture_output=True,text=True,encoding='utf-8',timeout=20)
+        p=subprocess.run([sys.executable,'-I','-B',str(Path(__file__).resolve()),group,variant],cwd=tempfile.gettempdir(),env=env,capture_output=True,text=True,encoding='utf-8',timeout=60)
         try:row=json.loads(p.stdout)
         except (ValueError,TypeError):row=dict(group=group,variant=variant,passed=False,error_type='invalid_probe_json')
         row['child_returncode']=p.returncode;row['child_stderr_empty']=not p.stderr

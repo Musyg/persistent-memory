@@ -2,6 +2,7 @@
 
 Run with the same environment as test_independent.py on Linux.
 """
+from contextlib import closing
 import sqlite3
 import unittest
 
@@ -17,7 +18,7 @@ class ReviewEdges(unittest.TestCase):
 
     def assert_controlled_refusal(self, raw):
         self.seed()
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("UPDATE documents SET ref=?", (raw,))
         try:
             result = self.typed.search("demo", "copper")
@@ -37,7 +38,7 @@ class ReviewEdges(unittest.TestCase):
         self.assert_controlled_refusal('{"artifact_id":"a","version_id":"v"}')
 
     def test_empty_index_schema_controlled_refusal(self):
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("DELETE FROM index_schema")
         with self.assertRaises(RetrievalError):
             TypedMemory(self.memory, self.index)

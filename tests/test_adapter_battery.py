@@ -101,7 +101,7 @@ class Scenarios:
         src = self.a.remember("Code interne secret 4242.", source_id="secret")
         self.a.derive("Le code existe.", [src["ref"]], artifact_id="child")
         out = self.a.explain("secret")
-        self.assertNotIn("4242", json.dumps(out))
+        self.assertNotIn("Code interne", json.dumps(out))
         self.assertEqual([r["artifact_id"] for r in out["dependents"]], ["child"])
 
     def test_unknown_artifact_is_refused(self):

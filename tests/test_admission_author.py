@@ -23,7 +23,7 @@ class AdmissionPackageAuthor(unittest.TestCase):
                                 ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
                 preamble = 'import sys; sys.path.insert(0, '+repr(str(root))+')\n'
             result = subprocess.run([sys.executable, '-I', '-B', '-c', preamble+textwrap.dedent(source)],
-                                    cwd=root, text=True, capture_output=True, timeout=15)
+                                    cwd=root, text=True, encoding='utf-8', capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr)
             return result.stdout
 

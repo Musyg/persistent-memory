@@ -22,6 +22,7 @@ import re
 import shutil
 import subprocess
 import sys
+import sysconfig
 import tempfile
 import time
 import tomllib
@@ -65,7 +66,8 @@ class Context:
 
 
 def _run(argv):
-    return subprocess.run([str(a) for a in argv], capture_output=True, text=True, timeout=120)
+    return subprocess.run([str(a) for a in argv], capture_output=True, text=True, encoding="utf-8",
+                          errors="replace", timeout=120)
 
 
 @dataclass
@@ -467,7 +469,7 @@ def _claude_user(request, ctx, entry):
         steps, action = ([drop, add] if existing is not None else [add]), \
             ("updated" if existing is not None else "added")
     result = Result("claude-code", "user", action, "claude mcp (user scope)",
-                    commands=[" ".join(_quote(a) for a in s) for s in steps])
+                    commands=[" ".join(_quote(a, ctx) for a in s) for s in steps])
     if request.dry_run:
         result.notes.append("dry run: the commands above would run")
         return result
@@ -479,18 +481,29 @@ def _claude_user(request, ctx, entry):
     return result
 
 
-def _quote(arg):
+def _quote(arg, ctx=None):
+    """Quote one argument for the shell the printed command is meant for."""
+    if ctx is not None and ctx.windows:
+        return subprocess.list2cmdline([arg])  # the Windows command-line rules, as cmd.exe and CreateProcess read them
     return arg if re.match(r"^[A-Za-z0-9_./:=@+-]+$", arg) else "'" + arg.replace("'", "'\"'\"'") + "'"
 
 
 def _hermes_command(request, ctx):
     if request.hermes_command:
         return request.hermes_command, True
-    local = Path(ctx.python).parent / ("hermes.exe" if ctx.windows else "hermes")
-    if local.is_file():
-        return str(local), True
-    found = ctx.which("hermes")
-    return found, False
+    exe = "hermes.exe" if ctx.windows else "hermes"
+    folders = [Path(ctx.python).parent]
+    if ctx.python == sys.executable:
+        # Console scripts live in the interpreter's scripts folder, which is not the folder of
+        # python.exe in a plain Windows install (Python3xx\Scripts) or a user install.
+        scripts = sysconfig.get_path("scripts")
+        if scripts and Path(scripts) not in folders:
+            folders.append(Path(scripts))
+    for folder in folders:
+        local = folder / exe
+        if local.is_file():
+            return str(local), True
+    return ctx.which("hermes"), False
 
 
 def _hermes(request, ctx, store, entry):
@@ -571,7 +584,7 @@ def _hermes_mcp(request, ctx, run, entry):
         return result
     value = json.dumps({**entry, "timeout": 60})
     result = Result("hermes-agent", "user", "updated" if exists else "added", "hermes config " + key,
-                    commands=["hermes config set %s %s" % (key, _quote(value))],
+                    commands=["hermes config set %s %s" % (key, _quote(value, ctx))],
                     notes=["the tools appear in the mcp-%s toolset" % request.name])
     if not request.dry_run:
         _check(run("set", key, value), "hermes config set")

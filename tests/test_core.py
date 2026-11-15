@@ -1,3 +1,4 @@
+from contextlib import closing
 import concurrent.futures
 import json
 from pathlib import Path
@@ -41,15 +42,15 @@ class CoreScenarios(unittest.TestCase):
             self.m.derive('w','scan-stale','must not publish','lesson',dependencies,epoch)
         self.assertEqual(self.authority.checkpoint()['epoch'],derived['epoch'])
         # A redundant inner scan is removed, not the transaction integrity gate.
-        with sqlite3.connect(self.m.path) as data:
+        with closing(sqlite3.connect(self.m.path)) as data, data:
             content_count=data.execute('SELECT COUNT(*) FROM content').fetchone()[0]
-        with sqlite3.connect(self.authority.path) as authority:
+        with closing(sqlite3.connect(self.authority.path)) as authority, authority:
             authority.execute('UPDATE objects SET content_sha256=? WHERE artifact_id=?',('0'*64,'scan-source'))
         with self.assertRaisesRegex(MemoryError,'authority_state_mismatch'):
             self.m.register_source('w','scan-blocked','must not persist')
-        with sqlite3.connect(self.m.path) as data:
+        with closing(sqlite3.connect(self.m.path)) as data, data:
             self.assertEqual(data.execute('SELECT COUNT(*) FROM content').fetchone()[0],content_count)
-        with sqlite3.connect(self.authority.path) as authority:
+        with closing(sqlite3.connect(self.authority.path)) as authority, authority:
             self.assertEqual(authority.execute('SELECT MAX(seq) FROM events').fetchone()[0],derived['epoch'])
     def test_mixed_and_independent_after_restore(self):
         f=self.derived(parents=[self.A,self.B]);self.m.backup(self.root/'old.db')
@@ -61,7 +62,7 @@ class CoreScenarios(unittest.TestCase):
         with patch('hermes_memory.core.atomic_json',side_effect=OSError('injected anchor outage')):
             with self.assertRaises(OSError):self.m.revoke_source('w','A','anchor-gap')
         self.assertFalse(self.m.read(self.B)['allowed'])
-        with sqlite3.connect(self.authority.path) as c:
+        with closing(sqlite3.connect(self.authority.path)) as c, c:
             c.row_factory=sqlite3.Row;trusted=self.authority._checkpoint(c)
         self.assertGreater(trusted['epoch'],old['epoch'])
         self.authority.recover_anchor(trusted)
@@ -129,13 +130,13 @@ class CoreScenarios(unittest.TestCase):
 
     def test_corrupt_dependencies_cannot_bypass_ledger(self):
         f=self.derived()
-        with sqlite3.connect(self.authority.path) as c:
+        with closing(sqlite3.connect(self.authority.path)) as c, c:
             c.execute('UPDATE objects SET dependencies=? WHERE artifact_id=?',('[]','F'))
         self.assertFalse(self.m.read(f)['allowed'])
 
     def test_status_alias_head_materialization_cannot_downgrade(self):
         self.m.rename(self.A,'new.md')
-        with sqlite3.connect(self.authority.path) as c:
+        with closing(sqlite3.connect(self.authority.path)) as c, c:
             c.execute('DELETE FROM aliases WHERE alias=?',('a.md',))
         self.assertFalse(self.m.read(self.B)['allowed'])
 

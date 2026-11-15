@@ -2,6 +2,7 @@
 import io
 import json
 import os
+import sqlite3
 import stat
 import subprocess
 import sys
@@ -100,22 +101,29 @@ class SetupCase(unittest.TestCase):
 
 class DefaultStoreTest(unittest.TestCase):
     def test_platform_folders(self):
-        home = Path("/h")
+        home = Path(tempfile.gettempdir()) / "h"
+        absolute = Path(tempfile.gettempdir()) / "x"  # absolute on the host OS (os.path.isabs("/x") is False on Windows)
         self.assertEqual(cs.default_store({}, "linux", home), home / ".local/share/persistent-memory")
-        self.assertEqual(cs.default_store({"XDG_DATA_HOME": "/x"}, "linux", home), Path("/x/persistent-memory"))
+        self.assertEqual(cs.default_store({"XDG_DATA_HOME": str(absolute)}, "linux", home),
+                         absolute / "persistent-memory")
         self.assertEqual(cs.default_store({"XDG_DATA_HOME": "rel"}, "linux", home),
                          home / ".local/share/persistent-memory")
         self.assertEqual(cs.default_store({}, "darwin", home),
                          home / "Library/Application Support/persistent-memory")
         self.assertEqual(cs.default_store({"LOCALAPPDATA": "/L"}, "win32", home), Path("/L/persistent-memory"))
         self.assertEqual(cs.default_store({}, "win32", home), home / "AppData/Local/persistent-memory")
-        self.assertEqual(cs.default_store({"PERSISTENT_MEMORY_DIR": "/s", "XDG_DATA_HOME": "/x"}, "linux", home),
-                         Path("/s"))
+        self.assertEqual(cs.default_store({"PERSISTENT_MEMORY_DIR": str(absolute / "s"),
+                                           "XDG_DATA_HOME": str(absolute)}, "linux", home), absolute / "s")
 
     def test_server_uses_default_store(self):
         with tempfile.TemporaryDirectory() as tmp:
-            env = {**os.environ, "XDG_DATA_HOME": tmp, "PERSISTENT_MEMORY_DIR": ""}
-            env.pop("PERSISTENT_MEMORY_DIR")
+            # Every folder the default store can come from points inside tmp, on every OS, so the
+            # test never touches the real LOCALAPPDATA, ~/Library or XDG folders.
+            env = {**os.environ, "XDG_DATA_HOME": tmp, "LOCALAPPDATA": tmp, "APPDATA": tmp, "HOME": tmp,
+                   "USERPROFILE": tmp, "PYTHONIOENCODING": "utf-8"}
+            env.pop("PERSISTENT_MEMORY_DIR", None)
+            store = cs.default_store(env, sys.platform, Path(tmp))
+            self.assertTrue(store.is_relative_to(tmp), store)
             proc = subprocess.run([sys.executable, "-m", "hermes_memory.mcp_server"], input=b"", env=env,
                                   capture_output=True, timeout=60)
             self.assertEqual(proc.returncode, 2)
@@ -123,7 +131,7 @@ class DefaultStoreTest(unittest.TestCase):
             proc = subprocess.run([sys.executable, "-m", "hermes_memory.mcp_server", "--create"], input=b"",
                                   env=env, capture_output=True, timeout=60)
             self.assertEqual(proc.returncode, 0, proc.stderr)
-            self.assertTrue((Path(tmp) / "persistent-memory" / "authority" / "authority.db").exists())
+            self.assertTrue((store / "authority" / "authority.db").exists())
 
 
 class JsonClientsTest(SetupCase):
@@ -204,16 +212,31 @@ class JsonClientsTest(SetupCase):
         self.assertFalse(self.store.exists())
         self.assertTrue(any("dry run" in n for n in result.notes))
 
-    @unittest.skipUnless(os.name == "posix", "symlinks need POSIX permissions in this test")
     def test_symlinked_file_is_followed(self):
+        self.follow_link()
+
+    def test_link_followed_when_the_os_refuses_symlinks(self):
+        with mock.patch.object(Path, "symlink_to", side_effect=OSError("privilege not held")):
+            self.follow_link()
+
+    def follow_link(self):
         real = self.root / "dotfiles" / "mcp.json"
         real.parent.mkdir()
         real.write_text("{}")
         link = self.home / ".cursor" / "mcp.json"
         link.parent.mkdir()
-        link.symlink_to(real)
-        self.setup("cursor")
-        self.assertTrue(link.is_symlink())
+        try:
+            link.symlink_to(real)
+        except OSError:
+            # Windows without the symlink privilege: model the link by resolving it to the real file.
+            link.write_text("{}")
+            genuine = os.path.realpath
+            with mock.patch("os.path.realpath", lambda p, *a, **k: str(real) if Path(p) == link else genuine(p, *a, **k)):
+                self.setup("cursor")
+            self.assertEqual(link.read_text(), "{}")
+        else:
+            self.setup("cursor")
+            self.assertTrue(link.is_symlink())
         self.assertIn("persistent-memory", json.loads(real.read_text())["mcpServers"])
 
     def test_vscode_user_and_shared_project_file(self):
@@ -413,6 +436,51 @@ class HermesTest(SetupCase):
         self.assertNotIn("persistent-memory", self.tools.hermes_config["mcp_servers"])
 
 
+class WindowsPrintedCommandsTest(SetupCase):
+    def test_printed_claude_command_uses_windows_quoting(self):
+        self.ctx.platform = "win32"
+        result = self.setup("claude-code", dry_run=True)
+        entry = json.dumps({"type": "stdio", **self.entry()})
+        expected = "claude mcp add-json --scope user persistent-memory " + subprocess.list2cmdline([entry])
+        self.assertEqual(result.commands, [expected])
+        self.assertIn('\\"', expected)  # embedded quotes are backslash-escaped for CreateProcess, not shell-quoted
+        self.assertNotIn("'", expected)
+        self.ctx.platform = "linux"
+        posix = self.setup("claude-code", dry_run=True).commands[0]
+        self.assertIn("'", posix)
+
+    def test_printed_hermes_command_uses_windows_quoting(self):
+        self.ctx.platform = "win32"
+        value = json.dumps({**self.entry(type="stdio"), "timeout": 60})
+        self.assertEqual(cs._quote(value, self.ctx), subprocess.list2cmdline([value]))
+        self.assertEqual(cs._quote("plain-1.0", self.ctx), "plain-1.0")
+        self.assertEqual(cs._quote("two words", self.ctx), '"two words"')
+        self.assertEqual(cs._quote("two words"), "'two words'")
+
+
+class HermesLookupTest(SetupCase):
+    def test_finds_hermes_in_the_scripts_folder_not_next_to_python(self):
+        scripts = self.root / "Python" / "Scripts"
+        scripts.mkdir(parents=True)
+        (scripts / "hermes").write_text("")
+        self.ctx.python = sys.executable
+        request = Request(client="hermes-agent")
+        with mock.patch.object(cs.sysconfig, "get_path", return_value=str(scripts)):
+            self.assertEqual(cs._hermes_command(request, self.ctx), (str(scripts / "hermes"), True))
+            self.ctx.platform = "win32"
+            self.assertEqual(cs._hermes_command(request, self.ctx), (None, False))  # looks for hermes.exe there
+            (scripts / "hermes.exe").write_text("")
+            self.assertEqual(cs._hermes_command(request, self.ctx), (str(scripts / "hermes.exe"), True))
+
+    def test_other_interpreters_do_not_borrow_this_ones_scripts_folder(self):
+        scripts = self.root / "Python" / "Scripts"
+        scripts.mkdir(parents=True)
+        (scripts / "hermes").write_text("")
+        self.ctx.python = str(self.root / "elsewhere" / "python")
+        with mock.patch.object(cs.sysconfig, "get_path", return_value=str(scripts)):
+            self.assertEqual(cs._hermes_command(Request(client="hermes-agent"), self.ctx), (None, False))
+
+
 class ArgumentsAndCliTest(SetupCase):
     def test_refusals(self):
         for kw, pattern in [({"client": "emacs"}, "unknown client"),
@@ -431,14 +499,18 @@ class ArgumentsAndCliTest(SetupCase):
         self.assertFalse(cs.is_ours("x"))
 
     def test_cli_setup_and_status(self):
-        env = {"HOME": str(self.home), "XDG_DATA_HOME": str(self.root / "data")}
+        data = self.root / "data"
+        env = {"HOME": str(self.home), "USERPROFILE": str(self.home), "XDG_DATA_HOME": str(data),
+               "LOCALAPPDATA": str(data), "APPDATA": str(data)}
+        store = cs.default_store({**env}, sys.platform, self.home)
         with mock.patch.dict(os.environ, env), mock.patch.object(Path, "home", return_value=self.home), \
                 mock.patch.object(Path, "cwd", return_value=self.project):
+            os.environ.pop("PERSISTENT_MEMORY_DIR", None)
             out, err = io.StringIO(), io.StringIO()
             with redirect_stdout(out), redirect_stderr(err):
                 self.assertEqual(persistent_cli.main(["setup", "cursor", "--json"]), 0)
             self.assertEqual(json.loads(out.getvalue())["action"], "added")
-            self.assertTrue((self.root / "data/persistent-memory/authority/authority.db").exists())
+            self.assertTrue((store / "authority" / "authority.db").exists())
             out = io.StringIO()
             with redirect_stdout(out):
                 self.assertEqual(persistent_cli.main(["status", "--json"]), 0)
@@ -452,13 +524,35 @@ class ArgumentsAndCliTest(SetupCase):
                 self.assertEqual(persistent_cli.main(["setup", "windsurf", "--scope", "project"]), 1)
             self.assertIn("supports --scope user only", err.getvalue())
 
+    def test_startup_failures_exit_2_with_one_line(self):
+        for failure in (sqlite3.OperationalError("disk I/O error"), PermissionError(13, "Access is denied")):
+            err = io.StringIO()
+            with mock.patch.object(persistent_cli, "setup", side_effect=failure), redirect_stderr(err), \
+                    redirect_stdout(io.StringIO()):
+                self.assertEqual(persistent_cli.main(["setup", "cursor"]), 2)
+            self.assertEqual(len(err.getvalue().strip().splitlines()), 1, err.getvalue())
+            self.assertIn(type(failure).__name__, err.getvalue())
+
+    def test_text_output_is_utf8_on_a_non_utf8_pipe(self):
+        store = self.root / "d\u00e9j\u00e0 \u65e5\u672c"
+        raw = io.BytesIO()
+        pipe = io.TextIOWrapper(raw, encoding="cp1252", newline="\r\n")  # a Windows pipe: code page and CRLF
+        with mock.patch.dict(os.environ, {"PERSISTENT_MEMORY_DIR": str(store)}), \
+                mock.patch.object(Path, "home", return_value=self.home), \
+                mock.patch.object(Path, "cwd", return_value=self.project), mock.patch.object(sys, "stdout", pipe):
+            self.assertEqual(persistent_cli.main(["status"]), 0)
+            pipe.flush()
+        text = raw.getvalue().decode("utf-8")
+        self.assertIn(str(store), text)
+        self.assertNotIn("\r", text)
+
     def test_installed_command(self):
         proc = subprocess.run([sys.executable, "-m", "hermes_memory.persistent_cli", "--version"],
-                              capture_output=True, text=True, timeout=60)
+                              capture_output=True, text=True, encoding='utf-8', timeout=60)
         from hermes_memory import __version__
         self.assertEqual(proc.stdout.strip(), "persistent-memory " + __version__)
         proc = subprocess.run([sys.executable, "-m", "hermes_memory.persistent_cli", "mcp", "--help"],
-                              capture_output=True, text=True, timeout=60)
+                              capture_output=True, text=True, encoding='utf-8', timeout=60)
         self.assertIn("persistent-memory-mcp", proc.stdout)
 
 

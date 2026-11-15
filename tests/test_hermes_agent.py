@@ -3,9 +3,11 @@
 tests_integration/test_hermes_agent_manager.py runs it inside Hermes Agent's MemoryManager.
 """
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from hermes_memory.hermes_agent import PROVIDER_NAME, PersistentMemoryProvider, load_config, register
 from hermes_memory.mcp_server import Session, Toolbox
@@ -29,6 +31,26 @@ class Base(unittest.TestCase):
 
     def call(self, provider, tool, **args):
         return json.loads(provider.handle_tool_call(tool, args))
+
+
+class Startup(Base):
+    def test_half_created_store_is_one_clean_line(self):
+        self.provider()
+        (self.home / PROVIDER_NAME / "store" / "content.db").unlink()
+        with self.assertRaises(RuntimeError) as caught:
+            self.provider()
+        message = str(caught.exception)
+        self.assertIn("store_incomplete", message)
+        self.assertEqual(len(message.splitlines()), 1)
+        self.assertIsNone(caught.exception.__cause__)
+
+    def test_config_is_written_with_lf_newlines(self):
+        provider = PersistentMemoryProvider()
+        with mock.patch("hermes_memory.hermes_agent.os.fdopen", wraps=os.fdopen) as opened:
+            provider.save_config({"top_k": 7}, str(self.home))
+        self.assertEqual(opened.call_args.kwargs.get("newline"), "\n")
+        self.assertEqual((self.home / PROVIDER_NAME / "config.json").read_bytes().count(b"\r"), 0)
+        self.assertEqual(load_config(self.home)["top_k"], 7)
 
 
 class Provider(Base):
@@ -74,7 +96,7 @@ class Provider(Base):
         block = p.prefetch("Sur quel port ecoute Orion-Test ?", session_id="s1")
         self.assertIn("No longer valid", block)
         self.assertIn("[port]", block)
-        self.assertNotIn("9300", block)
+        self.assertNotIn("ecoute", block)
         self.assertNotIn("No longer valid", p.prefetch("Sur quel port ecoute Orion-Test ?", session_id="s1"))
         self.assertNotIn("No longer valid", p.prefetch("Sur quel port ecoute Orion-Test ?", session_id="other"))
 

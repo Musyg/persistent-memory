@@ -9,7 +9,9 @@ import tempfile
 import threading
 import unittest
 from pathlib import Path
+from unittest import mock
 
+from hermes_memory import mcp_http, typed_client
 from hermes_memory.mcp_http import load_token, make_server
 from hermes_memory.mcp_server import Toolbox
 from hermes_memory.persistent import PersistentMemory
@@ -137,13 +139,75 @@ class Tokens(unittest.TestCase):
                 load_token(path)
 
 
+class TokenFilePortability(unittest.TestCase):
+    """The POSIX mode and owner checks run on POSIX and are skipped, on purpose, where they cannot work."""
+
+    def make(self, folder, mode):
+        path = Path(folder) / "token"
+        path.write_bytes((TOKEN + "\n").encode("ascii"))
+        path.chmod(mode)
+        return path
+
+    def test_open_mode_is_refused_where_modes_exist(self):
+        if os.name != "posix":
+            return  # mode bits are synthesized here: there is nothing to assert
+        with tempfile.TemporaryDirectory() as folder:
+            path = self.make(folder, 0o644)
+            with self.assertRaises(ValueError):
+                mcp_http.load_token(path)
+            with self.assertRaisesRegex(Exception, "private_token_file_required"):
+                typed_client.token_from_file(path)
+            path.chmod(0o600)
+            self.assertEqual(mcp_http.load_token(path), TOKEN)
+            self.assertEqual(typed_client.token_from_file(path), TOKEN)
+
+    def test_token_is_opened_without_following_links_and_without_text_translation(self):
+        flags = []
+        genuine = os.open
+
+        def spy(path, flag, *args, **kwargs):
+            flags.append(flag)
+            return genuine(path, flag, *args, **kwargs)
+        with tempfile.TemporaryDirectory() as folder:
+            path = self.make(folder, 0o600)
+            with mock.patch.object(typed_client.os, "open", spy):
+                self.assertEqual(typed_client.token_from_file(path), TOKEN)
+        self.assertEqual(len(flags), 1)
+        for name in ("O_NOFOLLOW", "O_BINARY"):  # each exists on one family of OS only
+            if hasattr(os, name):
+                self.assertTrue(flags[0] & getattr(os, name), name)
+
+    def test_windows_branch_ignores_mode_and_owner_but_not_links_or_content(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = self.make(folder, 0o644)
+            with mock.patch.object(mcp_http, "_posix_permissions", return_value=False), \
+                    mock.patch.object(typed_client, "_posix_permissions", return_value=False):
+                self.assertEqual(mcp_http.load_token(path), TOKEN)
+                self.assertEqual(typed_client.token_from_file(path), TOKEN)
+                path.write_text("short")
+                with self.assertRaises(ValueError):
+                    mcp_http.load_token(path)
+                with self.assertRaisesRegex(Exception, "invalid_token_size"):
+                    typed_client.token_from_file(path)
+                path.write_bytes((TOKEN + "\n").encode("ascii"))
+                link = Path(folder) / "link"
+                try:
+                    link.symlink_to(path)
+                except OSError:
+                    return  # this account cannot create links: the lstat check has nothing to refuse
+                with self.assertRaises(ValueError):
+                    mcp_http.load_token(link)
+                with self.assertRaisesRegex(Exception, "private_token_file_required"):
+                    typed_client.token_from_file(link)
+
+
 class Command(unittest.TestCase):
     def test_http_transport_from_the_command_line(self):
         with tempfile.TemporaryDirectory() as folder:
             env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
             process = subprocess.Popen([sys.executable, "-m", "hermes_memory.mcp_server", "--store",
                                         str(Path(folder) / "s"), "--create", "--transport", "http", "--port", "0"],
-                                       stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=env, text=True)
+                                       stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=env, text=True, encoding='utf-8')
             try:
                 line = process.stderr.readline()
                 port = int(re.search(r":(\d+)/mcp", line).group(1))
@@ -155,7 +219,7 @@ class Command(unittest.TestCase):
                 connection.close()
             finally:
                 process.terminate()
-                process.wait(timeout=30)
+                process.wait(timeout=60)
                 process.stderr.close()
                 process.stdout.close()
 

@@ -8,7 +8,7 @@ from .registry import Registry, identity, load_learning_records
 
 
 def run(directory):
-    fixture = json.loads(files('hermes_policy_registry').joinpath('fixtures/demo.json').read_text())
+    fixture = json.loads(files('hermes_policy_registry').joinpath('fixtures/demo.json').read_text(encoding='utf-8'))
     if fixture['data_class'] != 'synthetic_demo_not_measurement':
         raise ValueError('synthetic_fixture_required')
     directory = Path(directory)

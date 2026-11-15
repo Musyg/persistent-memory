@@ -1,7 +1,7 @@
 """Real synthetic SQLite/HTTP/CLI transport contracts; no production imports."""
 import asyncio
 import ast
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 import hashlib
@@ -118,6 +118,23 @@ class IntegrationTests(unittest.TestCase):
                 code, _ = self.call(port, "/typed/v1/context", self.request(query="x", **fields))
                 self.assertIn(code, (400, 403))
 
+    def test_status_closes_its_index_connection(self):
+        self.put()
+        self.sync()
+        opened = []
+        real = sqlite3.connect
+
+        def spy(*args, **kwargs):
+            connection = real(*args, **kwargs)
+            if "index.sqlite" in str(args[0]):  # sqlite3 is one module: the core connects through it too
+                opened.append(connection)
+            return connection
+        with patch("hermes_memory.typed_facade.sqlite3.connect", spy):
+            self.assertEqual(self.facade.status(self.request())["index"], "ready")
+        self.assertEqual(len(opened), 1)
+        with self.assertRaises(sqlite3.ProgrammingError):  # "Cannot operate on a closed database."
+            opened[0].execute("SELECT 1")
+
     def test_unrelated_global_epoch_is_visible(self):
         self.put()
         self.sync()
@@ -146,7 +163,7 @@ class IntegrationTests(unittest.TestCase):
     def test_corrupt_projection_body_is_not_returned(self):
         self.put()
         self.sync()
-        with sqlite3.connect(self.facade.index_path) as connection:
+        with closing(sqlite3.connect(self.facade.index_path)) as connection, connection:
             connection.execute("UPDATE lexical SET text='forged poison'")
         with self.server() as port:
             result = self.client(port).context({"query": "poison"})
@@ -209,7 +226,7 @@ class IntegrationTests(unittest.TestCase):
         request.write_text(json.dumps(self.request(source_id="CLI", text="Synthetic cli copper", metadata={}, expected_version=None)), encoding="utf-8")
         base = [sys.executable, "-m", "hermes_memory.typed_admin", "--authority", str(self.authority.path), "--anchor", str(self.authority.anchor_path), "--store", str(self.memory.path), "--index", str(self.facade.index_path), "--config", str(config)]
         for operation in (["put", "--request", str(request)], ["sync"]):
-            result = subprocess.run(base + operation, capture_output=True, text=True, timeout=15)
+            result = subprocess.run(base + operation, capture_output=True, text=True, encoding='utf-8', timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr)
         with self.server() as port:
             self.assertEqual(self.client(port).context({"query": "CLI"})["context"], "Synthetic cli copper")
@@ -258,8 +275,11 @@ class IntegrationTests(unittest.TestCase):
     def test_private_token_permissions_and_unknown_http_backend_preserve_failure(self):
         self.token_file.chmod(0o644)
         with self.server() as port:
-            with self.assertRaisesRegex(ContractError, "private_token"):
-                self.client(port).context({"query": "copper"})
+            if os.name == "posix":
+                with self.assertRaisesRegex(ContractError, "private_token"):
+                    self.client(port).context({"query": "copper"})
+            else:  # no POSIX mode bits to check on Windows: the token file is accepted, access is the ACL's job
+                self.assertEqual(self.client(port).context({"query": "copper"})["status"], "completed")
         self.token_file.chmod(0o600)
         unavailable = Client("http://127.0.0.1:1", self.token_file, self.policy.policy_id, self.policy.workspace, timeout=0.1)
         self.assertEqual(unavailable.context({"query": "copper"})["status"], "unavailable")

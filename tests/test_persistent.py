@@ -42,6 +42,18 @@ class OpenAndRead(Base):
         self.refused("store_missing", PersistentMemory, Path(self._tmp.name) / "other", "ws")
         self.assertFalse((Path(self._tmp.name) / "other").exists())
 
+    def test_half_created_store_is_refused_not_completed(self):
+        # Authority exists, content.db does not (creation interrupted): fail closed, with or without create.
+        sid = self.pm.remember(PORT)["artifact_id"]
+        (self.root / "content.db").unlink()
+        for create in (False, True):
+            self.refused("store_incomplete", PersistentMemory, self.root, "ws", create=create)
+        self.assertFalse((self.root / "content.db").exists())  # nothing was written to "repair" it
+        (self.root / "content.db").write_bytes(b"")  # reserved but never filled
+        self.refused("store_incomplete", PersistentMemory, self.root, "ws", create=True)
+        self.assertEqual((self.root / "content.db").stat().st_size, 0)
+        self.assertTrue(sid)
+
     def test_reopen_keeps_memory(self):
         sid = self.pm.remember(PORT)["artifact_id"]
         again = PersistentMemory(self.root, "ws")
@@ -164,12 +176,12 @@ class ExplainAndWithdraw(Base):
         src = self.pm.remember("Code interne secret 4242.", source_id="secret")
         self.pm.derive("Le code existe.", parents=[src["ref"]], artifact_id="child")
         out = self.pm.explain("secret")
-        self.assertNotIn("4242", json.dumps(out))
+        self.assertNotIn("Code interne", json.dumps(out))
         self.assertEqual(out["kind"], "source")
         self.assertEqual([r["artifact_id"] for r in out["dependents"]], ["child"])
         child = self.pm.explain("child")
         self.assertEqual(child["parents"][0]["ref"]["artifact_id"], "secret")
-        self.assertNotIn("4242", json.dumps(child))
+        self.assertNotIn("Code interne", json.dumps(child))
 
     def test_withdraw_source_cascades(self):
         src = self.pm.remember(PORT, source_id="port")

@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 from .registry import Registry, PolicyError, identity, load_learning_records, require
@@ -62,7 +63,14 @@ def main(argv=None):
         print(json.dumps({"artifacts": result["artifacts"], "admission": {key: value["admission"] for key, value in result["decisions"].items()}, "new_retrieval_runs": 0}))
     else:
         registry = Registry(args.registry, load_learning_records(args.learning_records))
-        print(json.dumps(registry.inspect(args.policy_ref), ensure_ascii=False))
+        text = json.dumps(registry.inspect(args.policy_ref), ensure_ascii=False) + "\n"
+        buffer = getattr(sys.stdout, "buffer", None)  # UTF-8 bytes whatever the console code page (Windows pipes)
+        if buffer is None:
+            sys.stdout.write(text)
+        else:
+            sys.stdout.flush()
+            buffer.write(text.encode("utf-8"))
+            buffer.flush()
     return 0
 
 

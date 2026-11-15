@@ -14,6 +14,30 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
 
 
+def venv_bin(base, name):
+    """Path of an interpreter or console script inside a venv, on POSIX and on Windows."""
+    if os.name == 'nt':
+        return base / 'venv' / 'Scripts' / (name + '.exe')
+    return base / 'venv' / 'bin' / name
+
+
+def log_tail(path, lines=80):
+    try:
+        text = Path(path).read_text(encoding='utf-8', errors='replace')
+    except OSError as error:
+        return '(log unavailable: %s)' % error
+    return '\n'.join(text.splitlines()[-lines:])
+
+
+def print_log_tails(record):
+    """A failed suite must leave a trace on the console: the logs live in a temporary directory."""
+    for label in ('stdout_log', 'stderr_log'):
+        print('--- last 80 lines of %s %s (%s %s) ---' % (record['module'], label, record['variant'], record['status']),
+              file=sys.stderr)
+        print(log_tail(record[label]), file=sys.stderr)
+        print('--- end of %s ---' % label, file=sys.stderr, flush=True)
+
+
 def run(argv, cwd, env):
     subprocess.run([str(x) for x in argv], cwd=cwd, env=env, check=True)
 
@@ -47,19 +71,19 @@ def check_install(wheel, source, module, variant, destination, env, report, repo
     report['suites'].append(record)
     save_report(report, report_path)
     venv.EnvBuilder(with_pip=True).create(destination / 'venv')
-    python = destination / 'venv/bin/python'
+    python = venv_bin(destination, 'python')
     run([python, '-m', 'pip', 'install', '--no-index', '--no-deps', wheel], destination, env)
     origin = subprocess.run([str(python), '-c',
         'import importlib,pathlib,sys; m=importlib.import_module(sys.argv[1]); '
         'p=pathlib.Path(m.__file__).resolve(); '
         'assert p.is_relative_to(pathlib.Path(sys.prefix).resolve()), p; print(p)', module],
-        cwd=destination, env=env, text=True, capture_output=True, check=True)
+        cwd=destination, env=env, text=True, encoding='utf-8', capture_output=True, check=True)
     record['installed_origin'] = origin.stdout.strip()
     inventory = subprocess.run([str(python), '-c',
         'import json,sys,unittest; '
         'flatten=lambda s: sum((flatten(x) if isinstance(x,unittest.TestSuite) else [x.id()] for x in s),[]); '
         'print(json.dumps(sorted(flatten(unittest.defaultTestLoader.discover(sys.argv[1])))))',
-        str(source / 'tests')], cwd=destination, env=env, text=True, capture_output=True, check=True)
+        str(source / 'tests')], cwd=destination, env=env, text=True, encoding='utf-8', capture_output=True, check=True)
     test_ids = json.loads(inventory.stdout)
     record['test_ids'] = test_ids
     if not test_ids or len(test_ids) != len(set(test_ids)):
@@ -88,14 +112,15 @@ def check_install(wheel, source, module, variant, destination, env, report, repo
     record['status'] = 'tests_passed' if passed else 'failed'
     save_report(report, report_path)
     if not passed:
+        print_log_tails(record)
         raise RuntimeError('Installed test suite failed or inventory changed')
     if module == 'hermes_memory':
-        run([destination / 'venv/bin/hermes-memory-demo', '--directory', destination / 'demo'], destination, env)
+        run([venv_bin(destination, 'hermes-memory-demo'), '--directory', destination / 'demo'], destination, env)
         run([python, '-m', 'hermes_memory.admission_demo'], destination, env)
         run([python, source / 'benchmarks/run_benchmark.py'], destination, env)
     else:
-        run([destination / 'venv/bin/hermes-policy', '--help'], destination, env)
-        run([destination / 'venv/bin/hermes-policy-demo', '--directory', destination / 'demo'], destination, env)
+        run([venv_bin(destination, 'hermes-policy'), '--help'], destination, env)
+        run([venv_bin(destination, 'hermes-policy-demo'), '--directory', destination / 'demo'], destination, env)
     record['status'] = 'passed'
     save_report(report, report_path)
     return test_ids
@@ -119,7 +144,7 @@ def extract_sources(archive, destination):
 
 
 def check_all(temporary, options, report, report_path):
-    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1', PYTHONIOENCODING='utf-8')
     env.pop('PYTHONPATH', None)
     packages = [(ROOT, 'hermes_memory'), (ROOT / 'packages/policy-registry', 'hermes_policy_registry')]
     for source, module in packages:
@@ -168,8 +193,8 @@ def main():
     parser.add_argument('--work-dir', help='Fresh absolute work directory to retain installations and logs.')
     parser.add_argument('--report-json', help='Fresh absolute JSON report path; failed partial runs are retained.')
     options = parser.parse_args()
-    if sys.platform != 'linux':
-        raise SystemExit('This verification recipe requires Linux.')
+    if sys.platform not in ('linux', 'darwin', 'win32'):
+        raise SystemExit('This verification recipe requires Linux, macOS or Windows.')
     report_path = fresh_absolute(options.report_json) if options.report_json else None
     report = dict(schema='persistent-memory.distribution-check.v1', overall_status='running', exit_code=None,
                   work_dir=None, work_dir_retained=bool(options.work_dir), suites=[], test_source_parity=[], error=None)
@@ -181,7 +206,8 @@ def main():
                 raise ValueError('Work directory must be outside the source checkout')
             temporary.mkdir()
         else:
-            temporary_context = tempfile.TemporaryDirectory(prefix='hermes-distribution-check-')
+            temporary_context = tempfile.TemporaryDirectory(prefix='hermes-distribution-check-',
+                                                          ignore_cleanup_errors=True)
             temporary = Path(temporary_context.name)
         report['work_dir'] = str(temporary)
         save_report(report, report_path)

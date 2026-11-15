@@ -3,6 +3,7 @@
 Frozen before reading candidate implementation. This is a unittest fixture, not
 a new runner or production adapter. A host callback reopens durable state.
 """
+from contextlib import closing
 import copy
 import sqlite3
 import tempfile
@@ -19,7 +20,7 @@ class IndependentWorkflowEffectTests(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         self.directory = Path(temporary.name)
         self.path = self.directory / "effect.sqlite"
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             connection.execute("CREATE TABLE effects(case_id TEXT PRIMARY KEY, retention_hours INTEGER)")
         self.records = load_learning_records()
         self.dataset = {"schema": "independent-workflow-cases-v1",
@@ -58,14 +59,14 @@ class IndependentWorkflowEffectTests(unittest.TestCase):
         self.oracle_calls = []
 
     def reopen(self, case_id="positive"):
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             row = connection.execute("SELECT retention_hours FROM effects WHERE case_id=?", (case_id,)).fetchone()
         return {"retention_hours": row[0]} if row else None
 
     def run_record(self, *, actual_hours=24, label=True, execution_status="completed",
                    evaluation_status="observed", case_id="positive", run_id="independent-workflow-run"):
         started, cpu_started = time.perf_counter_ns(), time.process_time_ns()
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             connection.execute("INSERT OR REPLACE INTO effects VALUES (?,?)", (case_id, actual_hours))
         durable = self.reopen(case_id)
         wall = max(1, time.perf_counter_ns() - started)
@@ -162,13 +163,13 @@ class IndependentWorkflowEffectTests(unittest.TestCase):
         self.registry.rollback(self.ref, admitted["seq"], "independent rollback")
         # Registry does not deploy. Host checks state and restores actual effect.
         self.assertEqual(self.registry.inspect(self.ref)["effective_state"], "rollback")
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             connection.execute("UPDATE effects SET retention_hours=72")
         self.assertEqual(self.reopen(), {"retention_hours": 72})
 
     def test_forged_claimed_effect_without_write_is_not_admissible(self):
         run = self.run_record()
-        with sqlite3.connect(self.path) as connection:
+        with closing(sqlite3.connect(self.path)) as connection, connection:
             connection.execute("UPDATE effects SET retention_hours=72")
         self.assert_ineligible(lambda: self.evaluate([run]))
 

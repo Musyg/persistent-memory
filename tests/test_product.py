@@ -36,14 +36,14 @@ class ProductTests(unittest.TestCase):
                           ['--variants', '1'], ['--comparison-fixture', 'unused.json']):
             with self.subTest(arguments=arguments):
                 result = subprocess.run([sys.executable, str(benchmark), *arguments],
-                                        text=True, capture_output=True, timeout=10)
+                                        text=True, encoding='utf-8', capture_output=True, timeout=60)
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertEqual(result.stdout, '')
 
     def test_benchmark_default_and_seeded_retrieval_oracle(self):
         benchmark = Path(__file__).resolve().parents[1] / 'benchmarks/run_benchmark.py'
         baseline = subprocess.run([sys.executable, str(benchmark)],
-                                  text=True, capture_output=True, timeout=20)
+                                  text=True, encoding='utf-8', capture_output=True, timeout=60)
         self.assertEqual(baseline.returncode, 0, baseline.stderr)
         default = json.loads(baseline.stdout)
         self.assertEqual(default['synthetic_documents'], 24)
@@ -55,7 +55,7 @@ class ProductTests(unittest.TestCase):
         for _ in range(2):
             result = subprocess.run([sys.executable, str(benchmark), '--documents', '3',
                                      '--repetitions', '7', '--seed', '5'],
-                                    text=True, capture_output=True, timeout=20)
+                                    text=True, encoding='utf-8', capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr)
             reports.append(json.loads(result.stdout))
         for report in reports:
@@ -167,6 +167,25 @@ class ProductTests(unittest.TestCase):
             progress = json.loads((Path(directory) / 'progress.json').read_text(encoding='utf-8'))
         return report, events, refs, json.loads(output.getvalue()), progress
 
+    def test_volume_progress_and_incremental_modes_run_without_the_resource_module(self):
+        # Windows has no resource module and no /proc: the modes must still run, with nulls for what is absent.
+        import io
+        from contextlib import redirect_stdout
+
+        module, _ = ProductTests._lifecycle_benchmark()
+        with tempfile.TemporaryDirectory() as directory, patch.object(module, 'resource', None):
+            progress_path = Path(directory) / 'progress.json'
+            with redirect_stdout(io.StringIO()):
+                report = module.main(documents=3, repetitions=5, seed=5, volume=True,
+                                     progress_path=progress_path, incremental_batch=2)
+            progress = json.loads(progress_path.read_text(encoding='utf-8'))
+        self.assertIsNone(report['rss_peak_bytes'])
+        self.assertTrue(report['oracle_passed'])
+        sample = progress['sample']
+        self.assertIsNone(sample['rss_peak_native_units'])
+        self.assertGreaterEqual(sample['cpu_user_seconds'], 0)
+        self.assertGreater(sample['storage_total_bytes'], 0)
+
     def test_incremental_cli_rejects_invalid_and_ambiguous_modes(self):
         benchmark = Path(__file__).resolve().parents[1] / 'benchmarks/run_benchmark.py'
         base = ['--documents', '3', '--repetitions', '5', '--volume-progress', 'unused-progress.json']
@@ -189,7 +208,7 @@ class ProductTests(unittest.TestCase):
             for arguments in arguments_list:
                 with self.subTest(arguments=arguments):
                     result = subprocess.run([sys.executable, str(benchmark), *arguments], cwd=directory,
-                                            text=True, capture_output=True, timeout=10)
+                                            text=True, encoding='utf-8', capture_output=True, timeout=60)
                     self.assertEqual(result.returncode, 2, result.stderr)
                     self.assertEqual(result.stdout, '')
                     self.assertEqual(list(Path(directory).iterdir()), [])
@@ -452,7 +471,7 @@ class ProductTests(unittest.TestCase):
                 arguments += ['--efficiency-inputs', str(manifest_path),
                               '--efficiency-inputs-sha256', module.EFFICIENCY_INPUTS_SHA256]
             result = subprocess.run([sys.executable, '-I', str(benchmark), *arguments],
-                                    text=True, capture_output=True, timeout=30)
+                                    text=True, encoding='utf-8', capture_output=True, timeout=60)
             self.assertEqual(result.returncode, 0, result.stderr)
             report = json.loads(result.stdout)
             self.assertEqual(report['mode'], 'frozen_paired_efficiency_v1')
@@ -466,7 +485,7 @@ class ProductTests(unittest.TestCase):
                           ['--efficiency', '--efficiency-inputs-sha256', '0' * 64]):
             with self.subTest(arguments=arguments):
                 result = subprocess.run([sys.executable, '-I', str(benchmark), *arguments],
-                                        text=True, capture_output=True, timeout=15)
+                                        text=True, encoding='utf-8', capture_output=True, timeout=60)
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertEqual(result.stdout, '')
         with tempfile.TemporaryDirectory() as directory:
@@ -520,7 +539,7 @@ class ProductTests(unittest.TestCase):
     def test_lifecycle_comparison_cli_works_in_isolated_python(self):
         benchmark = Path(__file__).resolve().parents[1] / 'benchmarks/run_benchmark.py'
         result = subprocess.run([sys.executable, '-I', str(benchmark), '--compare-transitions',
-                                 '--variants', '1'], text=True, capture_output=True, timeout=90)
+                                 '--variants', '1'], text=True, encoding='utf-8', capture_output=True, timeout=90)
         self.assertEqual(result.returncode, 0, result.stderr)
         report = json.loads(result.stdout)
         self.assertEqual(report['mode'], 'matched_lifecycle_transitions_v1')
@@ -640,7 +659,7 @@ class ProductTests(unittest.TestCase):
             command = [sys.executable, '-m', 'hermes_memory.typed_admin', '--authority', str(authority.path),
                        '--anchor', str(authority.anchor_path), '--store', str(memory.path), '--index',
                        str(facade.index_path), '--config', str(config), 'context', '--request', str(query)]
-            result = subprocess.run(command, text=True, capture_output=True, timeout=10, cwd=root)
+            result = subprocess.run(command, text=True, encoding='utf-8', capture_output=True, timeout=60, cwd=root)
             self.assertEqual(result.returncode, 0, result.stderr)
             value = json.loads(result.stdout)
             self.assertEqual(value['items'][0]['ref'], ref)

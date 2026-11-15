@@ -2,7 +2,7 @@ import argparse
 import json
 from pathlib import Path
 from .core import Authority,Memory,MemoryError
-from .interfaces import dispatch,make_server,mcp_stdio
+from .interfaces import dispatch,make_server,mcp_stdio,write_line
 
 def demo(directory):
     p=Path(directory);p.mkdir(parents=True,exist_ok=True)
@@ -48,6 +48,6 @@ def main(argv=None):
                 try:server.serve_forever()
                 finally:server.server_close()
                 return
-    print(json.dumps(result,ensure_ascii=False,indent=2))
+    write_line(json.dumps(result,ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()

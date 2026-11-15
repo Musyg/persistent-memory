@@ -82,15 +82,20 @@ class PersistentMemory:
         self.workspace = name(workspace)
         authority_path = self.root / "authority" / "authority.db"
         anchor_path = self.root / "anchor" / "checkpoint.json"
+        content_path = self.root / "content.db"
         if authority_path.exists():
+            # A store whose creation was interrupted has its authority but no content database
+            # (or an empty reserved file). It is not completed here: the authority may already
+            # hold events that only a real content.db can match. Fail closed, same with create=True.
+            require(content_path.is_file() and content_path.stat().st_size > 0, "store_incomplete")
             authority = Authority.open(authority_path, anchor_path)
-            memory = Memory.open(self.root / "content.db", authority)
+            memory = Memory.open(content_path, authority)
         else:
             require(create is True, "store_missing")
             for folder in (self.root, authority_path.parent, anchor_path.parent):
                 folder.mkdir(mode=0o700, parents=True, exist_ok=True)
             authority = Authority.create(authority_path, anchor_path)
-            memory = Memory.create(self.root / "content.db", authority)
+            memory = Memory.create(content_path, authority)
         self.memory = memory
         # TypedMemory pins the exact core bytes; the private reads below rely on that pin.
         self.typed = TypedMemory(memory, self.root / "index.db")

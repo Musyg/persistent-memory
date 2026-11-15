@@ -1,4 +1,5 @@
 """Synthetic registry transitions, exact report bindings and label corrections."""
+from contextlib import closing
 import copy
 import os
 from pathlib import Path
@@ -33,6 +34,33 @@ class RegistryTests(unittest.TestCase):
         self.artifact = {"schema_version": 1, "family": "retrieval", "name": "synthetic-policy", "implementation_ref": "sha256:" + self.code, "configuration_ref": identity({"schema": "execution-policy-set-v1", "policy_refs": executions}), "safety_contract_ref": self.safety, "execution_policy_refs": executions, "dependencies": []}
         self.proposed = self.registry.propose(self.artifact)
         self.ref = self.proposed["policy_ref"]
+
+    def test_private_parent_check_is_posix_only_and_the_connection_is_closed(self):
+        from hermes_policy_registry import registry as registry_module
+        open_dir = self.path / "open"
+        open_dir.mkdir()
+        open_dir.chmod(0o755)
+        with patch.object(registry_module, "_posix_permissions", return_value=True):
+            if os.name == "posix":
+                with self.assertRaisesRegex(PolicyError, "private_parent_required"):
+                    Registry.create(open_dir / "registry.sqlite", self.records, self.protocol)
+        self.assertFalse((open_dir / "registry.sqlite").exists())
+        # Windows branch: mode bits are synthesized there, the folder is accepted
+        opened = []
+        real = sqlite3.connect
+
+        def spy(*args, **kwargs):
+            connection = real(*args, **kwargs)
+            opened.append(connection)
+            return connection
+        with patch.object(registry_module, "_posix_permissions", return_value=False), \
+                patch.object(registry_module.sqlite3, "connect", spy):
+            created = Registry.create(open_dir / "registry.sqlite", self.records, self.protocol)
+        self.assertEqual(created.protocol_ref, self.registry.protocol_ref)
+        self.assertGreaterEqual(len(opened), 2)  # creation, then the first transaction
+        for connection in opened:
+            with self.assertRaises(sqlite3.ProgrammingError):
+                connection.execute("SELECT 1")
 
     def make_run(self, success=True, score=10, status="observed", reason=None):
         refs = {"doc": {"workspace": "synthetic", "artifact_id": "a", "version_id": "v1"}}
@@ -196,7 +224,7 @@ class RegistryTests(unittest.TestCase):
         self.evaluate()
         reopened = Registry(self.registry.path, self.records)
         self.assertEqual(reopened.inspect(self.ref), self.registry.inspect(self.ref))
-        with sqlite3.connect(self.registry.path) as connection:
+        with closing(sqlite3.connect(self.registry.path)) as connection, connection:
             connection.execute("UPDATE objects SET payload='{}' WHERE ref=?", (self.ref,))
         with self.assertRaisesRegex(PolicyError, "stored_identity_mismatch"):
             self.evaluate()
@@ -257,7 +285,7 @@ class RegistryTests(unittest.TestCase):
         # A controlled existing-fixture SQLite source/effect, independently reopened
         # by the trusted validation callback. This does not execute the real consumer.
         effects_path = self.path / "synthetic-native-effects.sqlite"
-        with sqlite3.connect(effects_path) as connection:
+        with closing(sqlite3.connect(effects_path)) as connection, connection:
             connection.execute("CREATE TABLE source(body TEXT, allowed INTEGER, current INTEGER)")
             connection.execute("INSERT INTO source VALUES(?,1,1)", (snapshot["text"],))
             connection.execute("CREATE TABLE work_orders(project TEXT, time TEXT)")
@@ -280,7 +308,7 @@ class RegistryTests(unittest.TestCase):
                            "synthetic": True, "authorized_for_learning": False, "provenance_verified": False}
                 if scenario == "false-zero":
                     outcome["consumer_action_observation"]["effect_state"] = {"work_orders": []}
-                    with sqlite3.connect(effects_path) as connection:
+                    with closing(sqlite3.connect(effects_path)) as connection, connection:
                         connection.execute("DELETE FROM work_orders")
                 if scenario == "selected-only":
                     outcome["consumer_action_observation"]["phase"] = "after_selection"
@@ -370,7 +398,7 @@ class RegistryTests(unittest.TestCase):
                 checked = []
                 def revalidate(refs):
                     checked.append(list(refs))
-                    with sqlite3.connect(effects_path.resolve().as_uri() + "?mode=ro", uri=True) as observed:
+                    with closing(sqlite3.connect(effects_path.resolve().as_uri() + "?mode=ro", uri=True)) as observed, observed:
                         source = observed.execute("SELECT body,allowed,current FROM source").fetchone()
                         actual_effect = observed.execute("SELECT project,time FROM work_orders").fetchall()
                     # Reopened state is judged against the versioned expected effect;
@@ -385,7 +413,7 @@ class RegistryTests(unittest.TestCase):
                     return {"status": "valid" if valid else "unverified", "checked": list(refs)[:-1] if scenario == "partial-rights" else list(refs)}
                 validator = None if scenario == "missing-rights" else revalidate
                 if scenario == "rights-withdrawn":
-                    with sqlite3.connect(effects_path) as connection:
+                    with closing(sqlite3.connect(effects_path)) as connection, connection:
                         connection.execute("UPDATE source SET allowed=0")
                 failures = {"source-tamper": "native_snapshot_identity_mismatch", "outcome-tamper": "native_outcome_identity_mismatch",
                             "wrong-execution": "native_execution_binding_mismatch", "duplicate-run": "duplicate_run",
@@ -450,7 +478,7 @@ class RegistryTests(unittest.TestCase):
                         self.assertFalse(session_c.inspect(policy_ref)["runtime_activated"])
                     results.append({"case": scenario, "eligible_for_review": eligible, "reasons": assessment["reasons"]})
                 finally:
-                    with sqlite3.connect(effects_path) as connection:
+                    with closing(sqlite3.connect(effects_path)) as connection, connection:
                         connection.execute("UPDATE source SET allowed=1")
                         connection.execute("DELETE FROM work_orders")
                         connection.execute("INSERT INTO work_orders VALUES('synthetic','14:30')")

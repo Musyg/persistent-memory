@@ -8,6 +8,11 @@ import statistics
 import tempfile
 import time
 
+try:
+    import resource
+except ImportError:  # no resource module on Windows: CPU comes from os.times(), peak RSS is reported as null
+    resource = None
+
 from hermes_memory import Authority, Memory
 from hermes_memory.typed_memory import TypedMemory
 
@@ -24,11 +29,10 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
     if type(incremental_batch) is not int or not 0 <= incremental_batch <= 100:
         raise ValueError('Expected incremental_batch 0 (disabled) or 2..100')
     if incremental_batch:
-        import sys
         if (incremental_batch < 2 or not volume or progress_path is None
-                or sys.platform != 'linux' or profile_tail
+                or profile_tail
                 or documents + incremental_batch > 5000 or repetitions < incremental_batch):
-            raise ValueError('Incremental cycle requires Linux instrumented volume mode, batch 2..100, '
+            raise ValueError('Incremental cycle requires instrumented volume mode, batch 2..100, '
                              'total documents <=5000, repetitions >=batch and no tail profile')
     incremental_cycle = None
     profiler = None
@@ -40,8 +44,12 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
     telemetry_writes = 0
     def sample(root):
         import os
-        import resource
-        usage = resource.getrusage(resource.RUSAGE_SELF)
+        if resource is not None:
+            usage = resource.getrusage(resource.RUSAGE_SELF)
+            cpu_user, cpu_system, peak_native = usage.ru_utime, usage.ru_stime, usage.ru_maxrss
+        else:
+            times = os.times()
+            cpu_user, cpu_system, peak_native = times.user, times.system, None
         io = None
         proc = Path('/proc/self/io')
         if proc.is_file():
@@ -52,9 +60,9 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
         if statm.is_file():
             current_rss = int(statm.read_text().split()[1]) * os.sysconf('SC_PAGE_SIZE')
         return {'elapsed_seconds': time.perf_counter() - telemetry_started,
-                'cpu_user_seconds': usage.ru_utime, 'cpu_system_seconds': usage.ru_stime,
+                'cpu_user_seconds': cpu_user, 'cpu_system_seconds': cpu_system,
                 'io': io, 'storage_bytes': storage, 'storage_total_bytes': sum(storage.values()),
-                'rss_current_bytes': current_rss, 'rss_peak_native_units': usage.ru_maxrss}
+                'rss_current_bytes': current_rss, 'rss_peak_native_units': peak_native}
     def progress(root, phase, completed, total):
         nonlocal telemetry_writes
         if progress_path is None:
@@ -312,7 +320,6 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
     if volume:
         import importlib.metadata
         import platform
-        import resource
         import sqlite3
         import sys
         try:
@@ -339,7 +346,8 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
             'operation_scope': 'explicit benchmark calls only; initialization and internal calls excluded',
             'initialization_calls': {'Authority.create': 1, 'Memory.create': 1, 'TypedMemory': 1},
             'disk_bytes_after_revocation_sync': disk_bytes,
-            'rss_peak_bytes': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * (1024 if sys.platform == 'linux' else 1),
+            'rss_peak_bytes': (resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * (1024 if sys.platform == 'linux' else 1)
+                               if resource is not None else None),
             'rss_scope': 'process lifetime high-water mark; not incremental memory usage',
             'python_version': platform.python_version(), 'sqlite_version': sqlite3.sqlite_version,
             'platform': platform.platform(), 'package_version': package_version,
@@ -2130,11 +2138,11 @@ if __name__ == '__main__':
         parser.error('--volume-profile-tail requires --volume-progress')
     if args.volume_progress is not None:
         import sys
-        if (sys.platform != 'linux' or args.documents is None or args.action_transfer
+        if (args.documents is None or args.action_transfer
                 or args.action_report is not None or args.action_report_sha256 is not None
                 or args.efficiency or args.trajectories is not None or args.compare_transitions
                 or args.lance_hybrid):
-            parser.error('--volume-progress requires Linux and an explicit --documents typed-volume run')
+            parser.error('--volume-progress requires an explicit --documents typed-volume run')
     action_values = [value for key, value in vars(args).items()
                      if key.startswith('action_') and key not in (
                          'action_transfer', 'action_provider_mode', 'action_report', 'action_report_sha256')]

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from hermes_memory.core import Authority, Memory
+from hermes_memory.interfaces import write_line
 from .typed_client import token_from_file
 from .typed_facade import Facade, Policy, make_server, require, strict_json
 
@@ -42,7 +43,7 @@ def main(argv=None):
     else:
         require(args.request is None, "sync_request_not_allowed")
         result = facade.sync({"schema_version": 1, "policy_id": policy.policy_id})
-    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    write_line(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0
 
 

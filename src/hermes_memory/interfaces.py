@@ -93,12 +93,21 @@ class MCPSession:
         else:return error(-32601,'Method not found')
         return {'jsonrpc':'2.0','id':ident,'result':result}
 
+def write_line(text,stream=None):
+    """Print text plus a newline as UTF-8 bytes, whatever the console code page (Windows pipes)."""
+    stream=stream or sys.stdout
+    buffer=getattr(stream,'buffer',None)
+    if buffer is None:stream.write(text+'\n');stream.flush();return
+    stream.flush();buffer.write((text+'\n').encode('utf-8'));buffer.flush()
+
 def mcp_stdio(memory,stdin=None,stdout=None):
-    stdin=stdin or sys.stdin;stdout=stdout or sys.stdout;session=MCPSession(memory)
+    """Newline-delimited JSON-RPC over binary streams (default sys.stdin.buffer / sys.stdout.buffer),
+    so no code page and no CRLF translation changes the bytes on Windows."""
+    stdin=stdin or sys.stdin.buffer;stdout=stdout or sys.stdout.buffer;session=MCPSession(memory)
     while True:
         line=stdin.readline(1048577)
         if not line:return
         if len(line)>1048576:raise MemoryError('mcp_message_limit')
-        try:response=session.handle(json.loads(line))
-        except json.JSONDecodeError:response={'jsonrpc':'2.0','id':None,'error':{'code':-32700,'message':'Parse error'}}
-        if response is not None:stdout.write(json.dumps(response,ensure_ascii=False)+'\n');stdout.flush()
+        try:response=session.handle(json.loads(line.decode('utf-8')))
+        except (json.JSONDecodeError,UnicodeDecodeError):response={'jsonrpc':'2.0','id':None,'error':{'code':-32700,'message':'Parse error'}}
+        if response is not None:stdout.write((json.dumps(response,ensure_ascii=False)+'\n').encode('utf-8'));stdout.flush()

@@ -1,4 +1,4 @@
-"""Twelve independent family tests against the active Linux installation."""
+"""Twelve independent family tests against the active installation."""
 import importlib.util
 import json
 from pathlib import Path
@@ -11,7 +11,6 @@ spec.loader.exec_module(probe)
 
 class InstalledBoundaryTests(unittest.TestCase):
     def check_family(self,group):
-        self.assertTrue(sys.platform.startswith('linux'),'Linux installation required')
         rows=probe.run_group(group)
         print(json.dumps({'family':group,'results':rows},ensure_ascii=True),flush=True)
         self.assertTrue(all(r['passed'] for r in rows),json.dumps([{'variant':r['variant'],'error':r.get('failed_check',r.get('error_type'))} for r in rows if not r['passed']]))
