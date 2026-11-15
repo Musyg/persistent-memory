@@ -17,6 +17,7 @@ classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Pytho
 hermes-memory = "hermes_memory.cli:main"
 hermes-memory-typed = "hermes_memory.typed_admin:main"
 hermes-memory-demo = "hermes_memory.demo:main"
+persistent-memory-mcp = "hermes_memory.mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
