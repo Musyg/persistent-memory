@@ -14,6 +14,7 @@ except ImportError:  # no resource module on Windows: CPU comes from os.times(),
     resource = None
 
 from hermes_memory import Authority, Memory
+from hermes_memory.interfaces import write_line as _emit
 from hermes_memory.typed_memory import TypedMemory
 
 
@@ -379,7 +380,7 @@ def main(documents=24, repetitions=10, seed=0, *, volume=False, progress_path=No
                          'primitive_calls': value[0], 'calls': value[1],
                          'own_seconds': value[2], 'cumulative_seconds': value[3]}
                         for key, value in sorted(profile.stats.items(), key=lambda pair: pair[1][3], reverse=True)[:40]]}
-    print(json.dumps(report, indent=2))
+    _emit(json.dumps(report, indent=2))
     return report
 
 
@@ -512,7 +513,7 @@ def transition_trajectories(trajectories=3000, seed=20261021, batch_size=50):
               'generated_cases': rows, 'elapsed_seconds': time.perf_counter() - started,
               'provider_requests': 0, 'independent_clients': 0, 'business_tasks': 0,
               'oracle_passed': len(rows) == trajectories}
-    print(json.dumps(report, indent=2))
+    _emit(json.dumps(report, indent=2))
     return report
 
 
@@ -608,7 +609,7 @@ def lance_hybrid_demo():
         assert refs[1] not in admitted and refs[2] not in admitted
         assert {item['reason'] for item in after['exclusions']} == {
             'source_revoked', 'version_not_current'}
-    print(json.dumps({
+    _emit(json.dumps({
         'mode': 'synthetic_lance_hybrid_currentness_demo',
         'lancedb_version': importlib.metadata.version('lancedb'),
         'pyarrow_version': importlib.metadata.version('pyarrow'),
@@ -949,7 +950,7 @@ def compare_transitions(fixture_path=None, variants=10, seed=COMPARISON_SEED, *,
               'oracle_passed': all(case['oracle_passed'] for arm in ('hermes', 'sqlite_retained') for case in arms[arm]['cases']),
               'profile_conformance_passed': all(case['profile_passed'] for arm in COMPARISON_ARMS for case in arms[arm]['cases'])}
     if emit:
-        print(json.dumps(report, indent=2, ensure_ascii=False))
+        _emit(json.dumps(report, indent=2, ensure_ascii=False))
     return report
 
 
@@ -1081,7 +1082,7 @@ def action_transfer_phase(args):
                             'verifier_must_not_receive_provider_or_state')
             receipt = support.verify_actual_files(projection, args.action_artifacts, prior, observed_exit)
     _action_dump(args.action_output, receipt)
-    print(support.canonical(receipt))
+    _emit(support.canonical(receipt))
     return receipt
 
 
@@ -1196,7 +1197,7 @@ def action_transfer_cell(args):
               'provider_called': phases['propose']['receipt']['provider_called'],
               'runtime_activated': False, 'autonomous_learning_claimed': False}
     _action_dump(root / 'REPORT.json', report)
-    print(support.canonical(report))
+    _emit(support.canonical(report))
     return report
 
 
@@ -1473,7 +1474,7 @@ def efficiency_analysis(inputs_path=None, inputs_sha256=None, *, emit=True):
     result['provenance'] = {'inputs_manifest_sha256': pin, 'inputs': config['inputs'],
                             'source_quality_preserved': True, 'source_generations_preserved': True}
     if emit:
-        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
+        _emit(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
     return result
 
 
@@ -2084,7 +2085,7 @@ def action_report(observations_path, observations_sha256, *, emit=True,
                             'interval_source_sha256': ACTION_REPORT_INTERVAL_SHA256,
                             'qualified_calculation_source_sha256': ACTION_REPORT_CALCULATION_SHA256}
     if emit:
-        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
+        _emit(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False))
     return result
 
 

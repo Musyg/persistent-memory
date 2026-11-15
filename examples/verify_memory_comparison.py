@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import itertools
 import json
+import sys
 from pathlib import Path
 
 SCHEMA = "persistent-memory.memory-on-off.v1"
@@ -80,7 +81,14 @@ def main() -> None:
     require(hashlib.sha256(raw).hexdigest() == EXPECTED_SHA256, "Dataset differs from the published pinned export")
     data = json.loads(raw)
     result = aggregate(data)
-    print(json.dumps({"verified": True, "schema": SCHEMA, "sha256": EXPECTED_SHA256, **result}, ensure_ascii=False, indent=2))
+    text = json.dumps({"verified": True, "schema": SCHEMA, "sha256": EXPECTED_SHA256, **result}, ensure_ascii=False, indent=2)
+    buffer = getattr(sys.stdout, "buffer", None)  # UTF-8 bytes whatever the console code page (Windows pipes)
+    if buffer is None:
+        print(text)
+    else:
+        sys.stdout.flush()
+        buffer.write((text + "\n").encode("utf-8"))
+        buffer.flush()
 
 
 if __name__ == "__main__":

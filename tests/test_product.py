@@ -547,6 +547,18 @@ class ProductTests(unittest.TestCase):
         self.assertTrue(report['oracle_passed'])
         self.assertTrue(report['profile_conformance_passed'])
 
+    def test_lifecycle_comparison_cli_writes_utf8_under_a_legacy_console_code_page(self):
+        benchmark = Path(__file__).resolve().parents[1] / 'benchmarks/run_benchmark.py'
+        env = {**os.environ, 'PYTHONIOENCODING': 'cp1252', 'PYTHONUTF8': '0'}  # what a Windows pipe uses
+        # -P not -I: -I would ignore PYTHONIOENCODING, which is what stands in for the cp1252 pipe here
+        result = subprocess.run([sys.executable, '-P', str(benchmark), '--compare-transitions', '--variants', '1'],
+                                capture_output=True, timeout=90, env=env)
+        self.assertEqual(result.returncode, 0, result.stderr.decode('utf-8', 'replace'))
+        self.assertTrue(any(byte > 127 for byte in result.stdout))  # the fixture really has accented text
+        self.assertNotIn(b'\r\n', result.stdout)
+        report = json.loads(result.stdout.decode('utf-8'))
+        self.assertEqual(report['mode'], 'matched_lifecycle_transitions_v1')
+
     def test_lifecycle_external_oracle_and_block_all_mutations_fail(self):
         module, folder = self._lifecycle_benchmark()
         fixture = json.loads((folder / 'lifecycle-20261022/FIXTURE.json').read_text(encoding='utf-8'))

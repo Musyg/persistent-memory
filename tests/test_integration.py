@@ -273,6 +273,8 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual([item["ref"] for item in result["items"]], [independent])
 
     def test_private_token_permissions_and_unknown_http_backend_preserve_failure(self):
+        self.put()
+        self.sync()  # without a synced index the answer is index_stale/refused on every OS, whatever the token mode
         self.token_file.chmod(0o644)
         with self.server() as port:
             if os.name == "posix":
@@ -281,8 +283,20 @@ class IntegrationTests(unittest.TestCase):
             else:  # no POSIX mode bits to check on Windows: the token file is accepted, access is the ACL's job
                 self.assertEqual(self.client(port).context({"query": "copper"})["status"], "completed")
         self.token_file.chmod(0o600)
+        with self.server() as port:
+            self.assertEqual(self.client(port).context({"query": "copper"})["status"], "completed")
         unavailable = Client("http://127.0.0.1:1", self.token_file, self.policy.policy_id, self.policy.workspace, timeout=0.1)
         self.assertEqual(unavailable.context({"query": "copper"})["status"], "unavailable")
+
+    def test_token_mode_is_not_checked_where_posix_permissions_do_not_exist(self):
+        from hermes_memory import typed_client
+        self.put()
+        self.sync()
+        self.token_file.chmod(0o644)
+        with patch.object(typed_client, "_posix_permissions", return_value=False), self.server() as port:
+            result = self.client(port).context({"query": "copper"})
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(result["context"], "Copper signal.")
 
     def test_cancellation_while_worker_queued_does_not_leak_slot(self):
         from hermes_memory import typed_memory_tool
