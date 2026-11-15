@@ -66,8 +66,8 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "f665acc9ca3a35730396ff92db7f3f85b3e7993abc027216193bdf9cf7f98844",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "5161e2246fa27456e7f4256835ada9a2a16828a27bccd9f13115ffaa5bd4c99c",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
@@ -113,6 +113,10 @@
         {
           "package_sha256": "26ab13fab351ca8c57a01deec6da5a52aad3a4df8e012bada8eac83ac165e400",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "f665acc9ca3a35730396ff92db7f3f85b3e7993abc027216193bdf9cf7f98844",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "b95963bbbc1690bdea0026fd67b35eb028feca8a2fb665f6b2025b440ee59f31"
@@ -121,8 +125,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "53f10795f4ea99b145099b096646e8c103db169853d2c791580feac8ea5d013d",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "3377d9a392cf1a8271cde29f9e2e32c1044423b98b35a9139e667bdca5837763",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -205,6 +209,10 @@
         {
           "package_sha256": "b3a2273c53234728ab914d27c4e154256bfac65068fa4ae56ec12b8dec759699",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "53f10795f4ea99b145099b096646e8c103db169853d2c791580feac8ea5d013d",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "1f67a2b1e8a30ee4449385b54f0ce4e0f070a70fbfe323e765a66b2280a21f72"
@@ -213,8 +221,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "6de0bd512949683bc8fa3940a08d00d2956274b63224311a0d7865bd58ec4f63",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "23027f1376cfa6bede1e7497620df827e5a2d6c9ef51ea071b4a5777ba16239b",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -297,6 +305,10 @@
         {
           "package_sha256": "f3b487be7ee80fca032a11c3cc603dc07f00b37268d2b436421a21513bfb9bba",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "6de0bd512949683bc8fa3940a08d00d2956274b63224311a0d7865bd58ec4f63",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "48fcb01fa92283fc3b3785a3a38baae08b716b5f547added08e3c399da2800e1"
@@ -585,8 +597,8 @@
       "path": "pyproject.toml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "d1db13aacae4aee4d3fc399805b81e4e6df147df890e6a640f3c026855ffd8c3",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "f007be8dd5047a6ac374bfae144ffcaa595f35b827116ce5f4f405f26e3abc54",
       "previous_registry_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100",
       "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803",
       "assembly_history": [
@@ -633,6 +645,10 @@
         {
           "package_sha256": "8a9cbb1b2f76c6b86f234542a6f314e8b4c7fe611e7233943f74b1d6fd4c8552",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "d1db13aacae4aee4d3fc399805b81e4e6df147df890e6a640f3c026855ffd8c3",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "a68fcf13c9433d3c53361306ff059812d0cc2dfb6487cca706f932aeea391bd6"
@@ -641,8 +657,8 @@
       "path": "scripts/check_distributions.py",
       "origin": "new-public-admission-assembly",
       "original_sha256": null,
-      "package_sha256": "3b45b6d73e6e15b553a7083e26e1cf3783aaf0aaeec5793565f27dbc3e7ae1e6",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
+      "package_sha256": "6c90e788cb4dca1f8aac2d0566b857ba475da0f7cc42e74f12acb1bee467ea08",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
       "license": "MIT",
       "previous_assembly_sha256": "f8b5a6c61fe4722269ba6e483f39ac3efcee334187efa1a7a32e141da712003a",
       "assembly_history": [
@@ -654,6 +670,10 @@
         {
           "package_sha256": "ba209667683d8198b0935d7476ee4a5076da741d7bc46f805ce9041e618ca9d6",
           "transformation": "Surgical update for 0.3.0a3: serialization/parsing, matching dependency pins, experience-study binding or current documentation; historical assembly retained above."
+        },
+        {
+          "package_sha256": "3b45b6d73e6e15b553a7083e26e1cf3783aaf0aaeec5793565f27dbc3e7ae1e6",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -676,8 +696,8 @@
       "path": "src/hermes_memory/__init__.py",
       "origin": "core-v0.1/__init__.py",
       "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
-      "package_sha256": "d60866e31bfa19e16cfbe9c6d8dd869026e3c7e3a5bff9cee6acb8907d25827c",
-      "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved.",
+      "package_sha256": "e9a05d21f94e344507e0fd0be537c8ab54015a834c42cf673ba1050f461185b2",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
       "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
       "assembly_history": [
         {
@@ -709,6 +729,10 @@
         {
           "package_sha256": "7198f23c141ebd02f53ee4f2614625bf768a9acba28c3ff5f313e876311f00dd",
           "transformation": "Surgical 0.3.0a5 identifier-equivalence optimization, corresponding source/version bindings, or current bilingual documentation; historical evidence unchanged. Archive qualification pending."
+        },
+        {
+          "package_sha256": "d60866e31bfa19e16cfbe9c6d8dd869026e3c7e3a5bff9cee6acb8907d25827c",
+          "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "b5214874623714ebfeb37b954360e702ec966fd4ecc7e0bcaa3c9ffa0583074a"
@@ -1428,8 +1452,8 @@
       "origin": "public-bilingual-documentation-update",
       "original_sha256": null,
       "previous_public_sha256": null,
-      "package_sha256": "425a90ec35dffc8b1b36e1e0df1df267ec66edad6e82f50081bec0efd6a96874",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
+      "package_sha256": "7a552e993fc13ebd23e930cc350f62d9e19696c50479582fe7374bc977f4cc3a",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
       "assembly_history": [
         {
           "path": "PACKAGES.fr.md",
@@ -1456,6 +1480,10 @@
         {
           "package_sha256": "9bc7ee3f65a6877776469d4bedc24053b45fae3f91be69ff6a7bf5ebed8579f5",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "425a90ec35dffc8b1b36e1e0df1df267ec66edad6e82f50081bec0efd6a96874",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "a036531926fae0b98cd98b5d75e1260d94d3037e3fd236ca0f5d0bfb2ab94f21"
@@ -1988,8 +2016,8 @@
       "path": "src/hermes_memory/mcp_server.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "d9b920aa7f29c5525fe937a375ebee728bb63f241d1fc96752c01b7ef4daf1b5",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "db260424043449a15d129417b30c54cd070c950a2b27de55d74dbedb10d80751",
       "assembly_history": [
         {
           "package_sha256": "d17994b9c7b261f2fa4e6c0f48e76260201aea3326fce6487166f61500a5f632",
@@ -2002,6 +2030,10 @@
         {
           "package_sha256": "1cb97b8fb31e6b6b3e72323aa1813c413524545fedee5813e63a067b0edd0bc4",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "d9b920aa7f29c5525fe937a375ebee728bb63f241d1fc96752c01b7ef4daf1b5",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2009,12 +2041,16 @@
       "path": "tests/test_mcp_server.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "0ea09deed2261ed658cb29841ef5b94043de1570e2b7b62d661953d61dc477cb",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "0b3b5a5ba06c2c905d34bf5ea9c55915dca3d6aad4795da061a95a954990172b",
       "assembly_history": [
         {
           "package_sha256": "d8caf2bf34c274e923eeff272383eb17f3ee7f258d42785b76996ec53b1fa732",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "0ea09deed2261ed658cb29841ef5b94043de1570e2b7b62d661953d61dc477cb",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2022,8 +2058,8 @@
       "path": "docs/MCP.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "d47c88221ef940e4abbd3527d635d0bbb18039eab8ec0deacc318f1152ec488f",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "265b5778b76b5ada0315339a3f44c6e80c41e9004444505e915525c3fed68528",
       "assembly_history": [
         {
           "package_sha256": "2755003c9904e18603b75aababd62ea2522aba9580788dce65946901efd1f56b",
@@ -2036,6 +2072,10 @@
         {
           "package_sha256": "1f49f7c7c2af6cee40ffd5c02b740034f8a248648b3a8ff12ff33c29db8f5d97",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "d47c88221ef940e4abbd3527d635d0bbb18039eab8ec0deacc318f1152ec488f",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2043,8 +2083,8 @@
       "path": "docs/MCP.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "e4fe700718eafbc60266e0af568755ba8e082387d1dd7426bdf1ee2e479b905f",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "921ffec88fc5f0c892a33098b6d421a62ffe6b113b7cf69aca75c14f57471317",
       "assembly_history": [
         {
           "package_sha256": "694c70e8c4a7329b958e6bb1a5abc705fdfbe45a137a43286c27b11080d97270",
@@ -2057,6 +2097,10 @@
         {
           "package_sha256": "b7f9ef6db0e873ed2369ba1923d475a431bdd4f86c561876001ad73c4d3c2c43",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "e4fe700718eafbc60266e0af568755ba8e082387d1dd7426bdf1ee2e479b905f",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2064,12 +2108,16 @@
       "path": "docs/HERMES-AGENT.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved.",
-      "package_sha256": "002f5e155d07e2f72741f3c2ea34209b5c6ee3ad8a42354bc7819083a51f99c3",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "a5c8a90d2d787e82464281c74661205ee1c84f9cd69de399e9b2c7e5d8ffdd83",
       "assembly_history": [
         {
           "package_sha256": "66c679baeb6e3708fa43ebe146e6e486916ead2353b9b41e77182ba1b7e7e8c8",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "002f5e155d07e2f72741f3c2ea34209b5c6ee3ad8a42354bc7819083a51f99c3",
+          "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
         }
       ]
     },
@@ -2077,12 +2125,16 @@
       "path": "docs/HERMES-AGENT.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved.",
-      "package_sha256": "c1e83848bf3511451efaa4cb4c853deb0fc56e223f39e18856aa2698ebf7089b",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "a4d5950753766543de3c43aa563de4a1609211ca1a9029a3d90312cbd6db1bfe",
       "assembly_history": [
         {
           "package_sha256": "02e9f006451da4e9d92f362a12ec48765e5c85e23197f6cce9549891b00ab7c5",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "c1e83848bf3511451efaa4cb4c853deb0fc56e223f39e18856aa2698ebf7089b",
+          "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
         }
       ]
     },
@@ -2216,12 +2268,16 @@
       "path": "docs/SETUP.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "1270f4ffb6622cd10f1eed378ed3c8d58008ebbe6765ac7d3dbc6740a6114ff2",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "a3a144b8754ddbdddf689589685b0ca671f05c802e342aca1df3bc58801bee5d",
       "assembly_history": [
         {
           "package_sha256": "4e028f2217b513ac8c9fe9316998a7e35095b2e618b8b17c03f904d56f9500a0",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "1270f4ffb6622cd10f1eed378ed3c8d58008ebbe6765ac7d3dbc6740a6114ff2",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2229,12 +2285,16 @@
       "path": "docs/SETUP.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "2ea43be416ac8dd2ce21248ab62baffbc9a66e0932e00bdd2ee3f09242218381",
+      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "c4f8acc2c13e8045384b3ec9c4705d33edd55bcc332ef35892f07d18c5d3e1d2",
       "assembly_history": [
         {
           "package_sha256": "c45471f6f34bbca868a638ea9d8c9f5274d6f942334986a7a714abcf3fc97089",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "2ea43be416ac8dd2ce21248ab62baffbc9a66e0932e00bdd2ee3f09242218381",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2283,6 +2343,69 @@
       "original_sha256": null,
       "transformation": "new generic source, documentation or synthetic fixture",
       "package_sha256": "14077463bcbed23ee5d3ec768d44d0959237241970ceafe4c3ea0b3375aa5564"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "f169a5e31255bde792a235443ff04a36e6656f57d28f23432436596be4f7e3cd"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "2517933ff976000f416f822857314937c31188c50f5015d40dbc5ccfb7d2a3d5"
+    },
+    {
+      "path": "docs/EVIDENCE.fr.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "1684987961da9717cd78f5fa8cf19b22ae00d4d07a4ef8db4a1f1015a2ca33de"
+    },
+    {
+      "path": "docs/EVIDENCE.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "b9c686a7c7728b3cfd788dbf2d041ceab08e76b5177dd85ae79a478a23f7cb87"
+    },
+    {
+      "path": "docs/FRAMEWORKS.fr.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "e5d255bda6ea0861944265f357115afe320d53786313d7c1d40a7b1d694ba385"
+    },
+    {
+      "path": "docs/FRAMEWORKS.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "3a0b0e6cfc32caab54fa6f4064c3a997fccc9661bf720ad090c88d5d6dce464b"
+    },
+    {
+      "path": "docs/RELEASING.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "86ca805e0623465be04b9c233a428b6494e8e33710e55abf5f6791322f8c014d"
+    },
+    {
+      "path": "src/persistent_memory/__init__.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "59ce7cd9177d6399edd661572f6bec84f5b20fbd52444ad9b2e6c395d24ca152"
+    },
+    {
+      "path": "tests/test_public_name.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "5902158f8c4b55c84556f7d52cd73fc80abe32bfddbd4a0aab572201c5608a5b"
     }
   ],
   "excluded_test": "private application orchestrator AST wiring; not part of public test count",
@@ -3244,5 +3367,28 @@
     "third_party_dependencies": 0,
     "private_history_included": false,
     "product_release_unchanged": true
+  },
+  "release_preparation_update_20261115": {
+    "version": "0.4.0a2",
+    "version_0_4_0a1_skipped_reason": "tag v0.4.0a1 is an earlier public pre-release (native-effect assessment, 2026-10-14)",
+    "public_import_name": "persistent_memory",
+    "implementation_package": "hermes_memory",
+    "frameworks_checked_over_mcp": [
+      "langchain-mcp-adapters 0.3.2",
+      "openai-agents 0.24.0",
+      "pydantic-ai-slim 2.68.0",
+      "crewai-tools 1.15.41",
+      "llama-index-tools-mcp 0.7.0",
+      "autogen-ext 0.7.5",
+      "smolagents 1.26.0",
+      "mcp 2.3.0"
+    ],
+    "null_optional_mcp_arguments": "treated as absent",
+    "pypi_publication": "trusted publishing via .github/workflows/release.yml, owner approval required, not yet run",
+    "core_sha256": "d7ffe470814a7d2e289217c712b042dccf1b397d2529b118bcfde2dd0957e4f6",
+    "core_bytes_unchanged_since": "three_systems_update_20261115",
+    "public_test_methods": 356,
+    "third_party_dependencies": 0,
+    "private_history_included": false
   }
 }

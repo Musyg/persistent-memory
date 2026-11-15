@@ -1,153 +1,127 @@
-# Mémoire persistante pour agents IA
+# persistent-memory
 
-Persistent Memory propose deux paquets Python installables séparément : la mémoire présentée ici, distribuée sous le nom `persistent-memory` (module Python `hermes_memory`), et un [registre de politiques facultatif](PACKAGES.fr.md), `hermes-policy-registry`. Les versions jusqu'à 0.3.0a5 ont été publiées sous le nom `hermes-memory-core`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](PACKAGES.fr.md).
+Les agents IA s'appuient sur ce qu'ils ont retenu, quelle que soit leur structure : un assistant de code, un graphe LangGraph ou CrewAI, une application OpenAI Agents SDK, votre propre boucle. Ils retiennent des faits, des résumés, des procédures et des leçons tirées de tâches précédentes. Quand une source est corrigée ou retirée, ce qui en a été tiré continue d'être servi, et personne ne prévient l'agent. persistent-memory enregistre les versions exactes des sources de chaque élément dérivé, refuse de servir ce qui dépend d'une version retirée ou remplacée, et prévient chaque client à qui elle a été montrée.
 
-[English](README.md) · [API et service](docs/API.fr.md) · [Contrat de reprise](docs/RECOVERY.fr.md) · [Contribuer](CONTRIBUTING.fr.md) · [Tests et reproductibilité](docs/TESTING.fr.md) · [Surface d'opérations](docs/OPERATIONS.fr.md) · [Serveur MCP](docs/MCP.fr.md) · [Hermes Agent](docs/HERMES-AGENT.fr.md) · [Qdrant](docs/QDRANT.fr.md) · [Brancher vos outils](docs/SETUP.fr.md)
+Bibliothèque standard Python uniquement (SQLite avec FTS5), Python 3.11 ou plus récent, Linux, macOS et Windows. C'est une version alpha, 0.4.0a2 : les interfaces peuvent encore changer. Le module s'importe sous le nom `persistent_memory`.
 
-Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
+[English](https://github.com/Musyg/persistent-memory/blob/main/README.md) · [Brancher vos outils](https://github.com/Musyg/persistent-memory/blob/main/docs/SETUP.fr.md) · [Opérations](https://github.com/Musyg/persistent-memory/blob/main/docs/OPERATIONS.fr.md) · [Serveur MCP](https://github.com/Musyg/persistent-memory/blob/main/docs/MCP.fr.md) · [Résultats mesurés](https://github.com/Musyg/persistent-memory/blob/main/docs/EVIDENCE.fr.md) · [Paquets et versions](https://github.com/Musyg/persistent-memory/blob/main/PACKAGES.fr.md)
 
-Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux, macOS et Windows sont qualifiés : les tests du paquet installé tournent sur les trois systèmes dans la CI, de Python 3.11 à 3.14. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
-
-Une correction ciblée de la validation des identifiants réduit le temps instrumenté de 6,79 % et le CPU de 6,77 % en médiane sur trois nouvelles comparaisons appariées. Les six exécutions conservent les lectures et les retraits attendus. [Protocole, mesures et reproduction](benchmarks/efficiency-20261026/README.fr.md).
-
-## La brancher à vos outils
+## Installer et brancher
 
 ```sh
 python3 -m venv ~/.persistent-memory
-~/.persistent-memory/bin/python -m pip install /chemin/vers/persistent-memory
+~/.persistent-memory/bin/pip install persistent-memory
 ~/.persistent-memory/bin/persistent-memory setup claude-code
 ```
 
-`setup` accepte aussi `claude-desktop`, `cursor`, `vscode`, `windsurf`, `codex` et `hermes-agent`. Tous les outils branchés utilisent la même mémoire, dans le dossier de données du système, par le [serveur MCP](docs/MCP.fr.md) ou, pour Hermes Agent, par son [fournisseur de mémoire](docs/HERMES-AGENT.fr.md). [SETUP.fr.md](docs/SETUP.fr.md) indique où la configuration de chaque outil est écrite et ce que `setup` refuse d'écraser.
+Tant que 0.4.0a2 est la seule version publiée, pip la choisit sans `--pre`. Sous Windows, les commandes se trouvent dans `.persistent-memory\Scripts\`.
 
-## Essayer un parcours complet
+`setup` accepte `claude-code`, `claude-desktop`, `cursor`, `vscode` (GitHub Copilot), `windsurf`, `codex` et `hermes-agent` (Hermes Agent de Nous Research). Tous les outils branchés ouvrent la même mémoire, dans le dossier de données du système : ce qui est retenu dans l'un se retrouve dans les autres, et un retrait fait dans l'un est signalé à chaque outil qui avait vu l'entrée.
 
-Depuis la distribution source, dans un environnement neuf :
+`setup` conserve les autres entrées de chaque fichier de configuration, en garde une copie avant de le modifier, ne remplace pas sans `--force` une entrée du même nom qui lance un autre serveur, ne touche pas un fichier qu'il ne sait pas lire, et ne change rien si on le relance. `--dry-run` montre d'abord la modification ; `persistent-memory status` liste ce qui est configuré. [SETUP.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/SETUP.fr.md) indique le fichier écrit pour chaque outil.
 
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install .
-.venv/bin/hermes-memory-demo --directory /tmp/hermes-memory-exemple
-```
+## N'importe quel framework d'agents
 
-Choisissez un répertoire inexistant. Un premier acteur inscrit deux sources synthétiques et un compte rendu qui dépend de leurs références exactes. Un second acteur rouvre le stockage, retire une source et vérifie que le compte rendu devient illisible, alors que la source indépendante reste accessible. La restauration d'une ancienne copie du contenu démarre en quarantaine ; après contrôle avec l'autorité actuelle conservée, elle ne réadmet pas la source retirée.
-
-Le résultat détaille les invariants vérifiés. Il ne promet ni effacement physique, ni désapprentissage d'un modèle, ni détection d'un retour arrière simultané du contenu, de l'autorité et de son témoin de fraîcheur.
-
-## Rendre des faits vérifiés et contrôler leur remise
-
-Le [rendu structuré](docs/STRUCTURED.fr.md), facultatif, transforme des faits explicitement revus en gabarits français finis, conserve les extraits et versions des sources et vérifie les contraintes de mots et de citations. La [frontière d'admission](docs/ADMISSION.fr.md) ajoute un dossier de dépendances revu par l'hôte, des contrôles d'autorité avant préparation et remise, des notices utiles et un résultat de livraison explicite.
-
-```sh
-python -m hermes_memory.admission_demo
-```
-
-Cette démonstration synthétique couvre une fiche revue, une information inconnue ou contradictoire, un retrait, une autorité absente, un tampon modifié, une limite de mots impossible à satisfaire et un effet sans accusé de réception. Ces API synchrones sont activées explicitement. Elles n'extraient pas les faits d'un brief libre et n'en vérifient pas la vérité sémantique. Un accusé de réception ne prouve pas la consommation en aval ; autorité et publication ne sont pas atomiques. Lire les contrats liés avant de brancher une autorité ou un consommateur réel.
-
-## Utiliser la bibliothèque
+La mémoire ne dépend d'aucun framework. En Python, utilisez directement la bibliothèque. Tout le reste passe par le serveur MCP, en stdio ou en HTTP, depuis n'importe quel langage. Le 15 novembre 2026, chacun de ces frameworks a chargé les dix outils par sa propre intégration MCP puis a mémorisé, cherché, retiré et cherché à nouveau, l'entrée retirée n'étant plus renvoyée : LangChain / LangGraph, OpenAI Agents SDK, Pydantic AI, CrewAI, LlamaIndex, Microsoft AutoGen, smolagents et le SDK MCP officiel pour Python. Aucun modèle n'a été appelé pendant ces contrôles.
 
 ```python
-from pathlib import Path
-from hermes_memory import Authority, Memory
-from hermes_memory.typed_memory import TypedMemory
+from agents import Agent                      # OpenAI Agents SDK
+from agents.mcp import MCPServerStdio
 
-root = Path("etat-exemple")
-root.mkdir()
-authority = Authority.create(root / "autorite.db", root / "temoin.json")
-memory = Memory.create(root / "contenu.db", authority)
-typed = TypedMemory(memory, root / "recherche.db")
-ref = typed.put("demo", "procedure", "Cuivre : suivre la procédure approuvée.", {
-    "evidence_kind": "procedure", "preconditions": {"hors_tension": True}
-})["ref"]
-typed.sync("demo")
-result = typed.search("demo", "cuivre", conditions={"hors_tension": True},
-                      max_context_chars=1000)
-assert result["items"][0]["ref"] == ref
+memory = MCPServerStdio(params={"command": "persistent-memory-mcp", "args": ["--create"]})
+agent = Agent(name="assistant", instructions="...", mcp_servers=[memory])
 ```
 
-Chaque référence contient un espace, une identité d'objet stable et une version immuable. Les mises à jour vérifient la version attendue. Les dérivés déclarent leurs parents exacts. Les lectures contrôlent versions et retraits ; l'index est reconstructible et ne constitue jamais une autorité.
+[FRAMEWORKS.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/FRAMEWORKS.fr.md) donne les versions vérifiées et un extrait pour chaque framework.
 
-Les enveloppes typées distinguent document, observation, hypothèse, procédure, tâche et feedback. Elles peuvent porter des intervalles de validité, alias et préconditions exactes. La recherche lexicale FTS5 retourne un contexte borné, ses références, sa couverture et ses exclusions. Une hypothèse reste présentée comme telle ; la confiance déclarée ne devient ni score de qualité appris ni poids de classement.
+## Exemple
 
-La politique livrée conserve le contrat de recherche R3 avec un rendu facultatif des références exactes. Elle a amélioré la sélection de preuves dans une comparaison synthétique bornée, mais a dépassé son seuil de latence relative. Aucun gain de production, recherche sémantique, raisonnement sur graphe, accès aux versions historiques ou apprentissage automatique n'est revendiqué. R4 expérimental n'est pas inclus.
-
-Avec `render_source_references=True` dans `TypedMemory.search`, chaque texte complet porte sa référence immuable validée. Texte, référence JSON et séparateurs partagent le budget de caractères ; un élément trop long est exclu entier. Le texte seul reste le mode par défaut.
-
-## Une seule surface pour toutes les intégrations
-
-`hermes_memory.persistent.PersistentMemory` réunit ces opérations derrière une classe : lire avec la raison d'un refus, chercher, mémoriser, dériver de parents exacts, corriger en comparant la version, expliquer, planifier puis retirer en cascade, tirer une leçon de la trace d'une tâche et de son retour, et prévenir une session des versions qu'elle a vues et qui ne sont plus valides. Les intégrations passent par cette classe, donc chacune expose la même mémoire. Voir [OPERATIONS.fr.md](docs/OPERATIONS.fr.md).
+On retient une source, on en tire une règle, on montre les deux à une session, puis on retire la source :
 
 ```python
-from hermes_memory.persistent import PersistentMemory
+from persistent_memory import PersistentMemory
 
-memory = PersistentMemory("state/memory", "team-notes", create=True)
-source = memory.remember("The test server listens on port 9300.", source_id="port")
-memory.derive("Open 9300 on the test firewall.", parents=[source["ref"]])
-memory.search("firewall 9300", session="chat-1")
-memory.withdraw("port", "port changed")      # la procédure dérivée est bloquée aussi
-memory.notices("chat-1")                     # chat-1 est prévenu, une fois
+memory = PersistentMemory("demo-store", "team-notes", create=True)
+port = memory.remember("The test server listens on port 9300.", source_id="port")
+rule = memory.derive("Open port 9300 on the test firewall.",
+                     parents=[port["ref"]], artifact_id="open-port")
+parent = memory.explain("open-port")["parents"][0]["ref"]
+print(parent == port["ref"])                    # la version exacte du parent est enregistrée
+
+found = memory.search("firewall 9300", session="chat-1")["items"]
+print([item["artifact_id"] for item in found])  # chat-1 voit les deux entrées
+
+memory.withdraw("port", "the port changed")     # on ne retire que la source
+refused = memory.read(rule["ref"])
+print(refused["allowed"], refused["reason"])    # la règle dérivée est refusée aussi
+print(memory.search("firewall 9300")["items"])  # et n'est plus trouvée
+print([(n["artifact_id"], n["state"]) for n in memory.notices("chat-1")["notices"]])
+print(memory.notices("chat-1")["notices"])      # chaque notice n'est remise qu'une fois
 ```
 
-`persistent-memory-mcp --store DIR --create` sert les mêmes opérations à tout client MCP en stdio ou en HTTP (Claude Code, Hermes Agent, les SDK officiels). Voir [MCP.fr.md](docs/MCP.fr.md). Hermes Agent peut aussi utiliser la mémoire comme [fournisseur de mémoire](docs/HERMES-AGENT.fr.md), et une [projection Qdrant](docs/QDRANT.fr.md) facultative ajoute le rappel sémantique sans jamais contenir le contenu.
+Sortie obtenue avec le wheel installé, sous Python 3.13 :
 
-## Interfaces et vérification
-
-`hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](docs/API.fr.md) fonctionnent en local avec des chemins génériques.
-
-L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [guide de l’API](docs/API.fr.md).
-
-Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. La [projection Qdrant](docs/QDRANT.fr.md) est l'adaptateur vectoriel public ; aucun adaptateur LanceDB n'est annoncé.
-
-```sh
-python -m pip install build
-python -m build
-python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory-0.4.0a1-py3-none-any.whl
-SOURCE="$PWD"
-cd /tmp
-/tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
-/tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
+```text
+True
+['open-port', 'port']
+False source_revoked
+[]
+[('open-port', 'withdrawn'), ('port', 'withdrawn')]
+[]
 ```
 
-Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 353 méthodes de test publiques ; le registre de politiques facultatif en compte 51. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](docs/releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+Si l'on corrige la source au lieu de la retirer, avec `memory.correct("port", nouveau_texte, expected_version=...)`, la règle est refusée avec `version_not_current` (état `superseded`) et les mêmes notices partent. Une correction fondée sur une version qui n'est plus la version courante est refusée avec `version_conflict`.
 
-La [démonstration LanceDB synthétique optionnelle](docs/BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
+Par MCP, ces opérations sont les outils `memory_remember`, `memory_derive`, `memory_search`, `memory_withdraw`, `memory_notices` et cinq autres ; une notice arrive avec le résultat de l'outil suivant.
 
-## Conditions d’intégration
+## Fonctionnement
 
-- Conservez l'autorité actuelle et son témoin hors des sauvegardes de contenu restaurables seules.
-- Une dépendance indisponible ou un index périmé est signalé explicitement, afin d’éviter l’usage de preuves non validées. Une réponse vide ne remplace pas une autorité indisponible.
-- Admission et synchronisation sont explicites et bornées, sans ingestion ou migration globale automatique.
-- Le budget est exprimé en caractères Python, pas en tokens. R3 peut reparcourir le journal d'autorité à chaque opération ; le coût de ce travail dépend de la longueur du journal.
-- Un retrait bloque les futures lectures par la bibliothèque, sans rappeler les copies déjà transmises.
-- L'application reste responsable du consentement, des droits, de la rétention et de la protection de ses fichiers.
+- **L'autorité à part du contenu.** Une base d'autorité tient les versions, les dépendances et les retraits ; un témoin de fraîcheur est conservé à côté ; le contenu a sa propre base. Chaque lecture est contrôlée par l'autorité courante. Voir [OPERATIONS.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/OPERATIONS.fr.md).
+- **Des versions exactes.** Une référence réunit un espace, une identité d'objet stable et une version immuable. Un élément dérivé (résumé, procédure, leçon, entrée d'index) nomme les versions exactes de ses parents. Une correction est un compare-and-swap sur la version attendue.
+- **La cascade.** Retirer ou corriger une source rend illisible tout ce qui en dérive par `derives` ou `indexes` ; `cites` garde un lien sans propager. `plan_withdrawal` liste d'avance ce qui serait bloqué. Rien n'est effacé physiquement.
+- **Les leçons sont des dérivés.** `learn(trace, feedback, lesson)` enregistre la trace d'une tâche et son retour comme sources, puis en dérive la leçon. Seule la leçon est cherchable, et retirer la trace ou le retour la bloque.
+- **Des projections jetables.** L'index de recherche et la [projection Qdrant](https://github.com/Musyg/persistent-memory/blob/main/docs/QDRANT.fr.md) facultative peuvent être supprimés et reconstruits. Elles ne font que proposer des candidats ; chacun est relu par l'autorité, si bien qu'un vecteur périmé ne peut pas faire revenir une entrée retirée. Qdrant ne contient jamais le contenu.
+- **Les notices.** Un registre note les versions montrées à chaque session (un processus serveur MCP, une session MCP en HTTP, une session Hermes Agent). Quand l'une d'elles n'est plus valide, la session est prévenue une fois.
+- **Une vieille sauvegarde ne ressuscite rien.** Une copie de contenu restaurée démarre en quarantaine et se réconcilie avec l'autorité courante ; les sources retirées et ce qui en dépend restent illisibles. Voir le [contrat de reprise](https://github.com/Musyg/persistent-memory/blob/main/docs/RECOVERY.fr.md), ou lancer `hermes-memory-demo --directory NOUVEAU_DOSSIER`.
 
-Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [guide des paquets](PACKAGES.fr.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
+## Points d'entrée
 
-## Comparaison observée avec et sans mémoire
+| Accès | Point d'entrée | Documentation |
+| --- | --- | --- |
+| Bibliothèque Python | `persistent_memory.PersistentMemory` | [OPERATIONS.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/OPERATIONS.fr.md) |
+| MCP en stdio | `persistent-memory-mcp --store DOSSIER`, écrit pour vous par `setup` | [MCP.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/MCP.fr.md) |
+| MCP en Streamable HTTP | `persistent-memory-mcp --transport http` (`/mcp`, fichier de jeton obligatoire hors boucle locale) | [MCP.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/MCP.fr.md) |
+| Fournisseur de mémoire Hermes Agent | `persistent-memory setup hermes-agent`, depuis l'environnement de Hermes Agent | [HERMES-AGENT.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/HERMES-AGENT.fr.md) |
+| Projection Qdrant | `--qdrant-url`, `--embed-url`, `--embed-model`, ou `attach_projection` | [QDRANT.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/QDRANT.fr.md) |
+| Noyau typé, CLI et service HTTP | `hermes-memory`, `hermes-memory-typed` | [API.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/API.fr.md) |
+| Rendu structuré et admission | `hermes_memory.admission_demo` | [STRUCTURED.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/STRUCTURED.fr.md), [ADMISSION.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/ADMISSION.fr.md) |
 
-Chaque étude précise la charge évaluée et les conclusions qu’elle permet de tirer. Ce qui sort de ce périmètre n’a pas été testé dans cette étude ; cela ne constitue pas un échec observé. Les scores de qualité portent sur les réponses des agents ; les tests logiciels vérifient séparément les contrats de la mémoire.
+Les cinq premiers passent par la même classe `PersistentMemory` : ils exposent la même mémoire et les mêmes refus. Les interfaces typées utilisent le même noyau et la même autorité.
 
-Le [pilote sur huit historiques](benchmarks/answer-quality-20261029/README.fr.md) suit des preuves qui évoluent entre les sessions. La mémoire obtient 77/96 réussites primaires, contre 29/96 pour la référence lexicale versionnée ; neuf cas restent inconnus dans chaque condition. Les 192 tentatives synthétiques et les verdicts des deux lecteurs Codex sont fournis avec un vérificateur hors réseau.
+## Résultats mesurés
 
-L’[étude de confirmation](benchmarks/validation-20261022/README.fr.md) porte sur 100 scénarios synthétiques distincts, répétés trois fois dans chaque configuration : les 1 500 réponses ont été remises et les 3 000 jugements IA sont complets. GPT-6 Luna réussit 298 réponses sur 300 avec mémoire (99,33 %), contre 29 sur 300 sans mémoire ; GPT-6.1 Sol atteint 300 sur 300, contre 30 sur 300. Le gain principal de Luna est de 89,67 points de pourcentage, avec un intervalle nominal à 95 % de 89 à 90 points ; la borne inférieure unilatérale à 95 % de sa réussite est de 98 %. La recherche lexicale réussit 294 réponses sur 300 : l’intervalle d’effet mémoire/recherche lexicale à 95 %, de −0,33 à +3,33 points, n’établit pas de supériorité de la mémoire.
+Le dépôt publie ses études avec leur protocole, leurs observations et un recalcul hors réseau. Toutes portent sur des scénarios synthétiques et sont reproductibles ; chaque compte ne vaut que dans le périmètre de son étude.
 
-La page de l’étude détaille la méthode, les échecs, les limites et le recalcul hors réseau. Ces scénarios courts et structurés ont été évalués par deux juges IA, sans audit humain externe de qualité. La [campagne antérieure de 500 tâches et son erratum d’évaluation](benchmarks/validation-20261021/README.fr.md), les [résultats de fiabilité et de charge](benchmarks/validation-20261021/TECHNICAL/README.fr.md) et le [pilote applicatif exploratoire de huit tâches](docs/MEMORY-COMPARISON.md#français) apportent des éléments distincts ; leurs comptes et leur périmètre ne sont pas fusionnés avec cette étude de confirmation.
+- [Comparatif du cycle de vie](https://github.com/Musyg/persistent-memory/blob/main/benchmarks/lifecycle-20261022/README.fr.md) : sur 100 trajectoires figées, cette mémoire et une référence SQLite qui conserve son autorité servent toutes deux les 751 lectures valides et bloquent les 389 lectures interdites ; restaurer l'ancienne autorité avec l'ancien contenu expose 82 contenus retirés ou remplacés. C'est une égalité sur ces garanties, pas une supériorité.
+- [Étude de confirmation](https://github.com/Musyg/persistent-memory/blob/main/benchmarks/validation-20261022/README.fr.md) : sur 100 scénarios répétés trois fois, GPT-6 Luna réussit 298 réponses sur 300 avec mémoire et 29 sur 300 sans. La recherche lexicale atteint 294 sur 300 : aucune supériorité sur elle n'est établie. Deux juges IA, sans audit humain.
+- [Apprentissage entre missions](https://github.com/Musyg/persistent-memory/blob/main/benchmarks/action-20261023/experience/README.fr.md) : Luna réussit 22 nouvelles missions sur 24 avec une leçon dérivée, 13 avec la trace complète et 7 sans expérience ; une fois la leçon retirée, 7 sur 24.
+- [Pilote sur huit historiques](https://github.com/Musyg/persistent-memory/blob/main/benchmarks/answer-quality-20261029/README.fr.md) : avec des preuves qui évoluent entre les sessions, 77 réussites primaires sur 96, contre 29 sur 96 pour une recherche lexicale versionnée.
+- [Comparatif avec ECC Continuous Learning](https://github.com/Musyg/persistent-memory/blob/main/docs/evidence/agentic-transfer-20261104/README.fr.md) : les 128 résultats de 32 cas sont publiés ; les critères fixés d'avance pour conclure à un avantage ne sont pas atteints.
 
-Le [comparatif du cycle de vie](benchmarks/lifecycle-20261022/README.fr.md) rejoue séparément 100 trajectoires figées sur trois implémentations, dans deux environnements Linux. Hermes et SQLite avec autorité conservée préservent chacun les 751 lectures valides et bloquent les 389 lectures interdites par exécution ; restaurer l’ancienne autorité avec l’ancien contenu expose 82 contenus retirés ou remplacés. La comparaison principale aboutit à une égalité sur ces garanties ; les observations synthétiques complètes sont disponibles pour vérification et reproduction.
+Les autres études, les mesures de performance et les reçus de tests sont dans [EVIDENCE.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/EVIDENCE.fr.md) ; la sélection des tests et la façon de relancer la suite depuis un wheel installé sont dans [TESTING.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/TESTING.fr.md).
 
-L’[analyse secondaire d’efficacité](benchmarks/efficiency-20261023/README.fr.md) relie les 1 500 réponses historiques à leur usage déclaré. Luna avec mémoire consomme 4,70 % de tokens en moins et coûte 3,75 % de moins en génération estimée que la recherche lexicale, avec un p95 légèrement plus élevé et une supériorité de qualité non établie. C’est une empreinte observée, sans comparaison à dépense identique ni dominance générale ; l’analyse n’effectue aucun nouvel appel fournisseur.
+## Plateformes et limites
 
-L’[étude de transfert vers des fichiers](benchmarks/action-20261023/README.fr.md) vérifie des actions CSV/JSON entre trois processus distincts. Sur 24 mondes issus de 12 structures, Luna avec mémoire réussit 66/72 tâches contre 35/72 sans mémoire, avec une réponse indisponible dans ce dernier bras ; Sol atteint 72/72 contre 36/72. La référence lexicale versionnée obtient 67/72 et 72/72 : aucun avantage sur cette référence n’est établi. Données synthétiques, échecs initiaux, calibration et amendement du protocole sont conservés avec les commandes de reproduction.
+- **Alpha.** Noms, options et formats de fichiers peuvent changer avant une version stable.
+- **Plateformes.** La CI installe le wheel et lance les tests sous Linux, macOS et Windows, de Python 3.11 à 3.14. Sous Windows, gardez la mémoire sur un disque local ; un chemin réseau n'est pas pris en charge.
+- **Fichier de jeton sous Windows.** Hors boucle locale, le serveur HTTP exige `--token-file`. Sous Linux et macOS, ce fichier ne doit être lisible que par son propriétaire ; Windows n'a pas ces bits de mode et la liste d'accès du fichier n'est pas inspectée : gardez-le dans votre propre dossier de profil.
+- **Un seul processus par mémoire est le cas testé.** SQLite sérialise plusieurs processus, mais ce cas ne fait pas partie des tests de la surface d'opérations.
+- **Recherche.** Lexicale par défaut (FTS5 et alias exacts) ; le rappel sémantique demande la projection Qdrant et un service d'embeddings. L'index couvre jusqu'à 5 000 entrées courantes par espace.
+- **Admission explicite.** Rien n'est enregistré sans un appel à remember, derive, correct ou learn ; les conversations ne sont pas enregistrées d'elles-mêmes.
+- **Le retrait est logique.** Il bloque les lectures futures par cette bibliothèque. Il n'efface pas les octets, ne rappelle pas un texte déjà montré ou copié ailleurs, et ne détecte pas un retour arrière simultané du contenu, de l'autorité et du témoin.
+- **Clients vérifiés.** Claude Code, Codex CLI et Hermes Agent ont lu la configuration écrite par `setup` ; Claude Code et Hermes Agent y ont aussi enregistré et retrouvé des entrées pendant des tours de modèle. Les fichiers de Claude Desktop, Cursor, VS Code et Windsurf suivent la documentation de chaque outil et sont vérifiés par des tests, sans avoir été ouverts dans ces applications.
+- **Frontière de confiance.** Le serveur HTTP typé combiné expose aussi le RPC privilégié du noyau `/rpc` sous le même jeton. Il convient à une application de confiance, pas à un service multiutilisateur.
 
-L’[étude d’optimisation du noyau](benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) compare la même charge de 1 000 sources avant et après une correction de sérialisation. Le temps total instrumenté baisse de 28,01 % et 27,68 % sur deux hôtes Linux, avec les mêmes résultats vérifiés et le même stockage. Huit trajectoires de panne par arrêt réel du processus passent aussi. Il s’agit d’une observation par hôte, sans garantie de latence en production ni de passage à l’échelle général.
+## Licence et projet
 
-Le [benchmark apparié d’admission](benchmarks/efficiency-20261024/README.fr.md) compare la nouvelle correction du checkpoint au noyau précédent sur trois paires de processus neufs. À 1 000 sources synthétiques et 50 recherches par exécution, sur le même support RAM, les réductions médianes sont de 22,33 % pour la durée instrumentée, 28,72 % pour l’ingestion et 22,33 % pour le CPU. Les six exécutions passent les mêmes contrôles de justesse. Ces observations sur un hôte Linux ne constituent ni une mesure de production ni une garantie générale de passage à l’échelle.
-
-Le [cycle mémoire incrémental](benchmarks/efficiency-20261025/README.fr.md) distingue le chargement de 1 000 sources synthétiques du travail qui suit : ajouter et lire dix sources, synchroniser l’index, rechercher, puis vérifier le retrait et un témoin valide. L’étude compare les deux mêmes noyaux sur trois paires de processus neufs. Son rapport sépare le coût initial du coût marginal et donne accès au protocole, aux observations et aux limites. La CLI du benchmark appartient à cette révision Git ; les archives de la release a4 restent inchangées.
-
-L’[étude d’apprentissage entre missions](benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les fichiers produits par les 192 missions B ont été rouverts et vérifiés indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](benchmarks/action-20261023/experience/REPRODUCE.md).
-
-Le [rapport d’intégration avec des agents réels](docs/evidence/experience-transfer-20261026/README.fr.md) présente une égalité avec et sans mémoire et la reprise d’une expérience par un second agent, avec les résultats des tests ciblés et le problème restant dans la proposition générée.
-
-Le [comparatif avec ECC Continuous Learning](docs/evidence/agentic-transfer-20261104/README.fr.md) publie les 128 résultats de 32 cas, avec jusqu’à trois tentatives par nouvelle mission. Il évalue l’intégration native d’Hermès face à une adaptation locale d’ECC, à l’historique des missions et à une condition sans historique. Les critères prévus pour conclure à un avantage ne sont pas atteints. Le paquet public fournit le noyau de mémoire réutilisable.
+Licence MIT, par Gilles Musy ([Musyg](https://github.com/Musyg)). [PACKAGES.fr.md](https://github.com/Musyg/persistent-memory/blob/main/PACKAGES.fr.md) retrace l'historique des versions et présente le registre de politiques facultatif, distribué séparément. Le paquet d'implémentation s'appelle `hermes_memory`, le nom historique du projet ; il reste importable. [Contribuer](https://github.com/Musyg/persistent-memory/blob/main/CONTRIBUTING.fr.md) · [English version](https://github.com/Musyg/persistent-memory/blob/main/README.md) · [Sources](https://github.com/Musyg/persistent-memory)

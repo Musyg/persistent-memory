@@ -1,0 +1,440 @@
+name: Release
+# PyPI Trusted Publishing (OIDC): no token is stored anywhere. See docs/RELEASING.md.
+#   push of a tag v*   real release: build, qualify, TestPyPI, verify, then PyPI after manual approval
+#   workflow_dispatch  dry run: the same chain, stopping after TestPyPI, with a .dev version
+# The files that are tested are the files that are published: they are built once, in the
+# build job, and every later job downloads them and checks their SHA256 before using them.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      version: ${{ steps.verify.outputs.version }}
+      prerelease: ${{ steps.verify.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: The tag must be on main
+        if: github.event_name == 'push'
+        run: |
+          git fetch --no-tags origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" FETCH_HEAD; then
+            echo "Tag $GITHUB_REF_NAME ($GITHUB_SHA) is not reachable from main." >&2
+            exit 1
+          fi
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - run: python -m pip install build==1.6.1 twine==7.0.0 packaging==26.3
+      - name: Dry run only, give the files a .dev version
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          # TestPyPI never accepts the same file twice. A dry run therefore publishes
+          # <version>.devN, so it can be repeated and never uses up the real version.
+          python - <<'PY'
+          import os
+          import pathlib
+          import re
+          suffix = ".dev%d" % (int(os.environ["RUN_ID"]) * 10 + int(os.environ["RUN_ATTEMPT"]))
+          for path, pattern in (("pyproject.toml", r'(?m)^version = "([^"]+)"$'),
+                                ("src/hermes_memory/__init__.py", r'(?m)^__version__ = "([^"]+)"$')):
+              target = pathlib.Path(path)
+              text = target.read_text(encoding="utf-8")
+              updated, count = re.subn(pattern, lambda m: m.group(0).replace(m.group(1), m.group(1) + suffix), text)
+              if count != 1:
+                  raise SystemExit("Expected exactly one version line in %s, found %d" % (path, count))
+              target.write_text(updated, encoding="utf-8", newline="")
+          PY
+          git diff --stat
+      - name: Build the sdist and the wheel once
+        run: python -m build --outdir dist .
+      - name: The built files carry the tag version
+        id: verify
+        run: |
+          python - <<'PY'
+          import email
+          import os
+          import tarfile
+          import zipfile
+          from pathlib import Path
+          from packaging.version import Version
+          dist = Path("dist")
+          wheels, sdists = sorted(dist.glob("*.whl")), sorted(dist.glob("*.tar.gz"))
+          if len(wheels) != 1 or len(sdists) != 1 or len(list(dist.iterdir())) != 2:
+              raise SystemExit("Expected exactly one wheel and one sdist in dist/")
+          with zipfile.ZipFile(wheels[0]) as archive:
+              meta = [n for n in archive.namelist() if n.endswith(".dist-info/METADATA")]
+              if len(meta) != 1:
+                  raise SystemExit("Expected one METADATA in the wheel")
+              wheel_meta = email.message_from_bytes(archive.read(meta[0]))
+              init = archive.read("hermes_memory/__init__.py").decode("utf-8")
+          with tarfile.open(sdists[0], "r:gz") as archive:
+              roots = {n.split("/")[0] for n in archive.getnames()}
+              if len(roots) != 1:
+                  raise SystemExit("Expected one root directory in the sdist")
+              sdist_meta = email.message_from_bytes(archive.extractfile(roots.pop() + "/PKG-INFO").read())
+          for label, meta in (("wheel", wheel_meta), ("sdist", sdist_meta)):
+              if meta["Name"] != "persistent-memory":
+                  raise SystemExit("Unexpected distribution name in the %s: %s" % (label, meta["Name"]))
+          version = Version(wheel_meta["Version"])
+          if Version(sdist_meta["Version"]) != version:
+              raise SystemExit("The wheel and the sdist disagree on the version")
+          if '__version__ = "%s"' % wheel_meta["Version"] not in init:
+              raise SystemExit("hermes_memory.__version__ differs from the package version %s" % version)
+          if os.environ["GITHUB_EVENT_NAME"] == "push":
+              tag = os.environ["GITHUB_REF_NAME"]
+              if not tag.startswith("v") or Version(tag[1:]) != version:
+                  raise SystemExit("Tag %s does not match package version %s" % (tag, version))
+          print("version", version, "prerelease", version.is_prerelease)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write("version=%s\nprerelease=%s\n" % (wheel_meta["Version"], str(version.is_prerelease).lower()))
+          PY
+      - run: python -m twine check --strict dist/*
+      - name: SHA256SUMS
+        run: |
+          mkdir checksums
+          (cd dist && sha256sum -- * > ../checksums/SHA256SUMS)
+          cat checksums/SHA256SUMS
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: checksums
+          path: checksums/SHA256SUMS
+          if-no-files-found: error
+
+  qualify:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-24.04, python: '3.11', kind: wheel}
+          - {os: ubuntu-24.04, python: '3.14', kind: wheel}
+          - {os: macos-latest, python: '3.11', kind: wheel}
+          - {os: macos-latest, python: '3.14', kind: wheel}
+          - {os: windows-latest, python: '3.11', kind: wheel}
+          - {os: windows-latest, python: '3.14', kind: wheel}
+          - {os: ubuntu-24.04, python: '3.14', kind: sdist}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: checksums
+          path: checksums
+      - name: The downloaded files are the built files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected = {}
+          for line in Path("checksums/SHA256SUMS").read_text(encoding="utf-8").splitlines():
+              digest, name = line.split(None, 1)
+              expected[name.lstrip("*")] = digest
+          actual = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path("dist").iterdir()}
+          if expected != actual or len(actual) != 2:
+              raise SystemExit("dist/ does not match SHA256SUMS: %r vs %r" % (actual, expected))
+          print("dist/ matches SHA256SUMS")
+          PY
+      - name: Interpreter and SQLite (FTS5 is required)
+        shell: bash
+        run: |
+          python - <<'PY'
+          import sqlite3
+          import sys
+          print(sys.version)
+          print("sqlite3 library", sqlite3.sqlite_version)
+          connection = sqlite3.connect(":memory:")
+          try:
+              connection.execute("CREATE VIRTUAL TABLE probe USING fts5(text)")
+          except sqlite3.Error as error:
+              raise SystemExit("FTS5 is not available in this SQLite build: %s" % error)
+          finally:
+              connection.close()
+          print("FTS5 available")
+          PY
+      - name: Install the built ${{ matrix.kind }} in a fresh venv and run the suite outside the checkout
+        shell: bash
+        env:
+          KIND: ${{ matrix.kind }}
+          EXPECTED_VERSION: ${{ needs.build.outputs.version }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          # Same method as scripts/check_distributions.py: the package is imported from a venv,
+          # the tests come from the checkout, the working directory is outside the checkout,
+          # and a skipped test is a failure.
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import sys
+          import tempfile
+          import venv
+          from pathlib import Path
+
+          kind = os.environ["KIND"]
+          workspace = Path(os.environ["GITHUB_WORKSPACE"]).resolve()
+          tests = workspace / "tests"
+          files = sorted((workspace / "dist").glob("*.whl" if kind == "wheel" else "*.tar.gz"))
+          if len(files) != 1 or not tests.is_dir():
+              raise SystemExit("Expected one %s and a tests/ directory" % kind)
+          work = Path(tempfile.mkdtemp(prefix="qualify-", dir=os.environ["RUNNER_TEMP"])).resolve()
+          if work.is_relative_to(workspace):
+              raise SystemExit("The working directory must be outside the checkout")
+          env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONIOENCODING="utf-8")
+          env.pop("PYTHONPATH", None)
+
+          def run(argv, **kwargs):
+              subprocess.run([str(a) for a in argv], cwd=work, env=env, check=True, **kwargs)
+
+          venv.EnvBuilder(with_pip=True).create(work / "venv")
+          bindir = work / "venv" / ("Scripts" if os.name == "nt" else "bin")
+          python = bindir / ("python.exe" if os.name == "nt" else "python")
+          install = [python, "-m", "pip", "install", "--disable-pip-version-check", "--no-deps"]
+          if kind == "wheel":
+              install.append("--no-index")
+          run(install + [files[0]])
+          run([python, "-c",
+               "import importlib.metadata as m, importlib, pathlib, sys; "
+               "mod = importlib.import_module('hermes_memory'); "
+               "p = pathlib.Path(mod.__file__).resolve(); "
+               "assert p.is_relative_to(pathlib.Path(sys.prefix).resolve()), p; "
+               "assert m.version('persistent-memory') == sys.argv[1] == mod.__version__, "
+               "(m.version('persistent-memory'), mod.__version__); print(p)",
+               os.environ["EXPECTED_VERSION"]])
+          inventory = subprocess.run(
+              [str(python), "-c",
+               "import json,sys,unittest; "
+               "flatten=lambda s: sum((flatten(x) if isinstance(x,unittest.TestSuite) else [x.id()] for x in s),[]); "
+               "print(json.dumps(sorted(flatten(unittest.defaultTestLoader.discover(sys.argv[1])))))",
+               str(tests)],
+              cwd=work, env=env, text=True, encoding="utf-8", capture_output=True, check=True)
+          ids = json.loads(inventory.stdout)
+          if not ids or len(ids) != len(set(ids)):
+              raise SystemExit("Empty or duplicated discovered tests")
+          print("discovered", len(ids), "tests")
+          result_path = work / "result.json"
+          runner = (
+              "import json,pathlib,sys,unittest; "
+              "result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.discover(sys.argv[1])); "
+              "pathlib.Path(sys.argv[2]).write_text(json.dumps(dict(run=result.testsRun,failures=len(result.failures),"
+              "errors=len(result.errors),skipped=len(result.skipped))),encoding='utf-8'); "
+              "sys.exit(0 if result.wasSuccessful() and not result.skipped else 1)"
+          )
+          completed = subprocess.run([str(python), "-c", runner, str(tests), str(result_path)], cwd=work, env=env)
+          summary = json.loads(result_path.read_text(encoding="utf-8")) if result_path.is_file() else {}
+          print("summary", summary)
+          if (completed.returncode != 0 or summary.get("run") != len(ids)
+                  or summary.get("failures") or summary.get("errors") or summary.get("skipped")):
+              raise SystemExit("Installed test suite failed, skipped a test or changed inventory")
+          run([bindir / ("persistent-memory.exe" if os.name == "nt" else "persistent-memory"), "--version"])
+          PY
+
+  publish-testpypi:
+    needs: [build, qualify]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/persistent-memory
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: checksums
+          path: checksums
+      - name: The files to publish are the built files
+        run: |
+          (cd dist && sha256sum --check --strict ../checksums/SHA256SUMS)
+          test "$(ls dist | wc -l)" = "$(wc -l < checksums/SHA256SUMS)"
+      - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/
+
+  verify-testpypi:
+    needs: [build, publish-testpypi]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    steps:
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: checksums
+          path: checksums
+      - name: Install from TestPyPI in a fresh venv and smoke test
+        shell: bash
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python - <<'PY'
+          import hashlib
+          import os
+          import subprocess
+          import sys
+          import tempfile
+          import time
+          import venv
+          from pathlib import Path
+
+          version = os.environ["VERSION"]
+          spec = "persistent-memory==" + version
+          index = "https://test.pypi.org/simple/"
+          work = Path(tempfile.mkdtemp(prefix="verify-", dir=os.environ["RUNNER_TEMP"])).resolve()
+          env = dict(os.environ, PYTHONIOENCODING="utf-8")
+          env.pop("PYTHONPATH", None)
+
+          def run(argv, **kwargs):
+              return subprocess.run([str(a) for a in argv], cwd=work, env=env, **kwargs)
+
+          venv.EnvBuilder(with_pip=True).create(work / "venv")
+          bindir = work / "venv" / ("Scripts" if os.name == "nt" else "bin")
+          python = bindir / ("python.exe" if os.name == "nt" else "python")
+          pip = [python, "-m", "pip", "--disable-pip-version-check"]
+          # The index can take a few minutes to list a new upload: retry.
+          for attempt in range(1, 21):
+              done = run(pip + ["install", "--no-cache-dir", "--index-url", index, spec])
+              if done.returncode == 0:
+                  break
+              print("attempt %d: %s is not installable yet, waiting 30 s" % (attempt, spec), flush=True)
+              time.sleep(30)
+          else:
+              raise SystemExit("%s did not become installable from TestPyPI" % spec)
+          # TestPyPI must serve the exact bytes that were built and tested.
+          download = work / "download"
+          run(pip + ["download", "--no-cache-dir", "--no-deps", "--index-url", index, "--dest", download, spec], check=True)
+          expected = {}
+          for line in Path(os.environ["GITHUB_WORKSPACE"], "checksums", "SHA256SUMS").read_text(encoding="utf-8").splitlines():
+              digest, name = line.split(None, 1)
+              expected[name.lstrip("*")] = digest
+          fetched = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in download.iterdir()}
+          if len(fetched) != 1 or any(expected.get(n) != d for n, d in fetched.items()):
+              raise SystemExit("TestPyPI served other bytes than the built files: %r vs %r" % (fetched, expected))
+          print("TestPyPI file matches SHA256SUMS:", fetched)
+          script = bindir / ("persistent-memory.exe" if os.name == "nt" else "persistent-memory")
+          shown = run([script, "--version"], check=True, capture_output=True, text=True, encoding="utf-8")
+          print(shown.stdout.strip())
+          if shown.stdout.strip() != "persistent-memory " + version:
+              raise SystemExit("Unexpected --version output: %r" % shown.stdout)
+          smoke = (
+              "import sys, tempfile\n"
+              "from hermes_memory.persistent import PersistentMemory\n"
+              "with tempfile.TemporaryDirectory() as directory:\n"
+              "    memory = PersistentMemory(directory + '/store', 'smoke', create=True)\n"
+              "    stored = memory.remember('The release smoke test marker is zebrafinch.')\n"
+              "    found = memory.search('zebrafinch')\n"
+              "    ids = [item['artifact_id'] for item in found['items']]\n"
+              "    assert found['status'] == 'completed' and ids == [stored['artifact_id']], found\n"
+              "    print('smoke test passed')\n"
+          )
+          run([python, "-I", "-c", smoke], check=True)
+          PY
+
+  publish-pypi:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [build, verify-testpypi]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    # This environment is configured with a required reviewer: nothing reaches PyPI until the owner approves.
+    environment:
+      name: pypi
+      url: https://pypi.org/p/persistent-memory
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: checksums
+          path: checksums
+      - name: The files to publish are the built files
+        run: |
+          (cd dist && sha256sum --check --strict ../checksums/SHA256SUMS)
+          test "$(ls dist | wc -l)" = "$(wc -l < checksums/SHA256SUMS)"
+      - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          packages-dir: dist/
+
+  github-release:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [build, publish-pypi]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: checksums
+          path: checksums
+      - name: The files to attach are the files that were published
+        run: |
+          (cd dist && sha256sum --check --strict ../checksums/SHA256SUMS)
+          test "$(ls dist | wc -l)" = "$(wc -l < checksums/SHA256SUMS)"
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.build.outputs.version }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+        run: |
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then
+            flags+=(--prerelease)
+          fi
+          gh release create "$TAG" dist/* checksums/SHA256SUMS \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "persistent-memory $VERSION" \
+            --notes "Published on PyPI: pip install persistent-memory==$VERSION. The files attached here are the files uploaded to PyPI; SHA256SUMS lists their digests. Changes: CHANGELOG.md." \
+            --generate-notes \
+            "${flags[@]}"

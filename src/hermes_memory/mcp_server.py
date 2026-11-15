@@ -177,9 +177,20 @@ class Toolbox:
             if not _matches(schema["properties"][key], value):
                 raise MemoryError("invalid_argument:" + key)
 
+    def _absent_nulls(self, name, args):
+        """An optional argument sent as null means absent: some framework adapters send every unset field.
+        Unknown arguments and required ones stay checked as before."""
+        schema = self._schemas.get(name)
+        if schema is None or not isinstance(args, dict):
+            return args
+        required = set(schema["required"])
+        return {key: value for key, value in args.items()
+                if not (value is None and key in schema["properties"] and key not in required)}
+
     def call(self, name, args, session):
         """Return (payload, is_error). Refusals become tool errors the model can read."""
         try:
+            args = self._absent_nulls(name, args)
             self._check(name, args)
             payload = self._run(name, dict(args), session)
             is_error = False

@@ -10,10 +10,10 @@ The package uses the Python standard library only (Python 3.11 or later). Give i
 
 ```sh
 python3 -m venv ~/.persistent-memory
-~/.persistent-memory/bin/python -m pip install /path/to/persistent-memory
+~/.persistent-memory/bin/python -m pip install persistent-memory
 ```
 
-On Windows the commands are in `.persistent-memory\Scripts\`. Until the first PyPI release, install from a checkout or from a release wheel.
+On Windows the commands are in `.persistent-memory\Scripts\`. `pip install persistent-memory` installs from PyPI; a checkout or a release wheel also works.
 
 If an earlier release is installed under its old name, remove it first: `pip uninstall hermes-memory-core`. Both names contain the same `hermes_memory` module.
 

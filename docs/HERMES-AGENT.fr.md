@@ -9,7 +9,7 @@ Hermes Agent, de Nous Research, accepte un fournisseur de mémoire externe. Inst
 Dans l'environnement d'Hermes Agent :
 
 ```sh
-pip install /path/to/persistent-memory
+pip install persistent-memory
 ```
 
 Puis, depuis cet environnement :

@@ -1,0 +1,136 @@
+# Résultats mesurés
+
+[English](EVIDENCE.md) · [README](../README.fr.md) · [Tests et reproductibilité](TESTING.fr.md) · [Paquets et versions](../PACKAGES.fr.md)
+
+Cette page conserve les résultats mesurés et les notes de référence que le README présentait avant la version 0.4.0a2. Le texte est inchangé, à l'exception des liens, qui partent désormais de `docs/`. Le README en garde un résumé ; la page de chaque étude reste la description de référence de sa méthode, de ses échecs et de ses limites. Toutes les données sont synthétiques, et chaque étude fournit de quoi la reproduire ou la recalculer.
+
+## Comparaison observée avec et sans mémoire
+
+Chaque étude précise la charge évaluée et les conclusions qu’elle permet de tirer. Ce qui sort de ce périmètre n’a pas été testé dans cette étude ; cela ne constitue pas un échec observé. Les scores de qualité portent sur les réponses des agents ; les tests logiciels vérifient séparément les contrats de la mémoire.
+
+Le [pilote sur huit historiques](../benchmarks/answer-quality-20261029/README.fr.md) suit des preuves qui évoluent entre les sessions. La mémoire obtient 77/96 réussites primaires, contre 29/96 pour la référence lexicale versionnée ; neuf cas restent inconnus dans chaque condition. Les 192 tentatives synthétiques et les verdicts des deux lecteurs Codex sont fournis avec un vérificateur hors réseau.
+
+L’[étude de confirmation](../benchmarks/validation-20261022/README.fr.md) porte sur 100 scénarios synthétiques distincts, répétés trois fois dans chaque configuration : les 1 500 réponses ont été remises et les 3 000 jugements IA sont complets. GPT-6 Luna réussit 298 réponses sur 300 avec mémoire (99,33 %), contre 29 sur 300 sans mémoire ; GPT-6.1 Sol atteint 300 sur 300, contre 30 sur 300. Le gain principal de Luna est de 89,67 points de pourcentage, avec un intervalle nominal à 95 % de 89 à 90 points ; la borne inférieure unilatérale à 95 % de sa réussite est de 98 %. La recherche lexicale réussit 294 réponses sur 300 : l’intervalle d’effet mémoire/recherche lexicale à 95 %, de −0,33 à +3,33 points, n’établit pas de supériorité de la mémoire.
+
+La page de l’étude détaille la méthode, les échecs, les limites et le recalcul hors réseau. Ces scénarios courts et structurés ont été évalués par deux juges IA, sans audit humain externe de qualité. La [campagne antérieure de 500 tâches et son erratum d’évaluation](../benchmarks/validation-20261021/README.fr.md), les [résultats de fiabilité et de charge](../benchmarks/validation-20261021/TECHNICAL/README.fr.md) et le [pilote applicatif exploratoire de huit tâches](MEMORY-COMPARISON.md#français) apportent des éléments distincts ; leurs comptes et leur périmètre ne sont pas fusionnés avec cette étude de confirmation.
+
+Le [comparatif du cycle de vie](../benchmarks/lifecycle-20261022/README.fr.md) rejoue séparément 100 trajectoires figées sur trois implémentations, dans deux environnements Linux. Hermes et SQLite avec autorité conservée préservent chacun les 751 lectures valides et bloquent les 389 lectures interdites par exécution ; restaurer l’ancienne autorité avec l’ancien contenu expose 82 contenus retirés ou remplacés. La comparaison principale aboutit à une égalité sur ces garanties ; les observations synthétiques complètes sont disponibles pour vérification et reproduction.
+
+L’[analyse secondaire d’efficacité](../benchmarks/efficiency-20261023/README.fr.md) relie les 1 500 réponses historiques à leur usage déclaré. Luna avec mémoire consomme 4,70 % de tokens en moins et coûte 3,75 % de moins en génération estimée que la recherche lexicale, avec un p95 légèrement plus élevé et une supériorité de qualité non établie. C’est une empreinte observée, sans comparaison à dépense identique ni dominance générale ; l’analyse n’effectue aucun nouvel appel fournisseur.
+
+L’[étude de transfert vers des fichiers](../benchmarks/action-20261023/README.fr.md) vérifie des actions CSV/JSON entre trois processus distincts. Sur 24 mondes issus de 12 structures, Luna avec mémoire réussit 66/72 tâches contre 35/72 sans mémoire, avec une réponse indisponible dans ce dernier bras ; Sol atteint 72/72 contre 36/72. La référence lexicale versionnée obtient 67/72 et 72/72 : aucun avantage sur cette référence n’est établi. Données synthétiques, échecs initiaux, calibration et amendement du protocole sont conservés avec les commandes de reproduction.
+
+L’[étude d’optimisation du noyau](../benchmarks/efficiency-20261023/core-optimization-20261023/README.fr.md) compare la même charge de 1 000 sources avant et après une correction de sérialisation. Le temps total instrumenté baisse de 28,01 % et 27,68 % sur deux hôtes Linux, avec les mêmes résultats vérifiés et le même stockage. Huit trajectoires de panne par arrêt réel du processus passent aussi. Il s’agit d’une observation par hôte, sans garantie de latence en production ni de passage à l’échelle général.
+
+Le [benchmark apparié d’admission](../benchmarks/efficiency-20261024/README.fr.md) compare la nouvelle correction du checkpoint au noyau précédent sur trois paires de processus neufs. À 1 000 sources synthétiques et 50 recherches par exécution, sur le même support RAM, les réductions médianes sont de 22,33 % pour la durée instrumentée, 28,72 % pour l’ingestion et 22,33 % pour le CPU. Les six exécutions passent les mêmes contrôles de justesse. Ces observations sur un hôte Linux ne constituent ni une mesure de production ni une garantie générale de passage à l’échelle.
+
+Le [cycle mémoire incrémental](../benchmarks/efficiency-20261025/README.fr.md) distingue le chargement de 1 000 sources synthétiques du travail qui suit : ajouter et lire dix sources, synchroniser l’index, rechercher, puis vérifier le retrait et un témoin valide. L’étude compare les deux mêmes noyaux sur trois paires de processus neufs. Son rapport sépare le coût initial du coût marginal et donne accès au protocole, aux observations et aux limites. La CLI du benchmark appartient à cette révision Git ; les archives de la release a4 restent inchangées.
+
+L’[étude d’apprentissage entre missions](../benchmarks/action-20261023/experience/README.fr.md) exécute A, extrait une leçon de son résultat réel, puis l’applique à une tâche B différente dans un nouveau processus. Sur 288 appels, Luna réussit 22/24 missions B avec la leçon dérivée, contre 13/24 avec la trace complète et 7/24 sans expérience. Sol atteint 24/24 avec la leçon comme avec la trace, contre 12/24 sans expérience. Les fichiers produits par les 192 missions B ont été rouverts et vérifiés indépendamment. L’étude conserve le coût de construction, les échecs et les limites, avec un [recalcul hors réseau](../benchmarks/action-20261023/experience/REPRODUCE.md).
+
+Le [rapport d’intégration avec des agents réels](evidence/experience-transfer-20261026/README.fr.md) présente une égalité avec et sans mémoire et la reprise d’une expérience par un second agent, avec les résultats des tests ciblés et le problème restant dans la proposition générée.
+
+Le [comparatif avec ECC Continuous Learning](evidence/agentic-transfer-20261104/README.fr.md) publie les 128 résultats de 32 cas, avec jusqu’à trois tentatives par nouvelle mission. Il évalue l’intégration native d’Hermès face à une adaptation locale d’ECC, à l’historique des missions et à une condition sans historique. Les critères prévus pour conclure à un avantage ne sont pas atteints. Le paquet public fournit le noyau de mémoire réutilisable.
+
+## Efficacité de la validation des identifiants
+
+Une correction ciblée de la validation des identifiants réduit le temps instrumenté de 6,79 % et le CPU de 6,77 % en médiane sur trois nouvelles comparaisons appariées. Les six exécutions conservent les lectures et les retraits attendus. [Protocole, mesures et reproduction](../benchmarks/efficiency-20261026/README.fr.md).
+
+## Vérifier depuis un wheel installé
+
+```sh
+python -m pip install build
+python -m build
+python3 -m venv /tmp/hermes-memory-check
+/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory-0.4.0a2-py3-none-any.whl
+SOURCE="$PWD"
+cd /tmp
+/tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
+/tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
+```
+
+Les tests importent le paquet installé. Les sources actuelles du paquet mémoire comprennent 356 méthodes de test publiques ; le registre de politiques facultatif en compte 51. La version 0.3.0a5 a passé les tests depuis les wheels installés et les sources reconstruites dans deux environnements Linux : 215 méthodes distinctes, 430 exécutions par environnement. Les [reçus et empreintes](releases/0.3.0a5/README.fr.md) identifient les archives distribuées. La version 0.3.0a4 a été qualifiée depuis les wheels installés et les distributions source reconstruites dans deux environnements Linux. Un test de branchement AST propre à une application privée est exclu du périmètre public et de ce compte. Le benchmark génère 24 notes synthétiques ; ses durées sont des observations, pas une supériorité générale.
+
+La [démonstration LanceDB synthétique optionnelle](BENCHMARK-LANCE.fr.md) vérifie la recherche explicite vecteur/texte et les contrôles de version courante et de retrait avec des vecteurs prédéfinis. Ses dépendances sont facultatives ; le benchmark par défaut reste inchangé.
+
+## Notes de référence du README précédent
+
+Ces sections décrivent le noyau typé, le rendu structuré, la frontière d'admission et les conditions d'intégration. Les pages [surface d'opérations](OPERATIONS.fr.md), [API](API.fr.md), [rendu structuré](STRUCTURED.fr.md), [admission](ADMISSION.fr.md) et [reprise](RECOVERY.fr.md) donnent les contrats complets.
+
+Persistent Memory propose deux paquets Python installables séparément : la mémoire présentée ici, distribuée sous le nom `persistent-memory` (module Python `hermes_memory`), et un [registre de politiques facultatif](../PACKAGES.fr.md), `hermes-policy-registry`. Les versions jusqu'à 0.3.0a5 ont été publiées sous le nom `hermes-memory-core`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](../PACKAGES.fr.md).
+
+Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
+
+Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux, macOS et Windows sont qualifiés : les tests du paquet installé tournent sur les trois systèmes dans la CI, de Python 3.11 à 3.14. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
+
+### Essayer un parcours complet
+
+Depuis la distribution source, dans un environnement neuf :
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install .
+.venv/bin/hermes-memory-demo --directory /tmp/hermes-memory-exemple
+```
+
+Choisissez un répertoire inexistant. Un premier acteur inscrit deux sources synthétiques et un compte rendu qui dépend de leurs références exactes. Un second acteur rouvre le stockage, retire une source et vérifie que le compte rendu devient illisible, alors que la source indépendante reste accessible. La restauration d'une ancienne copie du contenu démarre en quarantaine ; après contrôle avec l'autorité actuelle conservée, elle ne réadmet pas la source retirée.
+
+Le résultat détaille les invariants vérifiés. Il ne promet ni effacement physique, ni désapprentissage d'un modèle, ni détection d'un retour arrière simultané du contenu, de l'autorité et de son témoin de fraîcheur.
+
+### Rendre des faits vérifiés et contrôler leur remise
+
+Le [rendu structuré](STRUCTURED.fr.md), facultatif, transforme des faits explicitement revus en gabarits français finis, conserve les extraits et versions des sources et vérifie les contraintes de mots et de citations. La [frontière d'admission](ADMISSION.fr.md) ajoute un dossier de dépendances revu par l'hôte, des contrôles d'autorité avant préparation et remise, des notices utiles et un résultat de livraison explicite.
+
+```sh
+python -m hermes_memory.admission_demo
+```
+
+Cette démonstration synthétique couvre une fiche revue, une information inconnue ou contradictoire, un retrait, une autorité absente, un tampon modifié, une limite de mots impossible à satisfaire et un effet sans accusé de réception. Ces API synchrones sont activées explicitement. Elles n'extraient pas les faits d'un brief libre et n'en vérifient pas la vérité sémantique. Un accusé de réception ne prouve pas la consommation en aval ; autorité et publication ne sont pas atomiques. Lire les contrats liés avant de brancher une autorité ou un consommateur réel.
+
+### Utiliser la bibliothèque
+
+```python
+from pathlib import Path
+from hermes_memory import Authority, Memory
+from hermes_memory.typed_memory import TypedMemory
+
+root = Path("etat-exemple")
+root.mkdir()
+authority = Authority.create(root / "autorite.db", root / "temoin.json")
+memory = Memory.create(root / "contenu.db", authority)
+typed = TypedMemory(memory, root / "recherche.db")
+ref = typed.put("demo", "procedure", "Cuivre : suivre la procédure approuvée.", {
+    "evidence_kind": "procedure", "preconditions": {"hors_tension": True}
+})["ref"]
+typed.sync("demo")
+result = typed.search("demo", "cuivre", conditions={"hors_tension": True},
+                      max_context_chars=1000)
+assert result["items"][0]["ref"] == ref
+```
+
+Chaque référence contient un espace, une identité d'objet stable et une version immuable. Les mises à jour vérifient la version attendue. Les dérivés déclarent leurs parents exacts. Les lectures contrôlent versions et retraits ; l'index est reconstructible et ne constitue jamais une autorité.
+
+Les enveloppes typées distinguent document, observation, hypothèse, procédure, tâche et feedback. Elles peuvent porter des intervalles de validité, alias et préconditions exactes. La recherche lexicale FTS5 retourne un contexte borné, ses références, sa couverture et ses exclusions. Une hypothèse reste présentée comme telle ; la confiance déclarée ne devient ni score de qualité appris ni poids de classement.
+
+La politique livrée conserve le contrat de recherche R3 avec un rendu facultatif des références exactes. Elle a amélioré la sélection de preuves dans une comparaison synthétique bornée, mais a dépassé son seuil de latence relative. Aucun gain de production, recherche sémantique, raisonnement sur graphe, accès aux versions historiques ou apprentissage automatique n'est revendiqué. R4 expérimental n'est pas inclus.
+
+Avec `render_source_references=True` dans `TypedMemory.search`, chaque texte complet porte sa référence immuable validée. Texte, référence JSON et séparateurs partagent le budget de caractères ; un élément trop long est exclu entier. Le texte seul reste le mode par défaut.
+
+### Interfaces
+
+`hermes-memory` fournit initialisation, RPC, HTTP et MCP stdio. `hermes-memory-typed` ajoute inscription explicite, synchronisation, contexte et service facultatif. Les [commandes de l'API](API.fr.md) fonctionnent en local avec des chemins génériques.
+
+L’API Python ajoute `make_server(..., typed_only=True)` : seules les routes POST typées authentifiées sont disponibles ; `/rpc`, `/validate` et les routes GET sont refusées. Configurez ensemble `Policy(render_source_references=True)` et `Client(..., render_source_references=True)` pour les contextes référencés. Ces options lient un espace configuré et un jeton porteur ; elles n’authentifient ni une personne ni une voix. Voir [guide de l’API](API.fr.md).
+
+Les routes HTTP typées et leur client sont en lecture seule. Le serveur combiné expose aussi le **RPC privilégié du noyau sous le même jeton** : il convient à une application de confiance, pas à un service multiutilisateur sans contrôle d'accès supplémentaire. Un espace logique n'est pas une ACL utilisateur. La [projection Qdrant](QDRANT.fr.md) est l'adaptateur vectoriel public ; aucun adaptateur LanceDB n'est annoncé.
+
+### Conditions d'intégration
+
+- Conservez l'autorité actuelle et son témoin hors des sauvegardes de contenu restaurables seules.
+- Une dépendance indisponible ou un index périmé est signalé explicitement, afin d’éviter l’usage de preuves non validées. Une réponse vide ne remplace pas une autorité indisponible.
+- Admission et synchronisation sont explicites et bornées, sans ingestion ou migration globale automatique.
+- Le budget est exprimé en caractères Python, pas en tokens. R3 peut reparcourir le journal d'autorité à chaque opération ; le coût de ce travail dépend de la longueur du journal.
+- Un retrait bloque les futures lectures par la bibliothèque, sans rappeler les copies déjà transmises.
+- L'application reste responsable du consentement, des droits, de la rétention et de la protection de ses fichiers.
+
+Licence MIT. `PROVENANCE.json` décrit la sélection et les transformations. Le registre de politiques facultatif est une distribution séparée : voir [guide des paquets](../PACKAGES.fr.md). Il n'active aucune politique et n'accorde aucun droit d'exécution.
