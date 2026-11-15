@@ -14,7 +14,7 @@ import re
 import sqlite3
 import sys
 
-CORE_SHA = "80c557923836e828b220ed9410510bbd0dd33efe80abfc68ccd9c2f8a96397a7"
+CORE_SHA = "d7ffe470814a7d2e289217c712b042dccf1b397d2529b118bcfde2dd0957e4f6"
 SCHEMA = "hermes.typed-memory.v1"
 KINDS = {"document", "observation", "hypothesis", "procedure", "task", "feedback"}
 
@@ -160,8 +160,12 @@ CREATE VIRTUAL TABLE lexical USING fts5(text, tokenize='unicode61');
 
     def _connect(self):
         connection = sqlite3.connect(self.index_path.as_uri() + "?mode=rw", uri=True, timeout=5)
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA synchronous=FULL")
+        try:
+            connection.row_factory = sqlite3.Row
+            connection.execute("PRAGMA synchronous=FULL")
+        except BaseException:
+            connection.close()
+            raise
         return connection
 
     @contextmanager

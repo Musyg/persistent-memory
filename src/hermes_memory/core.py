@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import re
 import sqlite3
+import time
 import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass, asdict
@@ -14,6 +15,7 @@ GENESIS = hashlib.sha256(b'hermes-memory-core-v1').hexdigest()
 RELATIONS = {'derives', 'indexes', 'cites', 'navigates'}
 DEPENDENCIES = {'derives', 'indexes'}
 STATES = {'active', 'archived', 'expired', 'invalidated'}
+WINDOWS = os.name == 'nt'
 
 class MemoryError(ValueError):
     pass
@@ -55,13 +57,25 @@ def ref(x):
 def key(x):
     return canonical(ref(x))
 
+class _Connection(sqlite3.Connection):
+    """Leaving a with-block commits or rolls back, then closes the file."""
+    def __exit__(self, *exc):
+        try:
+            return super().__exit__(*exc)
+        finally:
+            self.close()
+
 def connect(path, ro=False):
     p = Path(path).resolve()
     require(p.is_file(), 'database_missing')
-    c = sqlite3.connect(p.as_uri() + ('?mode=ro' if ro else '?mode=rw'), uri=True, timeout=5)
-    c.row_factory = sqlite3.Row
-    c.execute('PRAGMA foreign_keys=ON')
-    c.execute('PRAGMA synchronous=FULL')
+    c = sqlite3.connect(p.as_uri() + ('?mode=ro' if ro else '?mode=rw'), uri=True, timeout=5, factory=_Connection)
+    try:
+        c.row_factory = sqlite3.Row
+        c.execute('PRAGMA foreign_keys=ON')
+        c.execute('PRAGMA synchronous=FULL')
+    except BaseException:
+        c.close()
+        raise
     return c
 
 def reserve(path):
@@ -78,7 +92,24 @@ def atomic_json(path, value):
     fd = os.open(tmp, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     with os.fdopen(fd, 'w', encoding='utf-8') as f:
         f.write(canonical(value) + '\n'); f.flush(); os.fsync(f.fileno())
-    os.replace(tmp, p)
+    try:
+        for attempt in range(50):
+            try:
+                os.replace(tmp, p)
+                break
+            except PermissionError:
+                # Windows refuses while another process holds p open; that is brief.
+                if not WINDOWS or attempt == 49:
+                    raise
+                time.sleep(0.02)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+    if WINDOWS:
+        return  # a directory cannot be opened for fsync on Windows
     fd = os.open(p.parent, os.O_RDONLY)
     try:
         os.fsync(fd)
