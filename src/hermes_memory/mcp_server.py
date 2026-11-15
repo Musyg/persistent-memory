@@ -23,6 +23,7 @@ import uuid
 from . import __version__
 from .core import MemoryError
 from .persistent import KINDS, RELATIONS, PersistentMemory
+from .typed_memory import RetrievalError
 
 __all__ = ["SUPPORTED_VERSIONS", "Toolbox", "Session", "serve", "main"]
 
@@ -358,6 +359,25 @@ def attach_projection(memory, options):
                                                      document_prefix=options.embed_document_prefix))
 
 
+STARTUP_ERRORS = (MemoryError, RetrievalError, sqlite3.Error, OSError)
+
+
+def start_message(exc, store=None):
+    """One line for a startup failure: the reason, plus how to recover when we know how."""
+    text = " ".join(str(exc).split()) or exc.__class__.__name__
+    if not isinstance(exc, MemoryError) and not str(exc):
+        text = exc.__class__.__name__
+    if text == "store_missing":
+        return text + " (add --create to make a new one)"
+    if text == "store_incomplete":
+        return (text + " (creation was interrupted: authority exists but content.db is missing or empty; "
+                "if the store holds no data, delete the store folder " + str(store or "") +
+                " and start again with --create, otherwise restore content.db from a backup)")
+    if isinstance(exc, (sqlite3.Error, OSError)):
+        return exc.__class__.__name__ + ": " + text
+    return text
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="persistent-memory-mcp", description=__doc__.splitlines()[0])
     parser.add_argument("--store", default=None,
@@ -384,9 +404,8 @@ def main(argv=None):
     try:
         memory = PersistentMemory(os.path.expanduser(args.store), args.workspace, create=args.create)
         status = attach_projection(memory, args)
-    except MemoryError as exc:
-        print("persistent-memory-mcp: cannot start: " + str(exc)
-              + (" (add --create to make a new one)" if str(exc) == "store_missing" else ""), file=sys.stderr)
+    except STARTUP_ERRORS as exc:
+        print("persistent-memory-mcp: cannot start: " + start_message(exc, args.store), file=sys.stderr)
         return 2
     if status not in (None, "ok"):
         print("persistent-memory-mcp: vector projection " + status + "; lexical search still works",

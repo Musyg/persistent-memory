@@ -1,5 +1,5 @@
 """Stdlib immutable policy registry. Trusted local filesystem; no deployment API."""
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 import hashlib
 import importlib.util
 import json
@@ -71,6 +71,11 @@ def protocol(value):
     return value
 
 
+def _posix_permissions():
+    """True where file mode bits mean something (Linux, macOS)."""
+    return os.name == "posix"
+
+
 class Registry:
     def __init__(self, path, records):
         self.path, self.records = Path(path).resolve(), records
@@ -86,10 +91,14 @@ class Registry:
         admission_protocol = protocol(admission_protocol)
         path = Path(path).absolute()
         require(path.parent.is_dir() and not path.is_symlink(), "private_parent_required")
-        require(path.parent.stat().st_mode & 0o077 == 0, "private_parent_required")
+        if _posix_permissions():  # Linux and macOS: the folder must be owner-only
+            require(path.parent.stat().st_mode & 0o077 == 0, "private_parent_required")
+        # On Windows the mode bits are synthesized (never 0700), so the check cannot work there:
+        # privacy of the folder is decided by its ACL, which is not inspected. Keep the registry
+        # in a per-user folder (for example under the profile directory).
         descriptor = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
         os.close(descriptor)
-        with sqlite3.connect(path) as connection:
+        with closing(sqlite3.connect(path)) as connection, connection:  # commit, then close (Windows keeps open files locked)
             connection.execute("PRAGMA synchronous=FULL")
             connection.executescript("CREATE TABLE meta(key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE objects(ref TEXT PRIMARY KEY,kind TEXT NOT NULL,payload TEXT NOT NULL); CREATE TABLE events(seq INTEGER PRIMARY KEY AUTOINCREMENT,policy_ref TEXT NOT NULL,previous INTEGER NOT NULL,state TEXT NOT NULL,payload TEXT NOT NULL,event_ref TEXT NOT NULL); CREATE TABLE revoked(ref TEXT PRIMARY KEY,reason TEXT NOT NULL);")
             connection.execute("INSERT INTO meta VALUES ('protocol',?)", (canonical(admission_protocol),))

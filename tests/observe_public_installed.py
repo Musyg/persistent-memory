@@ -1,4 +1,4 @@
-"""No-argument JSON observer; execute with the freshly installed Linux interpreter."""
+"""No-argument JSON observer; execute with the freshly installed interpreter."""
 import importlib.util
 import json
 from pathlib import Path
@@ -9,7 +9,6 @@ probe=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)
 
 def main():
-    if not sys.platform.startswith('linux'):raise RuntimeError('linux_required')
     rows=[]
     for group in probe.GROUPS:rows.extend(probe.run_group(group))
     counts={}

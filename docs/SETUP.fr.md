@@ -89,7 +89,12 @@ Le 14 novembre 2026, sous Linux, dans un environnement virtuel neuf avec Python 
 - Codex CLI 0.166.0 : `codex mcp list` et `codex mcp get` ont lu l'entrée écrite par `setup codex`.
 - Hermes Agent : `hermes memory status` a montré `persistent-memory` actif et disponible. Avec un modèle local de 9 milliards de paramètres, Hermes Agent a enregistré un fait avec `memory_remember` ; le serveur configuré pour Claude Code et Codex l'a retrouvé avec `memory_search`.
 
-Les fichiers de Claude Desktop, Cursor, VS Code et Windsurf suivent la documentation actuelle de chaque outil ; ils ont été écrits et vérifiés par les tests, pas ouverts dans ces applications. Les emplacements macOS et Windows sont implémentés et couverts par des tests sous Linux ; ils n'ont pas encore tourné sur ces systèmes.
+Le 15 novembre 2026 :
+
+- Linux, Claude Code avec un vrai tour de modèle, depuis un `.mcp.json` de projet écrit par `setup claude-code --scope project` : Claude a enregistré un fait avec `memory_remember` ; dans une nouvelle session, il l'a retrouvé avec `memory_search` en citant son `artifact_id` ; une fois le fait retiré de l'extérieur, la session suivante n'a rien trouvé et l'a dit.
+- Windows 10, Python 3.13, dans un dossier de profil temporaire : `setup` a écrit les fichiers de Claude Desktop, Cursor, VS Code (projet) et Windsurf ; une deuxième exécution les a indiqués inchangés ; `status` les a listés.
+
+Les fichiers de Claude Desktop, Cursor, VS Code et Windsurf suivent la documentation actuelle de chaque outil ; ils ont été écrits et vérifiés par les tests, pas ouverts dans ces applications.
 
 ## Tests
 

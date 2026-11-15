@@ -47,7 +47,7 @@ class Projection(Base):
         stored = self.memory.remember(FIREWALL, source_id="fw")
         (pid, point), = self.points().items()
         self.assertEqual(set(point["payload"]), {"workspace", "artifact_id", "version_id", "model"})
-        self.assertNotIn("9300", json.dumps(point["payload"]))
+        self.assertNotIn("pare-feu", json.dumps(point["payload"]))
         self.assertEqual(pid, Memory.point_id(stored["ref"], self.projection.model_tag, "0"))
 
     def test_withdrawal_and_correction_purge_points(self):

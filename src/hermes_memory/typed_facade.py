@@ -1,5 +1,5 @@
 """Opt-in HTTP reads over one existing authority; explicit local admission only."""
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from dataclasses import dataclass
 import hashlib
 from pathlib import Path
@@ -92,7 +92,7 @@ class Facade:
         cp = self.memory.checkpoint()
         readiness = "missing"
         if self.index_path.is_file():
-            with sqlite3.connect(self.index_path.as_uri() + "?mode=ro", uri=True) as connection:
+            with closing(sqlite3.connect(self.index_path.as_uri() + "?mode=ro", uri=True)) as connection:
                 row = connection.execute("SELECT generation,epoch FROM checkpoints WHERE workspace=?", (self.policy.workspace,)).fetchone()
             readiness = "ready" if row and (row[0], row[1]) == (cp["generation"], cp["epoch"]) else "stale"
         return {"schema_version": 1, "policy_id": self.policy.policy_id, "status": "completed", "authority": "ready", "index": readiness, "readiness_is_point_in_time": True}

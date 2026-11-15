@@ -12,11 +12,24 @@ from .typed_protocol import ContractError, R3_SHA, canonical, require, strict_js
 from .typed_memory import metadata, RetrievalError, render_context_item
 
 
+def _posix_permissions():
+    """True where file mode bits and owner ids mean something (Linux, macOS)."""
+    return os.name == "posix"
+
+
 def token_from_file(path):
     path = Path(path)
     info = path.lstat()
-    require(stat.S_ISREG(info.st_mode) and stat.S_IMODE(info.st_mode) in {0o400, 0o600} and info.st_uid == os.getuid() and info.st_nlink == 1, "private_token_file_required")
-    descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    # A symlink or a non-regular file is refused everywhere (lstat does not follow links).
+    require(stat.S_ISREG(info.st_mode) and info.st_nlink == 1, "private_token_file_required")
+    if _posix_permissions():
+        # Strict on POSIX: owner-only mode (0400 or 0600) and owned by the calling user.
+        require(stat.S_IMODE(info.st_mode) in {0o400, 0o600} and info.st_uid == os.getuid(), "private_token_file_required")
+    # On Windows the mode bits are synthesized (0666 or 0444) and st_uid is 0, so neither check can
+    # say who may read the file: access is decided by its ACL, which this check does not inspect.
+    # Keep the token file in a per-user folder (for example under the profile directory).
+    # O_NOFOLLOW does not exist on Windows (the lstat check above covers links); O_BINARY keeps CRLF intact.
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_BINARY", 0))
     try:
         actual = os.fstat(descriptor)
         require((info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns) == (actual.st_dev, actual.st_ino, actual.st_size, actual.st_mtime_ns), "token_file_changed")

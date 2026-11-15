@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from hermes_policy_registry.demo import run
 
@@ -17,6 +18,18 @@ class PublicDemoTests(unittest.TestCase):
             self.assertEqual((result['provider_calls'], result['retrieval_calls']), (0, 0))
             self.assertEqual(result['data_class'], 'synthetic_demo_not_measurement')
             self.assertEqual(len(result['record_refs']), 2)
+
+    def test_fixture_is_read_as_utf8_whatever_the_locale(self):
+        seen = []
+        genuine = Path.read_text
+
+        def spy(self, *args, **kwargs):
+            seen.append(kwargs.get('encoding') or (args[0] if args else None))
+            return genuine(self, *args, **kwargs)
+        with tempfile.TemporaryDirectory() as temp, patch.object(Path, 'read_text', spy):
+            run(Path(temp) / 'new-demo')
+        self.assertIn('utf-8', seen)
+        self.assertNotIn(None, seen)
 
     def test_existing_path_refused_without_overwriting_evidence(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -1,4 +1,5 @@
 """Independent G4 assertions against synthetic immutable records and real SQLite."""
+from contextlib import closing
 import copy
 from pathlib import Path
 import sqlite3
@@ -142,12 +143,12 @@ class IndependentRegistryTests(unittest.TestCase):
         changed["records"]["evaluation"] = self.records.seal(ev)
         report = self.registry.add_report({"dataset_sha256": self.dataset, "runs": [changed]})
         cost = self.registry.add_report(self.cost())
-        with sqlite3.connect(self.registry.path) as connection:
+        with closing(sqlite3.connect(self.registry.path)) as connection, connection:
             before = tuple(connection.execute("SELECT COUNT(*) FROM " + table).fetchone()[0] for table in ("objects", "events"))
         reopened = Registry(self.registry.path, self.records)
         with self.assertRaisesRegex(PolicyError, "stale_policy_state"):
             reopened.evaluate_retrieval_reports(self.ref, [{"report_ref": report, "run_id": "review-run"}], cost, "typed_r3", self.proposed["seq"])
-        with sqlite3.connect(self.registry.path) as connection:
+        with closing(sqlite3.connect(self.registry.path)) as connection, connection:
             after = tuple(connection.execute("SELECT COUNT(*) FROM " + table).fetchone()[0] for table in ("objects", "events"))
         self.assertEqual(before, after)
         self.assertEqual(reopened.inspect(self.ref)["seq"], first["seq"])

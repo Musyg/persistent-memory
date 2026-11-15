@@ -1,4 +1,5 @@
 """Independent synthetic retrieval checks against the installed Linux package."""
+from contextlib import closing
 import hashlib
 import importlib.util
 import json
@@ -59,19 +60,19 @@ class IndependentChecks(unittest.TestCase):
 
     def test_missing_authoritative_content_refuses_cached_content(self):
         ref = self.seed()
-        with sqlite3.connect(self.memory.path) as db:
+        with closing(sqlite3.connect(self.memory.path)) as db, db:
             db.execute("DELETE FROM content WHERE ref=?", (self.core.key(ref),))
         self.assert_empty_status(self.typed.search("demo", "copper"), "unavailable")
 
     def test_missing_fts_table_is_unavailable_even_exact_identifier(self):
         self.seed()
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("DROP TABLE lexical")
         self.assert_empty_status(self.typed.search("demo", "a"), "unavailable")
 
     def test_wrong_database_refused_without_reinitializing(self):
         wrong = self.directory / "other.db"
-        with sqlite3.connect(wrong) as db:
+        with closing(sqlite3.connect(wrong)) as db, db:
             db.execute("CREATE TABLE unrelated(value TEXT)")
             db.execute("INSERT INTO unrelated VALUES ('preserve')")
         before = hashlib.sha256(wrong.read_bytes()).hexdigest()
@@ -97,7 +98,7 @@ class IndependentChecks(unittest.TestCase):
 
     def test_sync_transaction_failure_rolls_back_old_projection(self):
         self.seed()
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("CREATE TRIGGER refuse_insert BEFORE INSERT ON documents BEGIN SELECT RAISE(ABORT, 'synthetic sync failure'); END")
         before = hashlib.sha256(self.index.read_bytes()).hexdigest()
         with self.assertRaisesRegex(sqlite3.IntegrityError, "synthetic sync failure"):
@@ -118,7 +119,7 @@ class IndependentChecks(unittest.TestCase):
         self.put()
         foreign = self.put("foreign", "foreign synthetic material", workspace="other")
         self.typed.sync("demo")
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("UPDATE documents SET ref=?", (canonical(foreign),))
         with self.assertRaisesRegex(RetrievalError, "projection_scope_mismatch"):
             self.typed.search("demo", "copper")
@@ -127,7 +128,7 @@ class IndependentChecks(unittest.TestCase):
         old = self.put("a", "copper old")
         self.put("a", "copper new", previous=old["version_id"])
         self.typed.sync("demo")
-        with sqlite3.connect(self.index) as db:
+        with closing(sqlite3.connect(self.index)) as db, db:
             db.execute("UPDATE documents SET ref=?", (canonical(old),))
         result = self.typed.search("demo", "copper", as_of="2030-01-01T00:00:00Z")
         self.assertEqual(result["context"], "")

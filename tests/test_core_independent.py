@@ -1,4 +1,5 @@
 """Independent synthetic acceptance probes against real standalone core."""
+from contextlib import closing
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -9,12 +10,14 @@ import sys
 import threading
 import urllib.request
 import urllib.error
-import selectors
+import queue
 import tempfile
 import unittest
 from unittest.mock import patch
 
+import io
 import hermes_memory.core as core
+from hermes_memory import cli as hermes_cli, interfaces
 from hermes_memory.core import Authority, Memory, MemoryError
 from hermes_memory.interfaces import make_server, MCPSession
 
@@ -182,7 +185,7 @@ class CoreReview(unittest.TestCase):
         with self.assertRaises(MemoryError):self.memory.drain_outbox(fail_after_projection=True)
         reopened=Memory.open(self.memory.path,Authority.open(self.authority.path,self.authority.anchor_path))
         reopened.drain_outbox();reopened.drain_outbox()
-        with sqlite3.connect(self.memory.path) as db:
+        with closing(sqlite3.connect(self.memory.path)) as db, db:
             rows=db.execute('SELECT namespace,point_id,COUNT(*) FROM projection GROUP BY namespace,point_id').fetchall()
         self.assertTrue(all(r[2]==1 for r in rows))
         self.assertEqual([v['ref']['artifact_id'] for v in reopened.projection_search('w','synthetic')],['B'])
@@ -245,7 +248,7 @@ class CoreReview(unittest.TestCase):
         one=self.memory.project(a);two=self.memory.project(a)
         self.assertEqual(one['point_id'],two['point_id'])
         self.assertNotEqual(self.memory.point_id(a,'model1'),self.memory.point_id(a,'model2'))
-        with sqlite3.connect(self.memory.path) as db:self.assertEqual(db.execute('SELECT COUNT(*) FROM projection').fetchone()[0],1)
+        with closing(sqlite3.connect(self.memory.path)) as db, db:self.assertEqual(db.execute('SELECT COUNT(*) FROM projection').fetchone()[0],1)
 
     def test_T18_same_compilation_inputs_dont_create_unjustified_new_version(self):
         a=self.source()
@@ -271,7 +274,7 @@ class CoreReview(unittest.TestCase):
         a=self.source();self.memory.project(a,namespace='hermes-memory:other-model')
         self.memory.revoke_source('w','A','withdraw');self.memory.drain_outbox()
         receipt=self.memory.get_revocation('withdraw')
-        with sqlite3.connect(self.memory.path) as db:
+        with closing(sqlite3.connect(self.memory.path)) as db, db:
             remaining=db.execute("SELECT COUNT(*) FROM projection WHERE namespace='hermes-memory:other-model'").fetchone()[0]
         self.assertTrue(remaining==0 or receipt['projection_purge']=='pending',
                         'must not claim local projection reconciled while another managed namespace remains')
@@ -298,17 +301,51 @@ class CoreReview(unittest.TestCase):
 
     def test_missing_current_content_never_acks_outbox_or_returns_empty_search(self):
         a=self.source()
-        with sqlite3.connect(self.memory.path) as db:db.execute('DELETE FROM content')
+        with closing(sqlite3.connect(self.memory.path)) as db, db:db.execute('DELETE FROM content')
         self.assertFalse(self.memory.read(a)['allowed'])
         with self.assertRaises(MemoryError):self.memory.search('w','synthetic')
         with self.assertRaises(MemoryError):self.memory.drain_outbox()
-        with sqlite3.connect(self.authority.path) as db:
+        with closing(sqlite3.connect(self.authority.path)) as db, db:
             self.assertEqual(db.execute('SELECT SUM(delivered) FROM outbox').fetchone()[0],0)
 
     def cli(self,*args):
         return subprocess.run([sys.executable,'-B','-m','hermes_memory','--authority',str(self.authority.path),
             '--anchor',str(self.authority.anchor_path),'--store',str(self.memory.path),*args],
-            text=True,capture_output=True,timeout=10)
+            text=True, encoding='utf-8',capture_output=True,timeout=60)
+
+    def test_mcp_stdio_default_streams_are_binary_utf8(self):
+        # A text stdio would use the console code page and, on Windows, turn LF into CRLF.
+        text='\u65e5\u672c caf\u00e9'
+        a=self.source(content=text)
+        messages=[{'jsonrpc':'2.0','id':1,'method':'initialize','params':{
+                'protocolVersion':'2025-03-26','capabilities':{},'clientInfo':{'name':'t','version':'1'}}},
+            {'jsonrpc':'2.0','method':'notifications/initialized'},
+            {'jsonrpc':'2.0','id':2,'method':'tools/call','params':{'name':'memory_read','arguments':{'ref':a}}}]
+        raw_in=io.BytesIO(b''.join((json.dumps(m,ensure_ascii=False)+'\r\n').encode('utf-8') for m in messages))
+        raw_out=io.BytesIO()
+        fake_in=io.TextIOWrapper(raw_in,encoding='cp1252',errors='replace')
+        fake_out=io.TextIOWrapper(raw_out,encoding='cp1252',newline='\r\n')
+        with patch.object(sys,'stdin',fake_in),patch.object(sys,'stdout',fake_out):
+            interfaces.mcp_stdio(self.memory)
+            fake_out.flush()
+        data=raw_out.getvalue()
+        self.assertNotIn(b'\r',data)
+        replies=[json.loads(line.decode('utf-8')) for line in data.split(b'\n') if line]
+        self.assertEqual([r['id'] for r in replies],[1,2])
+        self.assertEqual(json.loads(replies[1]['result']['content'][0]['text'])['content'],text)
+
+    def test_cli_writes_utf8_to_a_non_utf8_pipe(self):
+        text='\u65e5\u672c caf\u00e9'
+        a=self.source(content=text)
+        raw=io.BytesIO()
+        fake=io.TextIOWrapper(raw,encoding='cp1252',newline='\r\n')
+        argv=['--authority',str(self.authority.path),'--anchor',str(self.authority.anchor_path),
+              '--store',str(self.memory.path),'rpc',json.dumps({'op':'read','ref':a})]
+        with patch.object(sys,'stdout',fake):
+            hermes_cli.main(argv)
+            fake.flush()
+        self.assertNotIn(b'\r',raw.getvalue())
+        self.assertEqual(json.loads(raw.getvalue().decode('utf-8'))['content'],text)
 
     def test_T15_cli_matches_python_before_and_after_withdrawal(self):
         a=self.source()
@@ -351,15 +388,20 @@ class CoreReview(unittest.TestCase):
         a=self.source()
         command=[sys.executable,'-B','-m','hermes_memory','--authority',str(self.authority.path),
                  '--anchor',str(self.authority.anchor_path),'--store',str(self.memory.path),'mcp']
-        process=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+        process=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        lines=queue.Queue()
+        def pump():
+            # selectors cannot watch a pipe on Windows: a reader thread feeds a queue instead.
+            for raw in iter(process.stdout.readline,b''):lines.put(raw)
+            lines.put(b'')
+        reader=threading.Thread(target=pump,daemon=True);reader.start()
         def send(message,reply=True):
-            process.stdin.write(json.dumps(message)+'\n');process.stdin.flush()
+            process.stdin.write((json.dumps(message)+'\n').encode('utf-8'));process.stdin.flush()
             if not reply:return None
-            with selectors.DefaultSelector() as selector:
-                selector.register(process.stdout,selectors.EVENT_READ)
-                self.assertTrue(selector.select(3),'MCP response deadline')
-            line=process.stdout.readline();self.assertTrue(line,'MCP EOF')
-            return json.loads(line)
+            try:line=lines.get(timeout=60)
+            except queue.Empty:self.fail('MCP response deadline')
+            self.assertTrue(line,'MCP EOF')
+            return json.loads(line.decode('utf-8'))
         try:
             init=send({'jsonrpc':'2.0','id':1,'method':'initialize','params':{
                 'protocolVersion':'2025-03-26','capabilities':{},'clientInfo':{'name':'independent-review','version':'1'}}})
@@ -376,9 +418,9 @@ class CoreReview(unittest.TestCase):
             self.assertFalse(decision['allowed']);self.assertNotIn('content',decision)
         finally:
             process.stdin.close()
-            try:process.wait(timeout=3)
+            try:process.wait(timeout=60)
             except subprocess.TimeoutExpired:process.kill();process.wait()
-            process.stdout.close();process.stderr.close()
+            reader.join(10);process.stdout.close();process.stderr.close()
 
     def test_mcp_read_tool_cannot_change_operation(self):
         a=self.source();session=MCPSession(self.memory)
@@ -398,7 +440,7 @@ class CoreReview(unittest.TestCase):
         self.assertFalse(self.memory.read(b)['allowed'])
         with self.assertRaises(MemoryError):self.authority.recover_anchor(before)
         # Independent inspection of the committed synthetic ledger models explicit operator audit.
-        with core.connect(self.authority.path) as db:committed=self.authority._checkpoint(db)
+        with closing(core.connect(self.authority.path)) as db, db:committed=self.authority._checkpoint(db)
         self.assertGreater(committed['epoch'],before['epoch'])
         self.authority.recover_anchor(committed)
         self.assertFalse(self.memory.read(a)['allowed'])
@@ -406,10 +448,10 @@ class CoreReview(unittest.TestCase):
 
     def test_projection_reconciliation_never_touches_foreign_namespace(self):
         a=self.source()
-        with sqlite3.connect(self.memory.path) as db:
+        with closing(sqlite3.connect(self.memory.path)) as db, db:
             db.execute('INSERT INTO projection VALUES (?,?,?,?,?)',('foreign:index','unchanged',core.key(a),1,'foreign synthetic copy'))
         self.memory.project(a);self.memory.revoke_source('w','A','withdraw');self.memory.drain_outbox()
-        with sqlite3.connect(self.memory.path) as db:
+        with closing(sqlite3.connect(self.memory.path)) as db, db:
             self.assertEqual(db.execute("SELECT content FROM projection WHERE namespace='foreign:index'").fetchone()[0],'foreign synthetic copy')
 
     def test_failed_alias_registration_cannot_publish_orphaned_content(self):
@@ -421,7 +463,7 @@ class CoreReview(unittest.TestCase):
 
     def test_materialized_revocation_row_deleted_does_not_undo_ledger(self):
         a=self.source();self.memory.revoke_source('w','A','withdraw')
-        with sqlite3.connect(self.authority.path) as db:db.execute('DELETE FROM revoked')
+        with closing(sqlite3.connect(self.authority.path)) as db, db:db.execute('DELETE FROM revoked')
         decision=self.memory.read(a)
         self.assertFalse(decision['allowed'])
         self.assertEqual(decision['reason'],'authority_or_store_unavailable')
@@ -429,7 +471,7 @@ class CoreReview(unittest.TestCase):
 
     def test_materialized_archived_row_reactivated_fails_closed(self):
         a=self.source();self.memory.set_status(a,'archived')
-        with sqlite3.connect(self.authority.path) as db:db.execute("UPDATE objects SET status='active'")
+        with closing(sqlite3.connect(self.authority.path)) as db, db:db.execute("UPDATE objects SET status='active'")
         self.assertFalse(self.memory.read(a)['allowed'])
         with self.assertRaises(MemoryError):self.authority.checkpoint()
 

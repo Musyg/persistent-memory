@@ -60,6 +60,8 @@ A client that keeps the server running across conversations (Hermes Agent's gate
 
 On loopback no token is needed. Off loopback the server refuses to start without `--token-file`, and every request must carry `Authorization: Bearer <token>`. Requests with a browser `Origin` header are refused unless that origin is allowed. Bodies are limited to 4 MiB and the server keeps at most 256 sessions, idle ones expiring after a day.
 
+On Linux and macOS the token file must be readable by its owner only. Windows has no such mode bits and the file's access list is not inspected: keep the token file in your own profile folder.
+
 Hermes Agent, with the server already running:
 
 ```yaml

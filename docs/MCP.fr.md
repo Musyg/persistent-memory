@@ -60,6 +60,8 @@ Un client qui garde le serveur actif d'une conversation à l'autre (c'est le cas
 
 En boucle locale, aucun jeton n'est nécessaire. Hors boucle locale, le serveur refuse de démarrer sans `--token-file`, et chaque requête doit porter `Authorization: Bearer <jeton>`. Les requêtes avec un en-tête `Origin` de navigateur sont refusées, sauf origine autorisée. Les corps sont limités à 4 Mio et le serveur garde au plus 256 sessions ; une session inactive expire après un jour.
 
+Sous Linux et macOS, le fichier du jeton doit être lisible par son seul propriétaire. Windows n'a pas ces droits et la liste d'accès du fichier n'est pas inspectée : gardez le fichier du jeton dans votre propre dossier de profil.
+
 Hermes Agent, avec le serveur déjà lancé :
 
 ```yaml

@@ -19,8 +19,9 @@ import tempfile
 from pathlib import Path
 
 from .core import MemoryError
-from .mcp_server import INSTRUCTIONS, TOOLS, Toolbox
+from .mcp_server import INSTRUCTIONS, STARTUP_ERRORS, TOOLS, Toolbox, start_message
 from .persistent import PersistentMemory
+from .typed_memory import RetrievalError
 
 try:  # pragma: no cover - depends on the environment
     from agent.memory_provider import MemoryProvider, RecallStatus, is_trivial_prompt
@@ -139,10 +140,14 @@ class PersistentMemoryProvider(MemoryProvider):
         self.config = load_config(home)
         root = Path(os.path.expanduser(self.config["store_dir"])) if self.config["store_dir"] \
             else Path(home) / PROVIDER_NAME / "store"
-        self.memory = PersistentMemory(root, str(self.config["workspace"]), create=True)
+        try:
+            self.memory = PersistentMemory(root, str(self.config["workspace"]), create=True)
+        except STARTUP_ERRORS as exc:
+            # One line for the host's log instead of a traceback through sqlite or the file system.
+            raise RuntimeError("persistent-memory: cannot start: " + start_message(exc, root)) from None
         try:
             attach_projection(self.memory, _Projection(self.config))
-        except (MemoryError, OSError) as exc:
+        except (MemoryError, RetrievalError, sqlite3.Error, OSError) as exc:
             logger.warning("vector projection not attached: %s", exc)
         self.writes_allowed = kwargs.get("agent_context", "primary") in (None, "primary")
         self.toolbox = Toolbox(self.memory, read_only=not self.writes_allowed,
@@ -226,7 +231,7 @@ class PersistentMemoryProvider(MemoryProvider):
         path = config_path(hermes_home)
         path.parent.mkdir(parents=True, exist_ok=True)
         fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".config-")
-        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:  # LF on Windows too
             json.dump(merged, handle, indent=2)
         os.replace(tmp, path)
 

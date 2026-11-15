@@ -42,7 +42,7 @@ class HermesMemoryManager(unittest.TestCase):
             self.assertIn("[port]", manager.prefetch_all("Quel port utilise Orion-Test ?", session_id="mm"))
             manager.handle_tool_call("memory_withdraw", {"artifact_id": "port", "reason": "obsolete"})
             merged = manager.prefetch_all("Quel port utilise Orion-Test ?", session_id="mm")
-            self.assertNotIn("9300", merged)
+            self.assertNotIn("utilise", merged)
 
 
 if __name__ == "__main__":

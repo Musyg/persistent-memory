@@ -1,5 +1,6 @@
 """Real SQLite/core tests; no models, network or production sources imported."""
 
+from contextlib import closing
 import importlib.util
 import hashlib
 import json
@@ -93,7 +94,7 @@ class TypedRetrievalTests(unittest.TestCase):
     def test_refetch_never_uses_corrupted_projection_text(self):
         self.put("a", "Original jasper text.")
         self.typed.sync("demo")
-        with sqlite3.connect(self.directory / "index.sqlite") as connection:
+        with closing(sqlite3.connect(self.directory / "index.sqlite")) as connection, connection:
             connection.execute("UPDATE lexical SET text='forged poison payload'")
         result = self.typed.search("demo", "poison")
         self.assertEqual(result["context"], "Original jasper text.")
@@ -202,7 +203,7 @@ class TypedRetrievalTests(unittest.TestCase):
         self.put("a", "cobalt")
         self.typed.sync("demo")
         for value in ("{broken", "[]", '{"workspace":"demo"}'):
-            with sqlite3.connect(self.directory / "index.sqlite") as connection:
+            with closing(sqlite3.connect(self.directory / "index.sqlite")) as connection, connection:
                 connection.execute("UPDATE documents SET ref=?", (value,))
             result = self.typed.search("demo", "cobalt")
             self.assertEqual(result["status"], "unavailable")
@@ -210,7 +211,7 @@ class TypedRetrievalTests(unittest.TestCase):
             self.assertEqual(result["context"], "")
 
     def test_empty_index_schema_has_typed_error(self):
-        with sqlite3.connect(self.directory / "index.sqlite") as connection:
+        with closing(sqlite3.connect(self.directory / "index.sqlite")) as connection, connection:
             connection.execute("DELETE FROM index_schema")
         with self.assertRaisesRegex(RetrievalError, "index_schema_mismatch"):
             TypedMemory(self.memory, self.directory / "index.sqlite")

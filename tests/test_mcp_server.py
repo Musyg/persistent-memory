@@ -217,6 +217,33 @@ class Subprocess(Base):
         self.assertIn(b"--create", completed.stderr)
         self.assertFalse(missing.exists())
 
+    def start(self, *flags, store=None):
+        env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+        return subprocess.run([sys.executable, "-m", "hermes_memory.mcp_server", "--store", str(store or self.store),
+                               "--workspace", "ws", *flags], input=b"", capture_output=True, env=env, timeout=60)
+
+    def assert_clean_exit_2(self, completed, *words):
+        self.assertEqual(completed.returncode, 2, completed.stderr)
+        text = completed.stderr.decode("utf-8")
+        self.assertNotIn("Traceback", text)
+        self.assertEqual(len(text.strip().splitlines()), 1, text)
+        for word in words:
+            self.assertIn(word, text)
+
+    def test_half_created_store_says_how_to_recover(self):
+        (self.store / "content.db").unlink()
+        for flags in ((), ("--create",)):
+            completed = self.start(*flags)
+            self.assert_clean_exit_2(completed, "store_incomplete", "delete the store folder", "restore content.db")
+        self.assertFalse((self.store / "content.db").exists())
+
+    def test_startup_failures_are_one_line_with_exit_2(self):
+        (self.store / "ledger.db").write_bytes(b"this is not a database" * 100)  # sqlite3.DatabaseError
+        self.assert_clean_exit_2(self.start(), "DatabaseError")
+        blocked = Path(self._tmp.name) / "a-file"
+        blocked.write_text("x")  # --create below a regular file: NotADirectoryError / FileExistsError
+        self.assert_clean_exit_2(self.start("--create", store=blocked / "store"), "Error")
+
     def test_read_only_flag(self):
         lines = [{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": INIT},
                  {"jsonrpc": "2.0", "method": "notifications/initialized"},

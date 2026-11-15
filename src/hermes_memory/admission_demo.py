@@ -88,7 +88,8 @@ def run_demo():
 
 
 def main():
-    print(json.dumps(run_demo(), ensure_ascii=False, indent=2))
+    from .interfaces import write_line
+    write_line(json.dumps(run_demo(), ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':

@@ -188,13 +188,21 @@ def make_server(toolbox, host="127.0.0.1", port=8766, token=None, allowed_origin
     return server
 
 
+def _posix_permissions():
+    """True where file mode bits and owner ids mean something (Linux, macOS)."""
+    return os.name == "posix"
+
+
 def load_token(path):
     """Read a bearer token from a regular file that only its owner can read."""
     p = Path(path)
     info = p.lstat()
     if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode):
         raise ValueError("token_file_must_be_regular")
-    if os.name == "posix":
+    # Mode bits and owner ids only mean something on POSIX. On Windows (os.name == "nt") they are
+    # synthesized, so the permission and owner checks are skipped there on purpose: access to the
+    # token file is decided by its ACL, which is not inspected. Keep it in a per-user folder.
+    if _posix_permissions():
         if info.st_mode & 0o077:
             raise ValueError("token_file_permissions_too_open")
         if info.st_uid != os.getuid():

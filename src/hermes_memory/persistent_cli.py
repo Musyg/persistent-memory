@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import sqlite3
 import sys
 
 from . import __version__
+from .interfaces import write_line
+from .typed_memory import RetrievalError
 from .client_setup import (ALIASES, CLIENTS, DEFAULT_NAME, DEFAULT_WORKSPACE, Context, Request, SetupError,
                            default_store, setup, status)
 
@@ -46,6 +49,15 @@ def main(argv=None):
         from .mcp_server import main as serve
         return serve(argv[1:])
     args = _parser().parse_args(argv)
+    try:
+        return _run(args)
+    except (RetrievalError, sqlite3.Error, OSError) as exc:
+        from .mcp_server import start_message
+        print("persistent-memory: cannot run: " + start_message(exc), file=sys.stderr)
+        return 2
+
+
+def _run(args):
     if args.command == "status":
         ctx = Context.current()
         store = default_store(ctx.env, ctx.platform, ctx.home)
@@ -53,13 +65,13 @@ def main(argv=None):
                   "store_exists": (store / "authority" / "authority.db").exists(),
                   "clients": status(ctx, args.project_dir)}
         if args.json:
-            print(json.dumps(report, indent=2))
+            write_line(json.dumps(report, indent=2))
         else:
-            print("persistent-memory %s (%s)" % (report["version"], report["python"]))
-            print("default store: %s%s" % (store, "" if report["store_exists"] else " (not created yet)"))
+            write_line("persistent-memory %s (%s)" % (report["version"], report["python"]))
+            write_line("default store: %s%s" % (store, "" if report["store_exists"] else " (not created yet)"))
             for row in report["clients"]:
-                print("  %-15s %-8s %-28s %s" % (row["client"], row["scope"], row["state"], row["file"]))
-            print("Hermes Agent is not listed: run persistent-memory setup hermes-agent --dry-run")
+                write_line("  %-15s %-8s %-28s %s" % (row["client"], row["scope"], row["state"], row["file"]))
+            write_line("Hermes Agent is not listed: run persistent-memory setup hermes-agent --dry-run")
         return 0
     request = Request(client=args.client, scope=args.scope, store=args.store, workspace=args.workspace,
                       name=args.name, project_dir=args.project_dir, remove=args.remove, force=args.force,
@@ -70,15 +82,15 @@ def main(argv=None):
         print("persistent-memory setup: " + str(exc), file=sys.stderr)
         return 1
     if args.json:
-        print(json.dumps(result.__dict__, indent=2))
+        write_line(json.dumps(result.__dict__, indent=2))
         return 0
-    print("%s (%s): %s %s in %s" % (result.client, result.scope, result.action, args.name, result.target))
+    write_line("%s (%s): %s %s in %s" % (result.client, result.scope, result.action, args.name, result.target))
     for command in result.commands:
-        print("  command: " + command)
+        write_line("  command: " + command)
     if result.backup:
-        print("  backup: " + result.backup)
+        write_line("  backup: " + result.backup)
     for note in result.notes:
-        print("  " + note)
+        write_line("  " + note)
     return 0
 
 
