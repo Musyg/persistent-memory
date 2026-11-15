@@ -1,22 +1,40 @@
 [build-system]
-requires = ["setuptools>=65"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "persistent-memory"
-version = "0.4.0a1"
+version = "0.4.0a2"
 description = "Persistent memory for AI agents and coding assistants: exact versions, provenance, withdrawal with cascade, MCP server and Hermes Agent provider"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
-authors = [{name = "Musyg"}]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Gilles Musy"}]
 dependencies = []
 keywords = ["memory", "agents", "mcp", "llm", "provenance", "hermes-agent"]
-classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Operating System :: POSIX :: Linux", "Operating System :: MacOS", "Operating System :: Microsoft :: Windows"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
 [project.urls]
 Homepage = "https://github.com/Musyg/persistent-memory"
 Source = "https://github.com/Musyg/persistent-memory"
+Documentation = "https://github.com/Musyg/persistent-memory#readme"
+Issues = "https://github.com/Musyg/persistent-memory/issues"
+Changelog = "https://github.com/Musyg/persistent-memory/blob/main/CHANGELOG.md"
 
 [project.scripts]
 persistent-memory = "hermes_memory.persistent_cli:main"
@@ -30,7 +48,7 @@ persistent-memory = "hermes_memory.hermes_agent:register"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["hermes_memory._admission_sources*"]
+include = ["hermes_memory*", "persistent_memory*"]
 
 [tool.setuptools.package-data]
 hermes_memory = ["_admission_sources/*.py", "ADMISSION-PROVENANCE.json"]

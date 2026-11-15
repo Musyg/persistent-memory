@@ -161,6 +161,23 @@ class Tools(Base):
         out, _ = client.call("memory_explain")
         self.assertEqual(out["error"], "give_artifact_id_or_ref")
 
+    def test_null_optional_arguments_mean_absent(self):
+        # Some framework adapters (CrewAI's) send every unset optional field as null.
+        client = self.client()
+        out, result = client.call("memory_remember", text=PORT, kind=None, source_id=None, aliases=None,
+                                  valid_from=None, valid_until=None, preconditions=None,
+                                  confidence=None)
+        self.assertFalse(result.get("isError"), out)
+        found, result = client.call("memory_search", query="Orion-Test 9300", kinds=None, as_of=None, conditions=None,
+                                    top_k=None, max_chars=None)
+        self.assertFalse(result.get("isError"), found)
+        self.assertEqual([i["artifact_id"] for i in found["items"]], [out["artifact_id"]])
+        for arguments, reason in (({"text": None}, "invalid_argument:text"),
+                                  ({"text": PORT, "colour": None}, "unknown_argument:colour")):
+            refused, result = client.call("memory_remember", **arguments)
+            self.assertTrue(result["isError"], arguments)
+            self.assertEqual(refused["error"], reason)
+
 
 class Notices(Base):
     def test_next_result_carries_the_notice_once(self):

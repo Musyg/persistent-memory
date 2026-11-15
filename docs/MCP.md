@@ -44,7 +44,7 @@ The client starts this command itself; you only put it in the client's configura
 | `memory_learn` | Lesson from a task trace and its feedback | |
 | `memory_notices` | What this session saw that is no longer valid | read-only |
 
-Every input schema refuses unknown arguments. A refusal from the memory (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) comes back as a tool result with `isError: true`, so the model can read it. An unknown tool is a JSON-RPC error.
+Every input schema refuses unknown arguments. An optional argument sent as `null` counts as absent, because some framework adapters send every unset field. A refusal from the memory (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) comes back as a tool result with `isError: true`, so the model can read it. An unknown tool is a JSON-RPC error.
 
 Results are JSON text; from protocol 2025-06-18 on they are also sent as `structuredContent`.
 

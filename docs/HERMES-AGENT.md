@@ -9,7 +9,7 @@ Nous Research's Hermes Agent accepts one external memory provider. Installing th
 In Hermes Agent's environment:
 
 ```sh
-pip install /path/to/persistent-memory
+pip install persistent-memory
 ```
 
 Then, from that environment:
