@@ -38,7 +38,7 @@ jobs:
               connection.close()
           print("FTS5 available")
           PY
-      - run: python -m pip install build setuptools wheel
+      - run: python -m pip install --upgrade build "setuptools>=77" wheel
       - run: python scripts/check_distributions.py
         env:
           PYTHONDONTWRITEBYTECODE: '1'
