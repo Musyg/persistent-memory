@@ -2,7 +2,7 @@
 
 All notable changes to `persistent-memory` are recorded here. The project is an alpha library: versions use PEP 440 pre-release numbers (`0.4.0a2`) and interfaces can still change between pre-releases.
 
-## 0.4.0a2 (not yet released)
+## 0.4.0a2 (2026-11-15)
 
 First release on PyPI, as `persistent-memory-mcp` (`0.4.0a1` is skipped: that tag is an earlier public pre-release, see PACKAGES.md) (module `hermes_memory`, unchanged). Releases up to 0.3.0a5 were published as `hermes-memory-core`; see [Earlier releases](#earlier-releases). Uninstall `hermes-memory-core` before installing `persistent-memory-mcp`: both contain the `hermes_memory` module.
 
