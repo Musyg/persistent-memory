@@ -89,7 +89,7 @@ jobs:
                   raise SystemExit("Expected one root directory in the sdist")
               sdist_meta = email.message_from_bytes(archive.extractfile(roots.pop() + "/PKG-INFO").read())
           for label, meta in (("wheel", wheel_meta), ("sdist", sdist_meta)):
-              if meta["Name"] != "persistent-memory":
+              if meta["Name"] != "persistent-memory-mcp":
                   raise SystemExit("Unexpected distribution name in the %s: %s" % (label, meta["Name"]))
           version = Version(wheel_meta["Version"])
           if Version(sdist_meta["Version"]) != version:
@@ -229,8 +229,8 @@ jobs:
                "mod = importlib.import_module('hermes_memory'); "
                "p = pathlib.Path(mod.__file__).resolve(); "
                "assert p.is_relative_to(pathlib.Path(sys.prefix).resolve()), p; "
-               "assert m.version('persistent-memory') == sys.argv[1] == mod.__version__, "
-               "(m.version('persistent-memory'), mod.__version__); print(p)",
+               "assert m.version('persistent-memory-mcp') == sys.argv[1] == mod.__version__, "
+               "(m.version('persistent-memory-mcp'), mod.__version__); print(p)",
                os.environ["EXPECTED_VERSION"]])
           inventory = subprocess.run(
               [str(python), "-c",
@@ -266,7 +266,7 @@ jobs:
     timeout-minutes: 15
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/persistent-memory
+      url: https://test.pypi.org/p/persistent-memory-mcp
     permissions:
       id-token: write
     steps:
@@ -320,7 +320,7 @@ jobs:
           from pathlib import Path
 
           version = os.environ["VERSION"]
-          spec = "persistent-memory==" + version
+          spec = "persistent-memory-mcp==" + version
           index = "https://test.pypi.org/simple/"
           work = Path(tempfile.mkdtemp(prefix="verify-", dir=os.environ["RUNNER_TEMP"])).resolve()
           env = dict(os.environ, PYTHONIOENCODING="utf-8")
@@ -380,7 +380,7 @@ jobs:
     # This environment is configured with a required reviewer: nothing reaches PyPI until the owner approves.
     environment:
       name: pypi
-      url: https://pypi.org/p/persistent-memory
+      url: https://pypi.org/p/persistent-memory-mcp
     permissions:
       id-token: write
     steps:
@@ -435,6 +435,6 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --verify-tag \
             --title "persistent-memory $VERSION" \
-            --notes "Published on PyPI: pip install persistent-memory==$VERSION. The files attached here are the files uploaded to PyPI; SHA256SUMS lists their digests. Changes: CHANGELOG.md." \
+            --notes "Published on PyPI: pip install persistent-memory-mcp==$VERSION. The files attached here are the files uploaded to PyPI; SHA256SUMS lists their digests. Changes: CHANGELOG.md." \
             --generate-notes \
             "${flags[@]}"

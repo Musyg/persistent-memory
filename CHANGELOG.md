@@ -4,13 +4,13 @@ All notable changes to `persistent-memory` are recorded here. The project is an 
 
 ## 0.4.0a2 (not yet released)
 
-First release under the name `persistent-memory` (`0.4.0a1` is skipped: that tag is an earlier public pre-release, see PACKAGES.md) (module `hermes_memory`, unchanged). Releases up to 0.3.0a5 were published as `hermes-memory-core`; see [Earlier releases](#earlier-releases). Uninstall `hermes-memory-core` before installing `persistent-memory`: both contain the `hermes_memory` module.
+First release on PyPI, as `persistent-memory-mcp` (`0.4.0a1` is skipped: that tag is an earlier public pre-release, see PACKAGES.md) (module `hermes_memory`, unchanged). Releases up to 0.3.0a5 were published as `hermes-memory-core`; see [Earlier releases](#earlier-releases). Uninstall `hermes-memory-core` before installing `persistent-memory-mcp`: both contain the `hermes_memory` module.
 
 ### Added
 
 - Any agent framework: [docs/FRAMEWORKS.md](docs/FRAMEWORKS.md) lists the frameworks whose MCP integration was checked, with a snippet for each. An optional MCP argument sent as `null` now counts as absent.
 - Public import name `persistent_memory` (`from persistent_memory import PersistentMemory`). It exposes the same objects as `hermes_memory`, which remains importable.
-- Rename of the distribution to `persistent-memory`. Console scripts: `persistent-memory` and `persistent-memory-mcp`, next to the existing `hermes-memory`, `hermes-memory-typed` and `hermes-memory-demo`.
+- Rename of the distribution to `persistent-memory-mcp` (`persistent-memory` is refused by PyPI as too close to an existing project). Console scripts: `persistent-memory` and `persistent-memory-mcp`, next to the existing `hermes-memory`, `hermes-memory-typed` and `hermes-memory-demo`.
 - Operations surface: `hermes_memory.persistent.PersistentMemory` gathers sources, derived artifacts with exact parents, corrections, withdrawal with cascade, lessons and withdrawal notices behind one class ([docs/OPERATIONS.md](docs/OPERATIONS.md)).
 - MCP server over stdio and over HTTP ([docs/MCP.md](docs/MCP.md)).
 - Hermes Agent memory provider, registered through the `hermes_agent.memory_providers` entry point ([docs/HERMES-AGENT.md](docs/HERMES-AGENT.md)).

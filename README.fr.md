@@ -10,11 +10,11 @@ Bibliothèque standard Python uniquement (SQLite avec FTS5), Python 3.11 ou plus
 
 ```sh
 python3 -m venv ~/.persistent-memory
-~/.persistent-memory/bin/pip install persistent-memory
+~/.persistent-memory/bin/pip install persistent-memory-mcp
 ~/.persistent-memory/bin/persistent-memory setup claude-code
 ```
 
-Tant que 0.4.0a2 est la seule version publiée, pip la choisit sans `--pre`. Sous Windows, les commandes se trouvent dans `.persistent-memory\Scripts\`.
+Sur PyPI, le paquet s'appelle `persistent-memory-mcp` ; les commandes et le nom d'import restent `persistent-memory` et `persistent_memory`. Tant que 0.4.0a2 est la seule version publiée, pip la choisit sans `--pre`. Sous Windows, les commandes se trouvent dans `.persistent-memory\Scripts\`.
 
 `setup` accepte `claude-code`, `claude-desktop`, `cursor`, `vscode` (GitHub Copilot), `windsurf`, `codex` et `hermes-agent` (Hermes Agent de Nous Research). Tous les outils branchés ouvrent la même mémoire, dans le dossier de données du système : ce qui est retenu dans l'un se retrouve dans les autres, et un retrait fait dans l'un est signalé à chaque outil qui avait vu l'entrée.
 
