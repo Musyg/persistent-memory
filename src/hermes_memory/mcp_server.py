@@ -178,14 +178,41 @@ class Toolbox:
                 raise MemoryError("invalid_argument:" + key)
 
     def _absent_nulls(self, name, args):
-        """An optional argument sent as null means absent: some framework adapters send every unset field.
+        """An optional argument sent as null, or an optional string sent empty, means absent: some framework
+        adapters send every unset field, and some models fill unused string fields with "".
         Unknown arguments and required ones stay checked as before."""
         schema = self._schemas.get(name)
         if schema is None or not isinstance(args, dict):
             return args
         required = set(schema["required"])
-        return {key: value for key, value in args.items()
-                if not (value is None and key in schema["properties"] and key not in required)}
+        properties = schema["properties"]
+
+        def absent(key, value):
+            if key not in properties or key in required:
+                return False
+            return value is None or (value == "" and properties[key].get("type") == "string")
+
+        return {key: value for key, value in args.items() if not absent(key, value)}
+
+    def _hint(self, name, code):
+        """What a model needs to correct a refused call, next to the unchanged error code."""
+        schema = self._schemas.get(name)
+        properties = schema["properties"] if schema else {}
+        if code in ("invalid_evidence_kind", "invalid_kind_filter"):
+            return {"allowed_kinds": sorted(KINDS)}
+        if code == "utc_timestamp_required":
+            return {"hint": "Times are UTC in ISO 8601 ending in Z, for example 2026-01-31T00:00:00Z. "
+                            "Leave out an optional time you do not need."}
+        if code.startswith("unknown_argument:"):
+            return {"allowed_arguments": sorted(properties)}
+        if code.startswith(("invalid_argument:", "missing_argument:")):
+            key = code.split(":", 1)[1]
+            expected = properties.get(key, {}).get("type")
+            return {"expected_type": expected} if expected else {}
+        if code == "version_conflict":
+            return {"hint": "Search again and use the version_id of the current ref as expected_version, "
+                            "or use memory_correct to change an existing artifact."}
+        return {}
 
     def call(self, name, args, session):
         """Return (payload, is_error). Refusals become tool errors the model can read."""
@@ -195,7 +222,8 @@ class Toolbox:
             payload = self._run(name, dict(args), session)
             is_error = False
         except (MemoryError, ValueError, TypeError) as exc:
-            payload, is_error = {"error": str(exc) or type(exc).__name__}, True
+            code = str(exc) or type(exc).__name__
+            payload, is_error = {"error": code, **self._hint(name, code)}, True
         except (OSError, sqlite3.Error):
             logger.exception("tool %s failed", name)
             payload, is_error = {"error": "memory_unavailable"}, True
