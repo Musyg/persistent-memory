@@ -2,6 +2,12 @@
 
 All notable changes to `persistent-memory` are recorded here. The project is an alpha library: versions use PEP 440 pre-release numbers (`0.4.0a2`) and interfaces can still change between pre-releases.
 
+## Unreleased
+
+### Fixed
+
+- HTTP servers (core `/rpc` and `/validate`, typed routes, MCP over Streamable HTTP): a refused request (401, 403, 404, 405) now has its body read before the answer is sent. Before, the server closed the connection with unread data, and the client could get a reset connection instead of the answer; this was seen once on Windows in CI. The tests that send refused requests now send 40 of them with a body of 1 to 2 MB.
+
 ## 0.4.0a2 (2026-11-15)
 
 First release on PyPI, as `persistent-memory-mcp` (`0.4.0a1` is skipped: that tag is an earlier public pre-release, see PACKAGES.md) (module `hermes_memory`, unchanged). Releases up to 0.3.0a5 were published as `hermes-memory-core`; see [Earlier releases](#earlier-releases). Uninstall `hermes-memory-core` before installing `persistent-memory-mcp`: both contain the `hermes_memory` module.

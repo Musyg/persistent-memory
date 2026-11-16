@@ -861,12 +861,16 @@
       "path": "src/hermes_memory/interfaces.py",
       "origin": "core-v0.1/interfaces.py",
       "original_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
-      "package_sha256": "5a976fe9e195f728ee0f8e155a6d896332fed9a9cc0ec525a9b0b878cead6e55",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
+      "package_sha256": "5251a51319a0baea70eef84f291919bcfe5fd194e0669741c9a33ddac93ce39d",
+      "transformation": "Refused HTTP requests: the server reads the request body before answering 401, 403, 404 or 405, so that the client receives the answer instead of a reset connection (seen on Windows); tests extended and falsified.",
       "assembly_history": [
         {
           "package_sha256": "b5c32ceaabf0c60ee8db66ef0934de2b99f5b49e7a16509a7e8543bf4c79c090",
           "transformation": "byte-identical"
+        },
+        {
+          "package_sha256": "5a976fe9e195f728ee0f8e155a6d896332fed9a9cc0ec525a9b0b878cead6e55",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -921,8 +925,8 @@
       "path": "src/hermes_memory/typed_facade.py",
       "origin": "integration-r3/typed_facade.py",
       "original_sha256": "20730ea26a05f352278533593184f37a24199e51666cf6f88523504f6493e547",
-      "package_sha256": "0817f958557a853d30d9b1b98fd783d6869ace7fd398c637d948539024a1dfa7",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
+      "package_sha256": "bd8941180eaa21bda6c5de5fba97b305c27f8ef4ebf160c74a96116faf31f26d",
+      "transformation": "Refused HTTP requests: the server reads the request body before answering 401, 403, 404 or 405, so that the client receives the answer instead of a reset connection (seen on Windows); tests extended and falsified.",
       "assembly_history": [
         {
           "package_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead",
@@ -931,6 +935,10 @@
         {
           "package_sha256": "3d78dd5219a4d8b7da621cc26c653257964101e7e8c6d42f30b47cfa20b0225c",
           "transformation": "focused typed-reference/workspace-token extension, version/documentation binding or reconciliation to already-published source; prior observations retained"
+        },
+        {
+          "package_sha256": "0817f958557a853d30d9b1b98fd783d6869ace7fd398c637d948539024a1dfa7",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "eb2ec4159c98f65a62ca7f1f1becd1f188c1341a2921670b7109eb7849a50ead"
@@ -1098,8 +1106,8 @@
       "path": "tests/test_core_independent.py",
       "origin": "core-v0.1/tests/test_core_independent.py",
       "original_sha256": "fb310f65ad5aca9a106d7c76dda8b60d22a0bba71211da6b598be4445e33bbdc",
-      "package_sha256": "b0f1ef4190c37585b9de18f55036e0fe27bb1280ba5d892519620c2707e283b0",
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
+      "package_sha256": "2313f1a611fc02abacda125622a399fd7bd023506dfa7afdb488db6068c13386",
+      "transformation": "Refused HTTP requests: the server reads the request body before answering 401, 403, 404 or 405, so that the client receives the answer instead of a reset connection (seen on Windows); tests extended and falsified.",
       "assembly_history": [
         {
           "release_candidate": "0.3.0a2",
@@ -1117,6 +1125,10 @@
         {
           "package_sha256": "61eb2c6c65bcb2886849c761e47e9b8b10c639d6bcbec802b7a8baaa049eaa7d",
           "transformation": "Surgical 0.3.0a5 identifier-equivalence optimization, corresponding source/version bindings, or current bilingual documentation; historical evidence unchanged. Archive qualification pending."
+        },
+        {
+          "package_sha256": "b0f1ef4190c37585b9de18f55036e0fe27bb1280ba5d892519620c2707e283b0",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ],
       "previous_public_worktree_sha256": "af8c394467ac333444c6f55d3756393c5b62b3bfbfbad41c9419f3b18587c8f6"
@@ -2169,12 +2181,16 @@
       "path": "src/hermes_memory/mcp_http.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "281ce038cf66d6cd60d3afb95d4d296020efa84a740bc8e2f5473f608b8e3c74",
+      "transformation": "Refused HTTP requests: the server reads the request body before answering 401, 403, 404 or 405, so that the client receives the answer instead of a reset connection (seen on Windows); tests extended and falsified.",
+      "package_sha256": "a21e138989f11dc20f3ee4ee723d7f6cf1b2879549e62ac4d52df19667289cc3",
       "assembly_history": [
         {
           "package_sha256": "c2429866b1d5300869ba03db7f93f18a10b27291525d7a1d537660d18ea51730",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "281ce038cf66d6cd60d3afb95d4d296020efa84a740bc8e2f5473f608b8e3c74",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },
@@ -2222,12 +2238,16 @@
       "path": "tests/test_mcp_http.py",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux.",
-      "package_sha256": "e47088db4272708a12b8060c51c3dc93cf15b83c036c6f93154e54a1c39c3531",
+      "transformation": "Refused HTTP requests: the server reads the request body before answering 401, 403, 404 or 405, so that the client receives the answer instead of a reset connection (seen on Windows); tests extended and falsified.",
+      "package_sha256": "2ae2290af9b2d33afad28a36eeb589cfefc413e637c68b0fdfa9f4164f31fed4",
       "assembly_history": [
         {
           "package_sha256": "b4cfb44423cdf059611ee5cae9596f414641d159eda5b02ee5e440e567f49aff",
           "transformation": "new generic source, documentation or synthetic fixture"
+        },
+        {
+          "package_sha256": "e47088db4272708a12b8060c51c3dc93cf15b83c036c6f93154e54a1c39c3531",
+          "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
         }
       ]
     },

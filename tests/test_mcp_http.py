@@ -110,6 +110,9 @@ class WithToken(Base):
 
     def test_bearer_token_and_allowed_origin(self):
         self.assertEqual(self.request(body=INIT, headers={"Authorization": "Bearer wrong"})[0], 401)
+        # A refused request with a large body still gets its answer: the server reads the body first.
+        for _ in range(40):
+            self.assertEqual(self.request(raw=b"x" * 2_000_000, headers={"Authorization": "Bearer wrong"})[0], 401)
         self.assertEqual(self.request(body=INIT, headers={"Origin": "https://app.example"})[0], 200)
 
     def test_configuration_refusals(self):

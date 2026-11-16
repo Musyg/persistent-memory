@@ -142,12 +142,15 @@ def make_server(memory, facade, host="127.0.0.1", port=0, token=None, *, typed_o
         def do_POST(self):
             if not self.path.startswith(PREFIX):
                 if typed_only:
+                    self.discard_body()
                     if not self.authorized():
                         return self.answer(401, {"error": "unauthorized"})
                     return self.answer(405, {"status": "refused", "reason": "typed_only_route"})
                 return super().do_POST()
             if not self.authorized():
+                self.discard_body()
                 return self.answer(401, {"error": "unauthorized"})
+            consumed = False
             try:
                 require(facade.policy.enabled, "feature_disabled", 403)
                 require(self.path in {PREFIX + "context", PREFIX + "status"}, "administrative_or_unknown_route", 405)
@@ -156,6 +159,7 @@ def make_server(memory, facade, host="127.0.0.1", port=0, token=None, *, typed_o
                 require(len(lengths) == 1 and lengths[0].isdigit(), "invalid_body_size")
                 length = int(lengths[0])
                 require(0 < length <= 16384, "body_limit", 413)
+                consumed = True
                 raw = self.rfile.read(length)
                 require(len(raw) == length, "truncated_body")
                 request = strict_json(raw)
@@ -164,6 +168,8 @@ def make_server(memory, facade, host="127.0.0.1", port=0, token=None, *, typed_o
                 status = {"index_stale": 409, "epoch_changed": 409, "unavailable": 503}.get(result["status"], 200)
                 return self.answer(status, result)
             except ContractError as exc:
+                if not consumed:
+                    self.discard_body()
                 return self.answer(exc.status, {"status": "unavailable" if exc.status == 503 else "refused", "reason": exc.reason})
             except RetrievalError:
                 return self.answer(400, {"status": "refused", "reason": "invalid_typed_request"})
