@@ -4,6 +4,10 @@ All notable changes to `persistent-memory` are recorded here. The project is an 
 
 ## Unreleased
 
+### Added
+
+- Review mode: `persistent-memory-mcp --review` turns the write tools into proposals that a person approves with `persistent-memory review` (`list`, `show`, `approve`, `reject`). The agent gets `memory_proposal_status` but no way to approve. Approval goes through the same code as a direct call, so versions, compare-and-swap, cascade and notices all apply; a proposal the memory refuses at that moment, such as a correction made stale by another one, is marked `failed` and never forced. Proposals live in `review.db`, next to the store; the core is unchanged. See [docs/MCP.md](docs/MCP.md#review-mode).
+
 ### Fixed
 
 - MCP tools: an optional argument sent empty (`""`, `[]`, `{}`) now counts as absent, like `null`. Refusals keep their error code and add what a model needs to correct the call (allowed kinds, allowed arguments, expected type and range, timestamp format, version conflict). A number outside the range its schema advertises (`max_chars: 0`, for example) is refused instead of giving an empty result. The descriptions of the optional fields say to leave them out unless the user gave them. Found in an end-to-end run with a real model (gpt-oss 20B through the OpenAI Agents SDK), which never managed to store a fact with 0.4.0a3: it filled unused fields with `""` and used kinds that do not exist, and the bare error codes did not tell it what to send.

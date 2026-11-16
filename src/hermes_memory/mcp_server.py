@@ -40,6 +40,11 @@ INSTRUCTIONS = (
     "contradicting fact. If a result carries memory_notices, stop relying on those artifacts, "
     "including what you said from them earlier."
 )
+REVIEW_INSTRUCTIONS = (
+    " In this server, storing, deriving, correcting, withdrawing and learning create proposals that a "
+    "person approves; nothing changes until then. Tell the user a proposal is waiting for approval, do "
+    "not send it again, and use memory_proposal_status to see where it stands."
+)
 
 _STR = {"type": "string"}
 _REF = {"type": "object", "additionalProperties": False,
@@ -129,6 +134,14 @@ TOOLS = (
           "Each is reported once; tool results also carry them as memory_notices.",
           {}, read_only=True),
 )
+PROPOSAL_STATUS = _tool(
+    "memory_proposal_status", "Check proposals",
+    "Review mode: where proposals stand (pending, approved, rejected or failed). Give proposal_id for "
+    "one proposal of this workspace; leave it out for the latest ones of this session. Approval is "
+    "done by a person, never through this server.",
+    {"proposal_id": {"type": "string", "description": "As returned when the proposal was made."}},
+    read_only=True, idempotent=True)
+_REVIEW_PREFIX = "Review mode: this call creates a proposal that a person must approve; nothing is stored until then. "
 READ_ONLY = frozenset({"memory_search", "memory_read", "memory_explain", "memory_plan_withdrawal",
                        "memory_notices"})
 _JSON_TYPES = {"string": str, "integer": int, "number": (int, float), "array": list, "object": dict,
@@ -149,7 +162,9 @@ def _matches(schema, value):
 class Toolbox:
     """The tools of one store and workspace, independent of the transport."""
 
-    def __init__(self, memory, *, read_only=False, allow_withdraw=True):
+    def __init__(self, memory, *, read_only=False, allow_withdraw=True, review=False):
+        if read_only and review:
+            raise ValueError("read_only_and_review_are_exclusive")
         self.memory = memory
         names = {t["name"] for t in TOOLS}
         if read_only:
@@ -157,6 +172,14 @@ class Toolbox:
         if not allow_withdraw:
             names.discard("memory_withdraw")
         self._tools = [t for t in TOOLS if t["name"] in names]
+        self.proposals = None
+        self.instructions = INSTRUCTIONS
+        if review:
+            from .review import Proposals, WRITE_TOOLS
+            self.proposals = Proposals(memory.root)
+            self.instructions = INSTRUCTIONS + REVIEW_INSTRUCTIONS
+            self._tools = [dict(t, description=_REVIEW_PREFIX + t["description"]) if t["name"] in WRITE_TOOLS
+                           else t for t in self._tools] + [PROPOSAL_STATUS]
         self._schemas = {t["name"]: t["inputSchema"] for t in self._tools}
 
     def list(self):
@@ -248,6 +271,18 @@ class Toolbox:
 
     def _run(self, name, args, session):
         m = self.memory
+        if self.proposals is not None:
+            from .review import WRITE_TOOLS
+            if name in WRITE_TOOLS:
+                proposal_id = self.proposals.propose(m.workspace, name, args, session)
+                return {"status": "pending_review", "proposal_id": proposal_id,
+                        "hint": "Nothing is stored until a person approves it. memory_proposal_status "
+                                "shows where it stands."}
+            if name == "memory_proposal_status":
+                if "proposal_id" in args:
+                    return self._status_view(self.proposals.get(args["proposal_id"], m.workspace))
+                return {"proposals": [self._status_view(p) for p in self.proposals.list(
+                    workspace=m.workspace, session_id=session, states=None, limit=20)]}
         if name == "memory_search":
             out = m.search(args.pop("query"), session=session, **args)
             reasons = {}
@@ -282,6 +317,12 @@ class Toolbox:
         if name == "memory_notices":
             return m.notices(session)
         raise MemoryError("unknown_tool")
+
+
+    @staticmethod
+    def _status_view(proposal):
+        return {key: proposal[key] for key in ("proposal_id", "tool", "state", "created_at", "decided_at",
+                                               "result", "error", "note") if key in proposal}
 
 
 def _error(ident, code, message):
@@ -345,7 +386,7 @@ class Session:
         return {"jsonrpc": "2.0", "id": ident, "result": {
             "protocolVersion": self.protocol, "capabilities": {"tools": {"listChanged": False}},
             "serverInfo": {"name": "persistent-memory", "title": "Persistent Memory", "version": __version__},
-            "instructions": INSTRUCTIONS}}
+            "instructions": getattr(self.toolbox, "instructions", INSTRUCTIONS)}}
 
 
 def serve(session, stdin, stdout):
@@ -436,6 +477,8 @@ def main(argv=None):
     parser.add_argument("--read-only", action="store_true",
                         help="Expose search, read, explain, plan_withdrawal and notices only")
     parser.add_argument("--no-withdraw", action="store_true", help="Do not expose memory_withdraw")
+    parser.add_argument("--review", action="store_true",
+                        help="Writes become proposals that a person approves with persistent-memory review")
     parser.add_argument("--session", help="Ledger session id for stdio; default one new id per process")
     parser.add_argument("--transport", choices=("stdio", "http"), default="stdio")
     parser.add_argument("--host", default="127.0.0.1", help="HTTP only")
@@ -445,6 +488,8 @@ def main(argv=None):
                         help="HTTP only: browser Origin allowed to call the endpoint; repeatable")
     add_projection_options(parser)
     args = parser.parse_args(argv)
+    if args.read_only and args.review:
+        parser.error("--read-only and --review cannot be combined: --read-only already exposes no writes")
     logging.basicConfig(stream=sys.stderr, level=logging.WARNING, format="persistent-memory-mcp: %(message)s")
     if not args.store:
         from .client_setup import default_store
@@ -458,7 +503,12 @@ def main(argv=None):
     if status not in (None, "ok"):
         print("persistent-memory-mcp: vector projection " + status + "; lexical search still works",
               file=sys.stderr)
-    toolbox = Toolbox(memory, read_only=args.read_only, allow_withdraw=not args.no_withdraw)
+    try:
+        toolbox = Toolbox(memory, read_only=args.read_only, allow_withdraw=not args.no_withdraw,
+                          review=args.review)
+    except STARTUP_ERRORS as exc:
+        print("persistent-memory-mcp: cannot start: " + start_message(exc, args.store), file=sys.stderr)
+        return 2
     if args.transport == "http":
         from .mcp_http import load_token, make_server
         try:
