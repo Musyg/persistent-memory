@@ -115,16 +115,31 @@ def make_server(toolbox, host="127.0.0.1", port=8766, token=None, allowed_origin
             self.end_headers()
             self.wfile.write(raw)
 
+        def _discard_body(self):
+            # Read an unwanted request body before answering: closing a socket with unread data resets the
+            # connection, and the client may then lose the error response (seen on Windows).
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                length = -1
+            if self.headers.get("Transfer-Encoding") is None and 0 <= length <= MAX_BODY:
+                self.rfile.read(length)
+            else:
+                self.close_connection = True
+
         def _allowed(self):
             if urlsplit(self.path).path != "/mcp":
+                self._discard_body()
                 self._send(404, {"error": "not_found"})
                 return False
             origin = self.headers.get("Origin")
             if origin is not None and origin not in origins:
+                self._discard_body()
                 self._send(403, {"error": "origin_not_allowed"})
                 return False
             if expected is not None and not hmac.compare_digest(
                     self.headers.get("Authorization", "").encode("utf-8"), expected):
+                self._discard_body()
                 self._send(401, {"error": "unauthorized"}, (("WWW-Authenticate", 'Bearer realm="mcp"'),))
                 return False
             return True

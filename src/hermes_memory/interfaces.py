@@ -31,6 +31,13 @@ def make_server(memory,host='127.0.0.1',port=8079,token=None):
         def answer(self,status,value):
             raw=json.dumps(value,ensure_ascii=False).encode('utf-8')
             self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(raw)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(raw)
+        def discard_body(self):
+            # Read an unwanted request body before answering: closing a socket with unread data resets the
+            # connection, and the client may then lose the error response (seen on Windows).
+            try:length=int(self.headers.get('Content-Length','0'))
+            except ValueError:length=-1
+            if self.headers.get('Transfer-Encoding') is None and 0<=length<=1048576:self.rfile.read(length)
+            else:self.close_connection=True
         def authorized(self):
             return token is None or hmac.compare_digest(self.headers.get('Authorization',''),'Bearer '+token)
         def do_GET(self):
@@ -39,8 +46,8 @@ def make_server(memory,host='127.0.0.1',port=8079,token=None):
             try:return self.answer(200,{'status':'ok','checkpoint':memory.checkpoint()})
             except (OSError,ValueError,sqlite3.Error):return self.answer(503,{'error':'authority_unavailable'})
         def do_POST(self):
-            if not self.authorized():return self.answer(401,{'error':'unauthorized'})
-            if self.path not in {'/rpc','/validate'}:return self.answer(404,{'error':'not_found'})
+            if not self.authorized():self.discard_body();return self.answer(401,{'error':'unauthorized'})
+            if self.path not in {'/rpc','/validate'}:self.discard_body();return self.answer(404,{'error':'not_found'})
             try:
                 require(self.headers.get('Transfer-Encoding') is None,'transfer_encoding_unsupported')
                 length=int(self.headers.get('Content-Length','-1'))

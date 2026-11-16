@@ -374,6 +374,11 @@ class CoreReview(unittest.TestCase):
             with self.assertRaises(urllib.error.HTTPError) as caught:
                 post('/rpc',{'op':'read','ref':a},authorized=False)
             self.assertEqual(caught.exception.code,401)
+            # A refused request with a large body still gets its answer: the server reads the body first.
+            for _ in range(40):
+                with self.assertRaises(urllib.error.HTTPError) as caught:
+                    post('/rpc',{'op':'read','ref':a,'pad':'x'*1000000},authorized=False)
+                self.assertEqual(caught.exception.code,401)
             with self.assertRaises(urllib.error.HTTPError) as caught:
                 post('/validate',{'refs':[a],'op':'revoke_source','workspace':'w','source_id':'A','event_id':'bad'})
             self.assertEqual(caught.exception.code,400)
