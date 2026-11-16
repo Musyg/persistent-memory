@@ -1,5 +1,7 @@
 # persistent-memory
 
+<!-- mcp-name: io.github.Musyg/persistent-memory -->
+
 [![PyPI](https://img.shields.io/pypi/v/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Python](https://img.shields.io/pypi/pyversions/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Tests](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml) [![License: MIT](https://img.shields.io/pypi/l/persistent-memory-mcp)](https://github.com/Musyg/persistent-memory/blob/main/LICENSE)
 
 AI agents act on what they remember, whatever they are built with: a coding assistant, a LangGraph or CrewAI graph, an OpenAI Agents SDK app, your own loop. They remember facts, summaries, procedures and lessons from earlier tasks. When a source is corrected or withdrawn, whatever was built from it keeps being served, and nothing tells the agent. persistent-memory records the exact source versions behind every derived item, refuses to serve anything that depends on a withdrawn or replaced version, and notifies each client that was shown it.

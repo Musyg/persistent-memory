@@ -229,8 +229,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
-      "package_sha256": "e19d3a1594808305e94f6e24389b8cf4390af8870cae4935808fe505a384863a",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "2f689b1bcfa5e8219689e98e45f4ad05696e27f5544b9e6faa6f7e19c50d4795",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -2408,8 +2408,8 @@
       "path": ".github/workflows/release.yml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
-      "package_sha256": "22a7887270b6bed745c5c768d2593305a0f2eee5d0f44a29daeb935f90200062",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "805a4a1cdd05074d8b99ebd6d325bb0aba7b941cdda86ffb311df305d9875431",
       "assembly_history": [
         {
           "package_sha256": "f169a5e31255bde792a235443ff04a36e6656f57d28f23432436596be4f7e3cd",
@@ -2506,11 +2506,18 @@
       "package_sha256": "0bb2fc886ee9d61153d57537f6fd7e036a6c99958338193803d505d7718f9656"
     },
     {
+      "path": "server.json",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "cbd1a0e2707147f887181316853ccdae8b44396ad90d090c6fabc71deb70614d"
+    },
+    {
       "path": "docs/RELEASING.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
-      "package_sha256": "8ad6143b48b7df09a17bda39355a4fdc524eac69d296e7a30475f7c2b7b4da73",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "2bcc648e8eb2be73ccd2f78604ee80df56b84563975efd4da972d938a10def51",
       "assembly_history": [
         {
           "package_sha256": "86ca805e0623465be04b9c233a428b6494e8e33710e55abf5f6791322f8c014d",
@@ -3530,6 +3537,8 @@
     "core_bytes_unchanged_since": "three_systems_update_20261115",
     "public_test_methods": 356,
     "files_refreshed": [".github/workflows/release.yml", "CHANGELOG.md", "PACKAGES.fr.md", "PACKAGES.md", "README.fr.md", "README.md", "docs/EVIDENCE.fr.md", "docs/EVIDENCE.md", "docs/HERMES-AGENT.fr.md", "docs/HERMES-AGENT.md", "docs/RELEASING.md", "docs/SETUP.fr.md", "docs/SETUP.md", "pyproject.toml", "src/hermes_memory/__init__.py"],
-    "files_added": ["docs/demo/README.md", "docs/demo/persistent-memory-demo.cast", "docs/demo/persistent-memory-demo.gif", "docs/demo/record.py", "docs/demo/render.py"]
+    "files_added": ["docs/demo/README.md", "docs/demo/persistent-memory-demo.cast", "docs/demo/persistent-memory-demo.gif", "docs/demo/record.py", "docs/demo/render.py", "server.json"],
+    "mcp_registry_name": "io.github.Musyg/persistent-memory",
+    "mcp_registry_publication": "publish-mcp-registry job in .github/workflows/release.yml, GitHub OIDC, after PyPI"
   }
 }

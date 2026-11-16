@@ -8,7 +8,8 @@ The release is made by `.github/workflows/release.yml` with PyPI Trusted Publish
 
 ```text
 build -> qualify -> publish-testpypi -> verify-testpypi -> publish-pypi -> github-release
-                                                           (tag only, manual approval)
+                                                           (tag only,       publish-mcp-registry
+                                                            manual approval)
 ```
 
 | Job | What it does |
@@ -19,6 +20,7 @@ build -> qualify -> publish-testpypi -> verify-testpypi -> publish-pypi -> githu
 | `verify-testpypi` | Ubuntu and Windows: installs `persistent-memory-mcp==<version>` from TestPyPI in a fresh venv (retrying while the index catches up), checks that TestPyPI serves the same SHA256 as the built wheel, runs `persistent-memory --version` and a smoke test (create a store, remember, search). |
 | `publish-pypi` | Tag pushes only. Environment `pypi`, which waits for the required reviewer. Uploads the same files to PyPI with attestations. |
 | `github-release` | Tag pushes only, after PyPI. Creates the GitHub release with the wheel, the sdist and `SHA256SUMS`; marked pre-release when the version is a pre-release. |
+| `publish-mcp-registry` | Tag pushes only, after PyPI. Checks that `server.json` names the released version, waits until PyPI serves it, then publishes `server.json` to the [MCP Registry](https://registry.modelcontextprotocol.io) as `io.github.Musyg/persistent-memory`. GitHub OIDC proves the namespace; no token is stored. `mcp-publisher` is pinned and its Sigstore bundle is verified before use. The registry accepts the entry only if the README on PyPI contains the line `mcp-name: io.github.Musyg/persistent-memory` (kept as an HTML comment at the top of README.md). |
 
 Every job after `build` downloads the artifacts and checks their SHA256 before using them, so the files tested are the files published.
 
@@ -83,7 +85,7 @@ The tag `v0.4.0a1` already exists: it is a public pre-release of 14 October 2026
 
 ## Before a release
 
-1. `main` holds the commit to release, with the version in `pyproject.toml` and `src/hermes_memory/__init__.py` equal, and `CHANGELOG.md` updated (replace "not yet released" by the date).
+1. `main` holds the commit to release, with the version in `pyproject.toml`, `src/hermes_memory/__init__.py` and both `version` fields of `server.json` equal, and `CHANGELOG.md` updated (replace "not yet released" by the date).
 2. The CI workflow "Installed distributions" is green on that commit.
 3. `python -m build` and `python -m twine check --strict dist/*` pass locally, in a clean checkout.
 
@@ -121,6 +123,8 @@ uvx --from persistent-memory-mcp==0.4.0a3 persistent-memory --version
 Both commands print `persistent-memory 0.4.0a3`. On Windows the interpreter is `\tmp\verify\Scripts\python.exe`.
 
 Then on <https://pypi.org/project/persistent-memory-mcp/0.4.0a3/#files>, each file shows a "Provenance" or attestation entry that names this repository, the workflow `release.yml` and the tag. Compare the SHA256 of the files with `SHA256SUMS` on the GitHub release.
+
+The MCP Registry entry: `curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.Musyg/persistent-memory"` lists the new version. If `publish-mcp-registry` failed while PyPI succeeded, fix the cause and re-run that job alone; the registry entry does not change the files on PyPI.
 
 While every published version is a pre-release, `pip install persistent-memory-mcp` selects the newest one without `--pre` (checked with pip 26.2 and 26.3). Once a final version exists, pip prefers it and a pre-release needs `--pre` or an exact version.
 

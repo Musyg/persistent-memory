@@ -438,3 +438,65 @@ jobs:
             --notes "Published on PyPI: pip install persistent-memory-mcp==$VERSION. The files attached here are the files uploaded to PyPI; SHA256SUMS lists their digests. Changes: CHANGELOG.md." \
             --generate-notes \
             "${flags[@]}"
+
+  publish-mcp-registry:
+    # Lists the server in the official MCP Registry (registry.modelcontextprotocol.io) once the
+    # package is on PyPI. GitHub OIDC proves the io.github.Musyg namespace; no token is stored.
+    # The registry checks that the PyPI README holds "mcp-name: io.github.Musyg/persistent-memory".
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [build, publish-pypi]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      MCP_PUBLISHER_VERSION: v1.8.1
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: server.json names this release
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          server = json.load(open("server.json", encoding="utf-8"))
+          version = os.environ["VERSION"]
+          assert server["version"] == version, (server["version"], version)
+          assert [p["version"] for p in server["packages"]] == [version], server["packages"]
+          print("server.json matches", version)
+          PY
+      - name: Wait until PyPI serves this version
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --output /dev/null "https://pypi.org/pypi/persistent-memory-mcp/$VERSION/json"; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "PyPI does not serve persistent-memory-mcp $VERSION" >&2
+          exit 1
+      - name: Install cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+      - name: Download and verify mcp-publisher
+        run: |
+          set -euo pipefail
+          archive="mcp-publisher_linux_amd64.tar.gz"
+          base_url="https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}"
+          curl --fail --location --silent --show-error --output "$archive" "$base_url/$archive"
+          curl --fail --location --silent --show-error --output "$archive.sigstore.json" "$base_url/$archive.sigstore.json"
+          cosign verify-blob \
+            --bundle "$archive.sigstore.json" \
+            --certificate-identity "https://github.com/modelcontextprotocol/registry/.github/workflows/release.yml@refs/tags/${MCP_PUBLISHER_VERSION}" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            "$archive"
+          tar xzf "$archive" mcp-publisher
+          rm -f "$archive" "$archive.sigstore.json"
+      - name: Authenticate to the MCP Registry
+        run: ./mcp-publisher login github-oidc
+      - name: Publish server.json
+        run: ./mcp-publisher publish
