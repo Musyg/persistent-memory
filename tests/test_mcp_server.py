@@ -202,6 +202,10 @@ class Tools(Base):
         refused, _ = client.call("memory_search", query="x", top_k="five")
         self.assertEqual(refused["error"], "invalid_argument:top_k")
         self.assertEqual(refused["expected_type"], "integer")
+        # Out of the advertised range: refused with the range, instead of a silently empty result.
+        refused, _ = client.call("memory_search", query="Orion-Test cache 9311", max_chars=0)
+        self.assertEqual(refused["error"], "invalid_argument:max_chars")
+        self.assertEqual((refused["minimum"], refused["maximum"]), (200, 16000))
 
 
 class Notices(Base):

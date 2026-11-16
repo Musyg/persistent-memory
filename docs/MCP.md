@@ -44,7 +44,7 @@ The client starts this command itself; you only put it in the client's configura
 | `memory_learn` | Lesson from a task trace and its feedback | |
 | `memory_notices` | What this session saw that is no longer valid | read-only |
 
-Every input schema refuses unknown arguments. An optional argument sent as `null` or empty (`""`, `[]`, `{}`) counts as absent, because some framework adapters send every unset field and some models fill unused fields with empty values. A refusal from the memory (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) comes back as a tool result with `isError: true`, so the model can read it. Next to the error code, the result says how to correct the call where it can: `allowed_kinds`, `allowed_arguments`, `expected_type`, or a `hint` for timestamps and version conflicts. An unknown tool is a JSON-RPC error.
+Every input schema refuses unknown arguments. An optional argument sent as `null` or empty (`""`, `[]`, `{}`) counts as absent, because some framework adapters send every unset field and some models fill unused fields with empty values. A refusal from the memory (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) comes back as a tool result with `isError: true`, so the model can read it. Next to the error code, the result says how to correct the call where it can: `allowed_kinds`, `allowed_arguments`, `expected_type` with its `minimum` and `maximum`, or a `hint` for timestamps and version conflicts. A number outside the range its schema advertises is refused rather than applied. An unknown tool is a JSON-RPC error.
 
 Results are JSON text; from protocol 2025-06-18 on they are also sent as `structuredContent`.
 

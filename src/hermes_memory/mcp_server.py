@@ -174,7 +174,11 @@ class Toolbox:
             if key not in args:
                 raise MemoryError("missing_argument:" + key)
         for key, value in args.items():
-            if not _matches(schema["properties"][key], value):
+            prop = schema["properties"][key]
+            if not _matches(prop, value):
+                raise MemoryError("invalid_argument:" + key)
+            if prop.get("type") in ("integer", "number") and not (
+                    prop.get("minimum", value) <= value <= prop.get("maximum", value)):
                 raise MemoryError("invalid_argument:" + key)
 
     def _absent_nulls(self, name, args):
@@ -210,8 +214,10 @@ class Toolbox:
             return {"allowed_arguments": sorted(properties)}
         if code.startswith(("invalid_argument:", "missing_argument:")):
             key = code.split(":", 1)[1]
-            expected = properties.get(key, {}).get("type")
-            return {"expected_type": expected} if expected else {}
+            prop = properties.get(key, {})
+            hint = {"expected_type": prop["type"]} if "type" in prop else {}
+            hint.update({bound: prop[bound] for bound in ("minimum", "maximum") if bound in prop})
+            return hint
         if code == "version_conflict":
             return {"hint": "Search again and use the version_id of the current ref as expected_version, "
                             "or use memory_correct to change an existing artifact."}
