@@ -1,5 +1,7 @@
 # persistent-memory
 
+[![PyPI](https://img.shields.io/pypi/v/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Python](https://img.shields.io/pypi/pyversions/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Tests](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml) [![License: MIT](https://img.shields.io/pypi/l/persistent-memory-mcp)](https://github.com/Musyg/persistent-memory/blob/main/LICENSE)
+
 Les agents IA s'appuient sur ce qu'ils ont retenu, quelle que soit leur structure : un assistant de code, un graphe LangGraph ou CrewAI, une application OpenAI Agents SDK, votre propre boucle. Ils retiennent des faits, des résumés, des procédures et des leçons tirées de tâches précédentes. Quand une source est corrigée ou retirée, ce qui en a été tiré continue d'être servi, et personne ne prévient l'agent. persistent-memory enregistre les versions exactes des sources de chaque élément dérivé, refuse de servir ce qui dépend d'une version retirée ou remplacée, et prévient chaque client à qui elle a été montrée.
 
 Bibliothèque standard Python uniquement (SQLite avec FTS5), Python 3.11 ou plus récent, Linux, macOS et Windows. C'est une version alpha, 0.4.0a2 : les interfaces peuvent encore changer. Le module s'importe sous le nom `persistent_memory`.
