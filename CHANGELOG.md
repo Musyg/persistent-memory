@@ -2,6 +2,12 @@
 
 All notable changes to `persistent-memory` are recorded here. The project is an alpha library: versions use PEP 440 pre-release numbers (`0.4.0a2`) and interfaces can still change between pre-releases.
 
+## Unreleased
+
+### Fixed
+
+- MCP tools: an optional argument sent empty (`""`, `[]`, `{}`) now counts as absent, like `null`. Refusals keep their error code and add what a model needs to correct the call (allowed kinds, allowed arguments, expected type, timestamp format, version conflict). Found in an end-to-end run with a real model (gpt-oss 20B through the OpenAI Agents SDK), which never managed to store a fact with 0.4.0a3: it filled unused fields with `""` and used kinds that do not exist, and the bare error codes did not tell it what to send.
+
 ## 0.4.0a3 (2026-11-16)
 
 ### Fixed

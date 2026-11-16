@@ -53,10 +53,10 @@ _PARENT = {"description": "An exact parent version, or {ref, relation}. derives 
                             "properties": {"ref": _REF, "relation": {"type": "string", "enum": list(RELATIONS)}}}]}
 _META = {
     "aliases": {"type": "array", "items": _STR, "maxItems": 32, "description": "Short names to find it again."},
-    "valid_from": {"type": "string", "description": "UTC time, e.g. 2026-01-31T00:00:00Z."},
-    "valid_until": {"type": "string", "description": "UTC time after which it no longer applies."},
-    "preconditions": {"type": "object", "description": "Exact conditions a search must supply to see it."},
-    "confidence": {"type": "number", "minimum": 0, "maximum": 1, "description": "Declared, not computed."},
+    "valid_from": {"type": "string", "description": "UTC time it starts to apply, e.g. 2026-01-31T00:00:00Z. Leave out unless the user gave one; by default it applies now."},
+    "valid_until": {"type": "string", "description": "UTC time after which it no longer applies. Leave out unless the user gave one."},
+    "preconditions": {"type": "object", "description": "Exact conditions a search must supply to see it. Leave out unless the user said it only holds under a condition: a search without these conditions will not return it."},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1, "description": "Declared, not computed. Leave out unless the user gave one."},
 }
 _RAW = {"anyOf": [_STR, {"type": "object"}]}
 
@@ -75,10 +75,10 @@ TOOLS = (
           "Search current, valid memory. Withdrawn, superseded or expired versions are never returned. "
           "Results carry artifact_id and the exact ref.",
           {"query": {"type": "string", "description": "Keywords or a question."},
-           "kinds": {"type": "array", "items": _KIND},
+           "kinds": {"type": "array", "items": _KIND, "description": "Only these kinds. Leave out to search all."},
            "conditions": {"type": "object", "description": "Facts about the current situation, matched "
                                                            "exactly against stored preconditions."},
-           "as_of": {"type": "string", "description": "UTC time to check validity at; default now."},
+           "as_of": {"type": "string", "description": "UTC time to check validity at. Leave out for now."},
            "top_k": {"type": "integer", "minimum": 1, "maximum": 20},
            "max_chars": {"type": "integer", "minimum": 200, "maximum": 16000}},
           ["query"], read_only=True, idempotent=True),

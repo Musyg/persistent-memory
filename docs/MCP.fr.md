@@ -44,7 +44,7 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `memory_learn` | Leçon tirée de la trace d'une tâche et de son retour | |
 | `memory_notices` | Ce que cette session a vu et qui n'est plus valide | lecture seule |
 
-Chaque schéma d'entrée refuse les arguments inconnus. Un argument facultatif envoyé à `null` compte comme absent, car certains adaptateurs de frameworks envoient tous les champs non renseignés. Un refus de la mémoire (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) revient comme résultat d'outil avec `isError: true`, que le modèle peut lire. Un outil inconnu est une erreur JSON-RPC.
+Chaque schéma d'entrée refuse les arguments inconnus. Un argument facultatif envoyé à `null` ou vide (`""`, `[]`, `{}`) compte comme absent, car certains adaptateurs de frameworks envoient tous les champs non renseignés et certains modèles remplissent les champs inutilisés avec des valeurs vides. Un refus de la mémoire (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) revient comme résultat d'outil avec `isError: true`, que le modèle peut lire. À côté du code d'erreur, le résultat indique quand c'est possible comment corriger l'appel : `allowed_kinds`, `allowed_arguments`, `expected_type`, ou un `hint` pour les dates et les conflits de version. Un outil inconnu est une erreur JSON-RPC.
 
 Les résultats sont du texte JSON ; à partir du protocole 2025-06-18, ils sont aussi envoyés en `structuredContent`.
 
