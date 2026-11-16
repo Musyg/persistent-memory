@@ -178,9 +178,9 @@ class Toolbox:
                 raise MemoryError("invalid_argument:" + key)
 
     def _absent_nulls(self, name, args):
-        """An optional argument sent as null, or an optional string sent empty, means absent: some framework
-        adapters send every unset field, and some models fill unused string fields with "".
-        Unknown arguments and required ones stay checked as before."""
+        """An optional argument sent as null, or empty ("", [] or {}), means absent: some framework adapters
+        send every unset field, and some models fill unused fields with empty values. An empty kinds filter
+        would otherwise exclude every result. Unknown arguments and required ones stay checked as before."""
         schema = self._schemas.get(name)
         if schema is None or not isinstance(args, dict):
             return args
@@ -190,7 +190,10 @@ class Toolbox:
         def absent(key, value):
             if key not in properties or key in required:
                 return False
-            return value is None or (value == "" and properties[key].get("type") == "string")
+            if value is None:
+                return True
+            empty = {"string": "", "array": [], "object": {}}.get(properties[key].get("type"), None)
+            return empty is not None and type(value) is type(empty) and value == empty
 
         return {key: value for key, value in args.items() if not absent(key, value)}
 

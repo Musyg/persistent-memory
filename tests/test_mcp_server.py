@@ -181,7 +181,7 @@ class Tools(Base):
         other = "The Orion-Test cache listens on port 9311."
         out, result = client.call("memory_remember", text=other, source_id="", valid_from="", valid_until="")
         self.assertFalse(result.get("isError"), out)
-        found, result = client.call("memory_search", query="Orion-Test cache 9311", as_of="")
+        found, result = client.call("memory_search", query="Orion-Test cache 9311", as_of="", kinds=[], conditions={})
         self.assertFalse(result.get("isError"), found)
         self.assertIn(out["artifact_id"], [i["artifact_id"] for i in found["items"]])
         refused, result = client.call("memory_remember", text="", source_id="")
