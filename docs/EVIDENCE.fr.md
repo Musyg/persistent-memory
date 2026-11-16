@@ -57,7 +57,7 @@ La [démonstration LanceDB synthétique optionnelle](BENCHMARK-LANCE.fr.md) vér
 
 Ces sections décrivent le noyau typé, le rendu structuré, la frontière d'admission et les conditions d'intégration. Les pages [surface d'opérations](OPERATIONS.fr.md), [API](API.fr.md), [rendu structuré](STRUCTURED.fr.md), [admission](ADMISSION.fr.md) et [reprise](RECOVERY.fr.md) donnent les contrats complets.
 
-Persistent Memory propose deux paquets Python installables séparément : la mémoire présentée ici, distribuée sous le nom `persistent-memory` (module Python `hermes_memory`), et un [registre de politiques facultatif](../PACKAGES.fr.md), `hermes-policy-registry`. Les versions jusqu'à 0.3.0a5 ont été publiées sous le nom `hermes-memory-core`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](../PACKAGES.fr.md).
+Persistent Memory propose deux paquets Python installables séparément : la mémoire présentée ici, distribuée sur PyPI sous le nom `persistent-memory-mcp` (modules Python `persistent_memory` et `hermes_memory`), et un [registre de politiques facultatif](../PACKAGES.fr.md), `hermes-policy-registry`. Les versions jusqu'à 0.3.0a5 ont été publiées sous le nom `hermes-memory-core`. Le registre facultatif 0.2.0a2 évalue aussi les effets de workflow versionnés avec vérification indépendante par l'hôte ; voir [paquets et versions](../PACKAGES.fr.md).
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 

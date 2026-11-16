@@ -59,7 +59,7 @@ The optional [synthetic LanceDB demonstration](BENCHMARK-LANCE.md) exercises exp
 
 These sections describe the typed core, the structured renderer, the admission boundary and the integration requirements. The [operations surface](OPERATIONS.md), [API](API.md), [structured rendering](STRUCTURED.md), [admission](ADMISSION.md) and [recovery](RECOVERY.md) pages give the full contracts.
 
-Persistent Memory contains two independently installable Python packages: the memory described here, distributed as `persistent-memory` (Python module `hermes_memory`), and an [optional policy registry](../PACKAGES.md), `hermes-policy-registry`. Releases up to 0.3.0a5 were published as `hermes-memory-core`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](../PACKAGES.md).
+Persistent Memory contains two independently installable Python packages: the memory described here, distributed on PyPI as `persistent-memory-mcp` (Python modules `persistent_memory` and `hermes_memory`), and an [optional policy registry](../PACKAGES.md), `hermes-policy-registry`. Releases up to 0.3.0a5 were published as `hermes-memory-core`. The optional registry 0.2.0a2 also assesses versioned workflow effects with independent host verification; see [packages and releases](../PACKAGES.md).
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
