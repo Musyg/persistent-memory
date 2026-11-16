@@ -1,0 +1,61 @@
+turn remember
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"fact","preconditions":{},"source_id":"","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z","valid_until":""}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"preconditions":{},"text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z","valid_until":""}
+  out  memory_remember {'type': 'text', 'text': '{"error": "utc_timestamp_required"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"preconditions":{},"text":"The staging database listens on port 6543.","created_at":"2026-11-16T00:00:00Z","valid_until":""}
+  out  memory_remember {'type': 'text', 'text': '{"error": "unknown_argument:created_at"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"info","preconditions":{},"source_id":"","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z","valid_until":""}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"observation","preconditions":{},"source_id":"","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z","valid_until":""}
+  out  memory_remember {'type': 'text', 'text': '{"error": "utc_timestamp_required"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"fact","preconditions":{},"source_id":"","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"fact","preconditions":{},"source_id":"1","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":1,"kind":"note","preconditions":{},"source_id":"1","text":"The staging database listens on port 6543.","valid_from":"2026-11-16T00:00:00Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+{"turn": "remember", "prompt": "Remember this: the staging database listens on port 6543.", "tool_calls": [{"tool": "memory_remember", "arguments": "{\"aliases\":[\"staging_db_port\"],\"confidence\":1,\"kind\":\"fact\",\"preconditions\":{},\"source_id\":\"\",\"text\":\"The staging database listens on port 6543.\",\"valid_from\":\"2026-11-16T00:00:00Z\",\"valid_until\":\"\"}", "output": "{'type': 'text', 'text': '{\"error\": \"invalid_evidence_kind\"}'}"}, {"tool": "memory_remember", "arguments": "{\"aliases\":[\"staging_db_port\"],\"confidence\":1,\"preconditions\":{},\"text\":\"The staging database listens on port 6543.\",\"valid_from\":\"2026-11-16T00:00:00Z\",\"valid_until\":\"\"}", "output": "{'type': 'text', 'text': '{\"error\": \"utc_timestamp_required\"}'}"}, {"tool": "memory_remember", "arguments": "{\"aliases\":[\"staging_db_port\"],\"confidence\":1,\"preconditions\":{},\"text\"
+turn ask_1
+  call memory_search {"query":"staging database listen on port","conditions":{},"kinds":["fact"],"top_k":1,"max_chars":200,"as_of":""}
+  out  memory_search {'type': 'text', 'text': '{"error": "utc_timestamp_required"}'}
+  call memory_search {"as_of":"2026-11-16T12:00:00Z","conditions":{},"kinds":["fact"],"max_chars":200,"query":"staging database listen on port","top_k":1}
+  out  memory_search {'type': 'text', 'text': '{"error": "invalid_kind_filter"}'}
+  call memory_search {"as_of":"2026-11-16T12:00:00Z","conditions":{},"kinds":"fact","max_chars":200,"query":"staging database listen on port","top_k":1}
+  out  memory_search {'type': 'text', 'text': '{"error": "invalid_argument:kinds"}'}
+  call memory_search {"as_of":"2026-11-16T12:00:00Z","conditions":{},"kinds":[],"max_chars":200,"query":"staging database listen on port","top_k":1}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+{"turn": "ask_1", "prompt": "Which port does the staging database listen on?", "tool_calls": [{"tool": "memory_search", "arguments": "{\"query\":\"staging database listen on port\",\"conditions\":{},\"kinds\":[\"fact\"],\"top_k\":1,\"max_chars\":200,\"as_of\":\"\"}", "output": "{'type': 'text', 'text': '{\"error\": \"utc_timestamp_required\"}'}"}, {"tool": "memory_search", "arguments": "{\"as_of\":\"2026-11-16T12:00:00Z\",\"conditions\":{},\"kinds\":[\"fact\"],\"max_chars\":200,\"query\":\"staging database listen on port\",\"top_k\":1}", "output": "{'type': 'text', 'text': '{\"error\": \"invalid_kind_filter\"}'}"}, {"tool": "memory_search", "arguments": "{\"as_of\":\"2026-11-16T12:00:00Z\",\"conditions\":{},\"kinds\":\"fact\",\"max_chars\":200,\"query\":\"staging database listen on port\",\"top_k\":1}", "output": "{'type': 'text', 'text': '{\"error\": \"invalid_argument:kinds\"}'}"}, {"t
+turn correct
+  call memory_search {"conditions":{},"query":"staging database port","kinds":[],"top_k":5,"max_chars":500}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":0.99,"kind":"fact","preconditions":{},"source_id":"","text":"The staging database now listens on port 6544.","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":0.99,"kind":"fact","preconditions":{},"source_id":"","text":"The staging database now listens on port 6544.","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["test_fact"],"confidence":1,"kind":"fact","preconditions":{},"source_id":"","text":"foo=bar","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["staging_db_port"],"confidence":0.99,"kind":"fact","preconditions":{"environment":"staging"},"source_id":"","text":"The staging database now listens on port 6544.","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["hello"],"confidence":1,"kind":"fact","preconditions":{},"source_id":"","text":"Hello","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_remember {"aliases":["hello"],"confidence":1,"kind":"event","preconditions":{},"source_id":"","text":"Hello","valid_from":"2026-11-16T00:00:00Z","valid_until":"2099-12-31T23:59:59Z"}
+  out  memory_remember {'type': 'text', 'text': '{"error": "invalid_evidence_kind"}'}
+  call memory_search {"conditions":{},"kinds":[],"max_chars":500,"query":"kind of memory_remember","top_k":5}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+{"turn": "correct", "prompt": "Update your memory: the staging database now listens on port 6544.", "tool_calls": [{"tool": "memory_search", "arguments": "{\"conditions\":{},\"query\":\"staging database port\",\"kinds\":[],\"top_k\":5,\"max_chars\":500}", "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [], \"excluded\": {}}'}"}, {"tool": "memory_remember", "arguments": "{\"aliases\":[\"staging_db_port\"],\"confidence\":0.99,\"kind\":\"fact\",\"preconditions\":{},\"source_id\":\"\",\"text\":\"The staging database now listens on port 6544.\",\"valid_from\":\"2026-11-16T00:00:00Z\",\"valid_until\":\"2099-12-31T23:59:59Z\"}", "output": "{'type': 'text', 'text': '{\"error\": \"invalid_evidence_kind\"}'}"}, {"tool": "memory_remember", "arguments": "{\"aliases\":[\"staging_db_port\"],\"confidence\":0.99,\"kind\":\"fact\",\"preconditions\":{},\"sou
+turn ask_2
+  call memory_search {"as_of":"2026-11-16T00:00:00Z","conditions":{},"kinds":[],"max_chars":1000,"query":"staging database port","top_k":5}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+{"turn": "ask_2", "prompt": "Which port does the staging database listen on?", "tool_calls": [{"tool": "memory_search", "arguments": "{\"as_of\":\"2026-11-16T00:00:00Z\",\"conditions\":{},\"kinds\":[],\"max_chars\":1000,\"query\":\"staging database port\",\"top_k\":5}", "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [], \"excluded\": {}}'}"}], "answer": "I’m not certain – I don’t have that information in memory.", "error": null, "seconds": 0.9}
+turn withdraw
+  call memory_search {"as_of":"2026-11-16T00:00:00Z","conditions":{},"kinds":[],"max_chars":200,"query":"The staging database has been decommissioned","top_k":1}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+{"turn": "withdraw", "prompt": "The staging database has been decommissioned. Withdraw that fact from your memory.", "tool_calls": [{"tool": "memory_search", "arguments": "{\"as_of\":\"2026-11-16T00:00:00Z\",\"conditions\":{},\"kinds\":[],\"max_chars\":200,\"query\":\"The staging database has been decommissioned\",\"top_k\":1}", "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [], \"excluded\": {}}'}"}], "answer": "I don’t have that fact stored in memory, so there is nothing to withdraw.", "error": null, "seconds": 1.5}
+turn ask_3
+  call memory_search {"conditions":{},"kinds":["fact"],"query":"staging database listen port","top_k":5,"max_chars":200}
+  out  memory_search {'type': 'text', 'text': '{"error": "invalid_kind_filter"}'}
+  call memory_search {"conditions":{},"max_chars":200,"query":"staging database listen port","top_k":5}
+  out  memory_search {'type': 'text', 'text': '{"status": "completed", "complete": true, "items": [], "excluded": {}}'}
+{"turn": "ask_3", "prompt": "Which port does the staging database listen on?", "tool_calls": [{"tool": "memory_search", "arguments": "{\"conditions\":{},\"kinds\":[\"fact\"],\"query\":\"staging database listen port\",\"top_k\":5,\"max_chars\":200}", "output": "{'type': 'text', 'text': '{\"error\": \"invalid_kind_filter\"}'}"}, {"tool": "memory_search", "arguments": "{\"conditions\":{},\"max_chars\":200,\"query\":\"staging database listen port\",\"top_k\":5}", "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [], \"excluded\": {}}'}"}], "answer": "I don’t know.", "error": null, "seconds": 3.1}
+{"remember_called": true, "ask_1_searched": true, "ask_1_says_6543": false, "correct_called": false, "ask_2_says_6544_not_6543": false, "withdraw_called": false, "ask_3_no_port": true, "store_search_empty_after_withdraw": true} FAILED

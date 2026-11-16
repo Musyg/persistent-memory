@@ -1,0 +1,185 @@
+{
+  "client": "claude-code",
+  "turns": [
+    {
+      "turn": "remember",
+      "prompt": "Remember this: the staging database listens on port 6543.",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "memory_remember",
+          "arguments": {
+            "text": "As of 2026-11-16, the staging database listens on port 6543.",
+            "kind": "observation",
+            "aliases": [
+              "staging database port",
+              "staging db port 6543"
+            ]
+          },
+          "output": "{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\"},\"epoch\":1,\"idempotent\":false}"
+        }
+      ],
+      "answer": "Stored: the staging database listens on port 6543 (artifact `m-d2ef865a30d34f9f`).",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 13.7
+    },
+    {
+      "turn": "ask_1",
+      "prompt": "Which port does the staging database listen on?",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "ToolSearch",
+          "arguments": {
+            "query": "select:mcp__memory__memory_search"
+          },
+          "output": "[{'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_search'}]"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging database port"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\"},\"kind\":\"observation\",\"text\":\"As of 2026-11-16, the staging database listens on port 6543.\",\"metadata\":{\"evidence_kind\":\"observation\",\"valid_from\":null,\"valid_until\":null,\"observed_at\":\"2026-11-16T18:44:33Z\",\"aliases\":[\"staging database port\",\"staging db port 6543\"],\"preconditions\":{},\"confidence\":null}}],\"excluded\":{}}"
+        }
+      ],
+      "answer": "Port 6543 (artifact `m-d2ef865a30d34f9f`).",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 9.8
+    },
+    {
+      "turn": "correct",
+      "prompt": "Update your memory: the staging database now listens on port 6544.",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "ToolSearch",
+          "arguments": {
+            "query": "select:mcp__memory__memory_search,mcp__memory__memory_correct,mcp__memory__memory_remember"
+          },
+          "output": "[{'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_search'}, {'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_correct'}, {'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_remember'}]"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging database port"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\"},\"kind\":\"observation\",\"text\":\"As of 2026-11-16, the staging database listens on port 6543.\",\"metadata\":{\"evidence_kind\":\"observation\",\"valid_from\":null,\"valid_until\":null,\"observed_at\":\"2026-11-16T18:44:33Z\",\"aliases\":[\"staging database port\",\"staging db port 6543\"],\"preconditions\":{},\"confidence\":null}}],\"excluded\":{}}"
+        },
+        {
+          "tool": "memory_correct",
+          "arguments": {
+            "artifact_id": "m-d2ef865a30d34f9f",
+            "expected_version": "4abceff9b69f49efa03325bee8ed7fcb",
+            "text": "As of 2026-11-16, the staging database listens on port 6544.",
+            "aliases": [
+              "staging database port",
+              "staging db port 6544"
+            ]
+          },
+          "output": "{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"24b7c1b7e91e41f2b9c08b550784c7d4\"},\"epoch\":2,\"previous\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\"},\"idempotent\":false,\"memory_notices\":[{\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\"},\"artifact_id\":\"m-d2ef865a30d34f9f\",\"reason\":\"version_not_current\",\"state\":\"superseded\"}]}"
+        }
+      ],
+      "answer": "Updated — the staging database port is now recorded as 6544 (was 6543), artifact `m-d2ef865a30d34f9f`.",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 13.2
+    },
+    {
+      "turn": "ask_2",
+      "prompt": "Which port does the staging database listen on?",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "ToolSearch",
+          "arguments": {
+            "query": "select:mcp__memory__memory_search"
+          },
+          "output": "[{'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_search'}]"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging database port"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"24b7c1b7e91e41f2b9c08b550784c7d4\"},\"kind\":\"observation\",\"text\":\"As of 2026-11-16, the staging database listens on port 6544.\",\"metadata\":{\"evidence_kind\":\"observation\",\"valid_from\":null,\"valid_until\":null,\"observed_at\":\"2026-11-16T18:44:56Z\",\"aliases\":[\"staging database port\",\"staging db port 6544\"],\"preconditions\":{},\"confidence\":null}}],\"excluded\":{}}"
+        }
+      ],
+      "answer": "The staging database listens on port 6544 (memory `m-d2ef865a30d34f9f`).",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 7.2
+    },
+    {
+      "turn": "withdraw",
+      "prompt": "The staging database has been decommissioned. Withdraw that fact from your memory.",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "ToolSearch",
+          "arguments": {
+            "query": "select:mcp__memory__memory_search,mcp__memory__memory_withdraw"
+          },
+          "output": "[{'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_search'}, {'type': 'tool_reference', 'tool_name': 'mcp__memory__memory_withdraw'}]"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging database"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"24b7c1b7e91e41f2b9c08b550784c7d4\"},\"kind\":\"observation\",\"text\":\"As of 2026-11-16, the staging database listens on port 6544.\",\"metadata\":{\"evidence_kind\":\"observation\",\"valid_from\":null,\"valid_until\":null,\"observed_at\":\"2026-11-16T18:44:56Z\",\"aliases\":[\"staging database port\",\"staging db port 6544\"],\"preconditions\":{},\"confidence\":null}}],\"excluded\":{}}"
+        },
+        {
+          "tool": "memory_withdraw",
+          "arguments": {
+            "artifact_id": "m-d2ef865a30d34f9f",
+            "reason": "User reports the staging database has been decommissioned, so its port fact no longer applies."
+          },
+          "output": "{\"event_id\":\"w-35e3793a6658434d8a8a5f9f42cfd1f1\",\"epoch\":3,\"registered\":true,\"covered_reads_blocked\":true,\"projection_purge\":\"pending\",\"coverage\":\"known_dependencies_only\",\"physical_erasure\":false,\"artifact_id\":\"m-d2ef865a30d34f9f\",\"mode\":\"revoke_source\",\"blocked\":[{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"24b7c1b7e91e41f2b9c08b550784c7d4\",\"workspace\":\"default\"},{\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"4abceff9b69f49efa03325bee8ed7fcb\",\"workspace\":\"default\"}],\"dependents\":[],\"memory_notices\":[{\"ref\":{\"workspace\":\"default\",\"artifact_id\":\"m-d2ef865a30d34f9f\",\"version_id\":\"24b7c1"
+        }
+      ],
+      "answer": "Withdrawn — the staging database port fact (m-d2ef865a30d34f9f) is no longer in memory.",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 9.6
+    },
+    {
+      "turn": "ask_3",
+      "prompt": "Which port does the staging database listen on?",
+      "model": "claude-opus-5",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging database port"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[],\"excluded\":{}}"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": {
+            "query": "staging environment database connection configuration"
+          },
+          "output": "{\"status\":\"completed\",\"complete\":true,\"items\":[],\"excluded\":{}}"
+        }
+      ],
+      "answer": "I don't know — memory has nothing stored about a staging database or its port.",
+      "returncode": 0,
+      "stderr": "",
+      "seconds": 10.3
+    }
+  ],
+  "checks": {
+    "remember_called": true,
+    "ask_1_searched": true,
+    "ask_1_says_6543": true,
+    "correct_called": true,
+    "ask_2_says_6544_not_6543": true,
+    "withdraw_called": true,
+    "ask_3_no_port": true,
+    "store_search_empty_after_withdraw": true
+  },
+  "passed": true
+}

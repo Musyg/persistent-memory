@@ -1,0 +1,118 @@
+{
+  "model": "gpt-oss:20b",
+  "framework": "openai-agents",
+  "transport": "stdio",
+  "package": "persistent-memory-mcp",
+  "turns": [
+    {
+      "turn": "remember",
+      "prompt": "Remember this: the staging database listens on port 6543.",
+      "tool_calls": [
+        {
+          "tool": "memory_remember",
+          "arguments": "{\"aliases\":[\"staging database port\"],\"confidence\":1,\"kind\":\"fact\",\"text\":\"The staging database listens on port 6543.\"}",
+          "output": "{'type': 'text', 'text': '{\"error\": \"invalid_evidence_kind\", \"allowed_kinds\": [\"document\", \"feedback\", \"hypothesis\", \"observation\", \"procedure\", \"task\"]}'}"
+        },
+        {
+          "tool": "memory_remember",
+          "arguments": "{\"aliases\":[\"staging database port\"],\"confidence\":1,\"kind\":\"observation\",\"text\":\"The staging database listens on port 6543.\"}",
+          "output": "{'type': 'text', 'text': '{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"af4bfda604dc48d583bc4db08c783aa1\"}, \"epoch\": 1, \"idempotent\": false}'}"
+        }
+      ],
+      "answer": "Got it. The staging database listens on port 6543.",
+      "error": null,
+      "seconds": 1.4
+    },
+    {
+      "turn": "ask_1",
+      "prompt": "Which port does the staging database listen on?",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": "{\"query\":\"staging database listen on port\",\"kinds\":[],\"top_k\":5,\"max_chars\":500,\"as_of\":\"\"}",
+          "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"af4bfda604dc48d583bc4db08c783aa1\"}, \"kind\": \"observation\", \"text\": \"The staging database listens on port 6543.\", \"metadata\": {\"evidence_kind\": \"observation\", \"valid_from\": null, \"valid_until\": null, \"observed_at\": \"2026-11-16T18:44:05Z\", \"aliases\": [\"staging database port\"], \"preconditions\": {}, \"confidence\": 1}}], \"excluded\": {}}'}"
+        }
+      ],
+      "answer": "The staging database listens on port 6543.",
+      "error": null,
+      "seconds": 0.9
+    },
+    {
+      "turn": "correct",
+      "prompt": "Update your memory: the staging database now listens on port 6544.",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": "{\"query\":\"staging database listens on port\",\"conditions\":{},\"kinds\":[],\"max_chars\":1000,\"top_k\":5}",
+          "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"af4bfda604dc48d583bc4db08c783aa1\"}, \"kind\": \"observation\", \"text\": \"The staging database listens on port 6543.\", \"metadata\": {\"evidence_kind\": \"observation\", \"valid_from\": null, \"valid_until\": null, \"observed_at\": \"2026-11-16T18:44:05Z\", \"aliases\": [\"staging database port\"], \"preconditions\": {}, \"confidence\": 1}}], \"excluded\": {}}'}"
+        },
+        {
+          "tool": "memory_correct",
+          "arguments": "{\"aliases\":[\"staging database port\"],\"artifact_id\":\"m-4f23b1b64e3e4885\",\"expected_version\":\"af4bfda604dc48d583bc4db08c783aa1\",\"confidence\":1,\"text\":\"The staging database now listens on port 6544.\",\"valid_from\":\"2026-11-16T00:00:00Z\"}",
+          "output": "{'type': 'text', 'text': '{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"de23956782404873a92329816cf78442\"}, \"epoch\": 2, \"previous\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"af4bfda604dc48d583bc4db08c783aa1\"}, \"idempotent\": false, \"memory_notices\": [{\"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"af4bfda604dc48d583bc4db08c783aa1\"}, \"artifact_id\": \"m-4f23b1b64e3e4885\", \"reason\": \"version_not_current\", \"state\": \"superseded\"}]}'}"
+        }
+      ],
+      "answer": "Corrected to: the staging database now listens on port 6544.",
+      "error": null,
+      "seconds": 1.4
+    },
+    {
+      "turn": "ask_2",
+      "prompt": "Which port does the staging database listen on?",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": "{\"query\":\"staging database listen on\",\"kinds\":[],\"max_chars\":200,\"conditions\":{},\"as_of\":\"\",\"top_k\":5}",
+          "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"de23956782404873a92329816cf78442\"}, \"kind\": \"observation\", \"text\": \"The staging database now listens on port 6544.\", \"metadata\": {\"evidence_kind\": \"observation\", \"valid_from\": \"2026-11-16T00:00:00Z\", \"valid_until\": null, \"observed_at\": \"2026-11-16T18:44:08Z\", \"aliases\": [\"staging database port\"], \"preconditions\": {}, \"confidence\": 1}}], \"excluded\": {}}'}"
+        }
+      ],
+      "answer": "It listens on port 6544.",
+      "error": null,
+      "seconds": 0.6
+    },
+    {
+      "turn": "withdraw",
+      "prompt": "The staging database has been decommissioned. Withdraw that fact from your memory.",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": "{\"query\":\"The staging database has been decommissioned.\",\"conditions\":{},\"kinds\":[],\"max_chars\":200,\"top_k\":1}",
+          "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [{\"artifact_id\": \"m-4f23b1b64e3e4885\", \"ref\": {\"workspace\": \"default\", \"artifact_id\": \"m-4f23b1b64e3e4885\", \"version_id\": \"de23956782404873a92329816cf78442\"}, \"kind\": \"observation\", \"text\": \"The staging database now listens on port 6544.\", \"metadata\": {\"evidence_kind\": \"observation\", \"valid_from\": \"2026-11-16T00:00:00Z\", \"valid_until\": null, \"observed_at\": \"2026-11-16T18:44:08Z\", \"aliases\": [\"staging database port\"], \"preconditions\": {}, \"confidence\": 1}}], \"excluded\": {}}'}"
+        }
+      ],
+      "answer": "I do not know.",
+      "error": null,
+      "seconds": 1.9
+    },
+    {
+      "turn": "ask_3",
+      "prompt": "Which port does the staging database listen on?",
+      "tool_calls": [
+        {
+          "tool": "memory_search",
+          "arguments": "{\"query\":\"staging database listen on port\",\"conditions\":{},\"kinds\":[\"fact\"],\"top_k\":1,\"max_chars\":200,\"as_of\":\"2026-11-16T00:00:00Z\"}",
+          "output": "{'type': 'text', 'text': '{\"error\": \"invalid_kind_filter\", \"allowed_kinds\": [\"document\", \"feedback\", \"hypothesis\", \"observation\", \"procedure\", \"task\"]}'}"
+        },
+        {
+          "tool": "memory_search",
+          "arguments": "{\"as_of\":\"2026-11-16T00:00:00Z\",\"conditions\":{},\"kinds\":[\"document\"],\"max_chars\":200,\"query\":\"staging database listen on port\",\"top_k\":1}",
+          "output": "{'type': 'text', 'text': '{\"status\": \"completed\", \"complete\": true, \"items\": [], \"excluded\": {\"evidence_kind_filtered\": 1}}'}"
+        }
+      ],
+      "answer": "I’m not aware of the port number the staging database is configured to use.",
+      "error": null,
+      "seconds": 1.2
+    }
+  ],
+  "checks": {
+    "remember_called": true,
+    "ask_1_searched": true,
+    "ask_1_says_6543": true,
+    "correct_called": true,
+    "ask_2_says_6544_not_6543": true,
+    "withdraw_called": false,
+    "ask_3_no_port": true,
+    "store_search_empty_after_withdraw": false
+  },
+  "passed": false
+}
