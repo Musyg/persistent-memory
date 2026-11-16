@@ -1,10 +1,12 @@
 # persistent-memory
 
+<!-- mcp-name: io.github.Musyg/persistent-memory -->
+
 [![PyPI](https://img.shields.io/pypi/v/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Python](https://img.shields.io/pypi/pyversions/persistent-memory-mcp)](https://pypi.org/project/persistent-memory-mcp/) [![Tests](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Musyg/persistent-memory/actions/workflows/test.yml) [![License: MIT](https://img.shields.io/pypi/l/persistent-memory-mcp)](https://github.com/Musyg/persistent-memory/blob/main/LICENSE)
 
 AI agents act on what they remember, whatever they are built with: a coding assistant, a LangGraph or CrewAI graph, an OpenAI Agents SDK app, your own loop. They remember facts, summaries, procedures and lessons from earlier tasks. When a source is corrected or withdrawn, whatever was built from it keeps being served, and nothing tells the agent. persistent-memory records the exact source versions behind every derived item, refuses to serve anything that depends on a withdrawn or replaced version, and notifies each client that was shown it.
 
-Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, macOS and Windows. This is an alpha release, 0.4.0a2: interfaces can still change. Import it as `persistent_memory`.
+Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, macOS and Windows. This is an alpha release, 0.4.0a3: interfaces can still change. Import it as `persistent_memory`.
 
 ![A terminal session: pip install persistent-memory-mcp, then in Python a fact is remembered, a note is derived from it, the fact is corrected and the note is no longer served, then the fact is withdrawn and search returns nothing.](https://raw.githubusercontent.com/Musyg/persistent-memory/main/docs/demo/persistent-memory-demo.gif)
 
@@ -20,7 +22,7 @@ python3 -m venv ~/.persistent-memory
 ~/.persistent-memory/bin/persistent-memory setup claude-code
 ```
 
-The package on PyPI is named `persistent-memory-mcp`; the commands and the import name stay `persistent-memory` and `persistent_memory`. While 0.4.0a2 is the only release, pip selects it without `--pre`. On Windows the commands are in `.persistent-memory\Scripts\`.
+The package on PyPI is named `persistent-memory-mcp`; the commands and the import name stay `persistent-memory` and `persistent_memory`. While only pre-releases exist, pip selects the newest one without `--pre`. On Windows the commands are in `.persistent-memory\Scripts\`.
 
 `setup` accepts `claude-code`, `claude-desktop`, `cursor`, `vscode` (GitHub Copilot), `windsurf`, `codex` and `hermes-agent` (Nous Research's Hermes Agent). Every tool you connect opens the same store in the platform's data folder: something remembered in one is found in the others, and a withdrawal made in one is reported to every tool that was shown the entry.
 

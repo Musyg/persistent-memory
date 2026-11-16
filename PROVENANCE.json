@@ -66,8 +66,8 @@
       "origin": "public-distribution-guide",
       "original_sha256": null,
       "previous_assembly_sha256": "84edf52c41cbb9e7748fd973d8d47fdbed17cc280e69e6308287338d38d22774",
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "5161e2246fa27456e7f4256835ada9a2a16828a27bccd9f13115ffaa5bd4c99c",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "8f05d672594beac45c1c02b716c933066b3db99905ead57ba46d323f2bcf95ab",
       "previous_registry_sha256": "9d8d89a05f23b974be8ac1d2ac6668bd49a242574ef139e1e9eceb7edcae981f",
       "assembly_history": [
         {
@@ -117,6 +117,10 @@
         {
           "package_sha256": "f665acc9ca3a35730396ff92db7f3f85b3e7993abc027216193bdf9cf7f98844",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "5161e2246fa27456e7f4256835ada9a2a16828a27bccd9f13115ffaa5bd4c99c",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "b95963bbbc1690bdea0026fd67b35eb028feca8a2fb665f6b2025b440ee59f31"
@@ -125,8 +129,8 @@
       "path": "README.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "3377d9a392cf1a8271cde29f9e2e32c1044423b98b35a9139e667bdca5837763",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "ced07fb57e9f94eca50d76d877bd878035159c3df064e94a6ed393f5d7a49559",
       "previous_registry_sha256": "dd8c477f204f4fd604a36cbce38e8f31724474e96126b4a8fe964e532c1dd284",
       "previous_assembly_sha256": "e1412e099153ae9e7cd36ed2c94725e0079f3d6fd3703f17d8377aaf1b2c6f50",
       "assembly_history": [
@@ -213,6 +217,10 @@
         {
           "package_sha256": "53f10795f4ea99b145099b096646e8c103db169853d2c791580feac8ea5d013d",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "3377d9a392cf1a8271cde29f9e2e32c1044423b98b35a9139e667bdca5837763",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "1f67a2b1e8a30ee4449385b54f0ce4e0f070a70fbfe323e765a66b2280a21f72"
@@ -221,8 +229,8 @@
       "path": "README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "23027f1376cfa6bede1e7497620df827e5a2d6c9ef51ea071b4a5777ba16239b",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "2f689b1bcfa5e8219689e98e45f4ad05696e27f5544b9e6faa6f7e19c50d4795",
       "previous_registry_sha256": "4e2213ae95ec4265e6f5cde6c06ef6b2d053526b5f3318c9d1dad56aa107d037",
       "previous_assembly_sha256": "8b72a8fbafe1f2d158a80d061cc70dc813b77cf65fc96eab194072570868c130",
       "assembly_history": [
@@ -309,6 +317,10 @@
         {
           "package_sha256": "6de0bd512949683bc8fa3940a08d00d2956274b63224311a0d7865bd58ec4f63",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "23027f1376cfa6bede1e7497620df827e5a2d6c9ef51ea071b4a5777ba16239b",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "48fcb01fa92283fc3b3785a3a38baae08b716b5f547added08e3c399da2800e1"
@@ -597,8 +609,8 @@
       "path": "pyproject.toml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "f007be8dd5047a6ac374bfae144ffcaa595f35b827116ce5f4f405f26e3abc54",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "616bd04d64bc82278eca36218dee904b0fc85e4176e51476d767de8f15406b9e",
       "previous_registry_sha256": "d5162e201ae00e034ca25ed0c03e62e7ba1ca224007d56b9ca0393b16b51c100",
       "previous_assembly_sha256": "e06a0a6406dd289ad373cb133e1b2d2fd8c27e5b0aea038cee4b8778756f4803",
       "assembly_history": [
@@ -649,6 +661,10 @@
         {
           "package_sha256": "d1db13aacae4aee4d3fc399805b81e4e6df147df890e6a640f3c026855ffd8c3",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "f007be8dd5047a6ac374bfae144ffcaa595f35b827116ce5f4f405f26e3abc54",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "a68fcf13c9433d3c53361306ff059812d0cc2dfb6487cca706f932aeea391bd6"
@@ -696,8 +712,8 @@
       "path": "src/hermes_memory/__init__.py",
       "origin": "core-v0.1/__init__.py",
       "original_sha256": "921dcebc53e24202395e996b698e75a64f14ac88a88f963cd5e14bd65d060a4e",
-      "package_sha256": "e9a05d21f94e344507e0fd0be537c8ab54015a834c42cf673ba1050f461185b2",
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "29eb1ee69f5076ba26e9ce97ea477b02462831ad577bfbb8f4668d8cafa1f2c3",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
       "previous_assembly_sha256": "e95f2be57c706bd11d0bfbc92224caaa601c367773452cb6ea182c3c28b61b54",
       "assembly_history": [
         {
@@ -733,6 +749,10 @@
         {
           "package_sha256": "d60866e31bfa19e16cfbe9c6d8dd869026e3c7e3a5bff9cee6acb8907d25827c",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "e9a05d21f94e344507e0fd0be537c8ab54015a834c42cf673ba1050f461185b2",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "b5214874623714ebfeb37b954360e702ec966fd4ecc7e0bcaa3c9ffa0583074a"
@@ -1464,8 +1484,8 @@
       "origin": "public-bilingual-documentation-update",
       "original_sha256": null,
       "previous_public_sha256": null,
-      "package_sha256": "7a552e993fc13ebd23e930cc350f62d9e19696c50479582fe7374bc977f4cc3a",
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
+      "package_sha256": "b7506136142ab334a9a23ab3b6bdc04da6ee28dbf8b2a897949973eccbc04961",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
       "assembly_history": [
         {
           "path": "PACKAGES.fr.md",
@@ -1496,6 +1516,10 @@
         {
           "package_sha256": "425a90ec35dffc8b1b36e1e0df1df267ec66edad6e82f50081bec0efd6a96874",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "7a552e993fc13ebd23e930cc350f62d9e19696c50479582fe7374bc977f4cc3a",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ],
       "previous_public_worktree_sha256": "a036531926fae0b98cd98b5d75e1260d94d3037e3fd236ca0f5d0bfb2ab94f21"
@@ -2120,8 +2144,8 @@
       "path": "docs/HERMES-AGENT.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "a5c8a90d2d787e82464281c74661205ee1c84f9cd69de399e9b2c7e5d8ffdd83",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "a35cc90ff64afd1a3f4bef64074b5c3c8875a49da35044905456a1731ab017bc",
       "assembly_history": [
         {
           "package_sha256": "66c679baeb6e3708fa43ebe146e6e486916ead2353b9b41e77182ba1b7e7e8c8",
@@ -2130,6 +2154,10 @@
         {
           "package_sha256": "002f5e155d07e2f72741f3c2ea34209b5c6ee3ad8a42354bc7819083a51f99c3",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "a5c8a90d2d787e82464281c74661205ee1c84f9cd69de399e9b2c7e5d8ffdd83",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ]
     },
@@ -2137,8 +2165,8 @@
       "path": "docs/HERMES-AGENT.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "a4d5950753766543de3c43aa563de4a1609211ca1a9029a3d90312cbd6db1bfe",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "010937368a84bf6fe4d5686f6f585b97c449e6fdf06a4d0c92fd41cf02dcae52",
       "assembly_history": [
         {
           "package_sha256": "02e9f006451da4e9d92f362a12ec48765e5c85e23197f6cce9549891b00ab7c5",
@@ -2147,6 +2175,10 @@
         {
           "package_sha256": "c1e83848bf3511451efaa4cb4c853deb0fc56e223f39e18856aa2698ebf7089b",
           "transformation": "Unified persistent-memory distribution and the setup command for MCP clients and Hermes Agent; earlier behavior preserved."
+        },
+        {
+          "package_sha256": "a4d5950753766543de3c43aa563de4a1609211ca1a9029a3d90312cbd6db1bfe",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ]
     },
@@ -2288,8 +2320,8 @@
       "path": "docs/SETUP.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "a3a144b8754ddbdddf689589685b0ca671f05c802e342aca1df3bc58801bee5d",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "240099d3d062dae101c2148778ce6b4aab34fc92863ecdb95d4c6d8dcf049b9b",
       "assembly_history": [
         {
           "package_sha256": "4e028f2217b513ac8c9fe9316998a7e35095b2e618b8b17c03f904d56f9500a0",
@@ -2298,6 +2330,10 @@
         {
           "package_sha256": "1270f4ffb6622cd10f1eed378ed3c8d58008ebbe6765ac7d3dbc6740a6114ff2",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "a3a144b8754ddbdddf689589685b0ca671f05c802e342aca1df3bc58801bee5d",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ]
     },
@@ -2305,8 +2341,8 @@
       "path": "docs/SETUP.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved.",
-      "package_sha256": "c4f8acc2c13e8045384b3ec9c4705d33edd55bcc332ef35892f07d18c5d3e1d2",
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "c5eb852b95f42561184e08747e3d49f0ef18a802a7a8dcea68c0624f3a16ad08",
       "assembly_history": [
         {
           "package_sha256": "c45471f6f34bbca868a638ea9d8c9f5274d6f942334986a7a714abcf3fc97089",
@@ -2315,6 +2351,10 @@
         {
           "package_sha256": "2ea43be416ac8dd2ce21248ab62baffbc9a66e0932e00bdd2ee3f09242218381",
           "transformation": "Three-system portability (Linux, macOS, Windows): owner-approved core revision with renewed pins, product fixes outside the core, portable tests and CI; earlier behavior preserved on Linux."
+        },
+        {
+          "package_sha256": "c4f8acc2c13e8045384b3ec9c4705d33edd55bcc332ef35892f07d18c5d3e1d2",
+          "transformation": "Release preparation: version 0.4.0a2, public import name persistent_memory, README rewritten for PyPI, agent framework checks, release workflow and metadata; earlier behavior preserved."
         }
       ]
     },
@@ -2368,29 +2408,53 @@
       "path": ".github/workflows/release.yml",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "f169a5e31255bde792a235443ff04a36e6656f57d28f23432436596be4f7e3cd"
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "805a4a1cdd05074d8b99ebd6d325bb0aba7b941cdda86ffb311df305d9875431",
+      "assembly_history": [
+        {
+          "package_sha256": "f169a5e31255bde792a235443ff04a36e6656f57d28f23432436596be4f7e3cd",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "CHANGELOG.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "2517933ff976000f416f822857314937c31188c50f5015d40dbc5ccfb7d2a3d5"
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "1fa7e4c8748c078146b6106932e18b8ff016b4e5e83cf4bcf1076371a953ff3e",
+      "assembly_history": [
+        {
+          "package_sha256": "2517933ff976000f416f822857314937c31188c50f5015d40dbc5ccfb7d2a3d5",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "docs/EVIDENCE.fr.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "1684987961da9717cd78f5fa8cf19b22ae00d4d07a4ef8db4a1f1015a2ca33de"
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "72532f75e731f80589a68dd0f612e680a994de4becafd2f13eb151087a818874",
+      "assembly_history": [
+        {
+          "package_sha256": "1684987961da9717cd78f5fa8cf19b22ae00d4d07a4ef8db4a1f1015a2ca33de",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "docs/EVIDENCE.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
-      "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "b9c686a7c7728b3cfd788dbf2d041ceab08e76b5177dd85ae79a478a23f7cb87"
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3.",
+      "package_sha256": "2abe4dd9045b37d0c457b7cda1242f73e4c9faefbb9e69702c4a8d0e371c9b33",
+      "assembly_history": [
+        {
+          "package_sha256": "b9c686a7c7728b3cfd788dbf2d041ceab08e76b5177dd85ae79a478a23f7cb87",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "docs/FRAMEWORKS.fr.md",
@@ -2407,11 +2471,59 @@
       "package_sha256": "3a0b0e6cfc32caab54fa6f4064c3a997fccc9661bf720ad090c88d5d6dce464b"
     },
     {
-      "path": "docs/RELEASING.md",
+      "path": "docs/demo/README.md",
       "origin": "new-public-assembly",
       "original_sha256": null,
       "transformation": "new generic source, documentation or synthetic fixture",
-      "package_sha256": "86ca805e0623465be04b9c233a428b6494e8e33710e55abf5f6791322f8c014d"
+      "package_sha256": "08589f4b18da607ab2deb91134aea878b07cfcbd7968b025693b97d7c8cb2f1e"
+    },
+    {
+      "path": "docs/demo/persistent-memory-demo.cast",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "d2ea6eca2e6804607b7147e12a64bf084c63e4bee3aae02c6b0550e801190d31"
+    },
+    {
+      "path": "docs/demo/persistent-memory-demo.gif",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "da3b7dd844ea6469c91c8384d5a0be6e6eecacfc232c270df6deeee05f35bf68"
+    },
+    {
+      "path": "docs/demo/record.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "e96c4e8638be6874b46b886681aacb2bb4b7a7fce7e5b3f5558e274ad58fee5f"
+    },
+    {
+      "path": "docs/demo/render.py",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "0bb2fc886ee9d61153d57537f6fd7e036a6c99958338193803d505d7718f9656"
+    },
+    {
+      "path": "server.json",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "new generic source, documentation or synthetic fixture",
+      "package_sha256": "cbd1a0e2707147f887181316853ccdae8b44396ad90d090c6fabc71deb70614d"
+    },
+    {
+      "path": "docs/RELEASING.md",
+      "origin": "new-public-assembly",
+      "original_sha256": null,
+      "transformation": "Updates after 0.4.0a2, up to the 0.4.0a3 release: PyPI distribution name persistent-memory-mcp, README badges and terminal demo, refused HTTP requests answered after reading their body, version 0.4.0a3, MCP Registry listing.",
+      "package_sha256": "2bcc648e8eb2be73ccd2f78604ee80df56b84563975efd4da972d938a10def51",
+      "assembly_history": [
+        {
+          "package_sha256": "86ca805e0623465be04b9c233a428b6494e8e33710e55abf5f6791322f8c014d",
+          "transformation": "new generic source, documentation or synthetic fixture"
+        }
+      ]
     },
     {
       "path": "src/persistent_memory/__init__.py",
@@ -3416,5 +3528,17 @@
     "reason": "PyPI and TestPyPI refuse persistent-memory as too similar to the existing project PersistentMemory",
     "unchanged": ["repository name", "console scripts", "import names persistent_memory and hermes_memory", "MCP server name", "store folder name"],
     "core_sha256": "d7ffe470814a7d2e289217c712b042dccf1b397d2529b118bcfde2dd0957e4f6"
+  },
+  "release_0_4_0a3_update_20261116": {
+    "version": "0.4.0a3",
+    "distribution": "persistent-memory-mcp",
+    "fix": "HTTP servers read the body of a refused request (401, 403, 404, 405) before answering",
+    "core_sha256": "d7ffe470814a7d2e289217c712b042dccf1b397d2529b118bcfde2dd0957e4f6",
+    "core_bytes_unchanged_since": "three_systems_update_20261115",
+    "public_test_methods": 356,
+    "files_refreshed": [".github/workflows/release.yml", "CHANGELOG.md", "PACKAGES.fr.md", "PACKAGES.md", "README.fr.md", "README.md", "docs/EVIDENCE.fr.md", "docs/EVIDENCE.md", "docs/HERMES-AGENT.fr.md", "docs/HERMES-AGENT.md", "docs/RELEASING.md", "docs/SETUP.fr.md", "docs/SETUP.md", "pyproject.toml", "src/hermes_memory/__init__.py"],
+    "files_added": ["docs/demo/README.md", "docs/demo/persistent-memory-demo.cast", "docs/demo/persistent-memory-demo.gif", "docs/demo/record.py", "docs/demo/render.py", "server.json"],
+    "mcp_registry_name": "io.github.Musyg/persistent-memory",
+    "mcp_registry_publication": "publish-mcp-registry job in .github/workflows/release.yml, GitHub OIDC, after PyPI"
   }
 }

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "persistent-memory-mcp"
-version = "0.4.0a2"
+version = "0.4.0a3"
 description = "Persistent memory for AI agents and coding assistants: exact versions, provenance, withdrawal with cascade, MCP server and Hermes Agent provider"
 readme = "README.md"
 requires-python = ">=3.11"

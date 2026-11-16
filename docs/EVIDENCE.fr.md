@@ -42,7 +42,7 @@ Une correction ciblée de la validation des identifiants réduit le temps instru
 python -m pip install build
 python -m build
 python3 -m venv /tmp/hermes-memory-check
-/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory_mcp-0.4.0a2-py3-none-any.whl
+/tmp/hermes-memory-check/bin/python -m pip install dist/persistent_memory_mcp-*-py3-none-any.whl
 SOURCE="$PWD"
 cd /tmp
 /tmp/hermes-memory-check/bin/python -m unittest discover -s "$SOURCE/tests" -v
