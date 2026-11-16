@@ -6,6 +6,10 @@ AI agents act on what they remember, whatever they are built with: a coding assi
 
 Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, macOS and Windows. This is an alpha release, 0.4.0a2: interfaces can still change. Import it as `persistent_memory`.
 
+![A terminal session: pip install persistent-memory-mcp, then in Python a fact is remembered, a note is derived from it, the fact is corrected and the note is no longer served, then the fact is withdrawn and search returns nothing.](https://raw.githubusercontent.com/Musyg/persistent-memory/main/docs/demo/persistent-memory-demo.gif)
+
+A real session from a fresh install from PyPI; only the typing is scripted. [What it shows and how it was recorded](https://github.com/Musyg/persistent-memory/blob/main/docs/demo/README.md).
+
 [Français](https://github.com/Musyg/persistent-memory/blob/main/README.fr.md) · [Connect your tools](https://github.com/Musyg/persistent-memory/blob/main/docs/SETUP.md) · [Operations](https://github.com/Musyg/persistent-memory/blob/main/docs/OPERATIONS.md) · [MCP server](https://github.com/Musyg/persistent-memory/blob/main/docs/MCP.md) · [Evidence](https://github.com/Musyg/persistent-memory/blob/main/docs/EVIDENCE.md) · [Packages and releases](https://github.com/Musyg/persistent-memory/blob/main/PACKAGES.md)
 
 ## Install and connect

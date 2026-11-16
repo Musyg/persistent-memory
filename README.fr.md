@@ -6,6 +6,10 @@ Les agents IA s'appuient sur ce qu'ils ont retenu, quelle que soit leur structur
 
 Bibliothèque standard Python uniquement (SQLite avec FTS5), Python 3.11 ou plus récent, Linux, macOS et Windows. C'est une version alpha, 0.4.0a2 : les interfaces peuvent encore changer. Le module s'importe sous le nom `persistent_memory`.
 
+![Une session en terminal : pip install persistent-memory-mcp, puis en Python un fait est enregistré, une note en est dérivée, le fait est corrigé et la note n'est plus servie, puis le fait est retiré et la recherche ne renvoie plus rien.](https://raw.githubusercontent.com/Musyg/persistent-memory/main/docs/demo/persistent-memory-demo.gif)
+
+Une vraie session, depuis une installation neuve à partir de PyPI ; seule la frappe est scriptée. [Ce qu'elle montre et comment elle a été enregistrée](https://github.com/Musyg/persistent-memory/blob/main/docs/demo/README.md).
+
 [English](https://github.com/Musyg/persistent-memory/blob/main/README.md) · [Brancher vos outils](https://github.com/Musyg/persistent-memory/blob/main/docs/SETUP.fr.md) · [Opérations](https://github.com/Musyg/persistent-memory/blob/main/docs/OPERATIONS.fr.md) · [Serveur MCP](https://github.com/Musyg/persistent-memory/blob/main/docs/MCP.fr.md) · [Résultats mesurés](https://github.com/Musyg/persistent-memory/blob/main/docs/EVIDENCE.fr.md) · [Paquets et versions](https://github.com/Musyg/persistent-memory/blob/main/PACKAGES.fr.md)
 
 ## Installer et brancher
