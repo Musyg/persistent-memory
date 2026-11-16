@@ -53,10 +53,10 @@ _PARENT = {"description": "An exact parent version, or {ref, relation}. derives 
                             "properties": {"ref": _REF, "relation": {"type": "string", "enum": list(RELATIONS)}}}]}
 _META = {
     "aliases": {"type": "array", "items": _STR, "maxItems": 32, "description": "Short names to find it again."},
-    "valid_from": {"type": "string", "description": "UTC time, e.g. 2026-01-31T00:00:00Z."},
-    "valid_until": {"type": "string", "description": "UTC time after which it no longer applies."},
-    "preconditions": {"type": "object", "description": "Exact conditions a search must supply to see it."},
-    "confidence": {"type": "number", "minimum": 0, "maximum": 1, "description": "Declared, not computed."},
+    "valid_from": {"type": "string", "description": "UTC time it starts to apply, e.g. 2026-01-31T00:00:00Z. Leave out unless the user gave one; by default it applies now."},
+    "valid_until": {"type": "string", "description": "UTC time after which it no longer applies. Leave out unless the user gave one."},
+    "preconditions": {"type": "object", "description": "Exact conditions a search must supply to see it. Leave out unless the user said it only holds under a condition: a search without these conditions will not return it."},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1, "description": "Declared, not computed. Leave out unless the user gave one."},
 }
 _RAW = {"anyOf": [_STR, {"type": "object"}]}
 
@@ -75,10 +75,10 @@ TOOLS = (
           "Search current, valid memory. Withdrawn, superseded or expired versions are never returned. "
           "Results carry artifact_id and the exact ref.",
           {"query": {"type": "string", "description": "Keywords or a question."},
-           "kinds": {"type": "array", "items": _KIND},
+           "kinds": {"type": "array", "items": _KIND, "description": "Only these kinds. Leave out to search all."},
            "conditions": {"type": "object", "description": "Facts about the current situation, matched "
                                                            "exactly against stored preconditions."},
-           "as_of": {"type": "string", "description": "UTC time to check validity at; default now."},
+           "as_of": {"type": "string", "description": "UTC time to check validity at. Leave out for now."},
            "top_k": {"type": "integer", "minimum": 1, "maximum": 20},
            "max_chars": {"type": "integer", "minimum": 200, "maximum": 16000}},
           ["query"], read_only=True, idempotent=True),
@@ -174,18 +174,54 @@ class Toolbox:
             if key not in args:
                 raise MemoryError("missing_argument:" + key)
         for key, value in args.items():
-            if not _matches(schema["properties"][key], value):
+            prop = schema["properties"][key]
+            if not _matches(prop, value):
+                raise MemoryError("invalid_argument:" + key)
+            if prop.get("type") in ("integer", "number") and not (
+                    prop.get("minimum", value) <= value <= prop.get("maximum", value)):
                 raise MemoryError("invalid_argument:" + key)
 
     def _absent_nulls(self, name, args):
-        """An optional argument sent as null means absent: some framework adapters send every unset field.
-        Unknown arguments and required ones stay checked as before."""
+        """An optional argument sent as null, or empty ("", [] or {}), means absent: some framework adapters
+        send every unset field, and some models fill unused fields with empty values. An empty kinds filter
+        would otherwise exclude every result. Unknown arguments and required ones stay checked as before."""
         schema = self._schemas.get(name)
         if schema is None or not isinstance(args, dict):
             return args
         required = set(schema["required"])
-        return {key: value for key, value in args.items()
-                if not (value is None and key in schema["properties"] and key not in required)}
+        properties = schema["properties"]
+
+        def absent(key, value):
+            if key not in properties or key in required:
+                return False
+            if value is None:
+                return True
+            empty = {"string": "", "array": [], "object": {}}.get(properties[key].get("type"), None)
+            return empty is not None and type(value) is type(empty) and value == empty
+
+        return {key: value for key, value in args.items() if not absent(key, value)}
+
+    def _hint(self, name, code):
+        """What a model needs to correct a refused call, next to the unchanged error code."""
+        schema = self._schemas.get(name)
+        properties = schema["properties"] if schema else {}
+        if code in ("invalid_evidence_kind", "invalid_kind_filter"):
+            return {"allowed_kinds": sorted(KINDS)}
+        if code == "utc_timestamp_required":
+            return {"hint": "Times are UTC in ISO 8601 ending in Z, for example 2026-01-31T00:00:00Z. "
+                            "Leave out an optional time you do not need."}
+        if code.startswith("unknown_argument:"):
+            return {"allowed_arguments": sorted(properties)}
+        if code.startswith(("invalid_argument:", "missing_argument:")):
+            key = code.split(":", 1)[1]
+            prop = properties.get(key, {})
+            hint = {"expected_type": prop["type"]} if "type" in prop else {}
+            hint.update({bound: prop[bound] for bound in ("minimum", "maximum") if bound in prop})
+            return hint
+        if code == "version_conflict":
+            return {"hint": "Search again and use the version_id of the current ref as expected_version, "
+                            "or use memory_correct to change an existing artifact."}
+        return {}
 
     def call(self, name, args, session):
         """Return (payload, is_error). Refusals become tool errors the model can read."""
@@ -195,7 +231,8 @@ class Toolbox:
             payload = self._run(name, dict(args), session)
             is_error = False
         except (MemoryError, ValueError, TypeError) as exc:
-            payload, is_error = {"error": str(exc) or type(exc).__name__}, True
+            code = str(exc) or type(exc).__name__
+            payload, is_error = {"error": code, **self._hint(name, code)}, True
         except (OSError, sqlite3.Error):
             logger.exception("tool %s failed", name)
             payload, is_error = {"error": "memory_unavailable"}, True

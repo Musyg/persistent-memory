@@ -177,6 +177,35 @@ class Tools(Base):
             refused, result = client.call("memory_remember", **arguments)
             self.assertTrue(result["isError"], arguments)
             self.assertEqual(refused["error"], reason)
+        # A real model (gpt-oss 20B through the OpenAI Agents SDK) filled unused string fields with "".
+        other = "The Orion-Test cache listens on port 9311."
+        out, result = client.call("memory_remember", text=other, source_id="", valid_from="", valid_until="")
+        self.assertFalse(result.get("isError"), out)
+        found, result = client.call("memory_search", query="Orion-Test cache 9311", as_of="", kinds=[], conditions={})
+        self.assertFalse(result.get("isError"), found)
+        self.assertIn(out["artifact_id"], [i["artifact_id"] for i in found["items"]])
+        refused, result = client.call("memory_remember", text="", source_id="")
+        self.assertTrue(result["isError"])
+        # Refusals tell the model how to correct the call; the error code itself is unchanged.
+        refused, _ = client.call("memory_remember", text=other, kind="fact")
+        self.assertEqual(refused["error"], "invalid_evidence_kind")
+        self.assertIn("observation", refused["allowed_kinds"])
+        refused, _ = client.call("memory_search", query="x", kinds=["fact"])
+        self.assertEqual(refused["error"], "invalid_kind_filter")
+        self.assertIn("procedure", refused["allowed_kinds"])
+        refused, _ = client.call("memory_remember", text=other, valid_until="tomorrow")
+        self.assertEqual(refused["error"], "utc_timestamp_required")
+        self.assertIn("2026-01-31T00:00:00Z", refused["hint"])
+        refused, _ = client.call("memory_remember", text=other, created_at="2026-01-01T00:00:00Z")
+        self.assertEqual(refused["error"], "unknown_argument:created_at")
+        self.assertIn("valid_from", refused["allowed_arguments"])
+        refused, _ = client.call("memory_search", query="x", top_k="five")
+        self.assertEqual(refused["error"], "invalid_argument:top_k")
+        self.assertEqual(refused["expected_type"], "integer")
+        # Out of the advertised range: refused with the range, instead of a silently empty result.
+        refused, _ = client.call("memory_search", query="Orion-Test cache 9311", max_chars=0)
+        self.assertEqual(refused["error"], "invalid_argument:max_chars")
+        self.assertEqual((refused["minimum"], refused["maximum"]), (200, 16000))
 
 
 class Notices(Base):
