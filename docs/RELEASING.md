@@ -102,25 +102,25 @@ If the first run fails on the upload with "invalid-publisher", the pending publi
    ```sh
    git switch main
    git pull --ff-only
-   git tag -a v0.4.0a2 -m "persistent-memory 0.4.0a2"
-   git push origin v0.4.0a2
+   git tag -a v0.4.0a3 -m "persistent-memory 0.4.0a3"
+   git push origin v0.4.0a3
    ```
 
-2. The tag push starts the workflow. It publishes to TestPyPI and verifies there. This upload is the real version `0.4.0a2`, so it only works once: if a run fails after that upload, fix the cause and publish the next version number, as described below.
+2. The tag push starts the workflow. It publishes to TestPyPI and verifies there. This upload is the real version `0.4.0a3`, so it only works once: if a run fails after that upload, fix the cause and publish the next version number, as described below.
 3. When `verify-testpypi` is green, the `publish-pypi` job waits for approval. Open the run, "Review deployments", check that the files and the commit are the expected ones, select `pypi` and approve.
 4. After the upload, `github-release` creates the GitHub release with the wheel, the sdist and `SHA256SUMS`.
 
 ## Verify the release
 
 ```sh
-python -m venv /tmp/verify && /tmp/verify/bin/python -m pip install persistent-memory-mcp==0.4.0a2
+python -m venv /tmp/verify && /tmp/verify/bin/python -m pip install persistent-memory-mcp==0.4.0a3
 /tmp/verify/bin/persistent-memory --version
-uvx --from persistent-memory-mcp==0.4.0a2 persistent-memory --version
+uvx --from persistent-memory-mcp==0.4.0a3 persistent-memory --version
 ```
 
-Both commands print `persistent-memory 0.4.0a2`. On Windows the interpreter is `\tmp\verify\Scripts\python.exe`.
+Both commands print `persistent-memory 0.4.0a3`. On Windows the interpreter is `\tmp\verify\Scripts\python.exe`.
 
-Then on <https://pypi.org/project/persistent-memory-mcp/0.4.0a2/#files>, each file shows a "Provenance" or attestation entry that names this repository, the workflow `release.yml` and the tag. Compare the SHA256 of the files with `SHA256SUMS` on the GitHub release.
+Then on <https://pypi.org/project/persistent-memory-mcp/0.4.0a3/#files>, each file shows a "Provenance" or attestation entry that names this repository, the workflow `release.yml` and the tag. Compare the SHA256 of the files with `SHA256SUMS` on the GitHub release.
 
 While every published version is a pre-release, `pip install persistent-memory-mcp` selects the newest one without `--pre` (checked with pip 26.2 and 26.3). Once a final version exists, pip prefers it and a pre-release needs `--pre` or an exact version.
 
