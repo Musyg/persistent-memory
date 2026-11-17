@@ -49,7 +49,7 @@ cd /tmp
 /tmp/hermes-memory-check/bin/python "$SOURCE/benchmarks/run_benchmark.py"
 ```
 
-The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 367 public test methods; the optional policy registry has 51. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](TESTING.md) describes provenance and boundaries.
+The test sources stay outside the installed package; imports resolve to the wheel. The current memory sources contain 395 public test methods; the optional policy registry has 51. Version 0.3.0a5 passed installed-wheel and rebuilt-source tests in two Linux environments: 215 distinct methods, 430 executions per environment. [Qualification and checksums](releases/0.3.0a5/README.md) identify the exact released archives. Version 0.3.0a4 was qualified from installed wheels and rebuilt source distributions in two Linux environments. A private application's AST wiring test is deliberately absent and is not counted as public coverage. [TESTING.md](TESTING.md) describes provenance and boundaries.
 
 The benchmark uses 24 generated notes and reports observations, not a universal speed score. No corpus scan, model download, or network service is involved.
 

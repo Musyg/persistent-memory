@@ -4,6 +4,7 @@ import unittest
 
 import hermes_memory
 import hermes_memory.core
+import hermes_memory.local_vectors
 import hermes_memory.persistent
 import hermes_memory.qdrant_projection
 import persistent_memory
@@ -17,6 +18,8 @@ class PublicName(unittest.TestCase):
         self.assertIs(persistent_memory.OPERATIONS, hermes_memory.persistent.OPERATIONS)
         self.assertIs(persistent_memory.QdrantProjection, hermes_memory.qdrant_projection.QdrantProjection)
         self.assertIs(persistent_memory.OpenAIEmbeddings, hermes_memory.qdrant_projection.OpenAIEmbeddings)
+        self.assertIs(persistent_memory.LocalVectorProjection, hermes_memory.local_vectors.LocalVectorProjection)
+        self.assertIs(persistent_memory.FastEmbedEmbeddings, hermes_memory.local_vectors.FastEmbedEmbeddings)
         self.assertEqual(persistent_memory.__version__, hermes_memory.__version__)
         for name in persistent_memory.__all__:
             self.assertTrue(hasattr(persistent_memory, name), name)

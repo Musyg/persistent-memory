@@ -6,6 +6,7 @@ All notable changes to `persistent-memory` are recorded here. The project is an 
 
 ### Added
 
+- Search by meaning without a server: `persistent-memory-mcp --semantic` keeps vectors in `vectors.db`, in the store folder, and fuses them into `memory_search`. The model runs in the process with the new extra `pip install "persistent-memory-mcp[semantic]"` (fastembed; default `paraphrase-multilingual-mpnet-base-v2`, Apache-2.0), or comes from an OpenAI-compatible `/embeddings` endpoint such as Ollama with `--embed-url`. Like the Qdrant projection, it holds refs and vectors only, every candidate is revalidated by the authority, and a model that cannot load leaves keyword search working. The base install still has no dependency. See [docs/SEMANTIC.md](docs/SEMANTIC.md).
 - Review mode: `persistent-memory-mcp --review` turns the write tools into proposals that a person approves with `persistent-memory review` (`list`, `show`, `approve`, `reject`). The agent gets `memory_proposal_status` but no way to approve. Approval goes through the same code as a direct call, so versions, compare-and-swap, cascade and notices all apply; a proposal the memory refuses at that moment, such as a correction made stale by another one, is marked `failed` and never forced. Proposals live in `review.db`, next to the store; the core is unchanged. See [docs/MCP.md](docs/MCP.md#review-mode).
 
 ### Changed
