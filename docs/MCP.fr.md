@@ -56,6 +56,12 @@ Un processus serveur est une session du registre. `memory_search` et `memory_rea
 
 Un client qui garde le serveur actif d'une conversation à l'autre (c'est le cas de la passerelle d'Hermes Agent) partage une seule session entre elles. `--session` permet de choisir le nom soi-même.
 
+## Quasi-doublons
+
+Après `memory_remember`, `memory_derive` ou `memory_learn`, le serveur cherche les entrées courantes formulées presque de la même façon : au moins 60 % de mots en commun (recouvrement de Jaccard des ensembles de mots), sans compter la nouvelle entrée ni ses parents. S'il en trouve, le résultat porte aussi `similar` (jusqu'à trois entrées, avec `artifact_id`, `ref`, `text` et `overlap`) et `similar_hint`, qui invite le modèle à ne garder qu'une entrée avec `memory_correct` ou `memory_withdraw`. Rien n'est fusionné et l'écriture n'est pas refusée. Le cas courant est un agent qui retient « port 6544 » à côté de « port 6543 » au lieu de corriger la première entrée.
+
+Les entrées montrées ainsi comptent comme vues par la session : un retrait ultérieur donne donc un avis. La vérification passe par la recherche par mots-clés : une paraphrase avec d'autres mots n'est pas signalée. En mode validation, la proposition porte aussi `similar`, pour la personne qui l'approuve. En Python, `hermes_memory.mcp_server.similar_entries(memory, text)` fait la même vérification.
+
 ## Mode validation
 
 Avec `--review`, l'agent cherche et lit comme d'habitude, mais `memory_remember`, `memory_derive`, `memory_correct`, `memory_withdraw` et `memory_learn` ne modifient plus la mémoire. Chaque appel est vérifié contre son schéma, puis gardé comme proposition en attente dans `review.db`, dans le dossier de la mémoire. Le résultat est `{"status": "pending_review", "proposal_id": ...}`. Un outil de plus, `memory_proposal_status`, indique à l'agent où en sont ses propositions. Aucun outil ne peut approuver : la décision se prend hors du serveur, par une personne.

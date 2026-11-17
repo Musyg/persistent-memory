@@ -16,6 +16,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sqlite3
 import sys
 import uuid
@@ -25,7 +26,7 @@ from .core import MemoryError
 from .persistent import KINDS, RELATIONS, PersistentMemory
 from .typed_memory import RetrievalError
 
-__all__ = ["SUPPORTED_VERSIONS", "Toolbox", "Session", "serve", "main"]
+__all__ = ["SUPPORTED_VERSIONS", "Toolbox", "Session", "serve", "main", "similar_entries"]
 
 logger = logging.getLogger("persistent_memory.mcp")
 
@@ -106,9 +107,9 @@ TOOLS = (
     _tool("memory_remember", "Remember a source",
           "Store a new fact, decision, document or procedure the user stated or confirmed, as a source. Do "
           "not use it for your own conclusions (memory_derive), for lessons after a task (memory_learn), or "
-          "to change something already stored (memory_correct). Returns artifact_id and ref. Sending the same "
-          "source_id with the same text again changes nothing; with a different text it is refused with "
-          "version_conflict.",
+          "to change something already stored (memory_correct). Returns artifact_id and ref, plus similar when "
+          "existing entries are worded almost the same. Sending the same source_id with the same text again "
+          "changes nothing; with a different text it is refused with version_conflict.",
           {"text": {"type": "string", "description": "Self-contained statement, with its date if known."},
            "kind": _KIND,
            "source_id": {"type": "string", "description": "Stable name you choose, such as 'db-port', to "
@@ -303,6 +304,8 @@ class Toolbox:
         except (OSError, sqlite3.Error):
             logger.exception("tool %s failed", name)
             payload, is_error = {"error": "memory_unavailable"}, True
+        if not is_error and name in _SIMILAR_FIELD:
+            payload = self._with_similar(name, args, payload, session)
         if name != "memory_notices":
             try:
                 notices = self.memory.notices(session)["notices"]
@@ -363,10 +366,71 @@ class Toolbox:
         raise MemoryError("unknown_tool")
 
 
+    def _with_similar(self, name, args, payload, session):
+        """Point at close existing entries after a write; never merges, never fails the write."""
+        exclude = set(_artifact_ids(payload)) | set(_artifact_ids(args.get("parents", [])))
+        try:
+            similar = similar_entries(self.memory, args[_SIMILAR_FIELD[name]], exclude=exclude, session=session)
+        except (MemoryError, ValueError, OSError, sqlite3.Error):
+            logger.exception("similar entries check failed")
+            return payload
+        if not similar:
+            return payload
+        return {**payload, "similar": similar, "similar_hint": SIMILAR_HINT}
+
     @staticmethod
     def _status_view(proposal):
         return {key: proposal[key] for key in ("proposal_id", "tool", "state", "created_at", "decided_at",
                                                "result", "error", "note") if key in proposal}
+
+
+_SIMILAR_FIELD = {"memory_remember": "text", "memory_derive": "text", "memory_learn": "lesson"}
+SIMILAR_MIN_OVERLAP = 0.6
+SIMILAR_HINT = ("These existing entries are worded almost the same way. If the new text repeats or replaces "
+                "one of them, keep a single entry: use memory_correct on the existing one, or memory_withdraw "
+                "the one that should go. Nothing was merged.")
+_WORDS = re.compile(r"\w+")
+
+
+def _artifact_ids(value):
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if key == "artifact_id" and isinstance(item, str):
+                yield item
+            else:
+                yield from _artifact_ids(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _artifact_ids(item)
+
+
+def _word_set(text):
+    return {w.lower() for w in _WORDS.findall(text)}
+
+
+def similar_entries(memory, text, *, exclude=(), session=None, limit=3, min_overlap=SIMILAR_MIN_OVERLAP):
+    """Current entries worded almost like text: word overlap (Jaccard) of at least min_overlap.
+
+    Candidates come from memory.search, so only readable, valid versions are considered. The
+    session, when given, is recorded as having been shown the entries returned.
+    """
+    words = _word_set(text)
+    if not words:
+        return []
+    found = []
+    for item in memory.search(text[:4096], top_k=10, max_chars=64000)["items"]:
+        if item["artifact_id"] in exclude:
+            continue
+        other = _word_set(item["text"])
+        overlap = len(words & other) / len(words | other)
+        if overlap >= min_overlap:
+            found.append({"artifact_id": item["artifact_id"], "ref": item["ref"], "text": item["text"],
+                          "overlap": round(overlap, 2)})
+    found.sort(key=lambda f: -f["overlap"])
+    found = found[:limit]
+    if found and session is not None:
+        memory.record_exposure(session, [f["ref"] for f in found], "similar")
+    return found
 
 
 def _error(ident, code, message):
