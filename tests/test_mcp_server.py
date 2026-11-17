@@ -96,6 +96,21 @@ class Handshake(Base):
 
 
 class Tools(Base):
+    def test_every_argument_is_described_and_writes_name_their_alternative(self):
+        listed = self.client().request("tools/list")["result"]["tools"]
+        names = {t["name"] for t in listed}
+
+        def described(schema):
+            return bool(schema.get("description")) or any(described(s) for s in schema.get("anyOf", ()))
+
+        for tool in listed:
+            for arg, schema in tool["inputSchema"]["properties"].items():
+                self.assertTrue(described(schema), "%s.%s has no description" % (tool["name"], arg))
+            self.assertLessEqual(len(tool["description"]), 600, tool["name"])
+            if not tool["annotations"]["readOnlyHint"] or tool["name"] in ("memory_search", "memory_read"):
+                others = {n for n in names if n != tool["name"] and n in tool["description"]}
+                self.assertTrue(others, "%s names no alternative tool" % tool["name"])
+
     def test_remember_search_read(self):
         client = self.client()
         stored, result = client.call("memory_remember", text=PORT, aliases=["orion port"])
