@@ -104,25 +104,25 @@ If the first run fails on the upload with "invalid-publisher", the pending publi
    ```sh
    git switch main
    git pull --ff-only
-   git tag -a v0.4.0a3 -m "persistent-memory 0.4.0a3"
-   git push origin v0.4.0a3
+   git tag -a v0.4.0a4 -m "persistent-memory 0.4.0a4"
+   git push origin v0.4.0a4
    ```
 
-2. The tag push starts the workflow. It publishes to TestPyPI and verifies there. This upload is the real version `0.4.0a3`, so it only works once: if a run fails after that upload, fix the cause and publish the next version number, as described below.
+2. The tag push starts the workflow. It publishes to TestPyPI and verifies there. This upload is the real version `0.4.0a4`, so it only works once: if a run fails after that upload, fix the cause and publish the next version number, as described below.
 3. When `verify-testpypi` is green, the `publish-pypi` job waits for approval. Open the run, "Review deployments", check that the files and the commit are the expected ones, select `pypi` and approve.
 4. After the upload, `github-release` creates the GitHub release with the wheel, the sdist and `SHA256SUMS`.
 
 ## Verify the release
 
 ```sh
-python -m venv /tmp/verify && /tmp/verify/bin/python -m pip install persistent-memory-mcp==0.4.0a3
+python -m venv /tmp/verify && /tmp/verify/bin/python -m pip install persistent-memory-mcp==0.4.0a4
 /tmp/verify/bin/persistent-memory --version
-uvx --from persistent-memory-mcp==0.4.0a3 persistent-memory --version
+uvx --from persistent-memory-mcp==0.4.0a4 persistent-memory --version
 ```
 
-Both commands print `persistent-memory 0.4.0a3`. On Windows the interpreter is `\tmp\verify\Scripts\python.exe`.
+Both commands print `persistent-memory 0.4.0a4`. On Windows the interpreter is `\tmp\verify\Scripts\python.exe`.
 
-Then on <https://pypi.org/project/persistent-memory-mcp/0.4.0a3/#files>, each file shows a "Provenance" or attestation entry that names this repository, the workflow `release.yml` and the tag. Compare the SHA256 of the files with `SHA256SUMS` on the GitHub release.
+Then on <https://pypi.org/project/persistent-memory-mcp/0.4.0a4/#files>, each file shows a "Provenance" or attestation entry that names this repository, the workflow `release.yml` and the tag. Compare the SHA256 of the files with `SHA256SUMS` on the GitHub release.
 
 The MCP Registry entry: `curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.Musyg/persistent-memory"` lists the new version. If `publish-mcp-registry` failed while PyPI succeeded, fix the cause and re-run that job alone; the registry entry does not change the files on PyPI.
 
@@ -132,7 +132,7 @@ While every published version is a pre-release, `pip install persistent-memory-m
 
 A version number is never reused. PyPI and TestPyPI refuse a second upload of a file name, even after the file is deleted.
 
-- The run fails before `publish-pypi`: nothing reached PyPI. Fix the cause. If TestPyPI already holds the version, move to the next version number (`0.4.0a3`) in `pyproject.toml`, `src/hermes_memory/__init__.py` and `CHANGELOG.md`, and tag that. Delete the unused tag only if nothing was published from it.
+- The run fails before `publish-pypi`: nothing reached PyPI. Fix the cause. If TestPyPI already holds the version, move to the next version number (`0.4.0a5`) in `pyproject.toml`, `src/hermes_memory/__init__.py` and `CHANGELOG.md`, and tag that. Delete the unused tag only if nothing was published from it.
 - The approval was refused or the run was cancelled at `publish-pypi`: nothing reached PyPI. Re-run the `publish-pypi` job from the same run if the cause was only the approval; the files are the ones that were tested.
 - A bad version reached PyPI: on the project page, Manage, Releases, "Yank" the release with a reason. A yanked release is skipped by `pip install persistent-memory-mcp` and stays installable by exact pin. Publish a corrected version with a new number and mention it in `CHANGELOG.md`.
 - A secret or private data was published: yank at once, then ask PyPI to delete the file through the project's "Delete" option or the PyPI support form; rotate whatever leaked. Deleting does not free the version number.

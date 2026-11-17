@@ -2,7 +2,7 @@
 
 All notable changes to `persistent-memory` are recorded here. The project is an alpha library: versions use PEP 440 pre-release numbers (`0.4.0a2`) and interfaces can still change between pre-releases.
 
-## Unreleased
+## 0.4.0a4 (2026-11-17)
 
 ### Added
 

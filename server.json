@@ -8,13 +8,13 @@
     "source": "github"
   },
   "websiteUrl": "https://github.com/Musyg/persistent-memory#readme",
-  "version": "0.4.0a3",
+  "version": "0.4.0a4",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "persistent-memory-mcp",
-      "version": "0.4.0a3",
+      "version": "0.4.0a4",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
