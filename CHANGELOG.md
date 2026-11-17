@@ -2,6 +2,12 @@
 
 All notable changes to `persistent-memory` are recorded here. The project is an alpha library: versions use PEP 440 pre-release numbers (`0.4.0a2`) and interfaces can still change between pre-releases.
 
+## Unreleased
+
+### Fixed
+
+- Release workflow: `verify-testpypi` now retries the download that compares TestPyPI's file with `SHA256SUMS`, as it already retried the install. On the `v0.4.0a4` run the Windows job installed the new version, then hit a TestPyPI edge that did not list it yet for the download, and failed.
+
 ## 0.4.0a4 (2026-11-17)
 
 ### Added
