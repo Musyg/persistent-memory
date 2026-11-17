@@ -26,6 +26,7 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `--transport http`, `--host`, `--port` | Sert le HTTP sur `/mcp` au lieu de stdio. Par défaut `127.0.0.1:8766`. |
 | `--token-file FILE` | Jeton porteur, lu dans un fichier que seul son propriétaire peut lire. Obligatoire hors boucle locale. |
 | `--allow-origin URL` | Origine de navigateur autorisée à appeler le point HTTP ; répétable. Par défaut : aucune. |
+| `--semantic` | [Recherche par le sens](SEMANTIC.fr.md) facultative, en local, fusionnée dans `memory_search`. |
 | `--qdrant-url`, `--embed-url`, `--embed-model` | [Projection Qdrant](QDRANT.fr.md) facultative, fusionnée dans `memory_search`. |
 
 `python -m hermes_memory.mcp_server` et `persistent-memory mcp` lancent le même programme.

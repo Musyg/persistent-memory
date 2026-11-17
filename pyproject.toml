@@ -30,6 +30,10 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
+[project.optional-dependencies]
+# Search by meaning with a model run in the process; the base install has no dependency.
+semantic = ["fastembed>=0.9"]
+
 [project.urls]
 Homepage = "https://github.com/Musyg/persistent-memory"
 Source = "https://github.com/Musyg/persistent-memory"
