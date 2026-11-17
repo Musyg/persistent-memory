@@ -63,7 +63,7 @@ Persistent Memory contains two independently installable Python packages: the me
 
 Versioned memory for applications and agents that need to know **which evidence a result depends on, whether it is still current, and what happens after a withdrawal or an old backup is restored**.
 
-Python 3.11+, SQLite with FTS5, standard library only. Linux, macOS and Windows are qualified: the installed-package tests run on the three systems in CI, Python 3.11 to 3.14. No model, weights, account, external database, or persistent server is required. This is an alpha library; the repository contains synthetic examples and reusable code, not a private memory system or its data.
+Python 3.11+, SQLite with FTS5, standard library only. Linux, macOS and Windows are qualified: the installed-package tests run on the three systems in CI, Python 3.11 to 3.15. No model, weights, account, external database, or persistent server is required. This is an alpha library; the repository contains synthetic examples and reusable code, not a private memory system or its data.
 
 ### Try the complete example
 

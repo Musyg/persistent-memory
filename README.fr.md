@@ -119,7 +119,7 @@ Les autres études, les mesures de performance et les reçus de tests sont dans 
 ## Plateformes et limites
 
 - **Alpha.** Noms, options et formats de fichiers peuvent changer avant une version stable.
-- **Plateformes.** La CI installe le wheel et lance les tests sous Linux, macOS et Windows, de Python 3.11 à 3.14. Sous Windows, gardez la mémoire sur un disque local ; un chemin réseau n'est pas pris en charge.
+- **Plateformes.** La CI installe le wheel et lance les tests sous Linux, macOS et Windows, de Python 3.11 à 3.15. Sous Windows, gardez la mémoire sur un disque local ; un chemin réseau n'est pas pris en charge.
 - **Fichier de jeton sous Windows.** Hors boucle locale, le serveur HTTP exige `--token-file`. Sous Linux et macOS, ce fichier ne doit être lisible que par son propriétaire ; Windows n'a pas ces bits de mode et la liste d'accès du fichier n'est pas inspectée : gardez-le dans votre propre dossier de profil.
 - **Un seul processus par mémoire est le cas testé.** SQLite sérialise plusieurs processus, mais ce cas ne fait pas partie des tests de la surface d'opérations.
 - **Recherche.** Lexicale par défaut (FTS5 et alias exacts) ; le rappel sémantique demande la projection Qdrant et un service d'embeddings. L'index couvre jusqu'à 5 000 entrées courantes par espace.
