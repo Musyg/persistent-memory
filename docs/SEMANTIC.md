@@ -9,6 +9,8 @@ pip install "persistent-memory-mcp[semantic]"
 persistent-memory-mcp --semantic --create < /dev/null    # first run: downloads the model, then exits
 ```
 
+In Windows `cmd`, write `< NUL` instead of `< /dev/null`.
+
 The base install is unchanged and has no dependency. The `semantic` extra adds [fastembed](https://github.com/qdrant/fastembed), which runs an ONNX model on the CPU, and numpy with it.
 
 ## What it guarantees
@@ -19,7 +21,7 @@ The local projection follows the same rules as the [Qdrant projection](QDRANT.md
 - **It only proposes.** Every candidate is read again through the authority, then filtered by kind, validity window and preconditions exactly like a keyword candidate. A withdrawn, superseded or invalidated version is refused even if its vector is still there.
 - **It follows the authority.** After each write, vectors of versions that are no longer readable are deleted and new readable versions are embedded. Only new versions are embedded.
 - **A forged row is ignored.** A row's id is derived from its ref; a row whose ref does not match its id is dropped.
-- **It can fail without harm.** If the model cannot be downloaded or loaded, the projection is marked `unavailable` and keyword search goes on. If the extra is not installed, the server does not start and says which package is missing.
+- **It can fail without harm.** If the model cannot be downloaded or loaded, if it fails on a text, or if `vectors.db` cannot be read, the projection is marked `unavailable`, the write is kept and keyword search goes on. A model that failed to load is tried again after five minutes, not at every write. A corrupt `vectors.db` is rebuilt, and so is one deleted while the server runs. If the extra is not installed, the server does not start and says which package is missing.
 
 ## Connect a client
 
@@ -48,7 +50,7 @@ persistent-memory-mcp --semantic --embed-url http://127.0.0.1:11434/v1 --embed-m
   --embed-query-prefix "search_query: " --embed-document-prefix "search_document: "
 ```
 
-`--semantic` and `--qdrant-url` cannot be combined. Changing the model starts a new set of vectors; the old ones stay in `vectors.db` until you delete the file, which is always safe: it is rebuilt at the next start.
+`--semantic` and `--qdrant-url` cannot be combined. Changing the model starts a new set of vectors; the old ones stay in `vectors.db` until you delete the file, which is always safe: it is rebuilt by the next write or start. If the model behind the same name starts giving vectors of another size, its vectors are rebuilt. Vectors are stored as little-endian float32, so the file reads the same on any machine.
 
 ## Choosing the model
 

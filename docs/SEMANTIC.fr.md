@@ -9,6 +9,8 @@ pip install "persistent-memory-mcp[semantic]"
 persistent-memory-mcp --semantic --create < /dev/null    # premier lancement : télécharge le modèle, puis s'arrête
 ```
 
+Dans `cmd` sous Windows, écrivez `< NUL` au lieu de `< /dev/null`.
+
 L'installation de base ne change pas et n'a aucune dépendance. L'extra `semantic` ajoute [fastembed](https://github.com/qdrant/fastembed), qui fait tourner un modèle ONNX sur le processeur, et numpy avec lui.
 
 ## Ce qui est garanti
@@ -19,7 +21,7 @@ La projection locale suit les mêmes règles que la [projection Qdrant](QDRANT.f
 - **Elle ne fait que proposer.** Chaque candidat est relu par l'autorité, puis filtré par type, fenêtre de validité et préconditions, exactement comme un candidat trouvé par mots-clés. Une version retirée, remplacée ou invalidée est refusée même si son vecteur est encore là.
 - **Elle suit l'autorité.** Après chaque écriture, les vecteurs des versions qui ne sont plus lisibles sont supprimés et les nouvelles versions lisibles sont calculées. Seules les nouvelles versions passent par le modèle.
 - **Une ligne falsifiée est ignorée.** L'identifiant d'une ligne est dérivé de sa référence ; une ligne dont la référence ne correspond pas à l'identifiant est écartée.
-- **Une panne ne casse rien.** Si le modèle ne peut pas être téléchargé ou chargé, la projection passe à l'état `unavailable` et la recherche par mots-clés continue. Si l'extra n'est pas installé, le serveur ne démarre pas et dit quel paquet manque.
+- **Une panne ne casse rien.** Si le modèle ne peut pas être téléchargé ou chargé, s'il échoue sur un texte, ou si `vectors.db` est illisible, la projection passe à l'état `unavailable`, l'écriture est conservée et la recherche par mots-clés continue. Un modèle qui n'a pas pu se charger est réessayé après cinq minutes, pas à chaque écriture. Un `vectors.db` corrompu est reconstruit, de même qu'un fichier supprimé pendant que le serveur tourne. Si l'extra n'est pas installé, le serveur ne démarre pas et dit quel paquet manque.
 
 ## Brancher un client
 
@@ -48,7 +50,7 @@ persistent-memory-mcp --semantic --embed-url http://127.0.0.1:11434/v1 --embed-m
   --embed-query-prefix "search_query: " --embed-document-prefix "search_document: "
 ```
 
-`--semantic` et `--qdrant-url` ne se combinent pas. Changer de modèle démarre un nouveau jeu de vecteurs ; les anciens restent dans `vectors.db` jusqu'à ce que vous supprimiez le fichier, ce qui est toujours sans risque : il est reconstruit au démarrage suivant.
+`--semantic` et `--qdrant-url` ne se combinent pas. Changer de modèle démarre un nouveau jeu de vecteurs ; les anciens restent dans `vectors.db` jusqu'à ce que vous supprimiez le fichier, ce qui est toujours sans risque : il est reconstruit à l'écriture ou au démarrage suivant. Si le modèle derrière un même nom se met à donner des vecteurs d'une autre taille, ses vecteurs sont reconstruits. Les vecteurs sont stockés en float32 petit-boutiste : le fichier se lit de la même façon sur toutes les machines.
 
 ## Choisir le modèle
 

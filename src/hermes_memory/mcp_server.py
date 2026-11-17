@@ -463,7 +463,7 @@ def serve(session, stdin, stdout):
 def add_projection_options(parser):
     group = parser.add_argument_group("vector projection (optional)")
     group.add_argument("--semantic", action="store_true",
-                       default=os.environ.get("PERSISTENT_MEMORY_SEMANTIC", "") in ("1", "true", "yes"),
+                       default=os.environ.get("PERSISTENT_MEMORY_SEMANTIC", "").strip().lower() in ("1", "true", "yes", "on"),
                        help="Also search by meaning, with vectors kept in the store folder (vectors.db). "
                             "Uses --embed-url when given, otherwise a model run in the process "
                             '(pip install "persistent-memory-mcp[semantic]")')

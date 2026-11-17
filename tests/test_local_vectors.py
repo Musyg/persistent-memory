@@ -1,6 +1,7 @@
 """Local vector projection (--semantic): search by meaning, never past the authority."""
 import argparse
 import sqlite3
+import struct
 import sys
 import tempfile
 import types
@@ -236,6 +237,144 @@ class Options(Base):
     def test_without_semantic_nothing_is_attached(self):
         self.assertIsNone(attach_projection(self.memory, self.options()))
         self.assertFalse((self.store / "vectors.db").exists())
+
+
+class Resilience(Base):
+    def test_an_embedding_error_never_fails_a_write_or_a_search(self):
+        class Broken(ToyEmbeddings):
+            fail = False
+
+            def __call__(self, texts):
+                if Broken.fail:
+                    raise RuntimeError("onnxruntime: bad input")
+                return super().__call__(texts)
+
+        self.embed = Broken()
+        self.memory.remember("The cat is called Mika.")
+        self.attach()
+        Broken.fail = True
+        stored = self.memory.remember("Backup runs nightly.")
+        self.assertEqual(self.memory.read(stored["ref"])["text"], "Backup runs nightly.")
+        self.assertEqual(self.memory.projections, [{"name": "local", "status": "unavailable"}])
+        result = self.memory.search("nightly")
+        self.assertEqual([i["text"] for i in result["items"]], ["Backup runs nightly."])
+        self.assertEqual(result["semantic"]["status"], "unavailable")
+
+    def test_over_mcp_a_failing_model_is_not_a_crash(self):
+        from hermes_memory.mcp_server import Session, Toolbox
+        from test_mcp_server import Client
+
+        class Broken(ToyEmbeddings):
+            def __call__(self, texts):
+                raise RuntimeError("bad input")
+
+        self.memory.remember("The cat is called Mika.")
+        self.memory.attach_projection(LocalVectorProjection(self.memory, Broken()))
+        agent = Client(Session(Toolbox(self.memory), "s"))
+        agent.open()
+        out, result = agent.call("memory_remember", text="Backup runs nightly.")
+        self.assertFalse(result["isError"], out)
+        out, result = agent.call("memory_search", query="cat")
+        self.assertFalse(result["isError"], out)
+        self.assertEqual([i["text"] for i in out["items"]], ["The cat is called Mika."])
+
+    def test_a_corrupt_file_is_rebuilt(self):
+        self.memory.remember("The cat is called Mika.")
+        (self.store / "vectors.db").write_bytes(b"this is not a database" * 100)
+        projection = self.attach()
+        self.assertEqual(len(projection.query("pet", 5)), 1)
+
+    def test_a_file_corrupted_while_running_leaves_keyword_search(self):
+        self.memory.remember("The cat is called Mika.")
+        self.attach()
+        (self.store / "vectors.db").write_bytes(b"this is not a database" * 100)
+        result = self.memory.search("cat")
+        self.assertEqual([i["text"] for i in result["items"]], ["The cat is called Mika."])
+        self.assertEqual(result["semantic"]["status"], "unavailable")
+        stored = self.memory.remember("Backup runs nightly.")
+        self.assertEqual(self.memory.read(stored["ref"])["text"], "Backup runs nightly.")
+
+    def test_a_file_deleted_while_running_is_rebuilt(self):
+        self.memory.remember("The cat is called Mika.")
+        projection = self.attach()
+        (self.store / "vectors.db").unlink()
+        self.assertEqual(self.texts("pet"), [])  # vectors gone: nothing proposed, no error
+        self.memory.remember("Backup runs nightly.")  # the next write rebuilds them
+        self.assertEqual(self.texts("pet"), ["The cat is called Mika."])
+        self.assertEqual(projection.status, "ok")
+
+    def test_a_model_that_changes_size_is_rebuilt(self):
+        self.memory.remember("The cat is called Mika.")
+        projection = self.attach()
+
+        class Wider(ToyEmbeddings):
+            def __call__(self, texts):
+                return [toy_vector(t) + [0.0, 0.0] for t in texts]
+
+        projection.embed = Wider()  # same model_id, another size
+        self.assertEqual(len(projection.query("pet", 5)), 1)
+        with closing(sqlite3.connect(projection.path)) as c:
+            self.assertEqual({r[0] for r in c.execute("SELECT dim FROM vectors")}, {len(toy_vector("x")) + 2})
+
+    def test_a_write_after_a_size_change_rebuilds_every_vector(self):
+        self.memory.remember("The cat is called Mika.")
+        projection = self.attach()
+
+        class Wider(ToyEmbeddings):
+            def __call__(self, texts):
+                return [toy_vector(t) + [0.0, 0.0] for t in texts]
+
+        projection.embed = Wider()
+        self.memory.remember("Backup runs nightly.")
+        with closing(sqlite3.connect(projection.path)) as c:
+            self.assertEqual(sorted(r[0] for r in c.execute("SELECT dim FROM vectors")),
+                             [len(toy_vector("x")) + 2] * 2)
+
+    def test_a_row_without_a_valid_ref_is_skipped(self):
+        self.memory.remember("The cat is called Mika.")
+        projection = self.attach()
+        with closing(sqlite3.connect(projection.path)) as c, c:
+            row = list(c.execute("SELECT * FROM vectors").fetchone())
+            row[0], row[3] = "forged", ""
+            c.execute("INSERT INTO vectors VALUES (?,?,?,?,?,?,?)", row)
+        self.assertEqual(len(projection.query("pet", 5)), 1)
+
+    def test_vectors_are_little_endian_float32(self):
+        self.memory.remember("The cat is called Mika.")
+        projection = self.attach()
+        with closing(sqlite3.connect(projection.path)) as c:
+            dim, blob = c.execute("SELECT dim, vector FROM vectors").fetchone()
+        vector = toy_vector("The cat is called Mika.")
+        norm = sum(x * x for x in vector) ** 0.5
+        self.assertEqual(blob, struct.pack("<%df" % dim, *[x / norm for x in vector]))
+
+    def test_a_model_that_failed_is_not_retried_at_every_write(self):
+        attempts = []
+
+        class TextEmbedding:
+            def __init__(self, **kwargs):
+                attempts.append(1)
+                raise RuntimeError("no network")
+
+        stub = types.ModuleType("fastembed")
+        stub.TextEmbedding = TextEmbedding
+        with mock.patch.dict(sys.modules, {"fastembed": stub}), \
+                mock.patch("importlib.util.find_spec", return_value=object()):
+            embed = FastEmbedEmbeddings("m")
+            for _ in range(3):
+                with self.assertRaises(OSError):
+                    embed.prepare()
+            self.assertEqual(len(attempts), 1)
+            with mock.patch.object(local_vectors.time, "monotonic", return_value=10 ** 9):
+                with self.assertRaises(OSError):
+                    embed.prepare()
+            self.assertEqual(len(attempts), 2)
+
+    def test_the_environment_flag_ignores_case(self):
+        with mock.patch.dict("os.environ", {"PERSISTENT_MEMORY_SEMANTIC": "TRUE"}):
+            parser = argparse.ArgumentParser()
+            add_projection_options(parser)
+            self.assertTrue(parser.parse_args([]).semantic)
 
 
 if __name__ == "__main__":
