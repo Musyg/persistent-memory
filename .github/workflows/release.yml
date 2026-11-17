@@ -342,9 +342,17 @@ jobs:
               time.sleep(30)
           else:
               raise SystemExit("%s did not become installable from TestPyPI" % spec)
-          # TestPyPI must serve the exact bytes that were built and tested.
+          # TestPyPI must serve the exact bytes that were built and tested. Its CDN can still answer
+          # from an edge that does not list the new version right after the install succeeded: retry.
           download = work / "download"
-          run(pip + ["download", "--no-cache-dir", "--no-deps", "--index-url", index, "--dest", download, spec], check=True)
+          for attempt in range(1, 11):
+              if run(pip + ["download", "--no-cache-dir", "--no-deps", "--index-url", index, "--dest", download,
+                            spec]).returncode == 0:
+                  break
+              print("attempt %d: %s is not downloadable yet, waiting 30 s" % (attempt, spec), flush=True)
+              time.sleep(30)
+          else:
+              raise SystemExit("%s could not be downloaded from TestPyPI" % spec)
           expected = {}
           for line in Path(os.environ["GITHUB_WORKSPACE"], "checksums", "SHA256SUMS").read_text(encoding="utf-8").splitlines():
               digest, name = line.split(None, 1)
