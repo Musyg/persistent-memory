@@ -61,7 +61,7 @@ Persistent Memory propose deux paquets Python installables séparément : la mé
 
 Une bibliothèque de mémoire versionnée pour les applications et les agents qui doivent savoir **de quelles preuves dépend une réponse, si elles restent valables et ce qui se passe après un retrait ou une restauration ancienne**.
 
-Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux, macOS et Windows sont qualifiés : les tests du paquet installé tournent sur les trois systèmes dans la CI, de Python 3.11 à 3.14. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
+Python 3.11+, SQLite avec FTS5, bibliothèque standard uniquement. Linux, macOS et Windows sont qualifiés : les tests du paquet installé tournent sur les trois systèmes dans la CI, de Python 3.11 à 3.15. Aucun modèle, poids, compte, serveur permanent ni base externe n'est nécessaire. Cette version alpha contient du code réutilisable et des exemples synthétiques ; elle ne distribue pas un système mémoire privé ni ses données.
 
 ### Essayer un parcours complet
 

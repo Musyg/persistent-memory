@@ -130,12 +130,12 @@ jobs:
       matrix:
         include:
           - {os: ubuntu-24.04, python: '3.11', kind: wheel}
-          - {os: ubuntu-24.04, python: '3.14', kind: wheel}
+          - {os: ubuntu-24.04, python: '3.15', kind: wheel}
           - {os: macos-latest, python: '3.11', kind: wheel}
-          - {os: macos-latest, python: '3.14', kind: wheel}
+          - {os: macos-latest, python: '3.15', kind: wheel}
           - {os: windows-latest, python: '3.11', kind: wheel}
-          - {os: windows-latest, python: '3.14', kind: wheel}
-          - {os: ubuntu-24.04, python: '3.14', kind: sdist}
+          - {os: windows-latest, python: '3.15', kind: wheel}
+          - {os: ubuntu-24.04, python: '3.15', kind: sdist}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

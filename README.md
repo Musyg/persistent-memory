@@ -121,7 +121,7 @@ The other studies, performance measurements and test receipts are in [EVIDENCE.m
 ## Platforms and limits
 
 - **Alpha.** Names, options and file formats can change before a stable release.
-- **Platforms.** CI installs the wheel and runs the tests on Linux, macOS and Windows, Python 3.11 to 3.14. On Windows, keep the store on a local disk; a network path is not supported.
+- **Platforms.** CI installs the wheel and runs the tests on Linux, macOS and Windows, Python 3.11 to 3.15. On Windows, keep the store on a local disk; a network path is not supported.
 - **Token file on Windows.** Off loopback the HTTP server requires `--token-file`. On Linux and macOS that file must be readable by its owner only; Windows has no such mode bits and the file's access list is not inspected, so keep it in your own profile folder.
 - **One process per store is the tested case.** Several processes are serialized by SQLite but are not part of the operations surface's tests.
 - **Search.** Lexical (FTS5 plus exact aliases) by default; semantic recall needs the Qdrant projection and an embeddings endpoint. The index covers up to 5,000 current entries per workspace.

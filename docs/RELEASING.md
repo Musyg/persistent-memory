@@ -15,7 +15,7 @@ build -> qualify -> publish-testpypi -> verify-testpypi -> publish-pypi -> githu
 | Job | What it does |
 | --- | --- |
 | `build` | Builds the sdist and the wheel once with `python -m build`, checks that their version equals the tag without its leading `v` and equals `hermes_memory.__version__`, runs `twine check --strict`, writes `SHA256SUMS`, uploads `dist/` and the checksums as artifacts. On a tag push it also refuses a tag that is not on `main`. |
-| `qualify` | Ubuntu, macOS and Windows with Python 3.11 and 3.14: installs the exact built wheel in a fresh venv, runs the test suite from `tests/` with a working directory outside the checkout, and fails on any skipped test. One more run installs the built sdist (Ubuntu, Python 3.14). |
+| `qualify` | Ubuntu, macOS and Windows with Python 3.11 and 3.15: installs the exact built wheel in a fresh venv, runs the test suite from `tests/` with a working directory outside the checkout, and fails on any skipped test. One more run installs the built sdist (Ubuntu, Python 3.15). |
 | `publish-testpypi` | Environment `testpypi`. Uploads the built files to TestPyPI. |
 | `verify-testpypi` | Ubuntu and Windows: installs `persistent-memory-mcp==<version>` from TestPyPI in a fresh venv (retrying while the index catches up), checks that TestPyPI serves the same SHA256 as the built wheel, runs `persistent-memory --version` and a smoke test (create a store, remember, search). |
 | `publish-pypi` | Tag pushes only. Environment `pypi`, which waits for the required reviewer. Uploads the same files to PyPI with attestations. |
