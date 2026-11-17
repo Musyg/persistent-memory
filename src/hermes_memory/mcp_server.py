@@ -526,13 +526,23 @@ def serve(session, stdin, stdout):
 
 def add_projection_options(parser):
     group = parser.add_argument_group("vector projection (optional)")
+    group.add_argument("--semantic", action="store_true",
+                       default=os.environ.get("PERSISTENT_MEMORY_SEMANTIC", "").strip().lower() in ("1", "true", "yes", "on"),
+                       help="Also search by meaning, with vectors kept in the store folder (vectors.db). "
+                            "Uses --embed-url when given, otherwise a model run in the process "
+                            '(pip install "persistent-memory-mcp[semantic]")')
+    group.add_argument("--semantic-min-score", type=float, default=None,
+                       help="With --semantic: cosine score below which a candidate is ignored; default 0.3 "
+                            "for the default model, 0.5 otherwise; tune per model")
     group.add_argument("--qdrant-url", default=os.environ.get("PERSISTENT_MEMORY_QDRANT_URL"),
                        help="Qdrant URL, e.g. http://127.0.0.1:6333")
     group.add_argument("--qdrant-collection", help="Collection name; default derived from workspace and model")
     group.add_argument("--qdrant-api-key-env", help="Environment variable holding the Qdrant API key")
     group.add_argument("--embed-url", default=os.environ.get("PERSISTENT_MEMORY_EMBED_URL"),
                        help="OpenAI-compatible base URL serving /embeddings, e.g. http://127.0.0.1:8000/v1")
-    group.add_argument("--embed-model", default=os.environ.get("PERSISTENT_MEMORY_EMBED_MODEL"))
+    group.add_argument("--embed-model", default=os.environ.get("PERSISTENT_MEMORY_EMBED_MODEL"),
+                       help="Embedding model name; with --semantic and no --embed-url, default "
+                            "sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
     group.add_argument("--embed-api-key-env", help="Environment variable holding the embeddings API key")
     group.add_argument("--embed-query-prefix", default="", help='Text put before queries, e.g. "search_query: "')
     group.add_argument("--embed-document-prefix", default="", help='Text put before entries, e.g. "search_document: "')
@@ -541,7 +551,25 @@ def add_projection_options(parser):
 
 
 def attach_projection(memory, options):
-    """Attach a Qdrant projection when the options ask for one; return its status or None."""
+    """Attach the vector projection the options ask for (Qdrant or local); return its status or None."""
+    if getattr(options, "semantic", False):
+        if options.qdrant_url:
+            raise MemoryError("choose_semantic_or_qdrant")
+        from .local_vectors import DEFAULT_MIN_SCORE, DEFAULT_MODEL, FastEmbedEmbeddings, LocalVectorProjection
+        min_score = getattr(options, "semantic_min_score", None)
+        if min_score is None:
+            default = not options.embed_url and options.embed_model in (None, DEFAULT_MODEL)
+            min_score = DEFAULT_MIN_SCORE if default else 0.5
+        if options.embed_url:
+            from .qdrant_projection import OpenAIEmbeddings
+            if not options.embed_model:
+                raise MemoryError("embed_url_needs_embed_model")
+            embed = OpenAIEmbeddings(options.embed_url, options.embed_model, api_key_env=options.embed_api_key_env)
+        else:
+            embed = FastEmbedEmbeddings(options.embed_model or DEFAULT_MODEL, cache_dir=memory.root / "models")
+        return memory.attach_projection(LocalVectorProjection(
+            memory, embed, min_score=min_score,
+            query_prefix=options.embed_query_prefix, document_prefix=options.embed_document_prefix))
     if not options.qdrant_url:
         return None
     from .qdrant_projection import OpenAIEmbeddings, QdrantProjection

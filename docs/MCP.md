@@ -26,6 +26,7 @@ The client starts this command itself; you only put it in the client's configura
 | `--transport http`, `--host`, `--port` | Serve Streamable HTTP on `/mcp` instead of stdio. Default `127.0.0.1:8766`. |
 | `--token-file FILE` | Bearer token, read from a file only its owner can read. Required off loopback. |
 | `--allow-origin URL` | Browser origin allowed to call the HTTP endpoint; repeatable. Default: none. |
+| `--semantic` | Optional [search by meaning](SEMANTIC.md), local, fused into `memory_search`. |
 | `--qdrant-url`, `--embed-url`, `--embed-model` | Optional [Qdrant projection](QDRANT.md) fused into `memory_search`. |
 
 `python -m hermes_memory.mcp_server` and `persistent-memory mcp` are the same program.
