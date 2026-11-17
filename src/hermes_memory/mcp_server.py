@@ -47,13 +47,17 @@ REVIEW_INSTRUCTIONS = (
 )
 
 _STR = {"type": "string"}
+_ID = {"type": "string", "description": "The artifact_id returned when it was stored or found by memory_search."}
 _REF = {"type": "object", "additionalProperties": False,
         "required": ["workspace", "artifact_id", "version_id"],
         "properties": {"workspace": _STR, "artifact_id": _STR, "version_id": _STR},
-        "description": "An exact version, as returned by other tools."}
-_KIND = {"type": "string", "enum": sorted(KINDS)}
-_PARENT = {"description": "An exact parent version, or {ref, relation}. derives and indexes carry "
-                          "invalidation to the child; cites does not.",
+        "description": "An exact version: the ref object returned by memory_search, memory_remember or "
+                       "memory_derive, copied unchanged."}
+_KIND = {"type": "string", "enum": sorted(KINDS),
+         "description": "observation for a fact, document for a text, procedure for how to do something, "
+                        "task, feedback, or hypothesis for a guess nobody confirmed."}
+_PARENT = {"description": "An exact parent version (a ref), or {ref, relation}. derives (the default) and "
+                          "indexes make this artifact unreadable when the parent changes; cites does not.",
            "anyOf": [_REF, {"type": "object", "additionalProperties": False, "required": ["ref", "relation"],
                             "properties": {"ref": _REF, "relation": {"type": "string", "enum": list(RELATIONS)}}}]}
 _META = {
@@ -77,68 +81,108 @@ def _tool(name, title, description, properties, required=(), read_only=False, de
 
 TOOLS = (
     _tool("memory_search", "Search memory",
-          "Search current, valid memory. Withdrawn, superseded or expired versions are never returned. "
-          "Results carry artifact_id and the exact ref.",
+          "Find stored facts, decisions and procedures by keywords. Use it before answering about anything "
+          "the user said or decided earlier. Returns only current, valid versions, each with its text, kind, "
+          "artifact_id and exact ref; withdrawn, superseded and expired versions are left out, and an empty "
+          "list means nothing valid matches. Read-only. To re-read one version you already hold, use "
+          "memory_read.",
           {"query": {"type": "string", "description": "Keywords or a question."},
            "kinds": {"type": "array", "items": _KIND, "description": "Only these kinds. Leave out to search all."},
            "conditions": {"type": "object", "description": "Facts about the current situation, matched "
-                                                           "exactly against stored preconditions."},
+                                                           "exactly against stored preconditions. Leave out "
+                                                           "unless the user describes a situation."},
            "as_of": {"type": "string", "description": "UTC time to check validity at. Leave out for now."},
-           "top_k": {"type": "integer", "minimum": 1, "maximum": 20},
-           "max_chars": {"type": "integer", "minimum": 200, "maximum": 16000}},
+           "top_k": {"type": "integer", "minimum": 1, "maximum": 20,
+                     "description": "Maximum number of results, default 5. Leave out unless you need more."},
+           "max_chars": {"type": "integer", "minimum": 200, "maximum": 16000,
+                         "description": "Maximum characters of text returned in total, default 2000."}},
           ["query"], read_only=True, idempotent=True),
     _tool("memory_read", "Read one version",
-          "Read one exact version. If it is no longer valid, the result says why and does not return it.",
+          "Re-read one exact version you got from memory_search or a write, for example before relying on it "
+          "again later in a conversation. Returns its text if it is still valid; otherwise allowed is false "
+          "and reason and state say why (superseded, withdrawn, expired), with no text. Read-only. To look "
+          "for something, use memory_search.",
           {"ref": _REF}, ["ref"], read_only=True, idempotent=True),
     _tool("memory_remember", "Remember a source",
-          "Store a new fact, decision, document or procedure the user stated or confirmed. Returns its "
-          "artifact_id and ref. To change something already stored, use memory_correct.",
+          "Store a new fact, decision, document or procedure the user stated or confirmed, as a source. Do "
+          "not use it for your own conclusions (memory_derive), for lessons after a task (memory_learn), or "
+          "to change something already stored (memory_correct). Returns artifact_id and ref. Sending the same "
+          "source_id with the same text again changes nothing; with a different text it is refused with "
+          "version_conflict.",
           {"text": {"type": "string", "description": "Self-contained statement, with its date if known."},
-           "kind": _KIND, "source_id": {"type": "string", "description": "Optional stable identifier."},
+           "kind": _KIND,
+           "source_id": {"type": "string", "description": "Stable name you choose, such as 'db-port', to "
+                                                          "correct or withdraw it later. Leave out to get one."},
            **_META}, ["text"]),
     _tool("memory_derive", "Derive from exact parents",
-          "Store a summary, conclusion or procedure built from exact parent versions. If a parent is later "
-          "corrected or withdrawn, this artifact stops being readable.",
-          {"text": _STR, "parents": {"type": "array", "items": _PARENT, "minItems": 1, "maxItems": 64},
-           "kind": _KIND, "artifact_id": _STR, **_META}, ["text", "parents"]),
+          "Store a summary, conclusion or procedure you built from entries already in memory, linked to the "
+          "exact versions it came from. Use it instead of memory_remember whenever the text depends on stored "
+          "entries: if one of them is later corrected or withdrawn, this artifact stops being served and "
+          "sessions that saw it are notified. Returns artifact_id and ref.",
+          {"text": {"type": "string", "description": "The derived statement, self-contained."},
+           "parents": {"type": "array", "items": _PARENT, "minItems": 1, "maxItems": 64,
+                       "description": "The refs it was built from, as returned by memory_search."},
+           "kind": _KIND,
+           "artifact_id": {"type": "string", "description": "Stable name you choose. Leave out to get one."},
+           **_META}, ["text", "parents"]),
     _tool("memory_correct", "Correct an artifact",
-          "Replace the current version of an artifact, only if it is still expected_version. Unspecified "
-          "metadata is kept. Artifacts derived from the old version stop being readable.",
-          {"artifact_id": _STR, "text": _STR, "expected_version": {"type": "string",
-                                                                   "description": "version_id you read."},
-           "parents": {"type": "array", "items": _PARENT, "minItems": 1, "maxItems": 64}, **_META},
+          "Replace an artifact's text when the user corrects it, keeping its history. Only applies if "
+          "expected_version is still its current version; otherwise it is refused with version_conflict, and "
+          "you search again. Metadata you leave out is kept. Whatever was derived from the old version stops "
+          "being served and its readers are notified. To remove something entirely, use memory_withdraw.",
+          {"artifact_id": _ID, "text": {"type": "string", "description": "The corrected statement."},
+           "expected_version": {"type": "string", "description": "The version_id of the ref you read."},
+           "parents": {"type": "array", "items": _PARENT, "minItems": 1, "maxItems": 64,
+                       "description": "For a derived artifact: its new parents. Leave out to keep them."},
+           **_META},
           ["artifact_id", "text", "expected_version"]),
     _tool("memory_explain", "Explain an artifact",
-          "Show what an artifact depends on and what depends on it, whether it is readable and why. "
-          "Metadata only, never content. Give artifact_id or ref.",
-          {"artifact_id": _STR, "ref": _REF}, read_only=True, idempotent=True),
+          "Explain why an artifact is or is not served: its state, its versions, what it was derived from and "
+          "what depends on it. Metadata only, never text. Use it when a search leaves out something the user "
+          "expects, or before a correction. Read-only; unknown_artifact if it does not exist. Give "
+          "artifact_id or ref.",
+          {"artifact_id": _ID, "ref": _REF}, read_only=True, idempotent=True),
     _tool("memory_plan_withdrawal", "Plan a withdrawal",
-          "List what a withdrawal of this artifact would block, without changing anything.",
-          {"artifact_id": _STR}, ["artifact_id"], read_only=True, idempotent=True),
+          "Preview a withdrawal: list every version that memory_withdraw would stop serving, the artifact and "
+          "everything derived from it, without changing anything. Use it to show the user the consequences "
+          "before withdrawing.",
+          {"artifact_id": _ID}, ["artifact_id"], read_only=True, idempotent=True),
     _tool("memory_withdraw", "Withdraw an artifact",
-          "Withdraw an artifact the user says is wrong, outdated or must be forgotten. Everything derived "
-          "from it stops being readable too. Not physical erasure.",
-          {"artifact_id": _STR, "reason": {"type": "string", "maxLength": 500},
-           "event_id": {"type": "string", "description": "Optional key that makes a retry idempotent."}},
+          "Stop serving an artifact the user says is wrong, outdated or must be forgotten, together with "
+          "everything derived from it; sessions that saw them are notified. The text is not physically erased "
+          "and the history keeps the reason. Run memory_plan_withdrawal first when the user should see what "
+          "it blocks. To replace a text with a better one, use memory_correct instead.",
+          {"artifact_id": _ID,
+           "reason": {"type": "string", "maxLength": 500, "description": "Why, in the user's words."},
+           "event_id": {"type": "string", "description": "Optional key; repeating a call with the same key "
+                                                         "changes nothing."}},
           ["artifact_id", "reason"], destructive=True, idempotent=True),
     _tool("memory_learn", "Learn a lesson",
-          "After a task, keep its trace and the feedback it got as provenance and store the lesson drawn "
-          "from them. Only the lesson is searchable; withdrawing the trace or the feedback blocks it.",
-          {"trace": _RAW, "feedback": _RAW, "lesson": {"type": "string"}, "kind": _KIND, "lesson_id": _STR,
+          "After a task, store the lesson drawn from it, with the task trace and the feedback it got kept as "
+          "its provenance. Only the lesson is returned by searches; withdrawing the trace or the feedback "
+          "stops serving the lesson. For a fact the user states, use memory_remember.",
+          {"trace": {**_RAW, "description": "What was done: steps, commands or a summary of them."},
+           "feedback": {**_RAW, "description": "What the user or a check said about the result."},
+           "lesson": {"type": "string", "description": "The rule to apply next time, self-contained."},
+           "kind": _KIND,
+           "lesson_id": {"type": "string", "description": "Stable name you choose. Leave out to get one."},
            "aliases": _META["aliases"], "preconditions": _META["preconditions"],
            "valid_from": _META["valid_from"], "valid_until": _META["valid_until"],
            "confidence": _META["confidence"]},
           ["trace", "feedback", "lesson"]),
     _tool("memory_notices", "Check notices",
-          "Artifacts this session was shown that have since been withdrawn, invalidated or superseded. "
-          "Each is reported once; tool results also carry them as memory_notices.",
+          "List the artifacts this session was shown that have since been withdrawn, invalidated or "
+          "superseded, so you stop relying on them and on what you said from them. Each is reported once. "
+          "Other tool results already carry new notices as memory_notices; call this when you need to check "
+          "explicitly, for example before a final answer.",
           {}, read_only=True),
 )
 PROPOSAL_STATUS = _tool(
     "memory_proposal_status", "Check proposals",
-    "Review mode: where proposals stand (pending, approved, rejected or failed). Give proposal_id for "
-    "one proposal of this workspace; leave it out for the latest ones of this session. Approval is "
-    "done by a person, never through this server.",
+    "Review mode only: see whether proposals you made are pending, approved, rejected or failed, with the "
+    "result once approved or the refusal code once failed. Give proposal_id for one proposal of this "
+    "workspace; leave it out for the latest ones of this session. Read-only: a person approves, never this "
+    "server.",
     {"proposal_id": {"type": "string", "description": "As returned when the proposal was made."}},
     read_only=True, idempotent=True)
 _REVIEW_PREFIX = "Review mode: this call creates a proposal that a person must approve; nothing is stored until then. "
