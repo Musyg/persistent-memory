@@ -21,6 +21,7 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `--create` | Crée la mémoire si elle n'existe pas. Sans cette option, une mémoire absente arrête le serveur avec un message sur stderr. |
 | `--read-only` | Seulement `memory_search`, `memory_read`, `memory_explain`, `memory_plan_withdrawal` et `memory_notices`. |
 | `--no-withdraw` | Tout sauf `memory_withdraw`. |
+| `--review` | Les écritures deviennent des propositions qu'une personne approuve ; voir [Mode validation](#mode-validation). Pas avec `--read-only`. |
 | `--session ID` | Nom de la session dans le registre, en stdio. Par défaut : un nouveau à chaque processus. |
 | `--transport http`, `--host`, `--port` | Sert le HTTP sur `/mcp` au lieu de stdio. Par défaut `127.0.0.1:8766`. |
 | `--token-file FILE` | Jeton porteur, lu dans un fichier que seul son propriétaire peut lire. Obligatoire hors boucle locale. |
@@ -43,6 +44,7 @@ C'est le client qui lance cette commande ; il suffit de la mettre dans sa config
 | `memory_withdraw` | Retrait en cascade, idempotent avec `event_id` | destructif |
 | `memory_learn` | Leçon tirée de la trace d'une tâche et de son retour | |
 | `memory_notices` | Ce que cette session a vu et qui n'est plus valide | lecture seule |
+| `memory_proposal_status` | Avec `--review` seulement : où en sont les propositions | lecture seule |
 
 Chaque schéma d'entrée refuse les arguments inconnus. Un argument facultatif envoyé à `null` ou vide (`""`, `[]`, `{}`) compte comme absent, car certains adaptateurs de frameworks envoient tous les champs non renseignés et certains modèles remplissent les champs inutilisés avec des valeurs vides. Un refus de la mémoire (`version_conflict`, `unknown_artifact`, `invalid_argument:text`, ...) revient comme résultat d'outil avec `isError: true`, que le modèle peut lire. À côté du code d'erreur, le résultat indique quand c'est possible comment corriger l'appel : `allowed_kinds`, `allowed_arguments`, `expected_type` avec son `minimum` et son `maximum`, ou un `hint` pour les dates et les conflits de version. Un nombre hors de l'intervalle annoncé par son schéma est refusé au lieu d'être appliqué. Un outil inconnu est une erreur JSON-RPC.
 
@@ -53,6 +55,23 @@ Les résultats sont du texte JSON ; à partir du protocole 2025-06-18, ils sont 
 Un processus serveur est une session du registre. `memory_search` et `memory_read` notent ce que la session a vu. Quand l'une de ces versions est ensuite retirée, invalidée ou remplacée, par ce client ou par tout autre processus qui utilise la mémoire, le résultat d'outil suivant porte `memory_notices`, une fois par version. Les `instructions` du serveur demandent au modèle de ne plus s'appuyer dessus.
 
 Un client qui garde le serveur actif d'une conversation à l'autre (c'est le cas de la passerelle d'Hermes Agent) partage une seule session entre elles. `--session` permet de choisir le nom soi-même.
+
+## Mode validation
+
+Avec `--review`, l'agent cherche et lit comme d'habitude, mais `memory_remember`, `memory_derive`, `memory_correct`, `memory_withdraw` et `memory_learn` ne modifient plus la mémoire. Chaque appel est vérifié contre son schéma, puis gardé comme proposition en attente dans `review.db`, dans le dossier de la mémoire. Le résultat est `{"status": "pending_review", "proposal_id": ...}`. Un outil de plus, `memory_proposal_status`, indique à l'agent où en sont ses propositions. Aucun outil ne peut approuver : la décision se prend hors du serveur, par une personne.
+
+```sh
+persistent-memory review                 # propositions en attente, tous espaces
+persistent-memory review show p-...      # l'appel proposé en entier
+persistent-memory review approve p-...   # l'appliquer
+persistent-memory review reject p-... --note "pas confirmé"
+```
+
+`review` accepte `--store` comme les autres commandes, `--workspace` pour un seul espace, `--all` pour lister aussi les propositions tranchées, et `--json`.
+
+L'approbation fait passer l'appel proposé par le même code qu'un appel direct, avec toutes les garanties : versions exactes, comparaison de version sur les corrections, cascade et avis sur les retraits. Une proposition que la mémoire refuse à ce moment-là passe à l'état `failed` avec le code du refus, et `approve` sort avec le statut 3. Le cas courant est une correction dont la `expected_version` n'est plus la version courante, parce qu'une autre correction a été approuvée avant : elle échoue avec `version_conflict` et n'est pas appliquée de force. Un retrait sans `event_id` reçoit `review-<id de la proposition>`, si bien qu'une même proposition ne peut pas retirer deux fois. Chaque proposition se tranche une seule fois ; une seconde décision est refusée avec `proposal_already_<état>`. Si l'approbation s'arrête sur une erreur d'entrée-sortie, la proposition reste `applying` et rien ne la relance tout seul.
+
+Les `instructions` du serveur préviennent le modèle que les écritures attendent une validation. `memory_proposal_status` sans identifiant liste les dernières propositions de la session ; avec un identifiant, il montre toute proposition du même espace.
 
 ## Transport HTTP
 

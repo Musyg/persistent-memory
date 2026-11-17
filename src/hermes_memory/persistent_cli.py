@@ -1,10 +1,11 @@
-"""persistent-memory: connect clients to the memory, serve it over MCP, show where it is."""
+"""persistent-memory: connect clients to the memory, serve it over MCP, review proposals, show where it is."""
 from __future__ import annotations
 
 import argparse
 import json
 import sqlite3
 import sys
+from pathlib import Path
 
 from . import __version__
 from .interfaces import write_line
@@ -39,6 +40,17 @@ def _parser():
     st = sub.add_parser("status", help="Show the default store and which client files run this memory")
     st.add_argument("--project-dir")
     st.add_argument("--json", action="store_true")
+    r = sub.add_parser("review", help="List, approve or reject what agents proposed (server run with --review)",
+                       description="Proposals made by agents through persistent-memory-mcp --review. "
+                                   "Approval applies the proposal with the same checks as a direct write; "
+                                   "one the memory refuses at that moment is marked failed, never forced.")
+    r.add_argument("action", nargs="?", default="list", choices=("list", "show", "approve", "reject"))
+    r.add_argument("proposal_id", nargs="?", help="Required by show, approve and reject")
+    r.add_argument("--store", help="Store directory; default $PERSISTENT_MEMORY_DIR or the platform data folder")
+    r.add_argument("--workspace", help="list: only this workspace (default: all)")
+    r.add_argument("--all", action="store_true", help="list: decided proposals too")
+    r.add_argument("--note", help="approve, reject: a short note kept with the decision")
+    r.add_argument("--json", action="store_true")
     sub.add_parser("mcp", help="Run the MCP server (same options as persistent-memory-mcp)", add_help=False)
     return parser
 
@@ -57,7 +69,67 @@ def main(argv=None):
         return 2
 
 
+def _summary(proposal):
+    args = proposal["arguments"]
+    text = args.get("text") or args.get("lesson") or args.get("reason") or ""
+    target = args.get("artifact_id")
+    words = " ".join(str(text).split())
+    if len(words) > 72:
+        words = words[:69] + "..."
+    return ("%s: %s" % (target, words)) if target else words
+
+
+def _review(args):
+    from .core import MemoryError
+    from .persistent import PersistentMemory
+    from .review import Proposals
+    store = Path(args.store).expanduser() if args.store else default_store()
+    proposals = Proposals(store, create=False)
+    if args.action == "list":
+        if args.proposal_id:
+            print("persistent-memory review: list takes no proposal id", file=sys.stderr)
+            return 1
+        rows = proposals.list(workspace=args.workspace, states=None if args.all else ("pending", "applying"))
+        if args.json:
+            write_line(json.dumps(rows, indent=2, ensure_ascii=False))
+            return 0
+        if not rows:
+            write_line("no proposals waiting in %s" % store)
+            return 0
+        for row in rows:
+            write_line("%s  %-8s  %-12s %-15s %s" % (row["proposal_id"], row["state"], row["workspace"],
+                                                   row["tool"].replace("memory_", ""), _summary(row)))
+        return 0
+    if not args.proposal_id:
+        print("persistent-memory review: %s needs a proposal id (see persistent-memory review list)"
+              % args.action, file=sys.stderr)
+        return 1
+    try:
+        if args.action == "show":
+            out = proposals.get(args.proposal_id)
+        elif args.action == "reject":
+            out = proposals.reject(args.proposal_id, args.note)
+        else:
+            out = proposals.approve(args.proposal_id,
+                                    lambda workspace: PersistentMemory(store, workspace), args.note)
+    except MemoryError as exc:
+        print("persistent-memory review: " + str(exc), file=sys.stderr)
+        return 1
+    if args.json or args.action == "show":
+        write_line(json.dumps(out, indent=2, ensure_ascii=False))
+    else:
+        line = "%s %s" % (out["proposal_id"], out["state"])
+        if out.get("error"):
+            line += ": " + out["error"]
+        elif out.get("result", {}).get("artifact_id"):
+            line += ": " + out["result"]["artifact_id"]
+        write_line(line)
+    return 0 if out["state"] != "failed" else 3
+
+
 def _run(args):
+    if args.command == "review":
+        return _review(args)
     if args.command == "status":
         ctx = Context.current()
         store = default_store(ctx.env, ctx.platform, ctx.home)
