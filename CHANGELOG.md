@@ -13,6 +13,7 @@ All notable changes to `persistent-memory` are recorded here. The project is an 
 
 - MCP tool descriptions rewritten so a model can choose between them: each says what the tool does, when to use it and which neighbouring tool to use instead, what it returns and how it fails (`version_conflict`, `unknown_artifact`, an empty search). Every argument now has a description, including the defaults of `top_k` (5) and `max_chars` (2000) and the meaning of each `kind`. Schemas and behaviour are unchanged.
 - `glama.json` names the maintainer for the Glama directory.
+- `memory_remember` description corrected: a `source_id` that already exists is refused with `version_conflict`; only an identical retry within the same second is accepted unchanged, because the observation time is part of the entry. The previous wording said any identical repeat changed nothing.
 - Python 3.15 is tested in CI (Linux, macOS, Windows) and declared in the package classifiers. The release qualification now runs on Python 3.11 and 3.15.
 
 ### Fixed

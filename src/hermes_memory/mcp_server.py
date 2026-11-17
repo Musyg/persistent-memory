@@ -108,8 +108,8 @@ TOOLS = (
           "Store a new fact, decision, document or procedure the user stated or confirmed, as a source. Do "
           "not use it for your own conclusions (memory_derive), for lessons after a task (memory_learn), or "
           "to change something already stored (memory_correct). Returns artifact_id and ref, plus similar when "
-          "existing entries are worded almost the same. Sending the same source_id with the same text again "
-          "changes nothing; with a different text it is refused with version_conflict.",
+          "existing entries are worded almost the same. A source_id that already exists is refused with "
+          "version_conflict, except an identical retry in the same second; to change it, use memory_correct.",
           {"text": {"type": "string", "description": "Self-contained statement, with its date if known."},
            "kind": _KIND,
            "source_id": {"type": "string", "description": "Stable name you choose, such as 'db-port', to "

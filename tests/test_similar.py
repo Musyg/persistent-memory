@@ -48,7 +48,6 @@ class Similar(unittest.TestCase):
 
     def test_the_entry_itself_and_its_parents_are_left_out(self):
         port = self.write("memory_remember", text=PORT, source_id="db-port")
-        self.assertNotIn("similar", self.write("memory_remember", text=PORT, source_id="db-port"))
         rule = self.write("memory_derive", text="The staging database listens on port 6543: open it.",
                           parents=[port["ref"]])
         self.assertNotIn("similar", rule)
