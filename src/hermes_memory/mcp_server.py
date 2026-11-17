@@ -371,7 +371,7 @@ class Toolbox:
         exclude = set(_artifact_ids(payload)) | set(_artifact_ids(args.get("parents", [])))
         try:
             similar = similar_entries(self.memory, args[_SIMILAR_FIELD[name]], exclude=exclude, session=session)
-        except (MemoryError, ValueError, OSError, sqlite3.Error):
+        except Exception:  # the write is committed already: this check must never turn it into an error
             logger.exception("similar entries check failed")
             return payload
         if not similar:

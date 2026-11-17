@@ -60,7 +60,7 @@ A client that keeps the server running across conversations (Hermes Agent's gate
 
 After `memory_remember`, `memory_derive` or `memory_learn`, the server looks for current entries worded almost the same way: at least 60% of their words in common (Jaccard overlap of the word sets), the new entry and its parents left out. When it finds some, the result also carries `similar` (up to three entries, with `artifact_id`, `ref`, `text` and `overlap`) and `similar_hint`, which tells the model to keep a single entry with `memory_correct` or `memory_withdraw`. Nothing is merged and the write is not refused. The usual case is an agent that remembers "port 6544" next to "port 6543" instead of correcting the first.
 
-The entries shown this way count as seen by the session, so a later withdrawal brings a notice. The check uses keyword search: a paraphrase with other words is not reported. In review mode, the proposal carries `similar` too, for the person who approves it. From Python, `hermes_memory.mcp_server.similar_entries(memory, text)` runs the same check.
+The entries shown this way count as seen by the session, so a later withdrawal brings a notice. The check costs one more keyword search per write. It compares words separated by spaces or punctuation, so a paraphrase with other words is not reported, and neither are texts in scripts written without spaces (Chinese, Japanese, Thai). In review mode, the `pending_review` result shows `similar` to the agent; the stored proposal does not keep it. From Python, `hermes_memory.mcp_server.similar_entries(memory, text)` runs the same check.
 
 ## Review mode
 

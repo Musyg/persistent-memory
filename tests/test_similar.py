@@ -1,4 +1,5 @@
 """Near-duplicate entries are pointed out after a write, never merged."""
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -6,6 +7,7 @@ from unittest import mock
 
 from hermes_memory.mcp_server import SIMILAR_MIN_OVERLAP, Session, Toolbox, similar_entries
 from hermes_memory.persistent import PersistentMemory
+from hermes_memory.typed_memory import RetrievalError
 
 from test_mcp_server import Client
 
@@ -69,10 +71,17 @@ class Similar(unittest.TestCase):
         self.assertNotIn("similar", self.write("memory_remember", text=PORT_NEW))
 
     def test_a_failed_check_does_not_fail_the_write(self):
-        with mock.patch.object(PersistentMemory, "search", side_effect=OSError("disk")):
-            out = self.write("memory_remember", text=PORT)
-        self.assertNotIn("similar", out)
-        self.assertEqual(self.memory.read(out["ref"])["text"], PORT)
+        for n, failure in enumerate((OSError("disk"), RetrievalError("index"), sqlite3.OperationalError("locked"),
+                                     KeyError("text"), TypeError("odd"))):
+            with mock.patch.object(PersistentMemory, "search", side_effect=failure):
+                out = self.write("memory_remember", text="%s (%d)" % (PORT, n))
+            self.assertNotIn("similar", out)
+            self.assertEqual(self.memory.read(out["ref"])["text"], "%s (%d)" % (PORT, n))
+
+    def test_scripts_without_spaces_are_not_compared(self):
+        # One run of characters is one word: two notes that differ by one digit share no word.
+        self.write("memory_remember", text="日本語のメモです。ポートは6543")
+        self.assertNotIn("similar", self.write("memory_remember", text="日本語のメモです。ポートは6544"))
 
     def test_review_mode_shows_it_on_the_proposal(self):
         self.write("memory_remember", text=PORT, source_id="db-port")
