@@ -151,3 +151,15 @@ See / Voir [recovery contract](RECOVERY.md) and [public API](API.md).
 The [memory on/off comparison](MEMORY-COMPARISON.md) records eight paired synthetic tasks on an isolated Hermes fact-enrichment path. It includes original answers, two anonymized annotations and an offline data verifier. It is separate from the deterministic examples above and does not replay the private integration.
 
 Le [comparatif avec/sans mémoire](MEMORY-COMPARISON.md#français) présente huit tâches synthétiques comparées sur un parcours factuel Hermes isolé, leurs réponses originales, deux annotations anonymisées et un vérificateur des données hors réseau. Il est distinct des exemples déterministes ci-dessus et ne rejoue pas l’intégration privée.
+
+## Release 0.4 recording / Enregistrement de la version 0.4
+
+`examples/portfolio_demo_04.py` records the "New in 0.4" section of the portfolio demonstration through the real MCP server and the `persistent-memory review` command of **0.4.0a4**: a rule derived from an exact fact, a near-duplicate warning, a French question that finds an English fact by meaning (and nothing without `--semantic`), a correction proposed in review mode and approved by a person, then the cascade and the notices for the agent that had read both versions. The script refuses another installed version, an existing store or an existing output file, and exits with an error if any of its checks fails.
+
+`examples/portfolio_demo_04.py` enregistre la section « Nouveautés 0.4 » de la démonstration avec le vrai serveur MCP et la commande `persistent-memory review` de la **0.4.0a4** : une règle dérivée d'un fait exact, un avertissement de quasi-doublon, une question en français qui trouve un fait en anglais par le sens (et rien sans `--semantic`), une correction proposée en mode relecture puis approuvée par une personne, enfin la cascade et les avis pour l'agent qui avait lu les deux versions. Le script refuse une autre version installée, un dossier ou un fichier de sortie existants, et s'arrête en erreur si une vérification échoue.
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install "persistent-memory-mcp[semantic]==0.4.0a4"
+.venv/bin/python examples/portfolio_demo_04.py --store /tmp/pm-demo-04 --output /tmp/pm-demo-04.json
+```
