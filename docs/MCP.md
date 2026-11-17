@@ -57,6 +57,12 @@ One server process is one ledger session. `memory_search` and `memory_read` reco
 
 A client that keeps the server running across conversations (Hermes Agent's gateway does) shares one session across them. Use `--session` to choose the name yourself.
 
+## Near-duplicates
+
+After `memory_remember`, `memory_derive` or `memory_learn`, the server looks for current entries worded almost the same way: at least 60% of their words in common (Jaccard overlap of the word sets), the new entry and its parents left out. When it finds some, the result also carries `similar` (up to three entries, with `artifact_id`, `ref`, `text` and `overlap`) and `similar_hint`, which tells the model to keep a single entry with `memory_correct` or `memory_withdraw`. Nothing is merged and the write is not refused. The usual case is an agent that remembers "port 6544" next to "port 6543" instead of correcting the first.
+
+The entries shown this way count as seen by the session, so a later withdrawal brings a notice. The check costs one more keyword search per write. It compares words separated by spaces or punctuation, so a paraphrase with other words is not reported, and neither are texts in scripts written without spaces (Chinese, Japanese, Thai). In review mode, the `pending_review` result shows `similar` to the agent; the stored proposal does not keep it. From Python, `hermes_memory.mcp_server.similar_entries(memory, text)` runs the same check.
+
 ## Review mode
 
 With `--review`, the agent can search and read as usual, but `memory_remember`, `memory_derive`, `memory_correct`, `memory_withdraw` and `memory_learn` no longer change the memory. Each call is checked against its schema, then kept as a pending proposal in `review.db`, in the store folder. The result is `{"status": "pending_review", "proposal_id": ...}`. One more tool, `memory_proposal_status`, tells the agent where its proposals stand. No tool can approve: the decision is taken outside the server, by a person.
