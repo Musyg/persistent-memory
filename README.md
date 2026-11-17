@@ -6,7 +6,7 @@
 
 AI agents act on what they remember, whatever they are built with: a coding assistant, a LangGraph or CrewAI graph, an OpenAI Agents SDK app, your own loop. They remember facts, summaries, procedures and lessons from earlier tasks. When a source is corrected or withdrawn, whatever was built from it keeps being served, and nothing tells the agent. persistent-memory records the exact source versions behind every derived item, refuses to serve anything that depends on a withdrawn or replaced version, and notifies each client that was shown it.
 
-Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, macOS and Windows. This is an alpha release, 0.4.0a3: interfaces can still change. Import it as `persistent_memory`.
+Python standard library only (SQLite with FTS5), Python 3.11 or later, Linux, macOS and Windows. This is an alpha release, 0.4.0a4: interfaces can still change. Import it as `persistent_memory`.
 
 ![A terminal session: pip install persistent-memory-mcp, then in Python a fact is remembered, a note is derived from it, the fact is corrected and the note is no longer served, then the fact is withdrawn and search returns nothing.](https://raw.githubusercontent.com/Musyg/persistent-memory/main/docs/demo/persistent-memory-demo.gif)
 
