@@ -95,4 +95,4 @@ print(report["written"], report["removed"], report["kept_edited"])
 
 - Reading goes through the same checks as any read: each note is the version the authority serves at that moment, and the index records the checkpoint epoch. An entry written while the export runs is picked up by the next run.
 - The export holds the text of the entries it writes. Treat the folder like the store itself when you sync or share it, and leave withdrawn text out (the default) unless you need the trace.
-- Each entry is read on its own, and each read checks the whole authority ledger, so the time grows with the size of the store. Measured on a 2-CPU cloud machine with Python 3.13: 500 entries in 12 seconds, about the same when nothing changed. There is no incremental mode yet; for a large store, run it from a scheduled task rather than by hand.
+- Each entry is read on its own, through the same checks as any read. Measured on a 2-CPU cloud machine with Python 3.13: 2,000 entries in 1.3 seconds, about the same when nothing changed. Every note is rebuilt at each run; only the files whose content changed are written.

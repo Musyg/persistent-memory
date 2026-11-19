@@ -70,6 +70,20 @@ memory.search("CSV receiver BOM", kinds=["procedure"])   # finds the lesson, not
 memory.withdraw(out["feedback"]["artifact_id"], "feedback was wrong")   # the lesson is blocked
 ```
 
+## Verification cost
+
+Every transaction checks the authority against its event chain: each event's digest, and the tables rebuilt from the events. That complete replay grows with the store, so the core keeps the result of the last one and reuses it while nothing can have changed:
+
+- the authority file has the same identity and the same SQLite change counter (every commit moves it, from this process or any other);
+- the last event and the store generation are the ones replayed;
+- the replay is less than 60 seconds old.
+
+Otherwise the transaction replays everything, as before. A write still replays everything before it commits, so a write that would leave the tables out of line with the events is refused. In WAL journal mode SQLite does not move the counter, so every transaction replays. `PERSISTENT_MEMORY_FULL_VERIFY_SECONDS` sets the 60 seconds; `0` replays at every transaction.
+
+Measured on a 2-CPU cloud machine with Python 3.13, 2,000 entries: exporting them takes 1.3 s, 200 searches 1.9 s. Writes still grow with the size of the store (about 0.4 s each past 1,000 entries there).
+
+The cache trusts the filesystem, like the rest of the core: a process that rewrites the file in place and puts back the same change counter would go unseen until the next complete replay, at most 60 seconds later.
+
 ## Limits
 
 - One process at a time per store is the tested case; several processes are serialized by SQLite but are not part of this surface's tests.
