@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import re
 import sqlite3
+import threading
 import time
 import uuid
 from contextlib import contextmanager
@@ -16,6 +17,17 @@ RELATIONS = {'derives', 'indexes', 'cites', 'navigates'}
 DEPENDENCIES = {'derives', 'indexes'}
 STATES = {'active', 'archived', 'expired', 'invalidated'}
 WINDOWS = os.name == 'nt'
+CACHEABLE_JOURNAL_MODES = {'delete', 'truncate', 'persist'}
+
+def _full_verify_seconds(value):
+    try:
+        seconds = float(value)
+    except (TypeError, ValueError):
+        return 60.0
+    return seconds if seconds >= 0 else 60.0
+
+# Longest time a complete replay of the ledger is reused while the file is unchanged. 0 replays every time.
+FULL_VERIFY_SECONDS = _full_verify_seconds(os.environ.get('PERSISTENT_MEMORY_FULL_VERIFY_SECONDS', '60'))
 
 class MemoryError(ValueError):
     pass
@@ -127,6 +139,8 @@ class Authority:
         self.anchor_path = Path(anchor_path).resolve()
         require(self.path != self.anchor_path, 'anchor_separation_required')
         require(self.path.is_file() and self.anchor_path.is_file(), 'authority_or_anchor_missing')
+        self._verified = None  # last complete verification: {'signature', 'checkpoint', 'at'}
+        self._verified_lock = threading.Lock()
         with self.transaction(False):
             pass
 
@@ -214,32 +228,84 @@ CREATE TABLE outbox (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL, delivered I
         actual_requests={row['event_id']:{'payload':row['payload'],'seq':row['seq']} for row in c.execute('SELECT * FROM requests')}
         require(actual_objects==expected_objects and actual_heads==heads and actual_aliases==aliases and actual_revoked==revoked and actual_requests==requests,'authority_state_mismatch')
 
+    def _signature(self, c):
+        """Identity and SQLite change counter of the authority file, read under the transaction's lock.
+
+        None when the journal mode does not maintain the counter: every check is then complete.
+        """
+        if c.execute('PRAGMA journal_mode').fetchone()[0].lower() not in CACHEABLE_JOURNAL_MODES:
+            return None
+        st = os.stat(self.path)
+        with open(self.path, 'rb') as f:
+            header = f.read(100)
+        if len(header) < 100 or not header.startswith(b'SQLite format 3\x00'):
+            return None
+        return (st.st_dev, st.st_ino, int.from_bytes(header[24:28], 'big'))
+
+    def _tail(self, c):
+        row = c.execute('SELECT seq, digest FROM events ORDER BY seq DESC LIMIT 1').fetchone()
+        return (row['seq'], row['digest']) if row else (0, GENESIS)
+
+    def _remember(self, signature, cp):
+        with self._verified_lock:
+            self._verified = None if signature is None else {
+                'signature': signature, 'checkpoint': dict(cp), 'at': time.monotonic()}
+
+    def _checkpoint_verified(self, c):
+        """The checkpoint, replaying the ledger only when it may have changed since the last replay."""
+        generation = c.execute("SELECT value FROM meta WHERE key='generation'").fetchone()[0]
+        signature = self._signature(c)
+        with self._verified_lock:
+            known = self._verified
+        if (known is not None and signature is not None and known['signature'] == signature
+                and 0 <= time.monotonic() - known['at'] < FULL_VERIFY_SECONDS
+                and known['checkpoint']['generation'] == generation
+                and self._tail(c) == (known['checkpoint']['epoch'], known['checkpoint']['digest'])):
+            return dict(known['checkpoint'])
+        cp = self._checkpoint(c)
+        self._remember(signature, cp)
+        return cp
+
     @contextmanager
     def transaction(self, write=False):
         c = connect(self.path)
         try:
             c.execute('BEGIN IMMEDIATE' if write else 'BEGIN')
-            cp = self._checkpoint(c)
+            cp = self._checkpoint_verified(c)
             try:
                 anchor = json.loads(self.anchor_path.read_text(encoding='utf-8'))
             except (OSError, ValueError) as e:
                 raise MemoryError('anchor_unavailable') from e
             require(cp == anchor, 'anchor_mismatch')
+            before = self._signature(c) if write else None
             yield c
+            if not write:
+                # A read transaction holds its snapshot: nothing it verified can change before commit.
+                c.commit()
+                return
             updated = self._checkpoint(c)
             c.commit()
-            if write and updated != cp:
+            if updated != cp:
                 # Commit precedes anchor. A crash here blocks until explicit repair.
                 atomic_json(self.anchor_path, updated)
+            # Our commit moves the change counter by exactly one; any other value means another
+            # writer committed too, so the next transaction replays everything.
+            after = self._signature(c)
+            changed = updated != cp
+            ours = (before is not None and after is not None and before[:2] == after[:2]
+                    and after[2] == before[2] + (1 if changed else 0))
+            self._remember(after if ours else None, updated)
         except Exception:
             c.rollback()
+            with self._verified_lock:
+                self._verified = None
             raise
         finally:
             c.close()
 
     def checkpoint(self):
         with self.transaction() as c:
-            return self._checkpoint(c)
+            return self._checkpoint_verified(c)
 
     def recover_anchor(self, trusted_checkpoint):
         """Explicit monotone repair after committed event/anchor crash.
@@ -262,10 +328,11 @@ CREATE TABLE outbox (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL, delivered I
             return cp
 
     def event(self, c, payload):
-        cp = self._checkpoint(c,verify_state=False); seq = cp['epoch'] + 1
+        # transaction() verified the chain up to its start under the write lock; later rows are ours.
+        last, previous = self._tail(c); seq = last + 1
         require(seq <= 1000000, 'event_limit')
-        h = digest(canonical({'seq':seq,'payload':payload,'previous':cp['digest']}))
-        c.execute('INSERT INTO events VALUES (?,?,?,?)',(seq,canonical(payload),cp['digest'],h))
+        h = digest(canonical({'seq':seq,'payload':payload,'previous':previous}))
+        c.execute('INSERT INTO events VALUES (?,?,?,?)',(seq,canonical(payload),previous,h))
         c.execute('INSERT INTO outbox (seq,payload) VALUES (?,?)',(seq,canonical(payload)))
         return seq
 

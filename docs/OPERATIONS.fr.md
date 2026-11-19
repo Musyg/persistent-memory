@@ -70,6 +70,20 @@ memory.search("CSV receiver BOM", kinds=["procedure"])   # trouve la leçon, pas
 memory.withdraw(out["feedback"]["artifact_id"], "feedback was wrong")   # la leçon est bloquée
 ```
 
+## Coût de la vérification
+
+Chaque transaction contrôle l'autorité contre sa chaîne d'événements : l'empreinte de chaque événement, et les tables reconstruites à partir des événements. Ce rejeu complet grandit avec la mémoire ; le noyau garde donc le résultat du dernier et le réutilise tant que rien n'a pu changer :
+
+- le fichier de l'autorité a la même identité et le même compteur de modifications SQLite (chaque commit le fait avancer, de ce processus ou d'un autre) ;
+- le dernier événement et la génération de la mémoire sont ceux qui ont été rejoués ;
+- le rejeu date de moins de 60 secondes.
+
+Sinon la transaction rejoue tout, comme avant. Une écriture rejoue toujours tout avant son commit : une écriture qui laisserait les tables en désaccord avec les événements est refusée. En mode de journal WAL, SQLite ne fait pas avancer le compteur : chaque transaction rejoue. `PERSISTENT_MEMORY_FULL_VERIFY_SECONDS` règle les 60 secondes ; `0` rejoue à chaque transaction.
+
+Mesuré sur une machine cloud à 2 CPU avec Python 3.13, 2 000 entrées : les exporter prend 1,3 s, 200 recherches 1,9 s. Les écritures grandissent toujours avec la taille de la mémoire (environ 0,4 s chacune au-delà de 1 000 entrées).
+
+Le cache fait confiance au système de fichiers, comme le reste du noyau : un processus qui réécrirait le fichier sur place en remettant le même compteur passerait inaperçu jusqu'au rejeu complet suivant, au plus 60 secondes plus tard.
+
 ## Limites
 
 - Le cas testé est un seul processus à la fois par mémoire ; plusieurs processus sont sérialisés par SQLite mais ne font pas partie des tests de cette surface.
