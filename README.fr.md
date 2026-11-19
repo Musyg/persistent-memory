@@ -100,6 +100,7 @@ Par MCP, ces opérations sont les outils `memory_remember`, `memory_derive`, `me
 | Fournisseur de mémoire Hermes Agent | `persistent-memory setup hermes-agent`, depuis l'environnement de Hermes Agent | [HERMES-AGENT.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/HERMES-AGENT.fr.md) |
 | Recherche par le sens, en local | `--semantic`, extra `[semantic]` ou service d'embeddings | [SEMANTIC.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/SEMANTIC.fr.md) |
 | Projection Qdrant | `--qdrant-url`, `--embed-url`, `--embed-model`, ou `attach_projection` | [QDRANT.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/QDRANT.fr.md) |
+| Notes Markdown, Obsidian | `persistent-memory export DOSSIER`, sens unique, relançable | [EXPORT.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/EXPORT.fr.md) |
 | Noyau typé, CLI et service HTTP | `hermes-memory`, `hermes-memory-typed` | [API.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/API.fr.md) |
 | Rendu structuré et admission | `hermes_memory.admission_demo` | [STRUCTURED.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/STRUCTURED.fr.md), [ADMISSION.fr.md](https://github.com/Musyg/persistent-memory/blob/main/docs/ADMISSION.fr.md) |
 

@@ -1,4 +1,4 @@
-"""persistent-memory: connect clients to the memory, serve it over MCP, review proposals, show where it is."""
+"""persistent-memory: connect clients to the memory, serve it over MCP, review proposals, export notes, show where it is."""
 from __future__ import annotations
 
 import argparse
@@ -51,6 +51,19 @@ def _parser():
     r.add_argument("--all", action="store_true", help="list: decided proposals too")
     r.add_argument("--note", help="approve, reject: a short note kept with the decision")
     r.add_argument("--json", action="store_true")
+    e = sub.add_parser("export", help="Write the memory as Markdown notes (Obsidian vault or plain links)",
+                       description="One-way export: one note per entry the memory serves now, with its "
+                                   "provenance links. Run it again to bring the folder up to date; notes "
+                                   "edited by hand and files the export did not write are left alone.")
+    e.add_argument("output", help="Folder to write: empty, or written by a previous export")
+    e.add_argument("--store", help="Store directory; default $PERSISTENT_MEMORY_DIR or the platform data folder")
+    e.add_argument("--workspace", action="append", help="Only this workspace (repeatable; default: all)")
+    e.add_argument("--style", choices=("obsidian", "markdown"), default="obsidian",
+                   help="obsidian: [[wikilinks]] and properties (default); markdown: relative links")
+    e.add_argument("--include-withdrawn", action="store_true",
+                   help="Also write a short note, without the text, for entries no longer served")
+    e.add_argument("--force", action="store_true", help="Overwrite or remove notes edited by hand")
+    e.add_argument("--json", action="store_true")
     sub.add_parser("mcp", help="Run the MCP server (same options as persistent-memory-mcp)", add_help=False)
     return parser
 
@@ -127,9 +140,35 @@ def _review(args):
     return 0 if out["state"] != "failed" else 3
 
 
+def _export(args):
+    from .core import MemoryError
+    from .export import export_store
+    store = Path(args.store).expanduser() if args.store else default_store()
+    try:
+        report = export_store(store, args.output, workspaces=args.workspace, style=args.style,
+                              include_withdrawn=args.include_withdrawn, force=args.force)
+    except MemoryError as exc:
+        print("persistent-memory export: " + str(exc), file=sys.stderr)
+        return 1
+    if args.json:
+        write_line(json.dumps(report, indent=2, ensure_ascii=False))
+    else:
+        write_line("%d note%s in %s (%s): %d written, %d unchanged, %d removed"
+                   % (report["notes"], "" if report["notes"] == 1 else "s", report["output"], report["style"],
+                      len(report["written"]),
+                      len(report["unchanged"]), len(report["removed"])))
+        for rel in report["kept_edited"]:
+            write_line("  kept, edited by hand: " + rel)
+        for rel in report["kept_foreign"]:
+            write_line("  kept, not written by the export: " + rel)
+    return 3 if report["kept_edited"] or report["kept_foreign"] else 0
+
+
 def _run(args):
     if args.command == "review":
         return _review(args)
+    if args.command == "export":
+        return _export(args)
     if args.command == "status":
         ctx = Context.current()
         store = default_store(ctx.env, ctx.platform, ctx.home)
