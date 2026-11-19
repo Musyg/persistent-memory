@@ -4,6 +4,10 @@ All notable changes to `persistent-memory` are recorded here. The project is an 
 
 ## Unreleased
 
+### Added
+
+- Export to Markdown notes: `persistent-memory export FOLDER` writes one note per entry the memory serves now, with its properties (version, kind, validity, content hash) and its provenance as links ("Derived from", "Cites", "Used by"), plus an index per workspace. Obsidian wikilinks by default, plain relative links with `--style markdown`. The export goes one way and is meant to be run again: corrections rewrite their note, withdrawn entries and what derives from them lose theirs, unchanged notes are not rewritten. A record of what was written (`.persistent-memory-export.json`, with SHA-256) keeps notes edited by hand (exit code 3, `--force` to overwrite) and never touches files the export did not write; a non-empty folder without that record is refused, and so is any path leading outside the folder. `--include-withdrawn` adds a note without text for entries no longer served. From Python: `persistent_memory.export_store`. See [docs/EXPORT.md](docs/EXPORT.md).
+
 ### Fixed
 
 - Release workflow: `verify-testpypi` now retries the download that compares TestPyPI's file with `SHA256SUMS`, as it already retried the install. On the `v0.4.0a4` run the Windows job installed the new version, then hit a TestPyPI edge that did not list it yet for the download, and failed.

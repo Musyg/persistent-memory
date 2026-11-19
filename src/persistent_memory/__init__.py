@@ -6,6 +6,7 @@ hermes_memory.persistent.PersistentMemory`.
 """
 from hermes_memory import __version__
 from hermes_memory.core import MemoryError, Ref
+from hermes_memory.export import export_store
 from hermes_memory.local_vectors import FastEmbedEmbeddings, LocalVectorProjection
 from hermes_memory.persistent import OPERATIONS, PersistentMemory
 from hermes_memory.qdrant_projection import OpenAIEmbeddings, QdrantProjection
@@ -20,4 +21,5 @@ __all__ = [
     "QdrantProjection",
     "Ref",
     "__version__",
+    "export_store",
 ]
